@@ -300,7 +300,7 @@
   {
     "key": "space",
     "command": "whichkey.show",
-    "when": "activeEditorGroupEmpty && !whichkeyVisible && !terminalFocus"
+    "when": "activeEditorGroupEmpty && !whichkeyVisible && !inCommandsPicker && !inQuickOpen"
   },
   {
     "key": "space",
@@ -448,4 +448,22 @@
     "command": "git.openFile",
     "when": "inDiffEditor"
   },
+  {
+    "key": "f12",
+    "command": "workbench.action.debug.stepOut",
+    "when": "debugState == 'stopped'"
+  },
+  {
+    "key": "shift+f11",
+    "command": "-workbench.action.debug.stepOut",
+    "when": "debugState == 'stopped'"
+  },
+  {
+    "key": "ctrl+shift+m",
+    "command": "-editor.action.toggleTabFocusMode"
+  },
+  {
+    "key": "ctrl+shift+m",
+    "command": "bookmarks.listFromAllFiles"
+  }
 ]
