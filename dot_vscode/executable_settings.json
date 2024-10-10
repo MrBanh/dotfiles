@@ -121,6 +121,22 @@
       "type": "command",
       "command": "workbench.action.terminal.openNativeConsole"
     },
+
+    // +BUFFER
+    {
+      "command": "workbench.action.pinEditor",
+      "keys": "b.p",
+      "name": "Pin buffer",
+      "type": "command",
+    },
+    {
+      "command": "workbench.action.unpinEditor",
+      "keys": "b.P",
+      "name": "Unpin buffer",
+      "type": "command",
+    },
+
+    // +Code
     {
       "keys": "c",
       "name": "+Code",
@@ -179,6 +195,81 @@
         }
       ]
     },
+    
+    // +DEBUG
+    {
+      "command": "editor.debug.action.conditionalBreakpoint",
+      "keys": "d.c",
+      "name": "Conditional breakpoint",
+      "type": "command",
+    },
+    {
+      "command": "workbench.action.debug.selectandstart",
+      "keys": "d.d",
+      "name": "Select and Start Debugging",
+      "type": "command"
+    },
+    {
+      "command": "editor.debug.action.showDebugHover",
+      "keys": "d.h",
+      "name": "Debug hover",
+      "type": "command",
+      "when": "editorTextFocus && inDebugMode"
+    },
+    {
+      "command": "extension.js-debug.createDebuggerTerminal",
+      "keys": "d.j",
+      "name": "JavaScript Debug Terminal",
+      "type": "command"
+    },
+    {
+      "command": "editor.debug.action.addLogPoint",
+      "keys": "d.l",
+      "name": "Log point",
+      "type": "command"
+    },
+    {
+      "command": "workbench.action.debug.continue",
+      "keys": "d.f5",
+      "name": "Continue",
+      "type": "command",
+      "when": "debugState == 'stopped'"
+    },
+    {
+      "command": "workbench.action.debug.stepOver",
+      "keys": "d.f10",
+      "name": "Step Over",
+      "type": "command",
+      "when": "debugState == 'stopped'"
+    },
+    {
+      "keys": "d.s",
+      "position": -1
+    },
+    {
+      "command": "workbench.action.debug.stepInto",
+      "keys": "d.f11",
+      "name": "Step Into",
+      "type": "command",
+      "when": "debugState != 'inactive'"
+    },
+    {
+      "keys": "d.i",
+      "position": -1
+    },
+    {
+      "command": "workbench.action.debug.stepOut",
+      "keys": "d.f12",
+      "name": "Step Out",
+      "type": "command",
+      "when": "debugState == 'stopped'"
+    },
+    {
+      "keys": "d.o",
+      "position": -1
+    },
+
+    // +FILE
     {
       "command": "fileutils.renameFile",
       "keys": "f.r",
@@ -515,4 +606,6 @@
   "markdown.updateLinksOnFileMove.enabled": "always",
   "workbench.list.defaultFindMatchType": "contiguous",
   "explorer.autoReveal": false,
+  "bookmarks.keepBookmarksOnLineDelete": true,
+  "debug.toolBarLocation": "docked",
 }
