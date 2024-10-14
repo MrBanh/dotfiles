@@ -117,6 +117,8 @@ export EDITOR='nvim'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+
 # ===================
 
 # ALIASES
