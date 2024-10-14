@@ -1,39 +1,12 @@
 {
+  "vscode_custom_css.imports": [
+    "file:///c:/Users/tonyb/.vscode/extensions/brandonkirbyson.vscode-animations-2.0.4/dist/updateHandler.js"
+  ],
   "animations.Command-Palette": "Fade",
   "animations.Enabled": true,
   "animations.Install-Method": "Apc Customize UI++",
   "animations.Scrolling": "Fade",
   "animations.Tabs": "Slide",
-  "apc.activityBar": {
-    "size": 30
-  },
-  "apc.imports": [
-    "file:///c:/Users/tonyb/.vscode/extensions/brandonkirbyson.vscode-animations-2.0.3/dist/updateHandler.js"
-  ],
-  "apc.listRow": {
-    "fontSize": 14,
-    "height": 30,
-    "lists": ["explorer-folders-view", "quick-input-list", "results"]
-  },
-  "apc.statusBar": {
-    "position": "editor-bottom"
-  },
-  "apc.stylesheet": {
-    ".editor-actions": "display: none !important",
-    ".editor-widget.suggest-widget": "border: 1px solid #FFCC66",
-    ".editor-widget.suggest-widget.shows-details.visible": "border: none",
-    // file icon alignment in search
-    ".filematch .monaco-icon-label:before, .custom-list-row.results .monaco-list-row .monaco-icon-label:before": "background-position: 0 bottom !important",
-    ".monaco-editor .scroll-decoration": "display: none !important",
-    ".monaco-tl-row .monaco-tl-contents > div::after": "margin-bottom: auto",
-    ".quick-input-list-entry .monaco-action-bar.quick-input-list-entry-action-bar": "align-self: center !important",
-    ".quick-input-list-row div::before": "align-self: center !important",
-    ".quick-input-widget": "transform: translateY(-50%) !important; top: 50% !important;",
-    ".sidebar": "border: none !important",
-    ".sidebar .title-label": "padding: 0 !important",
-    ".sidebar .title-label h2": "line-height: 2.8 !important",
-    ".suggest-details": "border: 1px solid #FFCC66 !important"
-  },
   "catppuccin-icons.hidesExplorerArrows": true,
   "cody.autocomplete.formatOnAccept": true,
   "cody.commandCodeLenses": true,
@@ -121,6 +94,22 @@
       "type": "command",
       "command": "workbench.action.terminal.openNativeConsole"
     },
+
+    // +BUFFER
+    {
+      "command": "workbench.action.pinEditor",
+      "keys": "b.p",
+      "name": "Pin buffer",
+      "type": "command",
+    },
+    {
+      "command": "workbench.action.unpinEditor",
+      "keys": "b.P",
+      "name": "Unpin buffer",
+      "type": "command",
+    },
+
+    // +Code
     {
       "keys": "c",
       "name": "+Code",
@@ -179,6 +168,87 @@
         }
       ]
     },
+    
+    // +DEBUG
+    {
+      "command": "editor.debug.action.conditionalBreakpoint",
+      "keys": "d.c",
+      "name": "Conditional breakpoint",
+      "type": "command",
+    },
+    {
+      "command": "workbench.action.debug.disconnect",
+      "keys": "d.d",
+      "name": "Disconnect",
+      "type": "command"
+    },
+    {
+      "command": "editor.debug.action.showDebugHover",
+      "keys": "d.h",
+      "name": "Debug hover",
+      "type": "command",
+      "when": "editorTextFocus && inDebugMode"
+    },
+    {
+      "command": "extension.js-debug.createDebuggerTerminal",
+      "keys": "d.j",
+      "name": "JavaScript Debug Terminal",
+      "type": "command"
+    },
+    {
+      "command": "editor.debug.action.addLogPoint",
+      "keys": "d.l",
+      "name": "Log point",
+      "type": "command"
+    },
+    {
+      "command": "workbench.action.debug.selectandstart",
+      "keys": "d.s",
+      "name": "Start debug",
+      "type": "command"
+    },
+    {
+      "command": "workbench.action.debug.continue",
+      "keys": "d.f5",
+      "name": "Continue",
+      "type": "command",
+      "when": "debugState == 'stopped'"
+    },
+    {
+      "command": "workbench.action.debug.stepOver",
+      "keys": "d.f10",
+      "name": "Step Over",
+      "type": "command",
+      "when": "debugState == 'stopped'"
+    },
+    {
+      "keys": "d.s",
+      "position": -1
+    },
+    {
+      "command": "workbench.action.debug.stepInto",
+      "keys": "d.f11",
+      "name": "Step Into",
+      "type": "command",
+      "when": "debugState != 'inactive'"
+    },
+    {
+      "keys": "d.i",
+      "position": -1
+    },
+    {
+      "command": "workbench.action.debug.stepOut",
+      "keys": "d.f12",
+      "name": "Step Out",
+      "type": "command",
+      "when": "debugState == 'stopped'"
+    },
+    {
+      "keys": "d.o",
+      "position": -1
+    },
+
+    // +FILE
     {
       "command": "fileutils.renameFile",
       "keys": "f.r",
@@ -483,7 +553,6 @@
     "list.hoverBackground": "#409FFF40",
     "list.inactiveSelectionBackground": "#409FFF40",
     "terminalCursor.foreground": "#FFCC66",
-    "tab.activeBorderTop": "#FFCC66",
   },
   "workbench.colorTheme": "Ayu Mirage",
   "workbench.iconTheme": "catppuccin-frappe",
@@ -515,4 +584,6 @@
   "markdown.updateLinksOnFileMove.enabled": "always",
   "workbench.list.defaultFindMatchType": "contiguous",
   "explorer.autoReveal": false,
+  "bookmarks.keepBookmarksOnLineDelete": true,
+  "debug.toolBarLocation": "docked",
 }
