@@ -154,7 +154,7 @@
         "list.focusParent",
         "list.focusDown",
         "list.select"
-      ],
+      ]
     },
     "when": "workbench.scm.active && view.workbench.scm.visible && listFocus && sideBarFocus"
   },
@@ -165,7 +165,7 @@
   },
   {
     "key": "ctrl+b",
-    "command": "workbench.action.toggleSidebarVisibility",
+    "command": "workbench.action.toggleSidebarVisibility"
   },
   {
     "key": "ctrl+b",
@@ -295,11 +295,6 @@
   {
     "key": "space",
     "command": "whichkey.show",
-    "when": "sideBarFocus && !inputFocus && !inCommandsPicker"
-  },
-  {
-    "key": "space",
-    "command": "whichkey.show",
     "when": "(activeEditorGroupEmpty || activeEditor ==='workbench.editors.errorEditor') && !whichkeyVisible && !inCommandsPicker && !inQuickOpen"
   },
   {
@@ -329,7 +324,7 @@
   {
     "key": "ctrl+n",
     "command": "workbench.scm.action.focusNextResourceGroup",
-    "when":"workbench.scm.active && !listFocus && sideBarFocus && workbench.scm.visible && !searchViewletFocus"
+    "when": "workbench.scm.active && !listFocus && sideBarFocus && workbench.scm.visible && !searchViewletFocus"
   },
   {
     "key": "ctrl+p",
@@ -337,10 +332,10 @@
     "args": {
       "commands": [
         "workbench.scm.action.focusPreviousResourceGroup",
-        "list.focusParent",
-      ],
+        "list.focusParent"
+      ]
     },
-    "when":"workbench.scm.active && !listFocus && sideBarFocus && textInputFocus"
+    "when": "workbench.scm.active && !listFocus && sideBarFocus && textInputFocus"
   },
   // Magit
   {

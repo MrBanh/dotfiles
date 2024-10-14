@@ -2,9 +2,12 @@
   "vscode_custom_css.imports": [
     "file:///c:/Users/tonyb/.vscode/extensions/brandonkirbyson.vscode-animations-2.0.4/dist/updateHandler.js"
   ],
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  },
   "animations.Command-Palette": "Fade",
   "animations.Enabled": true,
-  "animations.Install-Method": "Apc Customize UI++",
+  "animations.Install-Method": "Custom CSS and JS",
   "animations.Scrolling": "Fade",
   "animations.Tabs": "Slide",
   "catppuccin-icons.hidesExplorerArrows": true,
@@ -100,13 +103,13 @@
       "command": "workbench.action.pinEditor",
       "keys": "b.p",
       "name": "Pin buffer",
-      "type": "command",
+      "type": "command"
     },
     {
       "command": "workbench.action.unpinEditor",
       "keys": "b.P",
       "name": "Unpin buffer",
-      "type": "command",
+      "type": "command"
     },
 
     // +Code
@@ -168,13 +171,13 @@
         }
       ]
     },
-    
+
     // +DEBUG
     {
       "command": "editor.debug.action.conditionalBreakpoint",
       "keys": "d.c",
       "name": "Conditional breakpoint",
-      "type": "command",
+      "type": "command"
     },
     {
       "command": "workbench.action.debug.disconnect",
@@ -260,7 +263,10 @@
       "position": -1
     },
     {
-      "commands": ["fileutils.removeFile", "workbench.action.focusFirstEditorGroup"],
+      "commands": [
+        "fileutils.removeFile",
+        "workbench.action.focusFirstEditorGroup"
+      ],
       "keys": "f.x",
       "name": "Delete file",
       "type": "commands"
@@ -540,7 +546,7 @@
       "keys": "w.r",
       "name": "Reset Editor Group Sizes",
       "type": "command"
-    },
+    }
   ],
   "whichkey.sortOrder": "nonNumberFirst",
   "whichkey.showIcons": true,
@@ -552,7 +558,7 @@
     "list.focusBackground": "#409FFF40",
     "list.hoverBackground": "#409FFF40",
     "list.inactiveSelectionBackground": "#409FFF40",
-    "terminalCursor.foreground": "#FFCC66",
+    "terminalCursor.foreground": "#FFCC66"
   },
   "workbench.colorTheme": "Ayu Mirage",
   "workbench.iconTheme": "catppuccin-frappe",
@@ -586,4 +592,6 @@
   "explorer.autoReveal": false,
   "bookmarks.keepBookmarksOnLineDelete": true,
   "debug.toolBarLocation": "docked",
+  "security.allowedUNCHosts": ["wsl.localhost"],
+  "security.workspace.trust.untrustedFiles": "open"
 }
