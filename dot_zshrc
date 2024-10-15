@@ -136,6 +136,7 @@ alias zshconfig="$EDITOR ~/.zshrc"
 alias dev="cd $ROOT/Projects"
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
   alias open="explorer.exe"
+  alias vsconfig="cd /mnt/c/Users/tonyb/AppData/Roaming/Code/User"
 fi
 ## Colorize the ls output ##
 ## If on windows/WSL: https://www.ruby-lang.org/en/documentation/installation/#apt
