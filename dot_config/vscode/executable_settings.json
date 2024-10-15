@@ -20,6 +20,10 @@
   "editor.fontFamily": "'MesloLGS Nerd Font', Consolas, 'Courier New', monospace",
   "editor.fontLigatures": true,
   "editor.formatOnSave": true,
+  "editor.guides.indentation": false,
+  "editor.guides.bracketPairs": "active",
+  "editor.guides.bracketPairsHorizontal": false,
+  "editor.guides.highlightActiveBracketPair": false,
   "editor.inlineSuggest.suppressSuggestions": true,
   "editor.lightbulb.enabled": "off",
   "editor.minimap.enabled": false,
@@ -551,6 +555,7 @@
   "whichkey.sortOrder": "nonNumberFirst",
   "whichkey.showIcons": true,
   "window.commandCenter": false,
+  "workbench.activityBar.location": "bottom",
   "workbench.colorCustomizations": {
     // Colors to match - https://github.com/ayu-theme/ayu-colors?tab=readme-ov-file
     "editorSuggestWidget.selectedBackground": "#c1d6eb40",
