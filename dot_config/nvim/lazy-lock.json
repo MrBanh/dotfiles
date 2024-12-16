@@ -1,0 +1,11 @@
+{
+  "flash.nvim": { "branch": "main", "commit": "34c7be146a91fec3555c33fe89c7d643f6ef5cf1" },
+  "lazy.nvim": { "branch": "main", "commit": "7967abe55752aa90532e6bb4bd4663fe27a264cb" },
+  "mini.nvim": { "branch": "main", "commit": "ad46fda7862153107124f95d4ea0e510eafc1dd8" },
+  "nvim-surround": { "branch": "main", "commit": "9f0cb495f25bff32c936062d85046fbda0c43517" },
+  "vim-ReplaceWithRegister": { "branch": "master", "commit": "b82bf59e5387b57d0125afb94fd7984061031136" },
+  "vim-indent-object": { "branch": "master", "commit": "8ab36d5ec2a3a60468437a95e142ce994df598c6" },
+  "vim-textobj-entire": { "branch": "master", "commit": "64a856c9dff3425ed8a863b9ec0a21dbaee6fb3a" },
+  "vim-textobj-user": { "branch": "master", "commit": "41a675ddbeefd6a93664a4dc52f302fe3086a933" },
+  "vscode-multi-cursor.nvim": { "branch": "main", "commit": "210d64a6d190383a81b8dcdf8779d357006f3a69" }
+}
