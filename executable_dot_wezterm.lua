@@ -30,6 +30,9 @@ config.window_padding = {
 	bottom = 0,
 }
 
+config.initial_rows = 30
+config.initial_cols = 120
+
 bar.apply_to_config(config)
 
 return config

@@ -1,10 +1,10 @@
 local set = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-set({ "i", "n", "t" }, "<c-/>", "<Esc><cmd>ToggleTerm direction=float<cr>", {
+set({ "i", "n", "t" }, "<c-/>", "<Esc><cmd>ToggleTerm<cr>", {
   desc = "Toggleterm",
 })
-set({ "i", "n", "t" }, "<c-_>", "<Esc><cmd>ToggleTerm direction=float<cr>", { desc = "which_key_ignore" })
+set({ "i", "n", "t" }, "<c-_>", "<Esc><cmd>ToggleTerm<cr>", { desc = "which_key_ignore" })
 
 set({ "n", "v" }, "H", "^", opts)
 set({ "n", "v" }, "L", "$", opts)

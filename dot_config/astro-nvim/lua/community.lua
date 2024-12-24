@@ -5,17 +5,22 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
-  -- { import = "astrocommunity.completion.avante-nvim" },
+  { import = "astrocommunity.completion.avante-nvim" },
   { import = "astrocommunity.completion.codeium-nvim" },
   { import = "astrocommunity.diagnostics.trouble-nvim" },
   { import = "astrocommunity.editing-support.nvim-treesitter-context" },
   { import = "astrocommunity.editing-support.undotree" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
   { import = "astrocommunity.indent.indent-tools-nvim" },
+  { import = "astrocommunity.lsp.inc-rename-nvim" },
+  { import = "astrocommunity.lsp.lspsaga-nvim" },
+  { import = "astrocommunity.markdown-and-latex.render-markdown-nvim" },
+  { import = "astrocommunity.motion.harpoon" },
   { import = "astrocommunity.motion.nvim-surround" },
   { import = "astrocommunity.motion.tabout-nvim" },
   { import = "astrocommunity.note-taking.obsidian-nvim" }, -- ~/obsidian-vault
   { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.typescript-all-in-one" },
   { import = "astrocommunity.recipes.auto-session-restore" },
@@ -23,4 +28,5 @@ return {
   { import = "astrocommunity.recipes.telescope-lsp-mappings" },
   { import = "astrocommunity.utility.hover-nvim" },
   { import = "astrocommunity.utility.noice-nvim" },
+  { import = "astrocommunity.neovim-lua-development.lazydev-nvim" },
 }

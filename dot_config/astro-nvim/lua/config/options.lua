@@ -1,6 +1,6 @@
 -- Disable auto comments on new line
-vim.cmd "autocmd BufEnter * set formatoptions-=cro"
-vim.cmd "autocmd BufEnter * setlocal formatoptions-=cro"
+vim.cmd "autocmd BufNewFile,BufRead,BufEnter,FileType * set formatoptions-=cro"
+vim.cmd "autocmd BufNewFile,BufRead,BufEnter,FileType * setlocal formatoptions-=cro"
 
 -- Line numbers
 vim.cmd "autocmd InsertEnter * set nu nornu"
