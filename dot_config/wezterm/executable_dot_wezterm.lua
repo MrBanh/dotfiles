@@ -17,7 +17,9 @@ config.font = wezterm.font_with_fallback({
 -- https://wezfurlong.org/wezterm/colorschemes/index.html
 config.color_scheme = "Ayu Mirage"
 
-config.window_decorations = "TITLE | RESIZE"
+-- https://wezfurlong.org/wezterm/config/lua/config/window_decorations.html
+config.window_decorations = "RESIZE"
+config.hide_tab_bar_if_only_one_tab = true
 
 -- config.window_background_opacity = 0.8
 -- config.macos_window_background_blur = 10
@@ -30,8 +32,13 @@ config.window_padding = {
 	bottom = 0,
 }
 
+-- Set up terminal size
 config.initial_rows = 30
 config.initial_cols = 120
+
+-- Miscellaneous settings
+config.max_fps = 120
+config.prefer_egl = true
 
 bar.apply_to_config(config)
 
