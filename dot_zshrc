@@ -105,7 +105,12 @@ export PATH="$HOME/.bun/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/home/linuxbrew/.linuxbrew/bin/brew:$PATH"
 
-export TERM="xterm-256color"
+# export PKG_CONFIG_PATH="$(brew --prefix)/bin:$PATH"
+# export MAGICK_HOME="$(brew --prefix)/opt/imagemagick"
+# export DYLD_LIBRARY_PATH="$MAGICK_HOME/lib/"
+# export DYLD_FALLBACK_LIBRARY_PATH="$MAGICK_HOME/lib/"
+#
+# export TERM="xterm-256color"
 
 ## Disables directory highlight
 LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS
@@ -124,9 +129,16 @@ export EDITOR='nvim'
 
 export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
+## Fixes Perl locale warning
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 # ===================
 
 # OTHER
+
+## Secrets/api keys
+source ~/.secrets.bash
 
 ## oh-my-zsh
 source $ZSH/oh-my-zsh.sh
@@ -161,6 +173,12 @@ alias dev="cd $ROOT/Projects"
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
   alias open="explorer.exe"
   alias vsconfig="cd /mnt/c/Users/tonyb/AppData/Roaming/Code/User"
+
+  function zvm_vi_yank () {
+	  zvm_yank
+	  echo "$CUTBUFFER" | clip.exe
+	  zvm_exit_visual_mode
+  }
 fi
 
 ## Colorize the ls output ##
@@ -182,3 +200,4 @@ alias cd="z"
 
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
+
