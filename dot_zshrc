@@ -201,3 +201,14 @@ alias cd="z"
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 
+## Yazi - https://yazi-rs.github.io/docs/quick-start
+### Changes cwd when exiting yazi
+### `y` to start, `q` to quit and have CWD change, `Q` to quit
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}

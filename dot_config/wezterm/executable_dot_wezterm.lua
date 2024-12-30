@@ -7,7 +7,9 @@ local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm"
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
-config.default_domain = "WSL:Ubuntu"
+if string.find(wezterm.target_triple, "windows") then
+	config.default_domain = "WSL:Ubuntu"
+end
 
 config.font = wezterm.font_with_fallback({
 	"CodeNewRoman Nerd Font",
