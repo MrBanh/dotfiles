@@ -40,7 +40,7 @@ set("c", [[\\*]], [[\(.*\)]])
 set("c", [[\\-]], [[\(.\{-}\)]])
 
 -- Yank to clipboard
-set({ "n", "v" }, "<leader>y", [["+y]], { desc = "[Y]ank selected to clipboard" })
+set({ "n", "v" }, "<leader>Y", [["+y]], vim.tbl_extend("force", opts, { desc = "[Y]ank selected to clipboard" }))
 
 -- paste from system clipboard
-set({ "n", "v" }, "<leader>P", [["+p]], opts)
+set({ "n", "v" }, "<leader>P", [["+p]], vim.tbl_extend("force", opts, { desc = "[P]aste from clipboard" }))
