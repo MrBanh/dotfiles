@@ -146,9 +146,6 @@ source $ZSH/oh-my-zsh.sh
 ## Fuzzy find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-## Color ls with icons
-source $(dirname $(gem which colorls))/tab_complete.sh
-
 ## bun completions
 [ -s "/home/tony/.bun/_bun" ] && source "/home/tony/.bun/_bun"
 
@@ -180,11 +177,6 @@ if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
 	  zvm_exit_visual_mode
   }
 fi
-
-## Colorize the ls output ##
-## If on windows/WSL: https://www.ruby-lang.org/en/documentation/installation/#apt
-## https://github.com/athityakumar/colorls
-# alias ls='LC_COLLATE=C colorls -h --group-directories-first --color=auto'
 
 alias cm='chezmoi'
 

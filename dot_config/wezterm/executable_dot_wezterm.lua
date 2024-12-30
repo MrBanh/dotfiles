@@ -41,7 +41,6 @@ config.initial_cols = 120
 -- Miscellaneous settings
 config.max_fps = 120
 config.prefer_egl = true
-config.term = "wezterm"
 
 bar.apply_to_config(config)
 
