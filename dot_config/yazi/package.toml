@@ -1,0 +1,5 @@
+[plugin]
+deps = []
+
+[flavor]
+deps = [{ use = "kmlupreti/ayu-dark", rev = "441a38d" }, { use = "yazi-rs/flavors:catppuccin-frappe", rev = "fc8eeaa" }, { use = "dangooddd/kanagawa", rev = "240194c" }, { use = "yazi-rs/flavors:catppuccin-mocha", rev = "fc8eeaa" }, { use = "PinThePenguine/sunset", rev = "181acd4" }]
