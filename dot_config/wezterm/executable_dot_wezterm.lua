@@ -8,7 +8,26 @@ local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm"
 local config = wezterm.config_builder()
 
 if string.find(wezterm.target_triple, "windows") then
-	config.default_domain = "WSL:Ubuntu"
+	-- To get this to work:
+	-- 1. Configure on wsl:
+	--    * `/etc/ssh/sshd_config` to accept PORT 22, ListenAddress 127.0.0.1
+	--    * Generate host keys: `sudo ssh-keygen -A`
+	-- 2. On host machine:
+	--		* Generate SSH key pair in powershell: `ssh-keygen -t rsa -b 4096`
+	-- 		* Copy the public key to WSL: `type $env:USERPROFILE\.ssh\id_rsa.pub | ssh tony@localhost "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"`
+	-- If you get "REMOTE HOST IDENTIFICATION CHANGED", follow these steps:
+	--    1. In powershell: `cd ~/.ssh` and check `known_hosts`
+	-- 		2. Delete lines that correspond to 127.0.0.1 or localhost
+	config.ssh_backend = "Ssh2"
+	config.default_domain = "SSH:wsl"
+	-- config.default_domain = "WSL:Ubuntu"
+	config.launch_menu = {
+		{
+			label = "PowerShell",
+			domain = { DomainName = "local" },
+			args = { "C:/Program Files/PowerShell/7/pwsh.ex" },
+		},
+	}
 end
 
 config.font = wezterm.font_with_fallback({
