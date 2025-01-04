@@ -32,4 +32,5 @@ return {
   { import = "astrocommunity.recipes.telescope-lsp-mappings" },
   { import = "astrocommunity.utility.hover-nvim" },
   { import = "astrocommunity.utility.noice-nvim" },
+  { import = "astrocommunity.terminal-integration.vim-tmux-navigator" },
 }
