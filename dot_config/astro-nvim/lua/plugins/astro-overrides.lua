@@ -51,6 +51,11 @@ return {
         function() require("telescope").extensions["recent-files"].recent_files {} end,
         desc = "Find files",
       },
+      {
+        "<leader>fp",
+        function() require("telescope").extensions.projects.projects {} end,
+        desc = "Find projects",
+      },
     },
   },
 
@@ -61,6 +66,9 @@ return {
 
   {
     "rcarriga/nvim-notify",
-    opts = function(_, opts) opts.top_down = false end,
+    opts = function(_, opts)
+      opts.top_down = false
+      opts.background_colour = "#000000"
+    end,
   },
 }

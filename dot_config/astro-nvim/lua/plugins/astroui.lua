@@ -87,4 +87,7 @@ return {
       },
     },
   },
+
+  -- Causes double lsp client in statusline if left in `community.lua`
+  { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
 }
