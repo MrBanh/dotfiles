@@ -28,6 +28,7 @@ return {
   { import = "astrocommunity.pack.typescript-all-in-one" },
   { import = "astrocommunity.pack.toml" },
   { import = "astrocommunity.recipes.auto-session-restore" },
+  { import = "astrocommunity.recipes.disable-tabline" },
   { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
   { import = "astrocommunity.recipes.telescope-lsp-mappings" },
   { import = "astrocommunity.utility.hover-nvim" },
