@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/tony/.zsh/completions:"* ]]; then export FPATH="/home/tony/.zsh/completions:$FPATH"; fi
 # If mac, put brew eval before oh-my-posh
 eval "$(oh-my-posh init zsh)"
 # eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/multiverse-neon.omp.json)"
@@ -144,9 +146,6 @@ source $ZSH/oh-my-zsh.sh
 ## Fuzzy find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-## bun completions
-[ -s "/home/tony/.bun/_bun" ] && source "/home/tony/.bun/_bun"
-
 ## Homebrew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -202,3 +201,13 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+# pnpm
+export PNPM_HOME="/home/tony/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+. "/home/tony/.deno/env"
