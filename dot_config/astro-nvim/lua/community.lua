@@ -33,4 +33,6 @@ return {
   { import = "astrocommunity.terminal-integration.vim-tmux-navigator" },
   { import = "astrocommunity.utility.hover-nvim" },
   { import = "astrocommunity.utility.noice-nvim" },
+  { import = "astrocommunity.editing-support.nvim-origami" },
+  { import = "astrocommunity.bars-and-lines.vim-illuminate" },
 }
