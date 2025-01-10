@@ -48,3 +48,6 @@ set({ "n", "v" }, "<leader>Y", [["+y]], vim.tbl_extend("force", opts, { desc = "
 
 -- paste from system clipboard
 set({ "n", "v" }, "<leader>P", [["+p]], vim.tbl_extend("force", opts, { desc = "[P]aste from clipboard" }))
+
+-- terminal
+set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
