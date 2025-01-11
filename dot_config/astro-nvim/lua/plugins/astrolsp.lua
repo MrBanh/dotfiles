@@ -98,10 +98,11 @@ return {
     on_attach = function(client, bufnr)
       -- this would disable semanticTokensProvider for all clients
       -- client.server_capabilities.semanticTokensProvider = nil
-      if client.server_capabilities.documentSymbolProvider then
-        local navic = require "nvim-navic"
-        navic.attach(client, bufnr)
-      end
+      
+      -- if client.server_capabilities.documentSymbolProvider then
+      --   local navic = require "nvim-navic"
+      --   navic.attach(client, bufnr)
+      -- end
     end,
   },
 }

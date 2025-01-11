@@ -1,5 +1,9 @@
 local set = vim.keymap.set
+local del = vim.keymap.del
 local opts = { noremap = true, silent = true }
+
+-- Unmap the <C-x> keybinding set by harpoon community
+del("n", "<C-x>")
 
 set({ "i", "n", "t" }, "<c-/>", "<Esc><cmd>ToggleTerm<cr>", {
   desc = "Toggleterm",
@@ -44,3 +48,6 @@ set({ "n", "v" }, "<leader>Y", [["+y]], vim.tbl_extend("force", opts, { desc = "
 
 -- paste from system clipboard
 set({ "n", "v" }, "<leader>P", [["+p]], vim.tbl_extend("force", opts, { desc = "[P]aste from clipboard" }))
+
+-- terminal
+set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
