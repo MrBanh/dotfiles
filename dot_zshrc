@@ -164,7 +164,9 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 alias zshconfig="$EDITOR ~/.zshrc"
 alias dev="cd $ROOT/Projects"
-if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" ]]; then
+
+# Detect if WSL
+if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
   alias open="explorer.exe"
   alias vsconfig="cd /mnt/c/Users/tonyb/AppData/Roaming/Code/User"
 
