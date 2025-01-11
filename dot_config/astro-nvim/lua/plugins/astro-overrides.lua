@@ -43,12 +43,16 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      { "mollerhoj/telescope-recent-files.nvim" },
+      "mollerhoj/telescope-recent-files.nvim",
     },
     keys = {
       {
         "<leader>ff",
-        function() require("telescope").extensions["recent-files"].recent_files {} end,
+        function()
+          require("telescope").extensions["recent-files"].recent_files {
+            follow = true,
+          }
+        end,
         desc = "Find files",
       },
       {
@@ -57,6 +61,26 @@ return {
         desc = "Find projects",
       },
     },
+    opts = {
+      pickers = {
+        find_files = {
+          follow = true,
+        },
+        live_grep = {
+          additional_args = { "--follow" },
+        },
+        grep_string = {
+          additional_args = { "--follow" },
+        },
+      },
+    },
+    config = function(plugin, opts)
+      -- run the core AstroNvim configuration function with the options table
+      require "astronvim.plugins.configs.telescope"(plugin, opts)
+
+      -- require telescope and load extensions as necessary
+      require("telescope").load_extension "recent-files"
+    end,
   },
 
   {
