@@ -29,4 +29,11 @@ require("lazy").setup({
       },
     },
   },
+  specs = {
+      rocks = {
+        hererocks = {
+          enabled = true,
+        },
+      },
+    },
 } --[[@as LazyConfig]])

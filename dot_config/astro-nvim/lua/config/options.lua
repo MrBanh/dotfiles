@@ -10,3 +10,5 @@ vim.cmd "autocmd InsertLeave * set nu rnu"
 vim.opt.scrolloff = 10
 
 vim.schedule(function() vim.opt.clipboard = "" end)
+
+vim.opt.conceallevel = 1
