@@ -8,9 +8,9 @@ return {
   -- https://github.com/nvim-neo-tree/neo-tree.nvim
   {
     "nvim-neo-tree/neo-tree.nvim",
-    opts = function(_, opts) 
+    opts = function(_, opts)
       opts.window.position = "right"
-      
+
       local function on_move(data) Snacks.rename.on_rename_file(data.source, data.destination) end
       local events = require "neo-tree.events"
       opts.event_handlers = opts.event_handlers or {}
@@ -54,6 +54,7 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "mollerhoj/telescope-recent-files.nvim",
+      "xvzc/chezmoi.nvim",
     },
     keys = {
       {
@@ -69,6 +70,11 @@ return {
         "<leader>fp",
         function() require("telescope").extensions.projects.projects {} end,
         desc = "Find projects",
+      },
+      {
+        "<leader>f.",
+        function() require("telescope").extensions.chezmoi.find_files() end,
+        desc = "Find chezmoi config",
       },
     },
     opts = {
@@ -90,6 +96,7 @@ return {
 
       -- require telescope and load extensions as necessary
       require("telescope").load_extension "recent-files"
+      require("telescope").load_extension "chezmoi"
     end,
   },
 
@@ -104,5 +111,32 @@ return {
       opts.top_down = false
       opts.background_colour = "#000000"
     end,
+  },
+
+  {
+    "nvim-web-devicons",
+    opts = {
+      override_by_filename = {
+        [".chezmoiignore"] = {
+          icon = "",
+        },
+        [".chezmoiremove"] = {
+          icon = "",
+        },
+        [".chezmoiroot"] = {
+          icon = "",
+        },
+        [".chezmoiversion"] = {
+          icon = "",
+        },
+        ["bash.tmpl"] = { icon = "" },
+        ["json.tmpl"] = { icon = "" },
+        ["ps1.tmpl"] = { icon = "󰨊" },
+        ["sh.tmpl"] = { icon = "" },
+        ["toml.tmpl"] = { icon = "" },
+        ["yaml.tmpl"] = { icon = "" },
+        ["zsh.tmpl"] = { icon = "" },
+      },
+    },
   },
 }

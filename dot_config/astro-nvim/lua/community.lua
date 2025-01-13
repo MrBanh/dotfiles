@@ -22,6 +22,7 @@ return {
   { import = "astrocommunity.motion.tabout-nvim" },
   { import = "astrocommunity.neovim-lua-development.lazydev-nvim" },
   { import = "astrocommunity.note-taking.obsidian-nvim" }, -- ~/obsidian-vault
+  { import = "astrocommunity.pack.chezmoi" },
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.tailwindcss" },
