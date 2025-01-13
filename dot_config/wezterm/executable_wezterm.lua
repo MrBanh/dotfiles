@@ -7,7 +7,9 @@ local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm"
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
-if string.find(wezterm.target_triple, "windows") then
+local is_windows = wezterm.target_triple:find("windows") ~= nil
+
+if is_windows then
 	-- To get this to work:
 	-- 1. Configure on wsl:
 	--    * `/etc/ssh/sshd_config` to accept PORT 22, ListenAddress 127.0.0.1
@@ -19,8 +21,14 @@ if string.find(wezterm.target_triple, "windows") then
 	--    1. In powershell: `cd ~/.ssh` and check `known_hosts`
 	-- 		2. Delete lines that correspond to 127.0.0.1 or localhost
 	config.ssh_backend = "Ssh2"
-	config.default_domain = "SSH:wsl"
+
+	-- https://yazi-rs.github.io/docs/image-preview/#wsl
+	-- Starts the wsl SSH from pwsh -> connect to it with wezterm ssh client
+	config.default_prog =
+	{ "pwsh", "-command", "wsl -- sudo service ssh start && wezterm cli spawn --domain-name SSH:wsl" }
+
 	-- config.default_domain = "WSL:Ubuntu"
+
 	config.launch_menu = {
 		{
 			label = "PowerShell",
