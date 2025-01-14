@@ -8,5 +8,6 @@ vim.cmd "autocmd InsertLeave * set nu rnu"
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+vim.opt.conceallevel = 1
 
 vim.schedule(function() vim.opt.clipboard = "" end)
