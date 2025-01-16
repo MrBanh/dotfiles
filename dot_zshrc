@@ -153,6 +153,7 @@ alias cm='chezmoi'
 
 alias av='NVIM_APPNAME="astro-nvim" nvim'
 alias avconfig='cd ~/.config/astro-nvim && av .'
+alias nvconfig='nvim ~/.config/nvim'
 
 ## https://github.com/eza-community/eza/tree/main
 alias ls="eza --icons=always --group-directories-last --color=auto -h -l"
