@@ -1,0 +1,37 @@
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
+
+-- Disable auto comments on new line
+vim.cmd("autocmd BufNewFile,BufRead,BufEnter,FileType * set formatoptions-=cro")
+vim.cmd("autocmd BufNewFile,BufRead,BufEnter,FileType * setlocal formatoptions-=cro")
+
+-- Line numbers
+vim.cmd("autocmd InsertEnter * set nu nornu")
+vim.cmd("autocmd InsertLeave * set nu rnu")
+
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 10
+
+vim.opt.conceallevel = 1
+
+vim.opt.clipboard = ""
+
+-- wezterm won't let vim read from clipboard
+local function paste()
+  return {
+    vim.fn.split(vim.fn.getreg(""), "\n"),
+    vim.fn.getregtype(""),
+  }
+end
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = paste,
+    ["*"] = paste,
+  },
+}
