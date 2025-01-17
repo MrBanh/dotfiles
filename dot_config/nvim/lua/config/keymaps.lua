@@ -18,7 +18,7 @@ set("v", "c", [["_c]], opts)
 set("n", "<C-u>", "<C-u>zz")
 set("n", "<C-d>", "<C-d>zz")
 
--- Joins without cursor moving
+-- Joins without cursor
 set("n", "J", "mzJ`z")
 
 set("i", "jk", "<Esc>", opts)

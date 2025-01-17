@@ -1,32 +1,72 @@
 return {
+  {
+    "abecodes/tabout.nvim",
+    lazy = false,
+    config = function()
+      require("tabout").setup({
+        tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
+        backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
+        act_as_tab = true, -- shift content if tab out is not possible
+        act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+        default_tab = "<C-t>", -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
+        default_shift_tab = "<C-d>", -- reverse shift default action,
+        enable_backwards = true, -- well ...
+        completion = false, -- if the tabkey is used in a completion pum
+        tabouts = {
+          { open = "'", close = "'" },
+          { open = '"', close = '"' },
+          { open = "`", close = "`" },
+          { open = "(", close = ")" },
+          { open = "[", close = "]" },
+          { open = "{", close = "}" },
+        },
+        ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+        exclude = {}, -- tabout will ignore these filetypes
+      })
+    end,
+    dependencies = { -- These are optional
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opt = true, -- Set this to true if the plugin is optional
+    event = "InsertCharPre", -- Set the event to 'InsertCharPre' for better compatibility
+    priority = 1000,
+  },
+
   -- https://github.com/anuvyklack/pretty-fold.nvim
   {
     "anuvyklack/pretty-fold.nvim",
     event = "BufReadPost",
-    config = function()
-      require("pretty-fold").setup({
-        keep_indentation = false,
-        fill_char = " ",
-        sections = {
-          left = {
-            function()
-              -- Calculate the fold level and return the appropriate string
-              local level = vim.v.foldlevel
-              if level == 0 then
-                return "󰁚 "
-              else
-                return string.rep("  ", level - 1) .. "󰁚 "
-              end
-            end,
-            "content",
-          },
-          right = {
-            "󰁂 ",
-            "number_of_folded_lines",
-          },
+    opts = {
+      sections = {
+        left = {
+          "content",
         },
-      })
-    end,
+        right = {
+          "󰁂 ",
+          "number_of_folded_lines",
+        },
+      },
+    },
+  },
+
+  { "chrisgrieser/nvim-origami", event = "BufReadPost", opts = {} },
+
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+      "TmuxNavigatorProcessList",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+    },
   },
 
   {
@@ -172,6 +212,63 @@ return {
   },
 
   {
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html", -- if you have `nvim-treesitter` installed
+    dependencies = {
+      -- "nvim-telescope/telescope.nvim",
+      "ibhagwan/fzf-lua",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+    },
+    opts = {
+      lang = "typescript",
+    },
+  },
+
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    opts = {},
+  },
+
+  {
+    "lewis6991/hover.nvim",
+    config = function()
+      require("hover").setup({
+        init = function()
+          -- Require providers
+          require("hover.providers.lsp")
+          -- require('hover.providers.gh')
+          -- require('hover.providers.gh_user')
+          -- require('hover.providers.jira')
+          require("hover.providers.dap")
+          -- require('hover.providers.fold_preview')
+          require("hover.providers.diagnostic")
+          require("hover.providers.man")
+          require("hover.providers.dictionary")
+        end,
+        preview_opts = {
+          border = "single",
+        },
+        -- Whether the contents of a currently open hover window should be moved
+        -- to a :h preview-window when pressing the hover keymap.
+        preview_window = false,
+        title = true,
+        mouse_providers = {
+          "LSP",
+        },
+        mouse_delay = 1000,
+      })
+
+      -- Mouse support
+      vim.keymap.set("n", "<MouseMove>", require("hover").hover_mouse, { desc = "hover.nvim (mouse)" })
+      vim.o.mousemoveevent = true
+    end,
+  },
+
+  -- https://github.com/folke/snacks.nvim
+  {
     "snacks.nvim",
     opts = {
       dashboard = {
@@ -194,6 +291,10 @@ return {
         ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
         ]],
         },
+      },
+
+      notifier = {
+        top_down = false,
       },
     },
   },
@@ -241,6 +342,22 @@ return {
   },
 
   {
+    "mbbill/undotree",
+    keys = {
+      {
+        "<leader>su",
+        "<cmd>UndotreeToggle<CR>",
+        desc = "Find undotree",
+        mode = "n",
+      },
+    },
+  },
+
+  {
+    "mg979/vim-visual-multi",
+  },
+
+  {
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
     keys = {
@@ -276,7 +393,7 @@ return {
 
       local wk = require("which-key")
       wk.add({
-        { "<leader>y", group = "󰇥 Yazi" },
+        { "<leader>y", group = "Yazi", icon = "󰇥 " },
       })
     end,
   },
