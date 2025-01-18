@@ -1,5 +1,21 @@
 return {
   {
+    "3rd/image.nvim",
+    build = true, -- do not build with hererocks
+    opts = {
+      processor = "magick_cli",
+      integrations = {
+        html = {
+          enabled = true,
+        },
+        css = {
+          enabled = true,
+        },
+      },
+    },
+  },
+
+  {
     "abecodes/tabout.nvim",
     lazy = false,
     config = function()
@@ -246,6 +262,7 @@ return {
     },
     opts = {
       lang = "typescript",
+      image_support = true,
     },
   },
 
