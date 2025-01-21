@@ -25,7 +25,7 @@ if is_windows then
 	-- https://yazi-rs.github.io/docs/image-preview/#wsl
 	-- Starts the wsl SSH from pwsh -> connect to it with wezterm ssh client
 	config.default_prog =
-	{ "pwsh", "-command", "wsl -- sudo service ssh start && wezterm cli spawn --domain-name SSH:wsl" }
+		{ "pwsh", "-command", "wsl -- sudo service ssh start && wezterm cli spawn --domain-name SSH:wsl" }
 
 	-- config.default_domain = "WSL:Ubuntu"
 
@@ -51,7 +51,7 @@ config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
 
 config.macos_window_background_blur = 10
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.75
 config.win32_system_backdrop = "Acrylic"
 
 config.window_padding = {

@@ -206,6 +206,7 @@ return {
       },
 
       ui = {
+        enable = false, -- md ui handled by render-markdown.nvim
         checkboxes = {
           [" "] = { char = "☐", hl_group = "ObsidianTodo" },
           ["x"] = { char = "✔", hl_group = "ObsidianDone" },
@@ -261,8 +262,8 @@ return {
       "MunifTanjim/nui.nvim",
     },
     opts = {
-      lang = "typescript",
-      image_support = true,
+      lang = "javascript",
+      -- image_support = true,
     },
   },
 
