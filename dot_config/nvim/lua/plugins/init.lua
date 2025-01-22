@@ -309,6 +309,17 @@ return {
     end,
   },
 
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    opts = {
+      html = {
+        comment = {
+          conceal = false,
+        },
+      },
+    },
+  },
+
   -- https://github.com/folke/snacks.nvim
   {
     "snacks.nvim",
