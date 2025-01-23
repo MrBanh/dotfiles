@@ -5,6 +5,23 @@ return {
     opts = {
       processor = "magick_cli",
       integrations = {
+        markdown = {
+          enabled = true,
+          clear_in_insert_mode = false,
+          download_remote_images = true,
+          only_render_image_at_cursor = true,
+          floating_windows = true, -- if true, images will be rendered in floating markdown windows
+          filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
+          resolve_image_path = function(document_path, image_path, fallback)
+            local obsidian_client = require("obsidian").get_client()
+            local new_image_path = obsidian_client:vault_relative_path(image_path).filename
+            if vim.fn.filereadable(new_image_path) == 1 then
+              return new_image_path
+            else
+              return fallback(document_path, image_path)
+            end
+          end,
+        },
         html = {
           enabled = true,
         },
@@ -46,6 +63,14 @@ return {
     opt = true, -- Set this to true if the plugin is optional
     event = "InsertCharPre", -- Set the event to 'InsertCharPre' for better compatibility
     priority = 1000,
+  },
+
+  {
+    "akinsho/bufferline.nvim",
+    keys = {
+      { "<S-tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer", mode = "n" },
+      { "<tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer", mode = "n" },
+    },
   },
 
   -- https://github.com/anuvyklack/pretty-fold.nvim
@@ -163,6 +188,14 @@ return {
         -- vim.fn.jobstart({"xdg-open", url})  -- linux
         -- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
         -- vim.ui.open(url) -- need Neovim 0.10.0+
+      end,
+
+      ---@param img string
+      follow_img_func = function(img)
+        vim.ui.open(img)
+        -- vim.fn.jobstart({ "qlmanage", "-p", img }) -- Mac OS quick look preview
+        -- vim.fn.jobstart({"xdg-open", url})  -- linux
+        -- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
       end,
 
       -- Optional, customize frontmatter data
