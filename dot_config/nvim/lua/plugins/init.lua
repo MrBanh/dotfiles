@@ -5,6 +5,23 @@ return {
     opts = {
       processor = "magick_cli",
       integrations = {
+        markdown = {
+          enabled = true,
+          clear_in_insert_mode = false,
+          download_remote_images = true,
+          only_render_image_at_cursor = true,
+          floating_windows = true, -- if true, images will be rendered in floating markdown windows
+          filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
+          resolve_image_path = function(document_path, image_path, fallback)
+            local obsidian_client = require("obsidian").get_client()
+            local new_image_path = obsidian_client:vault_relative_path(image_path).filename
+            if vim.fn.filereadable(new_image_path) == 1 then
+              return new_image_path
+            else
+              return fallback(document_path, image_path)
+            end
+          end,
+        },
         html = {
           enabled = true,
         },
@@ -46,6 +63,14 @@ return {
     opt = true, -- Set this to true if the plugin is optional
     event = "InsertCharPre", -- Set the event to 'InsertCharPre' for better compatibility
     priority = 1000,
+  },
+
+  {
+    "akinsho/bufferline.nvim",
+    keys = {
+      { "<S-tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer", mode = "n" },
+      { "<tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer", mode = "n" },
+    },
   },
 
   -- https://github.com/anuvyklack/pretty-fold.nvim
@@ -109,7 +134,7 @@ return {
     opts = {
       -- Exchange text regions
       exchange = {
-        prefix = "gx",
+        prefix = "cx",
         -- Whether to reindent new text to match previous indent
         reindent_linewise = true,
       },
@@ -163,6 +188,14 @@ return {
         -- vim.fn.jobstart({"xdg-open", url})  -- linux
         -- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
         -- vim.ui.open(url) -- need Neovim 0.10.0+
+      end,
+
+      ---@param img string
+      follow_img_func = function(img)
+        vim.ui.open(img)
+        -- vim.fn.jobstart({ "qlmanage", "-p", img }) -- Mac OS quick look preview
+        -- vim.fn.jobstart({"xdg-open", url})  -- linux
+        -- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
       end,
 
       -- Optional, customize frontmatter data
@@ -309,6 +342,17 @@ return {
     end,
   },
 
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    opts = {
+      html = {
+        comment = {
+          conceal = false,
+        },
+      },
+    },
+  },
+
   -- https://github.com/folke/snacks.nvim
   {
     "snacks.nvim",
@@ -337,6 +381,15 @@ return {
 
       notifier = {
         top_down = false,
+      },
+
+      terminal = {
+        win = {
+          style = {
+            position = "float",
+            border = "rounded",
+          },
+        },
       },
     },
   },
@@ -435,7 +488,7 @@ return {
 
       local wk = require("which-key")
       wk.add({
-        { "<leader>y", group = "Yazi", icon = "󰇥 " },
+        { "<leader>y", group = "Yazi", icon = { icon = "󰇥 ", color = "yellow", cat = "extension" } },
       })
     end,
   },
@@ -446,6 +499,91 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     opts = function(_, opts)
       opts.window.position = "right"
+    end,
+  },
+
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    lazy = false,
+    version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+    opts = {
+      provider = "copilot",
+
+      --- @class AvanteFileSelectorConfig
+      file_selector = {
+        provider = "fzf",
+        provider_opts = {},
+      },
+    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = "make BUILD_FROM_SOURCE=true",
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+
+      --- The below dependencies are optional
+
+      -- "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "ibhagwan/fzf-lua", -- for file_selector provider fzf
+      "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+      {
+        "saghen/blink.compat",
+        lazy = true,
+        opts = {},
+        config = function()
+          -- monkeypatch cmp.ConfirmBehavior for Avante
+          require("cmp").ConfirmBehavior = {
+            Insert = "insert",
+            Replace = "replace",
+          }
+        end,
+      },
+      {
+        "saghen/blink.cmp",
+        lazy = true,
+        opts = {
+          sources = {
+            compat = { "avante_commands", "avante_mentions", "avante_files" },
+          },
+        },
+      },
+      "echasnovski/mini.icons",
+      -- "nvim-tree/nvim-web-devicons",
+      "zbirenbaum/copilot.lua", -- for providers='copilot'
+      {
+        -- support for image pasting
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            -- required for Windows users
+            use_absolute_path = true,
+          },
+        },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
+    },
+    config = function(_, opts)
+      require("avante").setup(opts)
+      require("which-key").add({
+        { "<leader>a", group = "ai", icon = { icon = "󰚩 ", color = "green", cat = "extension" } },
+      })
     end,
   },
 }
