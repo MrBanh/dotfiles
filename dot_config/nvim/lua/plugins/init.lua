@@ -397,8 +397,8 @@ return {
   {
     "Wansmer/symbol-usage.nvim",
     event = "LspAttach", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
-    config = function()
-      require("symbol-usage").setup()
+    config = function(_, opts)
+      require("symbol-usage").setup(opts)
     end,
   },
 
@@ -450,6 +450,16 @@ return {
 
   {
     "mg979/vim-visual-multi",
+  },
+
+  {
+    "michaelb/sniprun",
+    opts = {},
+    build = "bash ./install.sh 1",
+    cmd = "SnipRun",
+    keys = {
+      { "<leader>xr", "<cmd>SnipRun<CR>", desc = "SnipRun", mode = { "n", "v" } },
+    },
   },
 
   {
@@ -508,7 +518,17 @@ return {
     lazy = false,
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
     opts = {
-      provider = "copilot",
+      -- debug = true,
+      provider = "openai",
+      openai = {
+        endpoint = "https://openrouter.ai/api/v1",
+        -- model = "anthropic/claude-3.5-sonnet",
+        -- model = "google/gemini-2.0-flash-exp:free",
+        model = "meta-llama/llama-3.1-70b-instruct:free",
+        timeout = 30000, -- Timeout in milliseconds
+        temperature = 0,
+        max_tokens = 40000,
+      },
 
       --- @class AvanteFileSelectorConfig
       file_selector = {
@@ -517,7 +537,8 @@ return {
       },
     },
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = "make BUILD_FROM_SOURCE=true",
+    build = vim.fn.has("win32") == 1 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+      or "make",
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
     dependencies = {
       "stevearc/dressing.nvim",

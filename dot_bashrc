@@ -119,5 +119,4 @@ fi
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 PATH="$HOME/.local/bin:$PATH"
-. "/home/tony/.deno/env"
 . "$HOME/.cargo/env"
