@@ -391,6 +391,13 @@ return {
           },
         },
       },
+
+      picker = {
+        layout = {
+          preset = "ivy",
+          cycle = false,
+        },
+      },
     },
   },
 

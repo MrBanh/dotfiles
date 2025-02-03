@@ -194,4 +194,69 @@ return {
       },
     },
   },
+
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      adapters = {
+        openrouter = function()
+          return require("codecompanion.adapters").extend("openai_compatible", {
+            name = "openrouter",
+            env = {
+              url = "https://openrouter.ai/api",
+              api_key = "OPENROUTER_API_KEY",
+              chat_url = "/v1/chat/completions",
+            },
+            schema = {
+              model = {
+                default = "meta-llama/llama-3.1-70b-instruct:free",
+              },
+            },
+          })
+        end,
+      },
+      strategies = {
+        chat = { adapter = "openrouter" },
+        inline = { adapter = "openrouter" },
+        agent = { adapter = "openrouter" },
+      },
+      opts = {
+        -- Set debug logging
+        log_level = "DEBUG",
+      },
+    },
+
+    keys = {
+      { mode = "n", "<leader>ac", "<CMD>CodeCompanionChat Toggle<CR>", silent = true, desc = "CodeCompanion chat" },
+      { mode = "v", "<leader>aa", "<CMD>CodeCompanionActions<CR>", silent = true, desc = "CodeCompanion actions" },
+      {
+        mode = "n",
+        "<leader>a:",
+        function()
+          local user_input = vim.fn.input("CodeCompanionCmd: ")
+          vim.cmd("CodeCompanionCmd " .. user_input)
+        end,
+        desc = "CodeCompanionCmd",
+      },
+      { mode = "v", "<leader>ay", "<CMD>CodeCompanionChat Add<CR>", silent = true, desc = "CodeCompanion add" },
+      {
+        mode = "n",
+        "<leader>ag",
+        "<CMD>CodeCompanion /commit<CR>",
+        silent = true,
+        desc = "CodeCompanion generate commit",
+      },
+    },
+
+    config = function(_, opts)
+      require("codecompanion").setup(opts)
+      require("which-key").add({
+        { "<leader>a", group = "ai", icon = { icon = "󰚩 ", color = "green", cat = "extension" } },
+      })
+    end,
+  },
 }
