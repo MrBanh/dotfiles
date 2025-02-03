@@ -73,8 +73,8 @@ return {
     },
   },
 
-  -- https://github.com/anuvyklack/pretty-fold.nvim
   {
+    -- https://github.com/anuvyklack/pretty-fold.nvim
     "anuvyklack/pretty-fold.nvim",
     event = "BufReadPost",
     opts = {
@@ -88,6 +88,17 @@ return {
         },
       },
     },
+  },
+
+  {
+    -- https://github.com/bullets-vim/bullets.vim
+    "bullets-vim/bullets.vim",
+    ft = { "markdown", "text", "gitcommit", "scratch" },
+    config = function()
+      -- Disable deleting the last empty bullet when pressing <cr> or 'o'
+      -- default = 1
+      vim.g.bullets_delete_last_bullet_if_empty = 1
+    end,
   },
 
   { "chrisgrieser/nvim-origami", event = "BufReadPost", opts = {} },
@@ -152,8 +163,8 @@ return {
     end,
   },
 
-  -- https://github.com/epwalsh/obsidian.nvim
   {
+    -- https://github.com/epwalsh/obsidian.nvim
     "epwalsh/obsidian.nvim",
     lazy = false,
     -- https://github.com/epwalsh/obsidian.nvim?tab=readme-ov-file#configuration-options
@@ -277,8 +288,8 @@ return {
     end,
   },
 
-  -- https://github.com/folke/which-key.nvim?tab=readme-ov-file
   {
+    -- https://github.com/folke/which-key.nvim?tab=readme-ov-file
     "folke/which-key.nvim",
     opts = {
       preset = "classic",
@@ -353,8 +364,8 @@ return {
     },
   },
 
-  -- https://github.com/folke/snacks.nvim
   {
+    -- https://github.com/folke/snacks.nvim
     "snacks.nvim",
     opts = {
       dashboard = {
@@ -525,9 +536,9 @@ return {
     end,
   },
 
-  -- neo-tree: file explorer
-  -- https://github.com/nvim-neo-tree/neo-tree.nvim
   {
+    -- neo-tree: file explorer
+    -- https://github.com/nvim-neo-tree/neo-tree.nvim
     "nvim-neo-tree/neo-tree.nvim",
     opts = function(_, opts)
       opts.window.position = "right"
