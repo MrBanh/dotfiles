@@ -74,7 +74,6 @@ return {
   },
 
   {
-    -- https://github.com/anuvyklack/pretty-fold.nvim
     "anuvyklack/pretty-fold.nvim",
     event = "BufReadPost",
     opts = {
@@ -91,7 +90,6 @@ return {
   },
 
   {
-    -- https://github.com/bullets-vim/bullets.vim
     "bullets-vim/bullets.vim",
     ft = { "markdown", "text", "gitcommit", "scratch" },
     config = function()
@@ -102,6 +100,17 @@ return {
   },
 
   { "chrisgrieser/nvim-origami", event = "BufReadPost", opts = {} },
+
+  {
+    "chrishrb/gx.nvim",
+    keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+    cmd = { "Browse" },
+    init = function()
+      vim.g.netrw_nogx = 1 -- disable netrw gx
+    end,
+    config = true, -- default settings
+    submodules = false, -- not needed, submodules are required only for tests
+  },
 
   {
     "christoomey/vim-tmux-navigator",
@@ -164,7 +173,6 @@ return {
   },
 
   {
-    -- https://github.com/epwalsh/obsidian.nvim
     "epwalsh/obsidian.nvim",
     lazy = false,
     -- https://github.com/epwalsh/obsidian.nvim?tab=readme-ov-file#configuration-options
@@ -289,7 +297,6 @@ return {
   },
 
   {
-    -- https://github.com/folke/which-key.nvim?tab=readme-ov-file
     "folke/which-key.nvim",
     opts = {
       preset = "classic",
@@ -365,8 +372,7 @@ return {
   },
 
   {
-    -- https://github.com/folke/snacks.nvim
-    "snacks.nvim",
+    "folke/snacks.nvim",
     opts = {
       dashboard = {
         preset = {
@@ -537,8 +543,6 @@ return {
   },
 
   {
-    -- neo-tree: file explorer
-    -- https://github.com/nvim-neo-tree/neo-tree.nvim
     "nvim-neo-tree/neo-tree.nvim",
     opts = function(_, opts)
       opts.window.position = "right"
