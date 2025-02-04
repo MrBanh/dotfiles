@@ -135,6 +135,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias zshconfig="$EDITOR ~/.zshrc"
 alias dev="cd $HOME/src"
+alias lg="lazygit"
 
 # Detect if WSL
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
