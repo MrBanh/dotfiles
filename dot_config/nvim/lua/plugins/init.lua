@@ -119,6 +119,9 @@ return {
       { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
       { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
     },
+    config = function()
+      vim.cmd([[let  g:tmux_navigator_no_wrap = 1]])
+    end,
   },
 
   {
