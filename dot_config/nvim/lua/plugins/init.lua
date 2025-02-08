@@ -1,5 +1,26 @@
 return {
   {
+    -- alternative: https://github.com/jellydn/quick-code-runner.nvim
+    "0x100101/lab.nvim",
+    build = "cd js && npm ci",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    opts = {
+      code_runner = {
+        enabled = true,
+      },
+      quick_data = {
+        enabled = true,
+      },
+    },
+    keys = {
+      { "<leader>xr", "<cmd>Lab code run<cr>", desc = " Run/resume code runner", mode = { "n", "v" } },
+      { "<leader>xR", "<cmd>Lab code stop<cr>", desc = " Stop code runner", mode = { "n", "v" } },
+    },
+  },
+
+  {
     "3rd/image.nvim",
     build = true, -- do not build with hererocks
     opts = {
@@ -492,16 +513,6 @@ return {
 
   {
     "mg979/vim-visual-multi",
-  },
-
-  {
-    "michaelb/sniprun",
-    opts = {},
-    build = "bash ./install.sh 1",
-    cmd = "SnipRun",
-    keys = {
-      { "<leader>xr", "<cmd>SnipRun<CR>", desc = "SnipRun", mode = { "n", "v" } },
-    },
   },
 
   {
