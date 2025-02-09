@@ -35,3 +35,7 @@ vim.g.clipboard = {
     ["*"] = paste,
   },
 }
+
+-- Fixes: Snacks picker not opening files with <CR> in insert mode with bullets.vim
+--- https://github.com/folke/snacks.nvim/issues/812
+vim.g.bullets_enable_in_empty_buffers = 0
