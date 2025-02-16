@@ -1,11 +1,35 @@
 return {
-  -- colorschemec
   {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "catppuccin",
     },
   },
+
+  {
+    "AlexvZyl/nordic.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      transparent = {
+        bg = true,
+        float = true,
+      },
+    },
+  },
+
+  {
+    "bluz71/vim-nightfly-colors",
+    name = "nightfly",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.g.nightflyWinSeparator = 2
+      vim.g.nightflyNormalFloat = true
+      vim.g.nightflyTransparent = true
+    end,
+  },
+
   {
     "catppuccin/nvim",
     lazy = true,
@@ -13,8 +37,23 @@ return {
     opts = {
       flavour = "mocha",
       transparent_background = true,
+      integrations = {
+        blink_cmp = true,
+        snacks = true,
+      },
     },
   },
+
+  {
+    "scottmckendry/cyberdream.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      variant = "dark",
+      transparent = true,
+    },
+  },
+
   {
     "Shatur/neovim-ayu",
     lazy = true,

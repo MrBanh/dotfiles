@@ -1,0 +1,42 @@
+[plugin]
+deps = []
+
+[[flavor.deps]]
+use = "kmlupreti/ayu-dark"
+rev = "8d487bc"
+hash = "4b0b04345a4001101a43b48500192532"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-frappe"
+rev = "1a419b2"
+hash = "e88895e8f8b7926f20946f273ecc7348"
+
+[[flavor.deps]]
+use = "dangooddd/kanagawa"
+rev = "d98f0c3"
+hash = "cada780385f75abbcfbf5343256b441"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-mocha"
+rev = "1a419b2"
+hash = "c40e434318a8ceffd01842f8dfb2390e"
+
+[[flavor.deps]]
+use = "PinThePenguine/sunset"
+rev = "181acd4"
+hash = "cc4c39af7098f02c42fec223fc1fc967"
+
+[[flavor.deps]]
+use = "tkapias/nightfly"
+rev = "599b8ad"
+hash = "d1a9e05ecbbd63bc5bb85a54e7f1e33a"
+
+[[flavor.deps]]
+use = "marcosvnmelo/kanagawa-dragon"
+rev = "2ddff30"
+hash = "c9e9fcf6b11c9fe63d4ac7c9408f628c"
+
+[[flavor.deps]]
+use = "BennyOe/tokyo-night"
+rev = "9e6f899"
+hash = "2338a26b44318e22e649df342226b759"
