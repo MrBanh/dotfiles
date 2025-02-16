@@ -111,6 +111,31 @@ return {
   },
 
   {
+    "axelvc/template-string.nvim",
+    config = function()
+      require("template-string").setup({
+        filetypes = {
+          "html",
+          "typescript",
+          "javascript",
+          "typescriptreact",
+          "javascriptreact",
+          "vue",
+          "svelte",
+          "python",
+        }, -- filetypes where the plugin is active
+        jsx_brackets = true, -- must add brackets to JSX attributes
+        remove_template_string = false, -- remove backticks when there are no template strings
+        restore_quotes = {
+          -- quotes used when "remove_template_string" option is enabled
+          normal = [[']],
+          jsx = [["]],
+        },
+      })
+    end,
+  },
+
+  {
     "bullets-vim/bullets.vim",
     ft = { "markdown", "text", "gitcommit", "scratch" },
     config = function()
@@ -526,6 +551,10 @@ return {
         },
       },
 
+      scroll = {
+        enabled = true,
+      },
+
       terminal = {
         win = {
           style = {
@@ -535,39 +564,6 @@ return {
         },
       },
     },
-  },
-
-  {
-    "Wansmer/symbol-usage.nvim",
-    event = "LspAttach", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
-    config = function(_, opts)
-      require("symbol-usage").setup(opts)
-    end,
-  },
-
-  {
-    "axelvc/template-string.nvim",
-    config = function()
-      require("template-string").setup({
-        filetypes = {
-          "html",
-          "typescript",
-          "javascript",
-          "typescriptreact",
-          "javascriptreact",
-          "vue",
-          "svelte",
-          "python",
-        }, -- filetypes where the plugin is active
-        jsx_brackets = true, -- must add brackets to JSX attributes
-        remove_template_string = false, -- remove backticks when there are no template strings
-        restore_quotes = {
-          -- quotes used when "remove_template_string" option is enabled
-          normal = [[']],
-          jsx = [["]],
-        },
-      })
-    end,
   },
 
   {
@@ -637,16 +633,61 @@ return {
   },
 
   {
+    "Wansmer/symbol-usage.nvim",
+    event = "LspAttach", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
+    config = function(_, opts)
+      require("symbol-usage").setup(opts)
+    end,
+  },
+
+  -- {
+  --   "GeorgesAlkhouri/nvim-aider",
+  --   cmd = {
+  --     "AiderTerminalToggle",
+  --     "AiderHealth",
+  --   },
+  --   keys = {
+  --     { "<leader>a/", "<cmd>AiderTerminalToggle<cr>", desc = "Open Aider" },
+  --     { "<leader>as", "<cmd>AiderTerminalSend<cr>", desc = "Send to Aider", mode = { "n", "v" } },
+  --     { "<leader>ac", "<cmd>AiderQuickSendCommand<cr>", desc = "Send Command To Aider" },
+  --     { "<leader>ab", "<cmd>AiderQuickSendBuffer<cr>", desc = "Send Buffer To Aider" },
+  --     { "<leader>a+", "<cmd>AiderQuickAddFile<cr>", desc = "Add File to Aider" },
+  --     { "<leader>a-", "<cmd>AiderQuickDropFile<cr>", desc = "Drop File from Aider" },
+  --     { "<leader>ar", "<cmd>AiderQuickReadOnlyFile<cr>", desc = "Add File as Read-Only" },
+  --     -- Example nvim-tree.lua integration if needed
+  --     --- { "<leader>a+", "<cmd>AiderTreeAddFile<cr>", desc = "Add File from Tree to Aider", ft = "NvimTree" },
+  --     --- { "<leader>a-", "<cmd>AiderTreeDropFile<cr>", desc = "Drop File from Tree from Aider", ft = "NvimTree" },
+  --   },
+  --   dependencies = {
+  --     "folke/snacks.nvim",
+  --     --- The below dependencies are optional
+  --     "catppuccin/nvim",
+  --     -- "nvim-tree/nvim-tree.lua",
+  --   },
+  --   config = true,
+  -- },
+
+  {
     "yetone/avante.nvim",
     event = "VeryLazy",
     lazy = false,
     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
     opts = {
-      -- debug = true,
-      provider = "openai",
+      debug = true,
+      provider = "copilot",
+
+      copilot = {
+        endpoint = "https://api.githubcopilot.com",
+        model = "o3-mini", -- https://docs.github.com/en/copilot/using-github-copilot/ai-models/changing-the-ai-model-for-copilot-chat
+        proxy = nil, -- [protocol://]host[:port] Use this proxy
+        allow_insecure = false, -- Allow insecure server connections
+        timeout = 30000, -- Timeout in milliseconds
+        temperature = 0,
+        max_tokens = 4096,
+      },
+
       openai = {
         endpoint = "https://openrouter.ai/api/v1",
-        -- model = "anthropic/claude-3.5-sonnet",
         -- model = "google/gemini-2.0-flash-exp:free",
         model = "meta-llama/llama-3.1-70b-instruct:free",
         timeout = 30000, -- Timeout in milliseconds
@@ -654,9 +695,8 @@ return {
         max_tokens = 40000,
       },
 
-      --- @class AvanteFileSelectorConfig
       file_selector = {
-        provider = "fzf",
+        provider = "snacks", -- native|fzf|mini.pick|snacks|telescope
         provider_opts = {},
       },
     },
@@ -671,33 +711,57 @@ return {
 
       --- The below dependencies are optional
 
-      -- "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-      "ibhagwan/fzf-lua", -- for file_selector provider fzf
-      "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-      {
-        "saghen/blink.compat",
-        lazy = true,
-        opts = {},
-        config = function()
-          -- monkeypatch cmp.ConfirmBehavior for Avante
-          require("cmp").ConfirmBehavior = {
-            Insert = "insert",
-            Replace = "replace",
-          }
-        end,
-      },
+      -- pickers
+      --- "nvim-telescope/telescope.nvim",
+      -- "ibhagwan/fzf-lua",
+
+      -- autocompletion
+      --- "hrsh7th/nvim-cmp",
       {
         "saghen/blink.cmp",
         lazy = true,
+        dependencies = { "saghen/blink.compat" },
         opts = {
           sources = {
-            compat = { "avante_commands", "avante_mentions", "avante_files" },
+            default = { "avante_commands", "avante_mentions", "avante_files" },
+            compat = {
+              "avante_commands",
+              "avante_mentions",
+              "avante_files",
+            },
+            -- LSP score_offset is typically 60
+            providers = {
+              avante_commands = {
+                name = "avante_commands",
+                module = "blink.compat.source",
+                score_offset = 90,
+                opts = {},
+              },
+              avante_files = {
+                name = "avante_files",
+                module = "blink.compat.source",
+                score_offset = 100,
+                opts = {},
+              },
+              avante_mentions = {
+                name = "avante_mentions",
+                module = "blink.compat.source",
+                score_offset = 1000,
+                opts = {},
+              },
+            },
           },
         },
       },
+
+      -- icons
       "echasnovski/mini.icons",
       -- "nvim-tree/nvim-web-devicons",
+
+      -- providers
       "zbirenbaum/copilot.lua", -- for providers='copilot'
+
+      -- misc
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",

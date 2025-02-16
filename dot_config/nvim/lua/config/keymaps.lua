@@ -15,8 +15,21 @@ set("n", "c", [["_c]], opts)
 set("v", "c", [["_c]], opts)
 
 -- Jump up/down while keeping cursor centered
-set("n", "<C-u>", "<C-u>zz")
-set("n", "<C-d>", "<C-d>zz")
+set("n", "<C-d>", function()
+  vim.wo.scrolloff = 999
+  vim.defer_fn(function()
+    vim.wo.scrolloff = 8
+  end, 500)
+  return "<c-d>"
+end, { expr = true })
+
+set("n", "<C-u>", function()
+  vim.wo.scrolloff = 999
+  vim.defer_fn(function()
+    vim.wo.scrolloff = 8
+  end, 500)
+  return "<c-u>"
+end, { expr = true })
 
 -- Joins without cursor moving
 set("n", "J", "mzJ`z")
