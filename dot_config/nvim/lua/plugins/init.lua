@@ -1,5 +1,68 @@
 return {
   {
+    "akinsho/bufferline.nvim",
+    keys = {
+      { "<S-tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer", mode = "n" },
+      { "<tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer", mode = "n" },
+    },
+  },
+
+  {
+    "bullets-vim/bullets.vim",
+    ft = { "markdown", "text", "gitcommit", "scratch" },
+    config = function()
+      -- Disable deleting the last empty bullet when pressing <cr> or 'o'
+      -- default = 1
+      vim.g.bullets_delete_last_bullet_if_empty = 1
+    end,
+  },
+
+  {
+    "chrishrb/gx.nvim",
+    keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+    cmd = { "Browse" },
+    init = function()
+      vim.g.netrw_nogx = 1 -- disable netrw gx
+    end,
+    config = true, -- default settings
+    submodules = false, -- not needed, submodules are required only for tests
+  },
+
+  {
+    "lewis6991/hover.nvim",
+    config = function()
+      require("hover").setup({
+        init = function()
+          -- Require providers
+          require("hover.providers.lsp")
+          -- require('hover.providers.gh')
+          -- require('hover.providers.gh_user')
+          -- require('hover.providers.jira')
+          require("hover.providers.dap")
+          -- require('hover.providers.fold_preview')
+          require("hover.providers.diagnostic")
+          require("hover.providers.man")
+          require("hover.providers.dictionary")
+        end,
+        preview_opts = {
+          border = "single",
+        },
+        -- Whether the contents of a currently open hover window should be moved
+        -- to a :h preview-window when pressing the hover keymap.
+        preview_window = false,
+        title = true,
+        mouse_providers = {
+          "LSP",
+        },
+        mouse_delay = 1000,
+      })
+      -- Mouse support
+      vim.keymap.set("n", "<MouseMove>", require("hover").hover_mouse, { desc = "hover.nvim (mouse)" })
+      vim.o.mousemoveevent = true
+    end,
+  },
+
+  {
     -- alternative: https://github.com/jellydn/quick-code-runner.nvim
     "0x100101/lab.nvim",
     build = "cd js && npm ci",
@@ -21,127 +84,67 @@ return {
   },
 
   {
-    "3rd/image.nvim",
-    build = true, -- do not build with hererocks
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html", -- if you have `nvim-treesitter` installed
+    dependencies = {
+      -- "nvim-telescope/telescope.nvim",
+      "ibhagwan/fzf-lua",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+    },
     opts = {
-      processor = "magick_cli",
-      integrations = {
-        markdown = {
-          enabled = true,
-          clear_in_insert_mode = false,
-          download_remote_images = true,
-          only_render_image_at_cursor = true,
-          floating_windows = true, -- if true, images will be rendered in floating markdown windows
-          filetypes = { "markdown", "vimwiki" }, -- markdown extensions (ie. quarto) can go here
-          resolve_image_path = function(document_path, image_path, fallback)
-            local obsidian_client = require("obsidian").get_client()
-            local new_image_path = obsidian_client:vault_relative_path(image_path).filename
-            if vim.fn.filereadable(new_image_path) == 1 then
-              return new_image_path
-            else
-              return fallback(document_path, image_path)
-            end
-          end,
-        },
-        html = {
-          enabled = true,
-        },
-        css = {
-          enabled = true,
-        },
+      lang = "javascript",
+      -- image_support = true,
+    },
+  },
+
+  {
+    "echasnovski/mini.operators",
+    version = "*",
+    opts = {
+      -- Exchange text regions
+      exchange = {
+        prefix = "cx",
+        -- Whether to reindent new text to match previous indent
+        reindent_linewise = true,
+      },
+      -- multiple (duplicate) text
+      multiply = {
+        prefix = "gm",
+      },
+      -- Evaluate text and replace with output
+      evaluate = {}, -- evaluate text and replace with output
+      replace = {}, -- replace text with register
+      sort = {}, -- sort text
+    },
+    config = function(_, opts)
+      require("mini.operators").setup(opts)
+    end,
+  },
+
+  {
+    "echasnovski/mini.hipatterns",
+    opts = {
+      highlighters = {
+        -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+        fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+        hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+        todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+        note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
       },
     },
   },
 
   {
-    "abecodes/tabout.nvim",
-    lazy = false,
-    config = function()
-      require("tabout").setup({
-        tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
-        backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
-        act_as_tab = true, -- shift content if tab out is not possible
-        act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-        default_tab = "<C-t>", -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
-        default_shift_tab = "<C-d>", -- reverse shift default action,
-        enable_backwards = true, -- well ...
-        completion = false, -- if the tabkey is used in a completion pum
-        tabouts = {
-          { open = "'", close = "'" },
-          { open = '"', close = '"' },
-          { open = "`", close = "`" },
-          { open = "(", close = ")" },
-          { open = "[", close = "]" },
-          { open = "{", close = "}" },
-        },
-        ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-        exclude = {}, -- tabout will ignore these filetypes
-      })
+    "skardyy/neo-img",
+    build = function()
+      require("neo-img").install()
     end,
-    dependencies = { -- These are optional
-      "nvim-treesitter/nvim-treesitter",
-    },
-    opt = true, -- Set this to true if the plugin is optional
-    event = "InsertCharPre", -- Set the event to 'InsertCharPre' for better compatibility
-    priority = 1000,
-  },
-
-  {
-    "akinsho/bufferline.nvim",
-    keys = {
-      { "<S-tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer", mode = "n" },
-      { "<tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer", mode = "n" },
-    },
-  },
-
-  {
-    "anuvyklack/pretty-fold.nvim",
-    event = "BufReadPost",
-    opts = {
-      sections = {
-        left = {
-          "content",
-        },
-        right = {
-          "󰁂 ",
-          "number_of_folded_lines",
-        },
-      },
-    },
-  },
-
-  {
-    "axelvc/template-string.nvim",
     config = function()
-      require("template-string").setup({
-        filetypes = {
-          "html",
-          "typescript",
-          "javascript",
-          "typescriptreact",
-          "javascriptreact",
-          "vue",
-          "svelte",
-          "python",
-        }, -- filetypes where the plugin is active
-        jsx_brackets = true, -- must add brackets to JSX attributes
-        remove_template_string = false, -- remove backticks when there are no template strings
-        restore_quotes = {
-          -- quotes used when "remove_template_string" option is enabled
-          normal = [[']],
-          jsx = [["]],
-        },
+      require("neo-img").setup({
+        auto_open = false, -- Automatically open images when buffer is loaded
+        oil_preview = false, -- changes oil preview of images too
       })
-    end,
-  },
-
-  {
-    "bullets-vim/bullets.vim",
-    ft = { "markdown", "text", "gitcommit", "scratch" },
-    config = function()
-      -- Disable deleting the last empty bullet when pressing <cr> or 'o'
-      -- default = 1
-      vim.g.bullets_delete_last_bullet_if_empty = 1
     end,
   },
 
@@ -210,90 +213,10 @@ return {
   { "chrisgrieser/nvim-origami", event = "BufReadPost", opts = {} },
 
   {
-    "chrishrb/gx.nvim",
-    keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
-    cmd = { "Browse" },
-    init = function()
-      vim.g.netrw_nogx = 1 -- disable netrw gx
-    end,
-    config = true, -- default settings
-    submodules = false, -- not needed, submodules are required only for tests
-  },
-
-  {
-    "christoomey/vim-tmux-navigator",
-    cmd = {
-      "TmuxNavigateLeft",
-      "TmuxNavigateDown",
-      "TmuxNavigateUp",
-      "TmuxNavigateRight",
-      "TmuxNavigatePrevious",
-      "TmuxNavigatorProcessList",
-    },
-    keys = {
-      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-    },
-    config = function()
-      vim.cmd([[let  g:tmux_navigator_no_wrap = 1]])
-    end,
-  },
-
-  {
-    "codethread/qmk.nvim",
-    lazy = true,
-    config = function()
-      local conf = {
-        name = "LAYOUT_preonic_grid",
-        layout = {
-          "_ x x x x x x _ x x x x x x",
-          "_ x x x x x x _ x x x x x x",
-          "_ x x x x x x _ x x x x x x",
-          "_ x x x x x x _ x x x x x x",
-          "_ x x x x x x _ x x x x x x",
-        },
-      }
-      require("qmk").setup(conf)
-    end,
-  },
-
-  {
-    "echasnovski/mini.operators",
-    version = "*",
-    opts = {
-      -- Exchange text regions
-      exchange = {
-        prefix = "cx",
-        -- Whether to reindent new text to match previous indent
-        reindent_linewise = true,
-      },
-      -- multiple (duplicate) text
-      multiply = {
-        prefix = "gm",
-      },
-      -- Evaluate text and replace with output
-      evaluate = {}, -- evaluate text and replace with output
-      replace = {}, -- replace text with register
-      sort = {}, -- sort text
-    },
-    config = function(_, opts)
-      require("mini.operators").setup(opts)
-    end,
-  },
-
-  {
-    "echasnovski/mini.hipatterns",
-    opts = {
-      highlighters = {
-        -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-        fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
-        hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
-        todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
-        note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
-      },
-    },
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    opts = {},
   },
 
   {
@@ -421,66 +344,36 @@ return {
   },
 
   {
-    "folke/which-key.nvim",
+    "anuvyklack/pretty-fold.nvim",
+    event = "BufReadPost",
     opts = {
-      preset = "classic",
+      sections = {
+        left = {
+          "content",
+        },
+        right = {
+          "󰁂 ",
+          "number_of_folded_lines",
+        },
+      },
     },
   },
 
   {
-    "kawre/leetcode.nvim",
-    build = ":TSUpdate html", -- if you have `nvim-treesitter` installed
-    dependencies = {
-      -- "nvim-telescope/telescope.nvim",
-      "ibhagwan/fzf-lua",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-    },
-    opts = {
-      lang = "javascript",
-      -- image_support = true,
-    },
-  },
-
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    opts = {},
-  },
-
-  {
-    "lewis6991/hover.nvim",
+    "codethread/qmk.nvim",
+    lazy = true,
     config = function()
-      require("hover").setup({
-        init = function()
-          -- Require providers
-          require("hover.providers.lsp")
-          -- require('hover.providers.gh')
-          -- require('hover.providers.gh_user')
-          -- require('hover.providers.jira')
-          require("hover.providers.dap")
-          -- require('hover.providers.fold_preview')
-          require("hover.providers.diagnostic")
-          require("hover.providers.man")
-          require("hover.providers.dictionary")
-        end,
-        preview_opts = {
-          border = "single",
+      local conf = {
+        name = "LAYOUT_preonic_grid",
+        layout = {
+          "_ x x x x x x _ x x x x x x",
+          "_ x x x x x x _ x x x x x x",
+          "_ x x x x x x _ x x x x x x",
+          "_ x x x x x x _ x x x x x x",
+          "_ x x x x x x _ x x x x x x",
         },
-        -- Whether the contents of a currently open hover window should be moved
-        -- to a :h preview-window when pressing the hover keymap.
-        preview_window = false,
-        title = true,
-        mouse_providers = {
-          "LSP",
-        },
-        mouse_delay = 1000,
-      })
-
-      -- Mouse support
-      vim.keymap.set("n", "<MouseMove>", require("hover").hover_mouse, { desc = "hover.nvim (mouse)" })
-      vim.o.mousemoveevent = true
+      }
+      require("qmk").setup(conf)
     end,
   },
 
@@ -519,7 +412,6 @@ return {
         ]],
         },
       },
-
       image = {
         enabled = false,
         doc = {
@@ -527,11 +419,9 @@ return {
           float = true,
         },
       },
-
       notifier = {
         top_down = false,
       },
-
       -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#%EF%B8%8F-config
       picker = {
         layout = {
@@ -558,11 +448,9 @@ return {
           },
         },
       },
-
       scroll = {
         enabled = true,
       },
-
       terminal = {
         win = {
           style = {
@@ -575,12 +463,69 @@ return {
   },
 
   {
-    "inkarkat/vim-ReplaceWithRegister",
-    keys = {
-      { "r", "<Plug>ReplaceWithRegisterOperator", desc = "Replace with register" },
-      { "r", "<Plug>ReplaceWithRegisterVisual", desc = "Replace with register visual", mode = "x" },
-      { "rr", "<Plug>ReplaceWithRegisterLine", desc = "Riplace with register line" },
+    "Wansmer/symbol-usage.nvim",
+    event = "LspAttach", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
+    config = function(_, opts)
+      require("symbol-usage").setup(opts)
+    end,
+  },
+
+  {
+    "abecodes/tabout.nvim",
+    lazy = false,
+    config = function()
+      require("tabout").setup({
+        tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
+        backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
+        act_as_tab = true, -- shift content if tab out is not possible
+        act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+        default_tab = "<C-t>", -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
+        default_shift_tab = "<C-d>", -- reverse shift default action,
+        enable_backwards = true, -- well ...
+        completion = false, -- if the tabkey is used in a completion pum
+        tabouts = {
+          { open = "'", close = "'" },
+          { open = '"', close = '"' },
+          { open = "`", close = "`" },
+          { open = "(", close = ")" },
+          { open = "[", close = "]" },
+          { open = "{", close = "}" },
+        },
+        ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+        exclude = {}, -- tabout will ignore these filetypes
+      })
+    end,
+    dependencies = { -- These are optional
+      "nvim-treesitter/nvim-treesitter",
     },
+    opt = true, -- Set this to true if the plugin is optional
+    event = "InsertCharPre", -- Set the event to 'InsertCharPre' for better compatibility
+    priority = 1000,
+  },
+
+  {
+    "axelvc/template-string.nvim",
+    config = function()
+      require("template-string").setup({
+        filetypes = {
+          "html",
+          "typescript",
+          "javascript",
+          "typescriptreact",
+          "javascriptreact",
+          "vue",
+          "svelte",
+          "python",
+        }, -- filetypes where the plugin is active
+        jsx_brackets = true, -- must add brackets to JSX attributes
+        remove_template_string = false, -- remove backticks when there are no template strings
+        restore_quotes = {
+          -- quotes used when "remove_template_string" option is enabled
+          normal = [[']],
+          jsx = [["]],
+        },
+      })
+    end,
   },
 
   {
@@ -596,7 +541,44 @@ return {
   },
 
   {
+    "inkarkat/vim-ReplaceWithRegister",
+    keys = {
+      { "r", "<Plug>ReplaceWithRegisterOperator", desc = "Replace with register" },
+      { "r", "<Plug>ReplaceWithRegisterVisual", desc = "Replace with register visual", mode = "x" },
+      { "rr", "<Plug>ReplaceWithRegisterLine", desc = "Riplace with register line" },
+    },
+  },
+
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+      "TmuxNavigatorProcessList",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+    },
+    config = function()
+      vim.cmd([[let  g:tmux_navigator_no_wrap = 1]])
+    end,
+  },
+
+  {
     "mg979/vim-visual-multi",
+  },
+
+  {
+    "folke/which-key.nvim",
+    opts = {
+      preset = "classic",
+    },
   },
 
   {
@@ -632,174 +614,9 @@ return {
     },
     config = function(_, opts)
       require("yazi").setup(opts)
-
       local wk = require("which-key")
       wk.add({
         { "<leader>y", group = "Yazi", icon = { icon = "󰇥 ", color = "yellow", cat = "extension" } },
-      })
-    end,
-  },
-
-  {
-    "Wansmer/symbol-usage.nvim",
-    event = "LspAttach", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
-    config = function(_, opts)
-      require("symbol-usage").setup(opts)
-    end,
-  },
-
-  -- {
-  --   "GeorgesAlkhouri/nvim-aider",
-  --   cmd = {
-  --     "AiderTerminalToggle",
-  --     "AiderHealth",
-  --   },
-  --   keys = {
-  --     { "<leader>a/", "<cmd>AiderTerminalToggle<cr>", desc = "Open Aider" },
-  --     { "<leader>as", "<cmd>AiderTerminalSend<cr>", desc = "Send to Aider", mode = { "n", "v" } },
-  --     { "<leader>ac", "<cmd>AiderQuickSendCommand<cr>", desc = "Send Command To Aider" },
-  --     { "<leader>ab", "<cmd>AiderQuickSendBuffer<cr>", desc = "Send Buffer To Aider" },
-  --     { "<leader>a+", "<cmd>AiderQuickAddFile<cr>", desc = "Add File to Aider" },
-  --     { "<leader>a-", "<cmd>AiderQuickDropFile<cr>", desc = "Drop File from Aider" },
-  --     { "<leader>ar", "<cmd>AiderQuickReadOnlyFile<cr>", desc = "Add File as Read-Only" },
-  --     -- Example nvim-tree.lua integration if needed
-  --     --- { "<leader>a+", "<cmd>AiderTreeAddFile<cr>", desc = "Add File from Tree to Aider", ft = "NvimTree" },
-  --     --- { "<leader>a-", "<cmd>AiderTreeDropFile<cr>", desc = "Drop File from Tree from Aider", ft = "NvimTree" },
-  --   },
-  --   dependencies = {
-  --     "folke/snacks.nvim",
-  --     --- The below dependencies are optional
-  --     "catppuccin/nvim",
-  --     -- "nvim-tree/nvim-tree.lua",
-  --   },
-  --   config = true,
-  -- },
-
-  {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
-    lazy = false,
-    version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
-    opts = {
-      debug = true,
-      provider = "copilot",
-
-      copilot = {
-        endpoint = "https://api.githubcopilot.com",
-        model = "o3-mini", -- https://docs.github.com/en/copilot/using-github-copilot/ai-models/changing-the-ai-model-for-copilot-chat
-        proxy = nil, -- [protocol://]host[:port] Use this proxy
-        allow_insecure = false, -- Allow insecure server connections
-        timeout = 30000, -- Timeout in milliseconds
-        temperature = 0,
-        max_tokens = 4096,
-      },
-
-      openai = {
-        endpoint = "https://openrouter.ai/api/v1",
-        -- model = "google/gemini-2.0-flash-exp:free",
-        model = "meta-llama/llama-3.1-70b-instruct:free",
-        timeout = 30000, -- Timeout in milliseconds
-        temperature = 0,
-        max_tokens = 40000,
-      },
-
-      file_selector = {
-        provider = "snacks", -- native|fzf|mini.pick|snacks|telescope
-        provider_opts = {},
-      },
-    },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    build = vim.fn.has("win32") == 1 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-      or "make",
-    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-    dependencies = {
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-
-      --- The below dependencies are optional
-
-      -- pickers
-      --- "nvim-telescope/telescope.nvim",
-      -- "ibhagwan/fzf-lua",
-
-      -- autocompletion
-      --- "hrsh7th/nvim-cmp",
-      {
-        "saghen/blink.cmp",
-        lazy = true,
-        dependencies = { "saghen/blink.compat" },
-        opts = {
-          sources = {
-            default = { "avante_commands", "avante_mentions", "avante_files" },
-            compat = {
-              "avante_commands",
-              "avante_mentions",
-              "avante_files",
-            },
-            -- LSP score_offset is typically 60
-            providers = {
-              avante_commands = {
-                name = "avante_commands",
-                module = "blink.compat.source",
-                score_offset = 90,
-                opts = {},
-              },
-              avante_files = {
-                name = "avante_files",
-                module = "blink.compat.source",
-                score_offset = 100,
-                opts = {},
-              },
-              avante_mentions = {
-                name = "avante_mentions",
-                module = "blink.compat.source",
-                score_offset = 1000,
-                opts = {},
-              },
-            },
-          },
-        },
-      },
-
-      -- icons
-      "echasnovski/mini.icons",
-      -- "nvim-tree/nvim-web-devicons",
-
-      -- providers
-      "zbirenbaum/copilot.lua", -- for providers='copilot'
-
-      -- misc
-      {
-        -- support for image pasting
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            -- required for Windows users
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
-        -- Make sure to set this up properly if you have lazy=true
-        "MeanderingProgrammer/render-markdown.nvim",
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
-    },
-    config = function(_, opts)
-      require("avante").setup(opts)
-      require("which-key").add({
-        { "<leader>a", group = "ai", icon = { icon = "󰚩 ", color = "green", cat = "extension" } },
       })
     end,
   },
