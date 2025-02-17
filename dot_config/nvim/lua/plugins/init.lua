@@ -520,6 +520,14 @@ return {
         },
       },
 
+      image = {
+        enabled = false,
+        doc = {
+          inline = false,
+          float = true,
+        },
+      },
+
       notifier = {
         top_down = false,
       },

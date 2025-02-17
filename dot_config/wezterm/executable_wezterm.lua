@@ -40,6 +40,7 @@ end
 
 config.font = wezterm.font_with_fallback({
 	"CodeNewRoman Nerd Font",
+	"JetBrains Mono",
 	"DengXian",
 })
 
