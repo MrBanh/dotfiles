@@ -4,6 +4,7 @@ theme = "base16_transparent"
 
 [editor]
 true-color = true
+line-number = "relative"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -17,7 +18,13 @@ hidden = false
 smart-case = false
 
 [editor.statusline]
-right = ["diagnostics", "selections", "position","position-percentage", "file-encoding"]
+right = [
+  "diagnostics",
+  "selections",
+  "position",
+  "position-percentage",
+  "file-encoding",
+]
 
 # --  Key bindings
 
@@ -25,7 +32,6 @@ right = ["diagnostics", "selections", "position","position-percentage", "file-en
 "}" = "goto_next_paragraph"
 "{" = "goto_prev_paragraph"
 "^" = "goto_first_nonwhitespace"
-"%" = "match_brackets"
 H = "goto_line_start"
 L = "goto_line_end"
 G = "goto_file_end"
@@ -35,7 +41,6 @@ D = ["extend_to_line_end", "yank", "delete_selection"]
 Y = ["extend_to_line_end", "yank"]
 V = ["select_mode", "extend_line"]
 S = "surround_add"
-x = "delete_selection"
 
 # Center when jumping half page up/down 
 C-u = ["page_cursor_half_up", "align_view_center"]
@@ -48,8 +53,20 @@ C-k = "jump_view_up"
 C-l = "jump_view_right"
 
 # Search for word under cursor
-"*" = ["move_char_right", "move_prev_word_start", "move_next_word_end", "search_selection", "search_next"]
-"#" = ["move_char_right", "move_prev_word_start", "move_next_word_end", "search_selection", "search_prev"]
+"*" = [
+  "move_char_right",
+  "move_prev_word_start",
+  "move_next_word_end",
+  "search_selection",
+  "search_next",
+]
+"#" = [
+  "move_char_right",
+  "move_prev_word_start",
+  "move_next_word_end",
+  "search_selection",
+  "search_prev",
+]
 
 # Make j and k behave as they do Vim when soft-wrap is enabled
 j = "move_line_down"
@@ -62,7 +79,7 @@ esc = ["collapse_selection", "keep_primary_selection"]
 R = ":config-reload" # reload config
 
 [keys.insert]
-j = { k = "normal_mode" } # Maps `jk` to exit insert mode
+j = { k = "normal_mode" }                   # Maps `jk` to exit insert mode
 esc = ["collapse_selection", "normal_mode"]
 C-space = "completion"
 
@@ -70,7 +87,6 @@ C-space = "completion"
 "{" = ["extend_to_line_bounds", "goto_prev_paragraph"]
 "}" = ["extend_to_line_bounds", "goto_next_paragraph"]
 "^" = "goto_first_nonwhitespace"
-"%" = "match_brackets"
 H = "goto_line_start"
 L = "goto_line_end"
 G = "goto_file_end"
@@ -85,7 +101,10 @@ i = "select_textobject_inner"
 a = "select_textobject_around"
 
 # Some extra binds to allow us to insert/append in select mode because it's nice with multiple cursors
-tab = ["insert_mode", "collapse_selection"] # tab is read by most terminal editors as "C-i"
+tab = [
+  "insert_mode",
+  "collapse_selection",
+] # tab is read by most terminal editors as "C-i"
 C-a = ["append_mode", "collapse_selection"]
 
 # Make selecting lines in visual mode behave sensibly
@@ -95,6 +114,12 @@ j = ["extend_line_down", "extend_to_line_bounds"]
 d = ["yank", "delete_selection"]
 x = ["yank", "delete_selection"]
 y = ["yank", "normal_mode", "flip_selections", "collapse_selection"]
-Y = ["extend_to_line_bounds", "yank", "goto_line_start", "collapse_selection", "normal_mode"]
+Y = [
+  "extend_to_line_bounds",
+  "yank",
+  "goto_line_start",
+  "collapse_selection",
+  "normal_mode",
+]
 
 esc = ["collapse_selection", "keep_primary_selection", "normal_mode"]
