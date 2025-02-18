@@ -16,9 +16,18 @@
     }
   },
   {
-    "context": "ProjectPanel",
+    "context": "ProjectPanel && not_editing",
     "bindings": {
-      "space e": "workspace::ToggleRightDock"
+      "space e": "workspace::ToggleRightDock",
+      "a": "project_panel::NewFile",
+      "shift-a": "project_panel::NewDirectory",
+      "c": "project_panel::Copy",
+      "d": "project_panel::Delete",
+      "p": "project_panel::Paste",
+      "y": "workspace::CopyPath",
+      "r": "project_panel::Rename",
+      "ctrl-n": "menu::SelectNext",
+      "ctrl-p": "menu::SelectPrev"
     }
   },
   {
