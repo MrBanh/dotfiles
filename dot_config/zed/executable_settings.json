@@ -12,7 +12,8 @@
     "dark": "Catppuccin Mocha (Blur)"
   },
   "experimental.theme_overrides": {
-    "editor.document_highlight.bracket_background": "#ffffff00"
+    "editor.document_highlight.bracket_background": "#ffffff00",
+    "tab.active_background": "#ffffff00"
   },
 
   // font
@@ -81,7 +82,8 @@
         "args": []
       }
     },
-    "button": false
+    "button": false,
+    "default_height": 480
   },
 
   "toolbar": {
