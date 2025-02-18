@@ -22,7 +22,8 @@
     }
   },
   {
-    "context": "VimControl && !menu", // normal and visual mode
+    // normal and visual mode
+    "context": "VimControl && !menu",
     "bindings": {
       "shift-h": "vim::FirstNonWhitespace",
       "shift-l": "vim::EndOfLine",
@@ -43,10 +44,8 @@
     }
   },
   {
-    "context": "EmptyPane || SharedScreen", //
+    "context": "EmptyPane || SharedScreen",
     "bindings": {
-      // Put key bindings here (in addition to the context above) if you want them to
-      // work when no editor exists.
       "space f": "file_finder::Toggle"
     }
   }
