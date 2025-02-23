@@ -18,25 +18,6 @@ return {
   },
 
   {
-    "xzbdmw/clasp.nvim",
-    config = function()
-      require("clasp").setup({
-        pairs = { ["{"] = "}", ['"'] = '"', ["'"] = "'", ["("] = ")", ["["] = "]" },
-      })
-
-      -- jumping from smallest region to largest region
-      vim.keymap.set({ "n" }, "<leader>]", function()
-        require("clasp").wrap("next")
-      end, { desc = "Clasp: wrap pair from smallest to largest region" })
-
-      -- jumping from largest region to smallest region
-      vim.keymap.set({ "n" }, "<leader>[", function()
-        require("clasp").wrap("prev")
-      end, { desc = "Clasp: wrap pair from largest to smallest region" })
-    end,
-  },
-
-  {
     "chrishrb/gx.nvim",
     keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
     cmd = { "Browse" },
