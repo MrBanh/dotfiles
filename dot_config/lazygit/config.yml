@@ -5,3 +5,5 @@ keybinding:
   commits:
     moveDownCommit: "J" # move commit down one
     moveUpCommit: "K" # move commit up one
+
+promptToReturnFromSubprocess: false

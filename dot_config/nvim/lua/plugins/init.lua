@@ -433,7 +433,8 @@ return {
         },
         sources = {
           explorer = {
-            layout = { layout = { position = "right" } },
+            auto_close = true,
+            layout = { preset = "default", preview = true },
           },
         },
         win = {
@@ -454,12 +455,24 @@ return {
       terminal = {
         win = {
           style = {
-            position = "float",
             border = "rounded",
           },
         },
       },
     },
+  },
+
+  {
+    "gbprod/substitute.nvim",
+    lazy = false,
+    opts = {},
+    config = function(_, opts)
+      require("substitute").setup(opts)
+      vim.keymap.set("n", "r", require("substitute").operator, { noremap = true })
+      vim.keymap.set("x", "r", require("substitute").visual, { noremap = true })
+      vim.keymap.set("n", "rr", require("substitute").line, { noremap = true })
+      vim.keymap.set("n", "R", require("substitute").eol, { noremap = true })
+    end,
   },
 
   {
@@ -537,15 +550,6 @@ return {
         desc = "Find undotree",
         mode = "n",
       },
-    },
-  },
-
-  {
-    "inkarkat/vim-ReplaceWithRegister",
-    keys = {
-      { "r", "<Plug>ReplaceWithRegisterOperator", desc = "Replace with register" },
-      { "r", "<Plug>ReplaceWithRegisterVisual", desc = "Replace with register visual", mode = "x" },
-      { "rr", "<Plug>ReplaceWithRegisterLine", desc = "Riplace with register line" },
     },
   },
 

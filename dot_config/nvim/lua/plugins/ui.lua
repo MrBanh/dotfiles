@@ -8,7 +8,7 @@ return {
 
   {
     "AlexvZyl/nordic.nvim",
-    lazy = false,
+    lazy = true,
     priority = 1000,
     opts = {
       transparent = {
@@ -21,7 +21,7 @@ return {
   {
     "bluz71/vim-nightfly-colors",
     name = "nightfly",
-    lazy = false,
+    lazy = true,
     priority = 1000,
     config = function()
       vim.g.nightflyWinSeparator = 2
@@ -46,7 +46,7 @@ return {
 
   {
     "scottmckendry/cyberdream.nvim",
-    lazy = false,
+    lazy = true,
     priority = 1000,
     opts = {
       variant = "dark",
