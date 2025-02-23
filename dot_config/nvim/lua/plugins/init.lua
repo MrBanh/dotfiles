@@ -29,13 +29,38 @@ return {
   },
 
   {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    keys = function()
+      local keys = {
+        {
+          "<leader>M",
+          function()
+            require("harpoon"):list():add()
+          end,
+          desc = "Harpoon File",
+        },
+        {
+          "<leader>m",
+          function()
+            local harpoon = require("harpoon")
+            harpoon.ui:toggle_quick_menu(harpoon:list())
+          end,
+          desc = "Harpoon Quick Menu",
+        },
+      }
+      return keys
+    end,
+  },
+
+  {
     "lewis6991/hover.nvim",
     config = function()
       require("hover").setup({
         init = function()
           -- Require providers
           require("hover.providers.lsp")
-          -- require('hover.providers.gh')
+          require("hover.providers.gh")
           -- require('hover.providers.gh_user')
           -- require('hover.providers.jira')
           require("hover.providers.dap")
