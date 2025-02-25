@@ -38,35 +38,6 @@ vim.api.nvim_create_autocmd("User", {
   callback = function()
     local set = vim.keymap.set
     local opts = { noremap = true, silent = true }
-
-    set({ "n", "v" }, "H", "^", opts)
-    set({ "n", "v" }, "L", "$", opts)
-
-    -- Set highlight on search, but clear on pressing <Esc> in normal mode
-    set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-
-    -- Paste without overwriting
-    set("v", "p", "P", opts)
-
-    -- Do not overwrite register when changing
-    set("n", "c", [["_c]], opts)
-    set("v", "c", [["_c]], opts)
-
-    -- move text up and down
-    set("v", "J", ":m .+1<CR>==", opts)
-    set("v", "K", ":m .-2<CR>==", opts)
-    set("x", "J", ":move '>+1<CR>gv-gv", opts)
-    set("x", "K", ":move '<-2<CR>gv-gv", opts)
-
-    -- Joins without cursor moving
-    set("n", "J", "mzJ`z")
-
-    -- yank to system clipboard
-    set({ "n", "v" }, "<leader>Y", '"+y', opts)
-
-    -- paste from system clipboard
-    set({ "n", "v" }, "<leader>P", '"+p', opts)
-
     local vscode = require("vscode")
 
     -- LSP
