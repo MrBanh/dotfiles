@@ -6,4 +6,7 @@ keybinding:
     moveDownCommit: "J" # move commit down one
     moveUpCommit: "K" # move commit up one
 
+os:
+  editPreset: 'nvim'
+
 promptToReturnFromSubprocess: false
