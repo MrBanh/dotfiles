@@ -154,8 +154,7 @@ fi
 alias ls="eza --icons=always --group-directories-last --color=auto -h -l"
 
 ## Better cd: https://github.com/ajeetdsouza/zoxide
-eval "$(zoxide init zsh)"
-alias cd="z"
+eval "$(zoxide init zsh --cmd cd)"
 
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
