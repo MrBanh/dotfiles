@@ -146,7 +146,7 @@ alias dev="cd $HOME/src"
 
 # Detect if WSL
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
-  alias open="explorer.exe"
+  alias open="gio open"
   alias vsconfig="cd /mnt/c/Users/tonyb/AppData/Roaming/Code/User"
 
   function zvm_vi_yank () {
@@ -160,8 +160,7 @@ fi
 alias ls="eza --icons=always --group-directories-last --color=auto -h -l"
 
 ## Better cd: https://github.com/ajeetdsouza/zoxide
-eval "$(zoxide init zsh)"
-alias cd="z"
+eval "$(zoxide init zsh --cmd cd)"
 
 bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
