@@ -324,6 +324,7 @@ return {
         enable = false, -- md ui handled by render-markdown.nvim
         checkboxes = {
           [" "] = { char = "☐", hl_group = "ObsidianTodo" },
+          ["~"] = { char = " ", hl_group = "ObsidianTilde" },
           ["x"] = { char = "✔", hl_group = "ObsidianDone" },
         },
       },
@@ -500,6 +501,12 @@ return {
       html = {
         comment = {
           conceal = false,
+        },
+      },
+      checkbox = {
+        enabled = true,
+        custom = {
+          todo = { raw = "[~]", rendered = " ", highlight = "RenderMarkdownTodo", scope_highlight = nil },
         },
       },
     },
