@@ -148,6 +148,7 @@ alias dev="cd $HOME/src"
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
   alias open="gio open"
   alias vsconfig="cd /mnt/c/Users/tonyb/AppData/Roaming/Code/User"
+  export PATH="/mnt/c/Program Files/Microsoft VS Code/bin:$PATH"
 
   function zvm_vi_yank () {
 	  zvm_yank
