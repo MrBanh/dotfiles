@@ -88,27 +88,6 @@ return {
   },
 
   {
-    -- alternative: https://github.com/jellydn/quick-code-runner.nvim
-    "0x100101/lab.nvim",
-    build = "cd js && npm ci",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    opts = {
-      code_runner = {
-        enabled = true,
-      },
-      quick_data = {
-        enabled = true,
-      },
-    },
-    keys = {
-      { "<leader>xr", "<cmd>Lab code run<cr>", desc = " Run/resume code runner", mode = { "n", "v" } },
-      { "<leader>xR", "<cmd>Lab code stop<cr>", desc = " Stop code runner", mode = { "n", "v" } },
-    },
-  },
-
-  {
     "kawre/leetcode.nvim",
     build = ":TSUpdate html", -- if you have `nvim-treesitter` installed
     dependencies = {
@@ -671,18 +650,6 @@ return {
         },
       })
     end,
-  },
-
-  {
-    "mbbill/undotree",
-    keys = {
-      {
-        "<leader>su",
-        "<cmd>UndotreeToggle<CR>",
-        desc = "Find undotree",
-        mode = "n",
-      },
-    },
   },
 
   {
