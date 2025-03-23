@@ -14,25 +14,30 @@ set("v", "p", "P", opts)
 set("n", "c", [["_c]], opts)
 set("v", "c", [["_c]], opts)
 
--- Jump up/down while keeping cursor centered
-set("n", "<C-d>", function()
-  vim.wo.scrolloff = 999
-  vim.defer_fn(function()
-    vim.wo.scrolloff = 8
-  end, 500)
-  return "<c-d>"
-end, { expr = true })
+-- Keep cursor centered
+set("n", "G", "Gzz", opts)
+set("n", "{", "{zz", opts)
+set("n", "}", "}zz", opts)
+set("n", "n", "nzzzv", opts)
+set("n", "N", "Nzzzv", opts)
 
-set("n", "<C-u>", function()
-  vim.wo.scrolloff = 999
-  vim.defer_fn(function()
-    vim.wo.scrolloff = 8
-  end, 500)
-  return "<c-u>"
-end, { expr = true })
+--- see: https://github.com/folke/snacks.nvim/discussions/1030#discussioncomment-12109404
+local function center_cursor(key)
+  return function()
+    vim.wo.scrolloff = 999
+    vim.defer_fn(function()
+      vim.wo.scrolloff = 8
+    end, 500)
+    return key
+  end
+end
+
+--- Jump up/down while keeping cursor centered
+set("n", "<C-d>", center_cursor("<C-d>"), { expr = true })
+set("n", "<C-u>", center_cursor("<C-u>"), { expr = true })
 
 -- Joins without cursor moving
-set("n", "J", "mzJ`z")
+set("n", "J", "mzJ`z", opts)
 
 set("i", "jk", "<Esc>", opts)
 
