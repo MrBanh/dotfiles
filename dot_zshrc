@@ -149,6 +149,7 @@ if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLIn
   alias open="gio open"
   alias vsconfig="cd /mnt/c/Users/tonyb/AppData/Roaming/Code/User"
   export PATH="/mnt/c/Program Files/Microsoft VS Code/bin:$PATH"
+  export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
   function zvm_vi_yank () {
 	  zvm_yank
