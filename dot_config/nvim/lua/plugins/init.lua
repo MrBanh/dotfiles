@@ -477,6 +477,13 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     opts = {
+      heading = {
+        icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+        position = "inline",
+        width = "block",
+        left_pad = 2,
+        right_pad = 2,
+      },
       html = {
         comment = {
           conceal = false,
