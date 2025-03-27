@@ -477,6 +477,13 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     opts = {
+      heading = {
+        icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+        position = "inline",
+        width = "block",
+        left_pad = 2,
+        right_pad = 2,
+      },
       html = {
         comment = {
           conceal = false,
@@ -561,7 +568,7 @@ return {
         },
       },
       scroll = {
-        enabled = true,
+        enabled = false,
       },
       terminal = {
         win = {
@@ -571,6 +578,24 @@ return {
         },
       },
     },
+  },
+
+  {
+    "arnamak/stay-centered.nvim",
+    config = function()
+      require("stay-centered").setup({
+        -- The filetype is determined by the vim filetype, not the file extension. In order to get the filetype, open a file and run the command:
+        -- :lua print(vim.bo.filetype)
+        skip_filetypes = {},
+        -- Set to false to disable by default
+        enabled = true,
+        -- allows scrolling to move the cursor without centering, default recommended
+        allow_scroll_move = false,
+        -- temporarily disables plugin on left-mouse down, allows natural mouse selection
+        -- try disabling if plugin causes lag, function uses vim.on_key
+        disable_on_mouse = true,
+      })
+    end,
   },
 
   {
@@ -731,5 +756,19 @@ return {
         { "<leader>y", group = "Yazi", icon = { icon = "󰇥 ", color = "yellow", cat = "extension" } },
       })
     end,
+  },
+
+  {
+    "LintaoAmons/scratch.nvim",
+    cmd = { "Scratch", "ScratchWithName", "ScratchOpen", "ScratchOpenFzf" },
+    keys = {
+      { "<leader>Sn", "<cmd>Scratch<cr>", desc = "new scratch" },
+      { "<leader>SN", "<cmd>ScratchWithName<cr>", desc = "new scratch (named)" },
+      { "<leader>So", "<cmd>ScratchOpen<cr>", desc = "open scratch" },
+      { "<leader>Sg", "<cmd>ScratchOpenFzf<cr>", desc = "open scratch (fzf)" },
+    },
+    opts = {
+      filetypes = { "lua", "js", "sh", "ts" },
+    },
   },
 }

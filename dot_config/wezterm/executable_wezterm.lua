@@ -43,6 +43,7 @@ config.font = wezterm.font_with_fallback({
 	"JetBrains Mono",
 	"DengXian",
 })
+config.font_size = 14
 
 -- https://wezfurlong.org/wezterm/colorschemes/index.html
 config.color_scheme = "Ayu Mirage"
@@ -51,8 +52,19 @@ config.color_scheme = "Ayu Mirage"
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
 
-config.macos_window_background_blur = 10
-config.window_background_opacity = 0.75
+-- Transparency
+local opacity = 0.8
+wezterm.on("window-focus-changed", function(window, pane)
+	local overrides = window:get_config_overrides() or {}
+	if window:is_focused() then
+		overrides.window_background_opacity = 1
+	else
+		overrides.window_background_opacity = opacity
+	end
+	window:set_config_overrides(overrides)
+end)
+config.window_background_opacity = opacity
+config.macos_window_background_blur = 20
 config.win32_system_backdrop = "Acrylic"
 
 config.window_padding = {
