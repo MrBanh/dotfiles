@@ -7,9 +7,18 @@ local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm"
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
+config.font = wezterm.font_with_fallback({
+	"CodeNewRoman Nerd Font",
+	"JetBrains Mono",
+	"DengXian",
+})
+config.font_size = 14
+
 local is_windows = wezterm.target_triple:find("windows") ~= nil
 
 if is_windows then
+	config.font_size = 12
+
 	-- To get this to work:
 	-- 1. Configure on wsl:
 	--    * `/etc/ssh/sshd_config` to accept PORT 22, ListenAddress 127.0.0.1
@@ -37,13 +46,6 @@ if is_windows then
 		},
 	}
 end
-
-config.font = wezterm.font_with_fallback({
-	"CodeNewRoman Nerd Font",
-	"JetBrains Mono",
-	"DengXian",
-})
-config.font_size = 12
 
 -- https://wezfurlong.org/wezterm/colorschemes/index.html
 config.color_scheme = "Ayu Mirage"
