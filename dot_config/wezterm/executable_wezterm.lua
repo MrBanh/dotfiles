@@ -8,6 +8,7 @@ local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm"
 local config = wezterm.config_builder()
 
 config.font = wezterm.font_with_fallback({
+	"Maple Mono NF",
 	"CodeNewRoman Nerd Font",
 	"JetBrains Mono",
 	"DengXian",
