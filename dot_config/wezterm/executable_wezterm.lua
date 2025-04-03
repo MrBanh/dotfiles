@@ -61,7 +61,7 @@ local opacity = 0.8
 wezterm.on("window-focus-changed", function(window, pane)
 	local overrides = window:get_config_overrides() or {}
 	if window:is_focused() then
-		overrides.window_background_opacity = 1
+		overrides.window_background_opacity = 0.9
 	else
 		overrides.window_background_opacity = opacity
 	end
