@@ -8,12 +8,11 @@ local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm"
 local config = wezterm.config_builder()
 
 config.font = wezterm.font_with_fallback({
-	"Maple Mono NF",
 	"CodeNewRoman Nerd Font",
 	"JetBrains Mono",
 	"DengXian",
 })
-config.font_size = 14
+config.font_size = 16
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" } -- disable ligatures
 
 local is_windows = wezterm.target_triple:find("windows") ~= nil
