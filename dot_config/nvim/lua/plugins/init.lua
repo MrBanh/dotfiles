@@ -340,22 +340,6 @@ return {
   },
 
   {
-    "anuvyklack/pretty-fold.nvim",
-    event = "BufReadPost",
-    opts = {
-      sections = {
-        left = {
-          "content",
-        },
-        right = {
-          "󰁂 ",
-          "number_of_folded_lines",
-        },
-      },
-    },
-  },
-
-  {
     "codethread/qmk.nvim",
     lazy = true,
     config = function()

@@ -1,3 +1,5 @@
 README.md
 .config/nvim/lazy-lock.json
+.config/nvim/.git
+.config/yazi/flavors
 

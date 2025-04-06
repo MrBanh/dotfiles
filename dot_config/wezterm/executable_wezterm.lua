@@ -12,7 +12,8 @@ config.font = wezterm.font_with_fallback({
 	"JetBrains Mono",
 	"DengXian",
 })
-config.font_size = 14
+config.font_size = 16
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" } -- disable ligatures
 
 local is_windows = wezterm.target_triple:find("windows") ~= nil
 
@@ -59,7 +60,7 @@ local opacity = 0.8
 wezterm.on("window-focus-changed", function(window, pane)
 	local overrides = window:get_config_overrides() or {}
 	if window:is_focused() then
-		overrides.window_background_opacity = 1
+		overrides.window_background_opacity = 0.9
 	else
 		overrides.window_background_opacity = opacity
 	end
