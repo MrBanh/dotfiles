@@ -1,6 +1,7 @@
 return {
   {
     "akinsho/bufferline.nvim",
+    enabled = false,
     keys = {
       { "<S-tab>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer", mode = "n" },
       { "<tab>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer", mode = "n" },
@@ -530,19 +531,42 @@ return {
             auto_close = true,
             layout = { preset = "default", preview = true },
             win = {
+              input = {
+                keys = {
+                  ["<c-\\>"] = "tcd",
+                  ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+                  ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
+                  ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+                  ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+                },
+              },
               list = {
                 keys = {
                   ["<c-/>"] = "terminal",
                   ["<c-\\>"] = "tcd",
+                  ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+                  ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
+                  ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+                  ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
                 },
               },
             },
           },
         },
         win = {
+          -- when focus is on input box above list
           input = {
             keys = {
               ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
+              ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+              ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
+              ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+              ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+            },
+          },
+          -- when focus in on list
+          list = {
+            keys = {
               ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
               ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
               ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
