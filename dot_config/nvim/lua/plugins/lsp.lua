@@ -1,11 +1,11 @@
 return {
   {
     "mfussenegger/nvim-lint",
-    event = "LazyFile",
+    optional = true,
     opts = {
       linters = {
-        markdownlint = {
-          args = { "--disable", "MD013", "--" },
+        ["markdownlint-cli2"] = {
+          args = { "--config", os.getenv("HOME") .. "/.config/nvim/rules/linters/markdownlint-cli2.yaml", "--" },
         },
       },
     },
