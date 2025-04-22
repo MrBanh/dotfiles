@@ -216,15 +216,48 @@ return {
   },
 
   {
-    "epwalsh/obsidian.nvim",
+    "obsidian-nvim/obsidian.nvim",
+    version = "*", -- recommended, use latest release instead of latest commit
     lazy = false,
-    -- https://github.com/epwalsh/obsidian.nvim?tab=readme-ov-file#configuration-options
+    ft = "markdown",
+    dependencies = {
+      -- required
+      "nvim-lua/plenary.nvim",
+
+      -- optional
+      "saghen/blink.cmp",
+      "folke/snacks.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      {
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = {
+          heading = {
+            icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+            position = "inline",
+            width = "block",
+            left_pad = 2,
+            right_pad = 2,
+          },
+          html = {
+            comment = {
+              conceal = false,
+            },
+          },
+          checkbox = {
+            enabled = true,
+            custom = {
+              todo = { raw = "[~]", rendered = " ", highlight = "RenderMarkdownTodo", scope_highlight = nil },
+            },
+          },
+        },
+      },
+    },
     opts = {
       dir = vim.env.HOME .. "/obsidian-vault", -- specify the vault location. no need to call 'vim.fn.expand' here
       use_advanced_uri = true,
       picker = {
-        -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', or 'mini.pick'.
-        name = "fzf-lua",
+        -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', 'mini.pick' or 'snacks.pick'.
+        name = "snacks.pick",
       },
 
       templates = {
@@ -239,6 +272,16 @@ return {
         date_format = "%Y-%m-%d (%a)",
         -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
         template = "daily-template.md",
+      },
+
+      -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
+      completion = {
+        -- Enables completion using nvim_cmp
+        nvim_cmp = false,
+        -- Enables completion using blink.cmp
+        blink = true,
+        -- Trigger completion at 2 chars.
+        min_chars = 2,
       },
 
       -- Optional, by default when you use `:ObsidianFollowLink` on a link to an external
@@ -264,7 +307,6 @@ return {
       ---@return table
       note_frontmatter_func = function(note)
         local out = { id = note.id, aliases = note.aliases, tags = note.tags }
-
         -- `note.metadata` contains any manually added fields in the frontmatter.
         -- So here we just make sure those fields are kept in the frontmatter.
         if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
@@ -272,7 +314,6 @@ return {
             out[k] = v
           end
         end
-
         return out
       end,
 
@@ -290,8 +331,7 @@ return {
           end,
           opts = { noremap = false, expr = true, buffer = true },
         },
-
-        -- Smart action depending on context, either follow link or toggle checkbox.
+        -- Smart action depending on context: follow link, show notes with tag, or toggle checkbox.
         ["<cr>"] = {
           action = function()
             return require("obsidian").util.smart_action()
@@ -309,6 +349,7 @@ return {
         },
       },
     },
+
     config = function(_, opts)
       require("obsidian").setup(opts)
 
@@ -320,14 +361,16 @@ return {
       del("n", "<Leader>n")
 
       local set = vim.keymap.set
-      set({ "n", "v" }, "<leader>nw", "<Cmd>ObsidianSearch<CR>", { desc = "Obsidian search" })
-      set({ "n", "v" }, "<leader>nl", "<Cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian list" })
-      set({ "n", "v" }, "<leader>np", "<Cmd>ObsidianPasteImg<CR>", { desc = "Obsidian paste IMG" })
       set({ "n", "v" }, "<leader>nd", "<Cmd>ObsidianDailies -7 7<CR>", { desc = "Obsidian daily" })
+      set({ "n", "v" }, "<leader>ng", "<Cmd>ObsidianSearch<CR>", { desc = "Obsidian search" })
+      set({ "n", "v" }, "<leader>nl", "<Cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian list" })
       set({ "n", "v" }, "<leader>nn", function()
         local input = vim.fn.input("File name: ")
         vim.cmd("ObsidianNewFromTemplate " .. input .. ".md")
       end, { desc = "Obsidian template" })
+      set({ "n", "v" }, "<leader>no", "<cmd>ObsidianOpen<CR>", { desc = "Open current note in Obsidian app" })
+      set({ "n", "v" }, "<leader>np", "<Cmd>ObsidianPasteImg<CR>", { desc = "Obsidian paste IMG" })
+      set({ "n", "v" }, "<leader>nR", "<Cmd>ObsidianRename<CR>", { desc = "Obsidian rename file" })
       set({ "n", "v" }, "<leader>nt", "<Cmd>ObsidianToday<CR>", { desc = "Obsidian today" })
       set(
         { "n", "v" },
@@ -335,8 +378,6 @@ return {
         "<Cmd>ObsidianBacklinks<CR>",
         { desc = "Obsidian find references to current buffer" }
       )
-      set({ "n", "v" }, "<leader>nR", "<Cmd>ObsidianRename<CR>", { desc = "Obsidian rename file" })
-      set({ "n", "v" }, "<leader>no", "<cmd>ObsidianOpen<CR>", { desc = "Open current note in Obsidian app" })
     end,
   },
 
@@ -457,30 +498,6 @@ return {
         end,
       })
     end,
-  },
-
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    opts = {
-      heading = {
-        icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
-        position = "inline",
-        width = "block",
-        left_pad = 2,
-        right_pad = 2,
-      },
-      html = {
-        comment = {
-          conceal = false,
-        },
-      },
-      checkbox = {
-        enabled = true,
-        custom = {
-          todo = { raw = "[~]", rendered = " ", highlight = "RenderMarkdownTodo", scope_highlight = nil },
-        },
-      },
-    },
   },
 
   {
