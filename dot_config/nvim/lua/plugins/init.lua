@@ -148,7 +148,7 @@ return {
     config = function()
       require("neo-img").setup({
         auto_open = false, -- Automatically open images when buffer is loaded
-        oil_preview = true, -- changes oil preview of images too
+        oil_preview = false, -- changes oil preview of images too
       })
     end,
   },
@@ -391,73 +391,6 @@ return {
         "<Cmd>ObsidianBacklinks<CR>",
         { desc = "Obsidian find references to current buffer" }
       )
-    end,
-  },
-
-  {
-    "stevearc/oil.nvim",
-    ---@module 'oil'
-    ---@type oil.SetupOpts
-    -- Optional dependencies
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
-    -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
-    lazy = false,
-    keys = {
-      { "<leader>fm", "<cmd>Oil --float<cr>", desc = "Oil" },
-    },
-    config = function()
-      -- Declare a global function to retrieve the current directory
-      function _G.get_oil_winbar()
-        local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
-        local dir = require("oil").get_current_dir(bufnr)
-        if dir then
-          return vim.fn.fnamemodify(dir, ":~")
-        else
-          -- If there is no current directory (e.g. over ssh), just show the buffer name
-          return vim.api.nvim_buf_get_name(0)
-        end
-      end
-
-      local detail = false
-
-      require("oil").setup({
-        keymaps = {
-          ["gd"] = {
-            desc = "Toggle file detail view",
-            callback = function()
-              detail = not detail
-              if detail then
-                require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
-              else
-                require("oil").set_columns({ "icon" })
-              end
-            end,
-          },
-          ["q"] = {
-            desc = "Close oil",
-            callback = function()
-              local oil = require("oil")
-              oil.close()
-            end,
-          },
-          ["<leader>p"] = {
-            desc = "Paste image",
-            callback = function()
-              local oil = require("oil")
-              local filename = oil.get_cursor_entry().name
-              local dir = oil.get_current_dir()
-              oil.close()
-
-              local img_clip = require("img-clip")
-              img_clip.paste_image({}, dir .. filename)
-            end,
-          },
-        },
-        win_options = {
-          winbar = "%!v:lua.get_oil_winbar()",
-        },
-      })
     end,
   },
 
@@ -812,6 +745,55 @@ return {
     opts = {
       preset = "classic",
     },
+  },
+
+  {
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>yf",
+        "<cmd>Yazi<cr>",
+        desc = "Open yazi at the current file",
+      },
+      {
+        -- Open in the current working directory
+        "<leader>yF",
+        "<cmd>Yazi cwd<cr>",
+        desc = "Open the file manager in nvim's working directory",
+      },
+      {
+        -- NOTE: this requires a version of yazi that includes
+        -- https://github.com/sxyazi/yazi/pull/1305 from 2024-07-18
+        "<leader>ys",
+        "<cmd>Yazi toggle<cr>",
+        desc = "Resume the last yazi session",
+      },
+    },
+    ---@type YaziConfig
+    opts = {
+      -- if you want to open yazi instead of netrw, see below for more info
+      open_for_directories = true,
+      keymaps = {
+        show_help = "g?",
+        open_file_in_horizontal_split = "<c-s>",
+        open_file_in_vertical_split = "<c-v>",
+        open_file_in_tab = "<c-t>",
+        grep_in_directory = nil,
+        replace_in_directory = "<c-g>",
+        cycle_open_buffers = "<tab>",
+        copy_relative_path_to_selected_files = "<c-y>",
+        send_to_quickfix_list = "<c-q>",
+        change_working_directory = "`",
+      },
+    },
+    config = function(_, opts)
+      require("yazi").setup(opts)
+      local wk = require("which-key")
+      wk.add({
+        { "<leader>y", group = "Yazi", icon = { icon = "󰇥 ", color = "yellow", cat = "extension" } },
+      })
+    end,
   },
 
   {
