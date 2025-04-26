@@ -97,6 +97,11 @@ return {
   },
 
   {
+    "HakonHarnes/img-clip.nvim",
+    event = "VeryLazy",
+  },
+
+  {
     "kawre/leetcode.nvim",
     build = ":TSUpdate html", -- if you have `nvim-treesitter` installed
     dependencies = {
