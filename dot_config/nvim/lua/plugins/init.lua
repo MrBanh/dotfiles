@@ -563,7 +563,7 @@ return {
             win = {
               input = {
                 keys = {
-                  ["<c-\\>"] = "tcd",
+                  ["`"] = "tcd",
                   ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
                   ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                   ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
@@ -573,7 +573,7 @@ return {
               list = {
                 keys = {
                   ["<c-/>"] = "terminal",
-                  ["<c-\\>"] = "tcd",
+                  ["`"] = "tcd",
                   ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
                   ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                   ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
