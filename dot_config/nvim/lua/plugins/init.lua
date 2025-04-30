@@ -782,7 +782,7 @@ return {
         open_file_in_tab = "<c-t>",
         grep_in_directory = nil,
         replace_in_directory = "<c-g>",
-        cycle_open_buffers = "<tab>",
+        cycle_open_buffers = "]b",
         copy_relative_path_to_selected_files = "<c-y>",
         send_to_quickfix_list = "<c-q>",
         change_working_directory = "`",
