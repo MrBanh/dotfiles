@@ -145,6 +145,7 @@ alias zshconfig="$EDITOR ~/.zshrc"
 alias cm='chezmoi'
 alias lg="lazygit"
 alias dev="cd $HOME/src"
+alias nc='NVIM_APPNAME="NvChad" nvim'
 
 # Detect if WSL
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
