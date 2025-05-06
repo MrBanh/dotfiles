@@ -9,10 +9,12 @@ return {
       },
     },
     image = {
-      enabled = true,
+      enabled = false,
       doc = {
         float = true,
+        inline = true,
       },
+      cache = nil,
     },
     notifier = {
       top_down = false,
