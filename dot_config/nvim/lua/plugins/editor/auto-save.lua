@@ -1,0 +1,38 @@
+return {
+  "okuuva/auto-save.nvim",
+  version = "*",
+  cmd = "ASToggle", -- optional for lazy loading on command
+  event = { "InsertLeave", "TextChanged" }, -- optional for lazy loading on trigger events
+  opts = {
+    condition = function(buf)
+      -- don't activate when in harpoon
+      if vim.bo[buf].filetype == "harpoon" then
+        return false
+      end
+    end,
+
+    callbacks = {
+      before_saving = function()
+        -- save global autoformat status
+        vim.g.OLD_AUTOFORMAT = vim.g.autoformat_enabled
+        vim.g.autoformat_enabled = false
+        vim.g.OLD_AUTOFORMAT_BUFFERS = {}
+        -- disable all manually enabled buffers
+        for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+          if vim.b[bufnr].autoformat_enabled then
+            table.insert(vim.g.OLD_BUFFER_AUTOFORMATS, bufnr)
+            vim.b[bufnr].autoformat_enabled = false
+          end
+        end
+      end,
+      after_saving = function()
+        -- restore global autoformat status
+        vim.g.autoformat_enabled = vim.g.OLD_AUTOFORMAT
+        -- reenable all manually enabled buffers
+        for _, bufnr in ipairs(vim.g.OLD_AUTOFORMAT_BUFFERS or {}) do
+          vim.b[bufnr].autoformat_enabled = true
+        end
+      end,
+    },
+  },
+}
