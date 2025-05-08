@@ -5,10 +5,13 @@ return {
   event = { "InsertLeave", "TextChanged" }, -- optional for lazy loading on trigger events
   opts = {
     condition = function(buf)
-      -- don't activate when in harpoon
-      if vim.bo[buf].filetype == "harpoon" then
+      local filetype = vim.fn.getbufvar(buf, "&filetype")
+      -- don't save for 'harpoon'
+      if vim.list_contains({ "harpoon" }, filetype) then
         return false
       end
+
+      return true
     end,
 
     callbacks = {
