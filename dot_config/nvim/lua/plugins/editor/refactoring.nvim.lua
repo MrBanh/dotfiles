@@ -1,5 +1,5 @@
 local js_ts_print_var_statements = {
-  'console.log("[LOGS] %s → %%s", %s);',
+  'console.log("[LOGS] %s → ", %s);',
 }
 
 return {
