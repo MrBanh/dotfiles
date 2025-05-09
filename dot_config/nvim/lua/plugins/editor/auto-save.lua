@@ -7,7 +7,26 @@ return {
     condition = function(buf)
       local filetype = vim.fn.getbufvar(buf, "&filetype")
       -- don't save for 'harpoon'
-      if vim.list_contains({ "harpoon" }, filetype) then
+      if
+        vim.list_contains({
+          -- from plugins
+          "OverseerForm",
+          "Trouble",
+          "grug-far",
+          "harpoon",
+          "lazy",
+          "lspinfo",
+          "mason",
+          "octo",
+          "trouble",
+
+          -- file types
+          "sql",
+
+          -- specific files
+          "wezterm.lua",
+        }, filetype)
+      then
         return false
       end
 
