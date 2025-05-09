@@ -84,8 +84,9 @@ return {
           StatusLineNC = { bg = "None" },
           WinBar = { bg = "None" },
           WinBarNC = { bg = "None" },
-          LineNr = { fg = "#6C7A8B" },
+          LineNr = { fg = C.comment },
           Pmenu = { bg = "None" },
+          NonText = { fg = C.comment },
 
           -- blink: https://cmp.saghen.dev/configuration/appearance.html#highlight-groups
           BlinkCmpDoc = { link = "Pmenu" },
