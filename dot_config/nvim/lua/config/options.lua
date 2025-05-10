@@ -36,7 +36,7 @@ vim.g.clipboard = {
   },
 }
 
--- don't show ai in completion, show as virtual text
+-- use ai suggestion in cmp, false shows inline suggestion
 vim.g.ai_cmp = false
 
 -- Fixes: Snacks picker not opening files with <CR> in insert mode with bullets.vim

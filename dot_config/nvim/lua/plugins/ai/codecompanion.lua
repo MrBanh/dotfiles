@@ -4,20 +4,25 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
     "ravitemer/mcphub.nvim",
+    "ravitemer/codecompanion-history.nvim",
+    "Davidyz/VectorCode",
+  },
+  cmd = {
+    "CodeCompanion",
+    "CodeCompanionActions",
+    "CodeCompanionChat",
+    "CodeCompanionCmd",
+    "CodeCompanionHistory",
   },
   opts = {
+
     adapters = {
-      openrouter_deepseek = function()
-        return require("codecompanion.adapters").extend("openai_compatible", {
-          name = "openrouter",
-          env = {
-            url = "https://openrouter.ai/api",
-            api_key = "OPENROUTER_API_KEY",
-            chat_url = "/v1/chat/completions",
-          },
+      -- copilot
+      copilot = function()
+        return require("codecompanion.adapters").extend("copilot", {
           schema = {
             model = {
-              default = "deepseek/deepseek-r1:free",
+              default = "gemini-2.5-pro",
             },
           },
         })
@@ -58,28 +63,89 @@ return {
           },
         })
       end,
+      -- OpenRouter
+      openrouter_deepseek = function()
+        return require("codecompanion.adapters").extend("openai_compatible", {
+          name = "openrouter",
+          env = {
+            url = "https://openrouter.ai/api",
+            api_key = "OPENROUTER_API_KEY",
+            chat_url = "/v1/chat/completions",
+          },
+          schema = {
+            model = {
+              default = "deepseek/deepseek-r1:free",
+            },
+          },
+        })
+      end,
     },
+
     strategies = {
       chat = {
-        tools = {
-          ["mcp"] = {
-            -- calling it in a function would prevent mcphub from being loaded before it's needed
-            callback = function()
-              return require("mcphub.extensions.codecompanion")
+        adapter = "copilot",
+        keymaps = {
+          send = {
+            callback = function(chat)
+              vim.cmd("stopinsert")
+              chat:add_buf_message({ role = "llm", content = "" })
+              chat:submit()
             end,
-            description = "Call tools and resources from the MCP Servers",
-            opts = {
-              requires_approval = true,
-            },
+            index = 1,
+            description = "Send",
           },
         },
       },
-      -- inline = { adapter = "openrouter" },
-      -- agent = { adapter = "openrouter" },
+      inline = {
+        adapter = "copilot",
+      },
+      cmd = {
+        adapter = "copilot",
+      },
     },
+
     opts = {
       -- Set debug logging
       log_level = "DEBUG",
+    },
+
+    extensions = {
+      history = {
+        enabled = true,
+        opts = {
+          -- Keymap to open history from chat buffer (default: gh)
+          keymap = "gh",
+          -- Automatically generate titles for new chats
+          auto_generate_title = true,
+          ---On exiting and entering neovim, loads the last chat on opening chat
+          continue_last_chat = false,
+          ---When chat is cleared with `gx` delete the chat from history
+          delete_on_clearing_chat = false,
+          -- Picker interface ("telescope" or "snacks" or "default")
+          picker = "default",
+          ---Enable detailed logging for history extension
+          enable_logging = false,
+          ---Directory path to save the chats
+          dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
+          -- Save all chats by default
+          auto_save = true,
+          -- Keymap to save the current chat manually
+          save_chat_keymap = "sc",
+        },
+      },
+      mcphub = {
+        callback = "mcphub.extensions.codecompanion",
+        opts = {
+          show_result_in_chat = true, -- Show mcp tool results in chat
+          make_vars = true, -- Convert resources to #variables
+          make_slash_commands = true, -- Add prompts as /slash commands
+        },
+      },
+      vectorcode = {
+        opts = {
+          add_tool = true,
+        },
+      },
     },
   },
 
@@ -138,9 +204,19 @@ return {
   },
 
   config = function(_, opts)
+    local spinner = require("plugins.ai.utils.spinner")
+    spinner:init()
+
     require("codecompanion").setup(opts)
+    require("plugins.ai.utils.extmarks").setup()
+
     require("which-key").add({
       { "<leader>a", group = "ai", icon = { icon = "󰚩 ", color = "green", cat = "extension" } },
     })
+    if LazyVim.has("VectorCode") then
+      require("which-key").add({
+        { "<leader>av", group = "VectorCode" },
+      })
+    end
   end,
 }

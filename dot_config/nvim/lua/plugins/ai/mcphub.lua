@@ -5,6 +5,14 @@ return {
   },
   -- cmd = "MCPHub", -- lazily start the hub when `MCPHub` is called
   build = "npm install -g mcp-hub@latest", -- Installs required mcp-hub npm module
+  keys = {
+    {
+      mode = "n",
+      "<leader>am",
+      ":MCPHub<CR>",
+      desc = "MCP Servers",
+    },
+  },
   config = function()
     require("mcphub").setup({
       -- Required options
