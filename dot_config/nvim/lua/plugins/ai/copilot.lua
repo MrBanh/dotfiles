@@ -3,6 +3,7 @@ return {
   opts = {
     suggestion = {
       keymap = {
+        accept = "<Tab>",
         dismiss = "<C-e>",
       },
     },
