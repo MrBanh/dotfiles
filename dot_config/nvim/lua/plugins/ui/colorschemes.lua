@@ -29,6 +29,8 @@ return {
       C.generate(true)
 
       --[[
+        https://github.com/Shatur/neovim-ayu/blob/master/lua/ayu/colors.lua
+
         accent = '#FFCC66'
         bg = '#1F2430'
         fg = '#CCCAC2'
@@ -70,7 +72,7 @@ return {
         mirage = true, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
         terminal = true, -- Set to `false` to let terminal manage its own colors.
         overrides = {
-          -- https://github.com/Shatur/neovim-ayu/blob/master/lua/ayu/colors.lua
+          -- https://github.com/Shatur/neovim-ayu/blob/master/lua/ayu/init.lua
           Normal = { bg = "None" },
           NormalFloat = { bg = "none" },
           ColorColumn = { bg = "None" },
@@ -90,7 +92,9 @@ return {
 
           -- blink: https://cmp.saghen.dev/configuration/appearance.html#highlight-groups
           BlinkCmpDoc = { link = "Pmenu" },
-          BlinkCmpDocBorder = { link = "Pmenu" },
+          BlinkCmpDocBorder = { link = "TelescopePromptBorder" },
+          BlinkCmpMenuBorder = { link = "TelescopePromptBorder" },
+          BlinkCmpSignatureHelpBorder = { link = "TelescopePromptBorder" },
 
           -- Snacks
           SnacksPickerDir = {
