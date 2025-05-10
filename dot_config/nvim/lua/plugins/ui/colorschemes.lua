@@ -89,6 +89,7 @@ return {
           LineNr = { fg = C.comment },
           Pmenu = { bg = "None" },
           NonText = { fg = C.comment },
+          FloatBorder = { link = "TelescopePromptBorder" },
 
           -- blink: https://cmp.saghen.dev/configuration/appearance.html#highlight-groups
           BlinkCmpDoc = { link = "Pmenu" },
