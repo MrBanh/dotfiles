@@ -7,6 +7,9 @@ keybinding:
     moveUpCommit: "K" # move commit up one
 
 os:
-  editPreset: 'nvim'
+  editPreset: "nvim"
+
+git:
+  overrideGpg: true
 
 promptToReturnFromSubprocess: false
