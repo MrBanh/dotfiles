@@ -2,6 +2,17 @@ return {
   "saghen/blink.cmp",
   opts = {
     completion = {
+      trigger = {
+        show_in_snippet = false,
+      },
+      accept = {
+        auto_brackets = {
+          kind_resolution = {
+            enabled = true,
+            blocked_filetypes = { "typescriptreact", "javascriptreact", "astro" },
+          },
+        },
+      },
       menu = {
         draw = {
           components = {
@@ -25,6 +36,20 @@ return {
             },
           },
         },
+      },
+    },
+
+    keymap = {
+      preset = "super-tab",
+    },
+
+    fuzzy = {
+      implementation = "prefer_rust_with_warning",
+      use_frecency = true,
+      sorts = {
+        "exact",
+        "score",
+        "sort_text",
       },
     },
   },
