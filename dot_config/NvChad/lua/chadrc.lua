@@ -14,7 +14,7 @@ local options = {
       ["@comment"] = { italic = true },
     },
     hl_add = {},
-    -- integrations = {},
+    integrations = { 'navic' },
     -- changed_themes = {},
     -- theme_toggle = { "onedark", "one_light" },
   },

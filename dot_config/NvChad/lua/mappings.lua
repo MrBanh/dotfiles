@@ -41,7 +41,7 @@ end, { desc = "NvChad Themes" })
 
 -- terminal
 map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
-map({ "n", "t" }, "<C-/>", function()
+map({ "n", "t" }, "<C-//>", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "Toggle terminal" })
 

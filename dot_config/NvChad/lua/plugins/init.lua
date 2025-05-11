@@ -19,4 +19,7 @@ return {
   {
     import = "plugins.misc",
   },
+  {
+    import = "plugins.ui",
+  },
 }
