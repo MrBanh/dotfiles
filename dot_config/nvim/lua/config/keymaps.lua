@@ -41,3 +41,8 @@ set({ "n", "v" }, "<leader>P", [["+p]], vim.tbl_extend("force", opts, { desc = "
 
 -- source lua file
 set("n", "<C-w>%", "<Cmd>source %<CR>")
+
+-- Browser search bar (see autocmds.lua)
+vim.keymap.set("n", "<leader>sO", ":SearchInBrowser<CR>", {
+  desc = "Search in browser",
+})
