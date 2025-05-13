@@ -5,7 +5,6 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "ravitemer/mcphub.nvim",
     "ravitemer/codecompanion-history.nvim",
-    "Davidyz/VectorCode",
   },
   cmd = {
     "CodeCompanion",
@@ -141,11 +140,6 @@ return {
           make_slash_commands = true, -- Add prompts as /slash commands
         },
       },
-      vectorcode = {
-        opts = {
-          add_tool = true,
-        },
-      },
     },
   },
 
@@ -213,10 +207,5 @@ return {
     require("which-key").add({
       { "<leader>a", group = "ai", icon = { icon = "󰚩 ", color = "green", cat = "extension" } },
     })
-    if LazyVim.has("VectorCode") then
-      require("which-key").add({
-        { "<leader>av", group = "VectorCode" },
-      })
-    end
   end,
 }
