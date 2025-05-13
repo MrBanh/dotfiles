@@ -163,14 +163,14 @@ return {
     {
       mode = { "n" },
       "<leader>ab",
-      "<CMD>CodeCompanionChat claude<CR>@editor #buffer<CR>",
+      "<CMD>CodeCompanionChat @editor #buffer<CR>",
       silent = true,
       desc = "CodeCompanion add buffer to chat",
     },
     {
       mode = { "v" },
       "<leader>ab",
-      "<CMD>CodeCompanionChat claude<CR><CR>@editor #buffer<CR>",
+      "<CMD>CodeCompanionChat<CR><CR>@editor #buffer<CR>",
       silent = true,
       desc = "CodeCompanion add buffer to chat",
     },
