@@ -46,6 +46,7 @@ return {
             input = {
               keys = {
                 ["`"] = "tcd",
+                ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
                 ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
@@ -56,6 +57,7 @@ return {
               keys = {
                 ["<c-/>"] = "terminal",
                 ["`"] = "tcd",
+                ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
                 ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
@@ -69,6 +71,7 @@ return {
         -- when focus is on input box above list
         input = {
           keys = {
+            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
             ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
             ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
@@ -79,6 +82,7 @@ return {
         -- when focus in on list
         list = {
           keys = {
+            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
             ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
             ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
