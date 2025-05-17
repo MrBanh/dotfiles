@@ -98,6 +98,11 @@ return {
       win = {
         style = {
           border = "rounded",
+          -- position = "float",
+          -- backdrop = 60,
+          -- height = 0.9,
+          -- width = 0.9,
+          -- zindex = 50,
         },
       },
     },
