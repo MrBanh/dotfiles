@@ -2,6 +2,12 @@ if not vim.g.vscode then
   return {}
 end
 
+-- Options
+
+vim.cmd("au BufEnter * au! BufModifiedSet")
+
+-- Plugins
+
 local enabled = {
   "LazyVim",
   "dial.nvim",
@@ -55,14 +61,6 @@ vim.api.nvim_create_autocmd("User", {
     end, opts)
     set({ "n" }, "gy", function()
       vscode.action("editor.action.goToTypeDefinition")
-    end, opts)
-
-    -- undo / redo
-    set({ "n" }, "u", function()
-      vscode.call("undo")
-    end, opts)
-    set({ "n" }, "<C-r>", function()
-      vscode.call("redo")
     end, opts)
 
     -- diagnostics

@@ -2,4 +2,5 @@ README.md
 .config/nvim/lazy-lock.json
 .config/nvim/.git
 .config/yazi/flavors
-
+.config/nvim/lua/overseer/template/hubspot
+.config/nvim/lua/plugins/hubspot.init.lua

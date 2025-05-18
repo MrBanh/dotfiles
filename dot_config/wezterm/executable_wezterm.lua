@@ -84,6 +84,7 @@ config.initial_cols = 120
 -- Miscellaneous settings
 config.max_fps = 120
 config.prefer_egl = true
+config.enable_kitty_keyboard = true
 
 bar.apply_to_config(config)
 

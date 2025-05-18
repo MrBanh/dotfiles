@@ -145,6 +145,8 @@ alias zshconfig="$EDITOR ~/.zshrc"
 alias cm='chezmoi'
 alias lg="lazygit"
 alias dev="cd $HOME/src"
+alias nv='nvim'
+alias chad='NVIM_APPNAME="NvChad" nvim'
 
 # Detect if WSL
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
@@ -157,6 +159,12 @@ if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLIn
 	  zvm_yank
 	  echo "$CUTBUFFER" | clip.exe
 	  zvm_exit_visual_mode
+  }
+elif [[ $(uname) == "Darwin" ]]; then
+  function zvm_vi_yank() {
+    zvm_yank
+    echo ${CUTBUFFER} | pbcopy
+    zvm_exit_visual_mode
   }
 fi
 
