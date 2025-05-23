@@ -14,7 +14,8 @@ local options = {
       ["@comment"] = { italic = true },
     },
     hl_add = {},
-    integrations = { 'navic' },
+    -- https://github.com/NvChad/base46/tree/v3.0/lua/base46/integrations
+    integrations = { "navic", "render-markdown" },
     -- changed_themes = {},
     -- theme_toggle = { "onedark", "one_light" },
   },
