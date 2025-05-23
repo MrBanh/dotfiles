@@ -23,7 +23,7 @@ return {
       },
     },
     presets = {
-      bottom_search = true,
+      bottom_search = false,
       command_palette = true,
       long_message_to_split = true,
       lsp_doc_border = true, -- add a border to hover docs and signature help
@@ -46,7 +46,7 @@ return {
     -- but this is not ideal when Lazy is installing plugins,
     -- so clear the messages in this case.
     if vim.o.filetype == "lazy" then
-      vim.cmd([[messages clear]])
+      vim.cmd [[messages clear]]
     end
     require("noice").setup(opts)
   end,
