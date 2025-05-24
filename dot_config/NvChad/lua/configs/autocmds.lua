@@ -1,4 +1,3 @@
-
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 --
@@ -13,7 +12,7 @@
 --- Automatically opens the link in the default browser.
 ---@command ]]
 vim.api.nvim_create_user_command("OpenSourcegraphLink", function(args)
-  print("requesting link...")
+  print "requesting link..."
 
   local callback = function(err, link)
     if err or not link then
@@ -22,11 +21,11 @@ vim.api.nvim_create_user_command("OpenSourcegraphLink", function(args)
     end
 
     local cmd
-    if vim.fn.has("macunix") then
+    if vim.fn.has "macunix" then
       cmd = "open"
-    elseif vim.fn.has("unix") then -- Linux and other Unix-like
+    elseif vim.fn.has "unix" then -- Linux and other Unix-like
       cmd = "xdg-open"
-    elseif vim.fn.has("win32") then
+    elseif vim.fn.has "win32" then
       cmd = "start"
     else
       vim.notify("Unsupported OS for opening URL automatically.", vim.log.levels.ERROR)
