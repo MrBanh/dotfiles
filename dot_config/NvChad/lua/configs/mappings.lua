@@ -6,9 +6,6 @@ map("n", "<leader>u?", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" }
 -- global lsp mappings
 map("n", "<leader>xl", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
--- nvimtree
-map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle explorer" })
-
 -- picker
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
 map(
@@ -93,4 +90,3 @@ set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 vim.keymap.set("n", "<leader>sO", ":SearchInBrowser<CR>", {
   desc = "Search in browser",
 })
-
