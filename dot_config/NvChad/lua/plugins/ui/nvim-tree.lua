@@ -138,7 +138,7 @@ return {
 
         vim.keymap.set("n", "<c-f>", treeutils.launch_find_files, opts "Launch Find Files")
         vim.keymap.set("n", "<c-g>", treeutils.launch_live_grep, opts "Launch Live Grep")
-        vim.keymap.set("n", "ga", treeutils.git_add, opts "Git Add")
+        vim.keymap.set("n", "gs", treeutils.git_add, opts "Git Add")
         vim.keymap.set("n", "<C-c>", treeutils.change_root_to_global_cwd, opts "Change Root To Global CWD")
       end,
     },

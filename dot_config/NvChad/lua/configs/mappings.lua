@@ -26,7 +26,7 @@ map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Git Commits" 
 map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Git Status" })
 
 -- themes
-map("n", "<leader>uC", function()
+map("n", "<leader>ut", function()
   require("nvchad.themes").open()
 end, { desc = "NvChad Themes" })
 
