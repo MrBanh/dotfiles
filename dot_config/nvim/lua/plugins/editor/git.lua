@@ -4,6 +4,7 @@ return {
     "lewis6991/gitsigns.nvim",
     opts = {
       current_line_blame = true,
+      -- if I need to override keys: https://github.com/LazyVim/LazyVim/discussions/4790
     },
     config = function(_, opts)
       require("gitsigns").setup(opts)

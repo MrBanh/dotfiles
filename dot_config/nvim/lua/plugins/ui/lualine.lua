@@ -1,3 +1,17 @@
+local disabled_filetypes = {
+  "help",
+  "toggleterm",
+  "snacks_dashboard",
+  "checkhealth",
+  "Diffview*",
+  "netrw",
+  "noice",
+  "qf",
+  "undotree",
+  "Trouble",
+  "dap-repl",
+}
+
 return {
   "nvim-lualine/lualine.nvim",
   opts = function(_, opts)
@@ -13,11 +27,7 @@ return {
     end
     opts.options.theme = auto
 
-    opts.options.disabled_filetypes = {
-      "help",
-      "toggleterm",
-      "snacks_dashboard",
-    }
+    opts.options.disabled_filetypes.winbar = disabled_filetypes
 
     -- separators
     opts.options.component_separators = ""
