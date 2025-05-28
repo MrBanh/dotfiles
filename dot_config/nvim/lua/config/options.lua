@@ -54,3 +54,6 @@ local cache_dir = vim.fn.stdpath("data")
 local unique_id = vim.fn.fnamemodify(workspace_path, ":t") .. "_" .. vim.fn.sha256(workspace_path):sub(1, 8) ---@type string
 local shadafile = cache_dir .. "/myshada/" .. unique_id .. ".shada"
 vim.opt.shadafile = shadafile
+
+-- Snacks picker root detection: https://github.com/LazyVim/LazyVim/blob/25abbf546d564dc484cf903804661ba12de45507/NEWS.md?plain=1#L254
+vim.g.root_spec = { "cwd" }
