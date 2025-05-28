@@ -25,6 +25,17 @@ map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = 
 map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Git Commits" })
 map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Git Status" })
 
+map("n", "gd", function()
+  require("telescope.builtin").lsp_definitions { reuse_win = true }
+end, { desc = "Goto Definition" })
+map("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "References", nowait = true })
+map("n", "gI", function()
+  require("telescope.builtin").lsp_implementations { reuse_win = true }
+end, { desc = "Goto Implementation" })
+map("n", "gy", function()
+  require("telescope.builtin").lsp_type_definitions { reuse_win = true }
+end, { desc = "Goto T[y]pe Definition" })
+
 -- themes
 map("n", "<leader>ut", function()
   require("nvchad.themes").open()
