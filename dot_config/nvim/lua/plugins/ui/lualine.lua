@@ -17,15 +17,16 @@ return {
   opts = function(_, opts)
     local icons = LazyVim.config.icons
 
-    -- theme
-    local auto = require("lualine.themes.auto")
+    -- https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
+    local custom_theme = require("lualine.themes.ayu_mirage")
     local lualine_modes = { "normal", "inactive" }
     for _, field in ipairs(lualine_modes) do
-      if auto[field] and auto[field].c then
-        auto[field].c.bg = "NONE"
+      if custom_theme[field] and custom_theme[field].c then
+        custom_theme[field].c.bg = "NONE"
       end
     end
-    opts.options.theme = auto
+
+    opts.options.theme = custom_theme
 
     opts.options.disabled_filetypes.winbar = disabled_filetypes
 
@@ -33,13 +34,18 @@ return {
     opts.options.component_separators = ""
     opts.options.section_separators = { left = "", right = "" }
 
-    -- sections
+    -- sections: https://github.com/nvim-lualine/lualine.nvim?tab=readme-ov-file#available-components
     opts.sections.lualine_a = { { "mode", separator = { left = "", right = "" } } }
     opts.sections.lualine_c = {
       LazyVim.lualine.root_dir({
         ---@diagnostic disable-next-line: assign-type-mismatch
         cwd = true,
       }),
+      { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+      { LazyVim.lualine.pretty_path({
+        relative = "root",
+        length = 5,
+      }) },
       {
         "diagnostics",
         symbols = {
@@ -61,23 +67,32 @@ return {
 
     -- winbar
     opts.winbar = {
-      lualine_a = {},
-      lualine_b = {},
-      lualine_c = {
-        { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-        { LazyVim.lualine.pretty_path() },
+      lualine_a = {
+        {
+          function()
+            return " "
+          end,
+          color = { bg = "NONE", fg = Snacks.util.color("Special") },
+        },
       },
+      lualine_b = {},
+      lualine_c = {},
       lualine_x = {},
       lualine_y = {},
       lualine_z = {},
     }
+
     opts.inactive_winbar = {
-      lualine_a = {},
-      lualine_b = {},
-      lualine_c = {
-        { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-        { LazyVim.lualine.pretty_path() },
+      lualine_a = {
+        {
+          function()
+            return " "
+          end,
+          color = { bg = "NONE", fg = "lualine_a_inactive" },
+        },
       },
+      lualine_b = {},
+      lualine_c = {},
       lualine_x = {},
       lualine_y = {},
       lualine_z = {},
