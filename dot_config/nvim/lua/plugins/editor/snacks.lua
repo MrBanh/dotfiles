@@ -38,6 +38,31 @@ return {
         frecency = true, -- frecency bonus
         history_bonus = true, -- give more weight to chronological order
       },
+      win = {
+        -- when focus is on input box above list
+        input = {
+          keys = {
+            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
+            ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
+            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
+            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+            ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
+          },
+        },
+        -- when focus in on list
+        list = {
+          keys = {
+            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
+            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
+            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+            ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
+          },
+        },
+      },
       sources = {
         explorer = {
           auto_close = true,
@@ -51,6 +76,7 @@ return {
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
                 ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+                ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
               },
             },
             list = {
@@ -62,31 +88,9 @@ return {
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
                 ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+                ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
               },
             },
-          },
-        },
-      },
-      win = {
-        -- when focus is on input box above list
-        input = {
-          keys = {
-            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
-            ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
-            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-          },
-        },
-        -- when focus in on list
-        list = {
-          keys = {
-            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
-            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
           },
         },
       },
