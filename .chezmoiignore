@@ -2,6 +2,7 @@ README.md
 **/.DS_Store
 **/.git
 **/hubspot.init.lua
+**/hubspot
 .config/nvim/lazy-lock.json
 .config/nvim/lua/overseer/template/hubspot
 .config/yazi/flavors
