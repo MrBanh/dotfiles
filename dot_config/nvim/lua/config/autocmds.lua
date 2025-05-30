@@ -7,6 +7,8 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
+-- USER COMMANDS
+
 ---@command OpenSourcegraphLink [[
 --- Get a sourcegraph link to the current repo + file + line.
 --- Automatically opens the link in the default browser.
@@ -123,4 +125,20 @@ vim.api.nvim_create_user_command("SearchInBrowser", function(args)
   end)
 end, {
   desc = "Search in browser",
+})
+
+-- AUTO COMMANDS
+
+--- Organize imports on save for TypeScript files
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
+  callback = function()
+    vim.lsp.buf.code_action({
+      apply = true,
+      context = {
+        only = { "source.organizeImports" },
+        diagnostics = {},
+      },
+    })
+  end,
 })
