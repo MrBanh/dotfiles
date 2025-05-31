@@ -126,19 +126,3 @@ vim.api.nvim_create_user_command("SearchInBrowser", function(args)
 end, {
   desc = "Search in browser",
 })
-
--- AUTO COMMANDS
-
---- Organize imports on save for TypeScript files
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
-  callback = function()
-    vim.lsp.buf.code_action({
-      apply = true,
-      context = {
-        only = { "source.organizeImports" },
-        diagnostics = {},
-      },
-    })
-  end,
-})
