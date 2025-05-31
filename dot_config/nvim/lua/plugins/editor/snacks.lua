@@ -21,6 +21,14 @@ return {
     },
     -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#%EF%B8%8F-config
     picker = {
+      actions = {
+        -- Make file truncation consider window width.
+        -- <https://github.com/folke/snacks.nvim/issues/1217#issuecomment-2661465574>
+        calculate_file_truncate_width = function(self)
+          local width = self.list.win:size().width
+          self.opts.formatters.file.truncate = width - 6
+        end,
+      },
       layout = {
         preset = "ivy",
         cycle = false,
@@ -39,6 +47,14 @@ return {
         history_bonus = true, -- give more weight to chronological order
       },
       win = {
+        preview = {
+          on_buf = function(self)
+            self:execute("calculate_file_truncate_width")
+          end,
+          on_close = function(self)
+            self:execute("calculate_file_truncate_width")
+          end,
+        },
         -- when focus is on input box above list
         input = {
           keys = {
@@ -53,6 +69,9 @@ return {
         },
         -- when focus in on list
         list = {
+          on_buf = function(self)
+            self:execute("calculate_file_truncate_width")
+          end,
           keys = {
             ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
