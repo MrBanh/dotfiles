@@ -7,14 +7,23 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
--- USER COMMANDS
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.hl.on_yank()`
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.hl.on_yank()
+  end,
+})
 
 ---@command OpenSourcegraphLink [[
 --- Get a sourcegraph link to the current repo + file + line.
 --- Automatically opens the link in the default browser.
 ---@command ]]
 vim.api.nvim_create_user_command("OpenSourcegraphLink", function(args)
-  print("requesting link...")
+  print "requesting link..."
 
   local callback = function(err, link)
     if err or not link then
@@ -23,11 +32,11 @@ vim.api.nvim_create_user_command("OpenSourcegraphLink", function(args)
     end
 
     local cmd
-    if vim.fn.has("macunix") then
+    if vim.fn.has "macunix" then
       cmd = "open"
-    elseif vim.fn.has("unix") then -- Linux and other Unix-like
+    elseif vim.fn.has "unix" then -- Linux and other Unix-like
       cmd = "xdg-open"
-    elseif vim.fn.has("win32") then
+    elseif vim.fn.has "win32" then
       cmd = "start"
     else
       vim.notify("Unsupported OS for opening URL automatically.", vim.log.levels.ERROR)

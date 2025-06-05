@@ -1,19 +1,10 @@
 -- require "nvchad.mappings"
 local map = vim.keymap.set
 
-map("n", "<leader>ul", "<cmd>set nu!<CR>", { desc = "toggle line number" })
-map("n", "<leader>uL", "<cmd>set rnu!<CR>", { desc = "toggle relative number" })
 map("n", "<leader>u?", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" })
-
-map({ "n", "x" }, "<leader>cf", function()
-  require("conform").format { lsp_fallback = true }
-end, { desc = "Format file" })
 
 -- global lsp mappings
 map("n", "<leader>xl", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
-
--- nvimtree
-map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle explorer" })
 
 -- picker
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
@@ -34,13 +25,23 @@ map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = 
 map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Git Commits" })
 map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Git Status" })
 
+map("n", "gd", function()
+  require("telescope.builtin").lsp_definitions { reuse_win = true }
+end, { desc = "Goto Definition" })
+map("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "References", nowait = true })
+map("n", "gI", function()
+  require("telescope.builtin").lsp_implementations { reuse_win = true }
+end, { desc = "Goto Implementation" })
+map("n", "gy", function()
+  require("telescope.builtin").lsp_type_definitions { reuse_win = true }
+end, { desc = "Goto T[y]pe Definition" })
+
 -- themes
-map("n", "<leader>uC", function()
+map("n", "<leader>ut", function()
   require("nvchad.themes").open()
 end, { desc = "NvChad Themes" })
 
 -- terminal
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 map({ "n", "t" }, "<C-//>", function()
   require("nvchad.term").toggle { pos = "sp", id = "htoggleTerm" }
 end, { desc = "Toggle terminal" })
@@ -57,12 +58,9 @@ end, { desc = "whichkey query lookup" })
 local set = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-set("n", ";", ":", { desc = "CMD enter command mode" })
-set("i", "jk", "<ESC>")
-
 set({ "n", "v" }, "H", "^", opts)
 set({ "n", "v" }, "L", "$", opts)
-
+--
 -- Paste without overwriting
 set("v", "p", "P", opts)
 
@@ -70,9 +68,7 @@ set("v", "p", "P", opts)
 set("n", "c", [["_c]], opts)
 set("v", "c", [["_c]], opts)
 
--- Joins without cursor moving
-set("n", "J", "mzJ`z", opts)
-
+-- Better escape
 set("i", "jk", "<Esc>", opts)
 
 -- better indent handling
@@ -97,3 +93,11 @@ set({ "n", "v" }, "<leader>P", [["+p]], vim.tbl_extend("force", opts, { desc = "
 
 -- source lua file
 set("n", "<C-w>%", "<Cmd>source %<CR>")
+
+-- exit terminal mode while in terminal
+set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+
+-- Browser search bar (see autocmds.lua)
+vim.keymap.set("n", "<leader>sO", ":SearchInBrowser<CR>", {
+  desc = "Search in browser",
+})

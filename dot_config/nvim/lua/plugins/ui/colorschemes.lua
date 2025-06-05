@@ -113,15 +113,4 @@ return {
       })
     end,
   },
-  {
-    "AlexvZyl/nordic.nvim",
-    lazy = true,
-    priority = 1000,
-    opts = {
-      transparent = {
-        bg = true,
-        float = true,
-      },
-    },
-  },
 }

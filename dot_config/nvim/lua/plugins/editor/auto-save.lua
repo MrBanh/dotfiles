@@ -1,3 +1,26 @@
+-- I do not want to save when I'm in visual mode because I'm usually moving
+-- stuff from one place to another, or deleting it
+-- https://github.com/okuuva/auto-save.nvim/issues/67#issuecomment-2597631756
+local visual_event_group = vim.api.nvim_create_augroup("visual_event", { clear = true })
+
+vim.api.nvim_create_autocmd("ModeChanged", {
+  group = visual_event_group,
+  pattern = { "*:[vV\x16]*" },
+  callback = function()
+    vim.api.nvim_exec_autocmds("User", { pattern = "VisualEnter" })
+    -- print("VisualEnter")
+  end,
+})
+
+vim.api.nvim_create_autocmd("ModeChanged", {
+  group = visual_event_group,
+  pattern = { "[vV\x16]*:*" },
+  callback = function()
+    vim.api.nvim_exec_autocmds("User", { pattern = "VisualLeave" })
+    -- print("VisualLeave")
+  end,
+})
+
 return {
   "okuuva/auto-save.nvim",
   version = "*",
@@ -56,5 +79,8 @@ return {
         end
       end,
     },
+
+    -- delay after which a pending save is executed (default 1000)
+    debounce_delay = 2000,
   },
 }

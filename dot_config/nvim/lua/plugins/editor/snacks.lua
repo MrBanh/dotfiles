@@ -21,6 +21,14 @@ return {
     },
     -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#%EF%B8%8F-config
     picker = {
+      actions = {
+        -- Make file truncation consider window width.
+        -- <https://github.com/folke/snacks.nvim/issues/1217#issuecomment-2661465574>
+        calculate_file_truncate_width = function(self)
+          local width = self.list.win:size().width
+          self.opts.formatters.file.truncate = width - 6
+        end,
+      },
       layout = {
         preset = "ivy",
         cycle = false,
@@ -34,9 +42,45 @@ return {
         file_pos = true, -- support patterns like `file:line:col` and `file:line`
         -- the bonusses below, possibly require string concatenation and path normalization,
         -- so this can have a performance impact for large lists and increase memory usage
-        cwd_bonus = false, -- give bonus for matching files in the cwd
+        cwd_bonus = true, -- give bonus for matching files in the cwd
         frecency = true, -- frecency bonus
         history_bonus = true, -- give more weight to chronological order
+      },
+      win = {
+        preview = {
+          on_buf = function(self)
+            self:execute("calculate_file_truncate_width")
+          end,
+          on_close = function(self)
+            self:execute("calculate_file_truncate_width")
+          end,
+        },
+        -- when focus is on input box above list
+        input = {
+          keys = {
+            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
+            ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
+            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
+            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+            ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
+          },
+        },
+        -- when focus in on list
+        list = {
+          on_buf = function(self)
+            self:execute("calculate_file_truncate_width")
+          end,
+          keys = {
+            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
+            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
+            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+            ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
+          },
+        },
       },
       sources = {
         explorer = {
@@ -51,6 +95,7 @@ return {
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
                 ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+                ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
               },
             },
             list = {
@@ -62,31 +107,9 @@ return {
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
                 ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+                ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
               },
             },
-          },
-        },
-      },
-      win = {
-        -- when focus is on input box above list
-        input = {
-          keys = {
-            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
-            ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
-            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-          },
-        },
-        -- when focus in on list
-        list = {
-          keys = {
-            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
-            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
           },
         },
       },

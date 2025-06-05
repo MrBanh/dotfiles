@@ -14,7 +14,8 @@ local options = {
       ["@comment"] = { italic = true },
     },
     hl_add = {},
-    integrations = { 'navic' },
+    -- https://github.com/NvChad/base46/tree/v3.0/lua/base46/integrations
+    integrations = { "navic", "render-markdown", "flash", "git-conflict" },
     -- changed_themes = {},
     -- theme_toggle = { "onedark", "one_light" },
   },
@@ -74,7 +75,7 @@ local options = {
       { txt = "  Find File", keys = "ff", cmd = "Telescope find_files" },
       { txt = "  Recent Files", keys = "fo", cmd = "Telescope oldfiles" },
       { txt = "󰈭  Find Word", keys = "fw", cmd = "Telescope live_grep" },
-      { txt = "󱥚  Themes", keys = "th", cmd = ":lua require('nvchad.themes').open()" },
+      { txt = "󱥚  Themes", keys = "ut", cmd = ":lua require('nvchad.themes').open()" },
       { txt = "  Mappings", keys = "ch", cmd = "NvCheatsheet" },
 
       { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
