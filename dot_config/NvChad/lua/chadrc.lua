@@ -40,8 +40,16 @@ local options = {
       -- default/round/block/arrow separators work only for default statusline theme
       -- round and block will work for minimal theme only
       separator_style = "round",
-      order = nil,
-      modules = nil,
+      order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "recording", "diagnostics", "lsp", "cwd", "cursor" },
+      modules = {
+        recording = function()
+          if vim.fn.reg_recording() ~= "" then
+            return "Recording @" .. vim.fn.reg_recording()
+          else
+            return ""
+          end
+        end,
+      },
     },
 
     -- lazyload it when there are 1+ buffers
