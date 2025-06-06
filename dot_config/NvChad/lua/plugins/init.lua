@@ -1,3 +1,9 @@
+-- TODO:
+--- Fix term toggle
+--- nvim-dap
+--- git browse
+--- editors stuff
+--- vscode?
 return {
   { import = "plugins.ai" },
   { import = "plugins.editor" },
