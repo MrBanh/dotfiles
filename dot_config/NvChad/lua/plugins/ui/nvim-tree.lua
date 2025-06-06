@@ -8,7 +8,7 @@ local window_w = screen_w * WIDTH_RATIO
 local window_h = screen_h * HEIGHT_RATIO
 local window_w_int = math.floor(window_w)
 local window_h_int = math.floor(window_h)
-local center_x = screen_w -- (screen_w - window_w) / 2
+local center_x = 0 -- (screen_w - window_w) / 2
 local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
 
 return {
@@ -79,7 +79,7 @@ return {
       },
       view = {
         adaptive_size = true,
-        side = "right",
+        side = "left", -- for preview mostly; open_win_config controls where explorer is
         float = {
           enable = true,
           open_win_config = function()
