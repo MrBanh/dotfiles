@@ -146,6 +146,7 @@ alias cm='chezmoi'
 alias lg="lazygit"
 alias dev="cd $HOME/src"
 alias nv='nvim'
+alias vi='nvim'
 alias chad='NVIM_APPNAME="NvChad" nvim'
 
 # Detect if WSL
@@ -189,3 +190,5 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+# Added by nex: https://git.hubteam.com/HubSpot/nex
+. ~/.hubspot/shellrc
