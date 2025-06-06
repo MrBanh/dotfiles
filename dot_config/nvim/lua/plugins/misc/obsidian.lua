@@ -29,7 +29,6 @@ return {
     },
     opts = {
       dir = vim.env.HOME .. "/obsidian-vault", -- specify the vault location. no need to call 'vim.fn.expand' here
-      use_advanced_uri = true,
       picker = {
         -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', 'mini.pick' or 'snacks.pick'.
         name = "snacks.pick",
