@@ -46,6 +46,10 @@ return {
         desc = "Jump to start of suggestion edit or apply pending suggestion & jump to end of edit",
       })
 
+      require("which-key").add({
+        "<leader>as",
+        group = "Suggestions",
+      })
       vim.keymap.set("n", "<leader>asn", function()
         nes.request_nes("copilot_ls")
       end, { desc = "Request Next Edit Suggestion" })
@@ -60,14 +64,5 @@ return {
         end
       end, { desc = "Clear Copilot suggestion or fallback" })
     end,
-  },
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      spec = {
-        { "<leader>as", group = "Suggestions" },
-      },
-    },
   },
 }
