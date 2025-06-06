@@ -6,7 +6,7 @@ map("n", "<leader>u?", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" }
 -- global lsp mappings
 map("n", "<leader>xl", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
--- picker
+-- Find (project related)
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
 map(
   "n",
@@ -17,13 +17,15 @@ map(
 map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "live grep" })
 map("n", "<leader>/", "<cmd>Telescope live_grep<CR>", { desc = "live grep", remap = true })
 map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Find buffers" })
-map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Help  pages" })
-map("n", "<leader>fk", "<cmd>Telescope keymaps<CR>", { desc = "Find keymaps" })
 map("n", "<leader>fm", "<cmd>Telescope marks<CR>", { desc = "Find marks" })
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "Find old files" })
 map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "Find in current buffer" })
 map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Git Commits" })
 map("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Git Status" })
+
+-- Search (external)
+map("n", "<leader>sh", "<cmd>Telescope help_tags<CR>", { desc = "Help  pages" })
+map("n", "<leader>sk", "<cmd>Telescope keymaps<CR>", { desc = "Find keymaps" })
 
 map("n", "gd", function()
   require("telescope.builtin").lsp_definitions { reuse_win = true }
