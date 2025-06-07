@@ -1,7 +1,5 @@
 local map = vim.keymap.set
 
-map("n", "<leader>u?", "<cmd>NvCheatsheet<CR>", { desc = "toggle nvcheatsheet" })
-
 -- themes
 map("n", "<leader>ut", function()
   require("nvchad.themes").open()

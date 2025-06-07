@@ -75,18 +75,22 @@ local options = {
   nvdash = {
     load_on_startup = true,
     header = {
-      "                            ",
-      "     ▄▄         ▄ ▄▄▄▄▄▄▄   ",
-      "   ▄▀███▄     ▄██ █████▀    ",
-      "   ██▄▀███▄   ███           ",
-      "   ███  ▀███▄ ███           ",
-      "   ███    ▀██ ███           ",
-      "   ███      ▀ ███           ",
-      "   ▀██ █████▄▀█▀▄██████▄    ",
-      "     ▀ ▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀   ",
-      "                            ",
-      "     Powered By  eovim    ",
-      "                            ",
+      "        ████                      ████        ",
+      "      ██░░░░██                  ██░░░░██      ",
+      "      ██░░░░██                  ██░░░░██      ",
+      "    ██░░░░░░░░██████████████████░░░░░░░░██    ",
+      "    ██░░░░░░░░▓▓▓▓░░▓▓▓▓▓▓░░▓▓▓▓░░░░░░░░██    ",
+      "    ██░░░░░░░░▓▓▓▓░░▓▓▓▓▓▓░░▓▓▓▓░░░░░░░░██    ",
+      "  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██  ",
+      "  ██░░██░░░░████░░░░░░░░░░░░░░████░░░░██░░██  ",
+      "  ██░░░░██░░████░░░░░░██░░░░░░████░░██░░░░██  ",
+      "██░░░░██░░░░░░░░░░░░██████░░░░░░░░░░░░██░░░░██",
+      "██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██",
+      "██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██",
+      "██▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓██",
+      "██▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓██",
+      "██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██",
+      "",
     },
 
     buttons = {
@@ -94,10 +98,9 @@ local options = {
       { txt = "  Recent Files", keys = "fo", cmd = "Telescope oldfiles" },
       { txt = "󰈭  Find Word", keys = "fw", cmd = "Telescope live_grep" },
       { txt = "󱥚  Themes", keys = "ut", cmd = ":lua require('nvchad.themes').open()" },
-      { txt = "  Mappings", keys = "u?", cmd = "NvCheatsheet" },
       { txt = "󰑓  Restore Session", keys = "s", cmd = ":lua require('persistence').load()" },
-      { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
 
+      { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
       {
         txt = function()
           local stats = require("lazy").stats()
@@ -107,7 +110,6 @@ local options = {
         hl = "NvDashFooter",
         no_gap = true,
       },
-
       { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
     },
   },
@@ -129,6 +131,7 @@ local options = {
   lsp = { signature = true },
 
   cheatsheet = {
+    enabled = false,
     theme = "grid", -- simple/grid
     excluded_groups = { "terminal (t)", "autopairs", "Nvim", "Opens" }, -- can add group name or with mode
   },
