@@ -94,7 +94,7 @@ local options = {
       { txt = "  Recent Files", keys = "fo", cmd = "Telescope oldfiles" },
       { txt = "󰈭  Find Word", keys = "fw", cmd = "Telescope live_grep" },
       { txt = "󱥚  Themes", keys = "ut", cmd = ":lua require('nvchad.themes').open()" },
-      { txt = "  Mappings", keys = "ch", cmd = "NvCheatsheet" },
+      { txt = "  Mappings", keys = "u?", cmd = "NvCheatsheet" },
       { txt = "󰑓  Restore Session", keys = "s", cmd = ":lua require('persistence').load()" },
       { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
 

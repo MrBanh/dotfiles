@@ -28,7 +28,6 @@ return {
   },
   ft = { "markdown", "norg", "rmd", "org", "codecompanion" },
   config = function(_, opts)
-    dofile(vim.g.base46_cache .. "render-markdown")
     require("render-markdown").setup(opts)
   end,
 }

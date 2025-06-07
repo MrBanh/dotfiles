@@ -1,3 +1,9 @@
+require("which-key").add {
+  "<leader>S",
+  group = "Scratch",
+  icon = { icon = "󱞁 " },
+}
+
 return {
   "LintaoAmons/scratch.nvim",
   cmd = { "Scratch", "ScratchWithName", "ScratchOpen", "ScratchOpenFzf" },

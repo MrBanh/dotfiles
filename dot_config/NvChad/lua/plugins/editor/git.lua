@@ -1,9 +1,14 @@
+require("which-key").add {
+  "<leader>g",
+  group = "Git",
+  icon = { icon = " " },
+}
+
 return {
   {
     "akinsho/git-conflict.nvim",
     version = "*",
     config = function(_, opts)
-      dofile(vim.g.base46_cache .. "git-conflict")
       require("git-conflict").setup(opts)
     end,
   },

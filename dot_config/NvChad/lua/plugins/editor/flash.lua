@@ -2,9 +2,7 @@ return {
   "folke/flash.nvim",
   event = "VeryLazy",
   vscode = true,
-  opts = function()
-    dofile(vim.g.base46_cache .. "flash")
-  end,
+  opts = {},
   keys = {
     {
       "s",
