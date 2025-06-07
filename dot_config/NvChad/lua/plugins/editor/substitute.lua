@@ -1,9 +1,10 @@
 return {
   "gbprod/substitute.nvim",
+  event = "VeryLazy",
   config = function()
-    require("substitute").setup({
+    require("substitute").setup {
       on_substitute = require("yanky.integration").substitute(),
-    })
+    }
 
     vim.keymap.set("n", "r", require("substitute").operator, { noremap = true, desc = "Substitute" })
     vim.keymap.set("x", "r", require("substitute").visual, { noremap = true, desc = "Substitute" })
