@@ -14,15 +14,12 @@ local builtin = require "telescope.builtin"
 
 return {
   {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    build = (build_cmd ~= "cmake") and "make"
-      or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-  },
-  {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzf-native.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
+      "gbprod/yanky.nvim",
     },
     opts = {
       -- https://github.com/nvim-telescope/telescope.nvim/blob/b4da76be54691e854d3e0e02c36b0245f945c2c7/lua/telescope/mappings.lua#L133
@@ -42,6 +39,7 @@ return {
           },
         },
       },
+      -- https://github.com/nvim-telescope/telescope.nvim/wiki/Extensions
       extensions = {
         fzf = {
           fuzzy = true, -- false will only do exact matching
@@ -53,7 +51,11 @@ return {
     },
     config = function(_, opts)
       require("telescope").setup(opts)
+
+      -- extensions
       require("telescope").load_extension "fzf"
+      require("telescope").load_extension "ui-select"
+      require("telescope").load_extension "yank_history"
 
       local set = vim.keymap.set
 
@@ -122,5 +124,14 @@ return {
         builtin.lsp_type_definitions { reuse_win = true }
       end, { desc = "Goto T[y]pe Definition" })
     end,
+  },
+
+  {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = (build_cmd ~= "cmake") and "make"
+      or "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+  },
+  {
+    "nvim-telescope/telescope-ui-select.nvim",
   },
 }
