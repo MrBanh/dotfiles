@@ -2,6 +2,12 @@
 --- https://github.com/magnusriga/markdown-tools.nvim
 --- + https://github.com/artempyanykh/marksman
 
+require("which-key").add({
+  "<leader>n",
+  group = "Notes/New...",
+  icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
+})
+
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
@@ -15,33 +21,10 @@ return {
     "saghen/blink.cmp",
     "folke/snacks.nvim",
     "nvim-treesitter/nvim-treesitter",
-    {
-      "MeanderingProgrammer/render-markdown.nvim",
-      opts = {
-        heading = {
-          icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
-          position = "inline",
-          width = "block",
-          left_pad = 2,
-          right_pad = 2,
-        },
-        html = {
-          comment = {
-            conceal = false,
-          },
-        },
-        checkbox = {
-          enabled = true,
-          custom = {
-            todo = { raw = "[~]", rendered = " ", highlight = "RenderMarkdownTodo", scope_highlight = nil },
-          },
-        },
-      },
-    },
+    "MeanderingProgrammer/render-markdown.nvim",
   },
   opts = {
     dir = vim.env.HOME .. "/obsidian-vault", -- specify the vault location. no need to call 'vim.fn.expand' here
-    use_advanced_uri = true,
     picker = {
       -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', 'mini.pick' or 'snacks.pick'.
       name = "snacks.pick",
@@ -139,10 +122,6 @@ return {
 
   config = function(_, opts)
     require("obsidian").setup(opts)
-
-    require("which-key").add({
-      { "<leader>n", group = "Notes/New...", icon = "󰎝 " },
-    })
 
     local del = vim.keymap.del
     del("n", "<Leader>n")

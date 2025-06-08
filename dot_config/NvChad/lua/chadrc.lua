@@ -14,7 +14,18 @@ local options = {
       ["@comment"] = { italic = true },
     },
     hl_add = {},
-    integrations = { 'navic' },
+    -- https://github.com/NvChad/base46/tree/v3.0/lua/base46/integrations
+    integrations = {
+      "navic",
+      "render-markdown",
+      "flash",
+      "git-conflict",
+      "dap",
+      "diffview",
+      "grug_far",
+      "tiny-inline-diagnostic",
+      "trouble",
+    },
     -- changed_themes = {},
     -- theme_toggle = { "onedark", "one_light" },
   },
@@ -39,8 +50,16 @@ local options = {
       -- default/round/block/arrow separators work only for default statusline theme
       -- round and block will work for minimal theme only
       separator_style = "round",
-      order = nil,
-      modules = nil,
+      order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "recording", "diagnostics", "lsp", "cwd", "cursor" },
+      modules = {
+        recording = function()
+          if vim.fn.reg_recording() ~= "" then
+            return "Recording @" .. vim.fn.reg_recording()
+          else
+            return ""
+          end
+        end,
+      },
     },
 
     -- lazyload it when there are 1+ buffers
@@ -56,29 +75,32 @@ local options = {
   nvdash = {
     load_on_startup = true,
     header = {
-      "                            ",
-      "     ▄▄         ▄ ▄▄▄▄▄▄▄   ",
-      "   ▄▀███▄     ▄██ █████▀    ",
-      "   ██▄▀███▄   ███           ",
-      "   ███  ▀███▄ ███           ",
-      "   ███    ▀██ ███           ",
-      "   ███      ▀ ███           ",
-      "   ▀██ █████▄▀█▀▄██████▄    ",
-      "     ▀ ▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀   ",
-      "                            ",
-      "     Powered By  eovim    ",
-      "                            ",
+      "        ████                      ████        ",
+      "      ██░░░░██                  ██░░░░██      ",
+      "      ██░░░░██                  ██░░░░██      ",
+      "    ██░░░░░░░░██████████████████░░░░░░░░██    ",
+      "    ██░░░░░░░░▓▓▓▓░░▓▓▓▓▓▓░░▓▓▓▓░░░░░░░░██    ",
+      "    ██░░░░░░░░▓▓▓▓░░▓▓▓▓▓▓░░▓▓▓▓░░░░░░░░██    ",
+      "  ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██  ",
+      "  ██░░██░░░░████░░░░░░░░░░░░░░████░░░░██░░██  ",
+      "  ██░░░░██░░████░░░░░░██░░░░░░████░░██░░░░██  ",
+      "██░░░░██░░░░░░░░░░░░██████░░░░░░░░░░░░██░░░░██",
+      "██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██",
+      "██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██",
+      "██▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓██",
+      "██▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▓▓▓▓██",
+      "██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██",
+      "",
     },
 
     buttons = {
       { txt = "  Find File", keys = "ff", cmd = "Telescope find_files" },
       { txt = "  Recent Files", keys = "fo", cmd = "Telescope oldfiles" },
       { txt = "󰈭  Find Word", keys = "fw", cmd = "Telescope live_grep" },
-      { txt = "󱥚  Themes", keys = "th", cmd = ":lua require('nvchad.themes').open()" },
-      { txt = "  Mappings", keys = "ch", cmd = "NvCheatsheet" },
+      { txt = "󱥚  Themes", keys = "ut", cmd = ":lua require('nvchad.themes').open()" },
+      { txt = "󰑓  Restore Session", keys = "s", cmd = ":lua require('persistence').load()" },
 
       { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
-
       {
         txt = function()
           local stats = require("lazy").stats()
@@ -88,7 +110,6 @@ local options = {
         hl = "NvDashFooter",
         no_gap = true,
       },
-
       { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
     },
   },
@@ -110,6 +131,7 @@ local options = {
   lsp = { signature = true },
 
   cheatsheet = {
+    enabled = false,
     theme = "grid", -- simple/grid
     excluded_groups = { "terminal (t)", "autopairs", "Nvim", "Opens" }, -- can add group name or with mode
   },

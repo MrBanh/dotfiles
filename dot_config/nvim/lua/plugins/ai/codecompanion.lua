@@ -1,3 +1,5 @@
+require("which-key").add({ "<leader>a", group = "ai", icon = { icon = "󰚩 ", color = "green", cat = "extension" } })
+
 return {
   "olimorris/codecompanion.nvim",
   dependencies = {
@@ -5,6 +7,18 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "ravitemer/mcphub.nvim",
     "ravitemer/codecompanion-history.nvim",
+    {
+      "HakonHarnes/img-clip.nvim",
+      opts = {
+        filetypes = {
+          codecompanion = {
+            prompt_for_file_name = false,
+            template = "[Image]($FILE_PATH)",
+            use_absolute_path = true,
+          },
+        },
+      },
+    },
   },
   cmd = {
     "CodeCompanion",
@@ -17,7 +31,7 @@ return {
 
     adapters = {
       -- copilot
-      copilot = function()
+      gemini = function()
         return require("codecompanion.adapters").extend("copilot", {
           schema = {
             model = {
@@ -30,7 +44,7 @@ return {
         return require("codecompanion.adapters").extend("copilot", {
           schema = {
             model = {
-              default = "claude-3.7-sonnet",
+              default = "claude-sonnet-4",
             },
             max_tokens = {
               default = 65536,
@@ -38,23 +52,11 @@ return {
           },
         })
       end,
-      o3 = function()
+      o1 = function()
         return require("codecompanion.adapters").extend("copilot", {
           schema = {
             model = {
-              default = "o3-mini-2025-01-31",
-            },
-            max_tokens = {
-              default = 65536,
-            },
-          },
-        })
-      end,
-      ["4o"] = function()
-        return require("codecompanion.adapters").extend("copilot", {
-          schema = {
-            model = {
-              default = "gpt-4o",
+              default = "o1",
             },
             max_tokens = {
               default = 65536,
@@ -82,7 +84,7 @@ return {
 
     strategies = {
       chat = {
-        adapter = "copilot",
+        adapter = "claude",
         keymaps = {
           send = {
             callback = function(chat)
@@ -96,10 +98,10 @@ return {
         },
       },
       inline = {
-        adapter = "copilot",
+        adapter = "claude",
       },
       cmd = {
-        adapter = "copilot",
+        adapter = "claude",
       },
     },
 
@@ -203,9 +205,5 @@ return {
 
     require("codecompanion").setup(opts)
     require("plugins.ai.utils.extmarks").setup()
-
-    require("which-key").add({
-      { "<leader>a", group = "ai", icon = { icon = "󰚩 ", color = "green", cat = "extension" } },
-    })
   end,
 }

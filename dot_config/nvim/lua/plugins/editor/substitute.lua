@@ -12,6 +12,5 @@ return {
     vim.keymap.set("n", "rx", require("substitute.exchange").operator, { noremap = true, desc = "Exchange" })
     vim.keymap.set("x", "rx", require("substitute.exchange").visual, { noremap = true, desc = "Exchange" })
     vim.keymap.set("n", "rxx", require("substitute.exchange").line, { noremap = true, desc = "Exchange line" })
-    vim.keymap.set("n", "rxc", require("substitute.exchange").cancel, { noremap = true, desc = "Cancel exchange" })
   end,
 }

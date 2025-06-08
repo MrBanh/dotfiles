@@ -2,6 +2,12 @@
 --- https://github.com/magnusriga/markdown-tools.nvim
 --- + https://github.com/artempyanykh/marksman
 
+require("which-key").add {
+  "<leader>n",
+  group = "Notes/New...",
+  icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
+}
+
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
@@ -12,36 +18,13 @@ return {
     "nvim-lua/plenary.nvim",
 
     -- optional
-    "nvim-telescope/telescope.nvim",
     "hrsh7th/nvim-cmp",
+    "nvim-telescope/telescope.nvim",
     "nvim-treesitter/nvim-treesitter",
-    {
-      "MeanderingProgrammer/render-markdown.nvim",
-      opts = {
-        heading = {
-          icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
-          position = "inline",
-          width = "block",
-          left_pad = 2,
-          right_pad = 2,
-        },
-        html = {
-          comment = {
-            conceal = false,
-          },
-        },
-        checkbox = {
-          enabled = true,
-          custom = {
-            todo = { raw = "[~]", rendered = " ", highlight = "RenderMarkdownTodo", scope_highlight = nil },
-          },
-        },
-      },
-    },
+    "MeanderingProgrammer/render-markdown.nvim",
   },
   opts = {
     dir = vim.env.HOME .. "/obsidian-vault", -- specify the vault location. no need to call 'vim.fn.expand' here
-    use_advanced_uri = true,
     picker = {
       -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', 'mini.pick' or 'snacks.pick'.
       name = "telescope.nvim",
@@ -76,7 +59,7 @@ return {
     ---@param url string
     follow_url_func = function(url)
       -- Open the URL in the default web browser.
-      vim.fn.jobstart({ "open", url }) -- Mac OS
+      vim.fn.jobstart { "open", url } -- Mac OS
       -- vim.fn.jobstart({"xdg-open", url})  -- linux
       -- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
       -- vim.ui.open(url) -- need Neovim 0.10.0+
@@ -140,16 +123,12 @@ return {
   config = function(_, opts)
     require("obsidian").setup(opts)
 
-    require("which-key").add({
-      { "<leader>n", group = "Notes/New...", icon = "󰎝 " },
-    })
-
     local set = vim.keymap.set
     set({ "n", "v" }, "<leader>nd", "<Cmd>ObsidianDailies -7 7<CR>", { desc = "Obsidian daily" })
     set({ "n", "v" }, "<leader>ng", "<Cmd>ObsidianSearch<CR>", { desc = "Obsidian search" })
     set({ "n", "v" }, "<leader>nl", "<Cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian list" })
     set({ "n", "v" }, "<leader>nn", function()
-      local input = vim.fn.input("File name: ")
+      local input = vim.fn.input "File name: "
       vim.cmd("ObsidianNewFromTemplate " .. input .. ".md")
     end, { desc = "Obsidian template" })
     set({ "n", "v" }, "<leader>no", "<cmd>ObsidianOpen<CR>", { desc = "Open current note in Obsidian app" })

@@ -1,6 +1,8 @@
+local SymbolKind = vim.lsp.protocol.SymbolKind
+
 return {
   "Wansmer/symbol-usage.nvim",
-  event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
+  event = "LspAttach", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
   config = function()
     local function h(name)
       return vim.api.nvim_get_hl(0, { name = name })
@@ -16,8 +18,8 @@ return {
     local function text_format(symbol)
       local res = {}
 
-      local round_start = { "", "SymbolUsageRounding" }
-      local round_end = { "", "SymbolUsageRounding" }
+      -- local round_start = { "", "SymbolUsageRounding" }
+      -- local round_end = { "", "SymbolUsageRounding" }
 
       -- Indicator that shows if there are any other symbols in the same line
       local stacked_functions_content = symbol.stacked_count > 0 and ("+%s"):format(symbol.stacked_count) or ""

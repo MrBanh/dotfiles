@@ -6,7 +6,7 @@ local opts = { noremap = true, silent = true }
 
 set({ "n", "v" }, "H", "^", opts)
 set({ "n", "v" }, "L", "$", opts)
-
+--
 -- Paste without overwriting
 set("v", "p", "P", opts)
 
@@ -14,9 +14,7 @@ set("v", "p", "P", opts)
 set("n", "c", [["_c]], opts)
 set("v", "c", [["_c]], opts)
 
--- Joins without cursor moving
-set("n", "J", "mzJ`z", opts)
-
+-- Better escape
 set("i", "jk", "<Esc>", opts)
 
 -- better indent handling

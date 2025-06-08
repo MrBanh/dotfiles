@@ -1,3 +1,5 @@
+require("which-key").add { "<leader>y", group = "Yazi", icon = { icon = "󰇥 ", color = "yellow", cat = "extension" } }
+
 return {
   "mikavilpas/yazi.nvim",
   event = "VeryLazy",
@@ -38,11 +40,4 @@ return {
       change_working_directory = "`",
     },
   },
-  config = function(_, opts)
-    require("yazi").setup(opts)
-    local wk = require("which-key")
-    wk.add({
-      { "<leader>y", group = "Yazi", icon = { icon = "󰇥 ", color = "yellow", cat = "extension" } },
-    })
-  end,
 }

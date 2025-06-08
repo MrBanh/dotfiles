@@ -140,18 +140,19 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias nvconfig='cd ~/.config/nvim && nvim .'
-alias zshconfig="$EDITOR ~/.zshrc"
+alias nvconf='cd ~/.config/nvim && nvim .'
+alias zshconf="$EDITOR ~/.zshrc"
 alias cm='chezmoi'
 alias lg="lazygit"
 alias dev="cd $HOME/src"
 alias nv='nvim'
+alias vi='nvim'
 alias chad='NVIM_APPNAME="NvChad" nvim'
 
 # Detect if WSL
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
   alias open="gio open"
-  alias vsconfig="cd /mnt/c/Users/tonyb/AppData/Roaming/Code/User"
+  alias vsconf="cd /mnt/c/Users/tonyb/AppData/Roaming/Code/User"
   export PATH="/mnt/c/Program Files/Microsoft VS Code/bin:$PATH"
   export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
@@ -189,3 +190,5 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+# Added by nex: https://git.hubteam.com/HubSpot/nex
+. ~/.hubspot/shellrc
