@@ -7,11 +7,23 @@
 
 local options = {
   base46 = {
-    theme = 'kanagawa',
+    theme = 'everforest',
     transparency = true,
     hl_override = {
       Comment = { italic = true },
       ['@comment'] = { italic = true },
+      St_file_sep = { bg = 'none' },
+      St_NormalModeSep = { bg = 'none' },
+      St_VisualModeSep = { bg = 'none' },
+      St_InsertModeSep = { bg = 'none' },
+      St_TerminalModeSep = { bg = 'none' },
+      St_NTerminalModeSep = { bg = 'none' },
+      St_ReplaceModeSep = { bg = 'none' },
+      St_ConfirmModeSep = { bg = 'none' },
+      St_CommandModeSep = { bg = 'none' },
+      St_SelectModeSep = { bg = 'none' },
+      St_Pos_sep = { bg = 'none' },
+      St_cwd_sep = { bg = 'none' },
     },
     hl_add = {},
     -- https://github.com/NvChad/base46/tree/v3.0/lua/base46/integrations
@@ -27,7 +39,7 @@ local options = {
       'notify',
       'render-markdown',
       'semantic_tokens',
-      'tiny-inline-diagnostic',
+      -- 'tiny-inline-diagnostic',
       'todo',
       'trouble',
       'whichkey',

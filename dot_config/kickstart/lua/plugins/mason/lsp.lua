@@ -113,6 +113,7 @@ return {
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
+        virtrual_text = false, -- see diagnostics.lua
         -- virtual_text = {
         --   source = 'if_many',
         --   spacing = 2,

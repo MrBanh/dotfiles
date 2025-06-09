@@ -120,6 +120,7 @@ return {
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = 'Neovim config' })
       set('n', '<leader>sr', '<cmd>Telescope registers<CR>', { desc = 'Registers' })
+      set('n', '<leader>st', '<cmd>Telescope themes<CR>', { desc = 'Themes' })
 
       -- LSP
       set('n', 'gd', function()
