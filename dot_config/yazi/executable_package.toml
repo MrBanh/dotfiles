@@ -42,3 +42,13 @@ hash = "c40e434318a8ceffd01842f8dfb2390e"
 use = "PinThePenguine/sunset"
 rev = "181acd4"
 hash = "cc4c39af7098f02c42fec223fc1fc967"
+
+[[flavor.deps]]
+use = "Chromium-3-Oxide/everforest-medium"
+rev = "3d5f847"
+hash = "9b4190e2447f2c843fee23ea5f068f6"
+
+[[flavor.deps]]
+use = "marcosvnmelo/kanagawa-dragon"
+rev = "4905527"
+hash = "5fd7aa0bf4e7d9753ad8a4660a6eb94f"
