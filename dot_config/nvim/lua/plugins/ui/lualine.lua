@@ -19,7 +19,7 @@ return {
 
     -- https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
     -- local custom_theme = require("lualine.themes.ayu_mirage")
-    local custom_theme = require("lualine.themes.kanagawa-paper-ink")
+    local custom_theme = require("lualine.themes.auto")
     local lualine_modes = { "normal", "inactive" }
     for _, field in ipairs(lualine_modes) do
       if custom_theme[field] and custom_theme[field].c then
@@ -71,7 +71,7 @@ return {
       lualine_a = {
         {
           function()
-            return " "
+            return " "
           end,
           color = { bg = "NONE", fg = Snacks.util.color("Special") },
         },
@@ -87,7 +87,7 @@ return {
       lualine_a = {
         {
           function()
-            return " "
+            return " "
           end,
           color = { bg = "NONE", fg = "lualine_a_inactive" },
         },
