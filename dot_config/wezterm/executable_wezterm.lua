@@ -4,6 +4,8 @@ local wezterm = require("wezterm")
 -- https://github.com/adriankarlen/bar.wezterm
 local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
 
+local theme = require("theme_switcher")
+
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
@@ -49,7 +51,8 @@ if is_windows then
 end
 
 -- https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = "Ayu Mirage"
+config.color_scheme_dirs = { "~/.config/wezterm/colors" }
+config.color_scheme = theme or "Ayu Mirage"
 
 -- https://wezfurlong.org/wezterm/config/lua/config/window_decorations.html
 config.window_decorations = "RESIZE"
