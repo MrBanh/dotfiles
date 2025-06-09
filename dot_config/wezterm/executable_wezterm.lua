@@ -4,8 +4,6 @@ local wezterm = require("wezterm")
 -- https://github.com/adriankarlen/bar.wezterm
 local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
 
-local theme = require("theme_switcher")
-
 -- This will hold the configuration.
 local config = wezterm.config_builder()
 
@@ -51,19 +49,18 @@ if is_windows then
 end
 
 -- https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme_dirs = { "~/.config/wezterm/colors" }
-config.color_scheme = theme or "Ayu Mirage"
+config.color_scheme = "Kanagawa (Gogh)"
 
 -- https://wezfurlong.org/wezterm/config/lua/config/window_decorations.html
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
 
 -- Transparency
-local opacity = 0.8
+local opacity = 0.85
 wezterm.on("window-focus-changed", function(window, pane)
 	local overrides = window:get_config_overrides() or {}
 	if window:is_focused() then
-		overrides.window_background_opacity = 0.9
+		overrides.window_background_opacity = 0.95
 	else
 		overrides.window_background_opacity = opacity
 	end
