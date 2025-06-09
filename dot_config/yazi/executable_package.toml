@@ -13,6 +13,16 @@ use = "dedukun/bookmarks"
 rev = "fbb7c00"
 hash = "1d231a808d3344546380df33daf43e91"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:vcs-files"
+rev = "63f9650"
+hash = "70898957e9e4c1ca291ff26e8fdc434"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "63f9650"
+hash = "bf6f074cd41ee33c3360341d168f9733"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"
 rev = "1a419b2"
