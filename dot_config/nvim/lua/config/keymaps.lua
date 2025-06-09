@@ -44,6 +44,9 @@ set("n", "<C-w>%", "<Cmd>source %<CR>")
 set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
 -- Browser search bar (see autocmds.lua)
-vim.keymap.set("n", "<leader>sO", ":SearchInBrowser<CR>", {
+set("n", "<leader>so", ":SearchInBrowser<CR>", {
   desc = "Search in browser",
 })
+
+set("n", "<leader>cw", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
+set("n", "<leader>cW", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
