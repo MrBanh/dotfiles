@@ -1,15 +1,23 @@
--- debug.lua
---
--- Shows how to use the DAP plugin to debug your code.
---
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
+---@param config {type?:string, args?:string[]|fun():string[]?}
+local function get_args(config)
+  local args = type(config.args) == 'function' and (config.args() or {}) or config.args or {} --[[@as string[] | string ]]
+  local args_str = type(args) == 'table' and table.concat(args, ' ') or args --[[@as string]]
+
+  config = vim.deepcopy(config)
+  ---@cast args string[]
+  config.args = function()
+    local new_args = vim.fn.expand(vim.fn.input('Run with args: ', args_str)) --[[@as string]]
+    if config.type and config.type == 'java' then
+      ---@diagnostic disable-next-line: return-type-mismatch
+      return new_args
+    end
+    return require('dap.utils').splitstr(new_args)
+  end
+  return config
+end
 
 return {
-  -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
-  -- NOTE: And you can specify dependencies as well
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
@@ -25,48 +33,131 @@ return {
     'leoluz/nvim-dap-go',
   },
   keys = {
-    -- Basic debugging keymaps, feel free to change to your liking!
     {
-      '<F5>',
+      '<leader>da',
       function()
-        require('dap').continue()
+        require('dap').continue { before = get_args }
       end,
-      desc = 'Debug: Start/Continue',
+      desc = 'Run with Args',
+    },
+    {
+      '<leader>db',
+      function()
+        require('dap').toggle_breakpoint()
+      end,
+      desc = 'Toggle Breakpoint',
+    },
+    {
+      '<leader>dB',
+      function()
+        require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+      end,
+      desc = 'Set Breakpoint',
+    },
+    {
+      '<leader>dc',
+      function()
+        require('dap').run_to_cursor()
+      end,
+      desc = 'Run to Cursor',
+    },
+    {
+      '<leader>dl',
+      function()
+        require('dap').run_last()
+      end,
+      desc = 'Run Last',
+    },
+    {
+      '<leader>dp',
+      function()
+        require('dap').pause()
+      end,
+      desc = 'Pause',
+    },
+    {
+      '<leader>dr',
+      function()
+        require('dap').repl.toggle()
+      end,
+      desc = 'Toggle REPL',
+    },
+    {
+      '<leader>ds',
+      function()
+        require('dap').session()
+      end,
+      desc = 'Session',
+    },
+    {
+      '<leader>dt',
+      function()
+        require('dap').terminate()
+      end,
+      desc = 'Terminate',
+    },
+    {
+      '<leader>dw',
+      function()
+        require('dap.ui.widgets').hover()
+      end,
+      desc = 'Widgets',
     },
     {
       '<F1>',
       function()
         require('dap').step_into()
       end,
-      desc = 'Debug: Step Into',
+      desc = 'Step Into',
+    },
+    {
+      '<leader>d1',
+      function()
+        require('dap').step_into()
+      end,
+      desc = 'Step Into',
     },
     {
       '<F2>',
       function()
         require('dap').step_over()
       end,
-      desc = 'Debug: Step Over',
+      desc = 'Step Over',
+    },
+    {
+      '<leader>d2',
+      function()
+        require('dap').step_over()
+      end,
+      desc = 'Step Over',
     },
     {
       '<F3>',
       function()
         require('dap').step_out()
       end,
-      desc = 'Debug: Step Out',
+      desc = 'Step Out',
     },
     {
-      '<leader>b',
+      '<leader>d3',
       function()
-        require('dap').toggle_breakpoint()
+        require('dap').step_out()
       end,
-      desc = 'Debug: Toggle Breakpoint',
+      desc = 'Step Out',
     },
     {
-      '<leader>B',
+      '<F5>',
       function()
-        require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+        require('dap').continue()
       end,
-      desc = 'Debug: Set Breakpoint',
+      desc = 'Run/Continue',
+    },
+    {
+      '<leader>d5',
+      function()
+        require('dap').continue()
+      end,
+      desc = 'Run/Continue',
     },
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     {
@@ -75,6 +166,21 @@ return {
         require('dapui').toggle()
       end,
       desc = 'Debug: See last session result.',
+    },
+    {
+      '<leader>du',
+      function()
+        require('dapui').toggle {}
+      end,
+      desc = 'Debug: See last session result.',
+    },
+    {
+      '<leader>de',
+      function()
+        require('dapui').eval()
+      end,
+      desc = 'Eval',
+      mode = { 'n', 'v' },
     },
   },
   config = function()
@@ -100,25 +206,7 @@ return {
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
-    dapui.setup {
-      -- Set icons to characters that are more likely to work in every terminal.
-      --    Feel free to remove or use ones that you like more! :)
-      --    Don't feel like these are good choices.
-      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-      controls = {
-        icons = {
-          pause = '⏸',
-          play = '▶',
-          step_into = '⏎',
-          step_over = '⏭',
-          step_out = '⏮',
-          step_back = 'b',
-          run_last = '▶▶',
-          terminate = '⏹',
-          disconnect = '⏏',
-        },
-      },
-    }
+    dapui.setup()
 
     -- Change breakpoint icons
     -- vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })

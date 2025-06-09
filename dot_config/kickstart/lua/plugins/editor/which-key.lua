@@ -1,6 +1,6 @@
 return {
   'folke/which-key.nvim',
-  event = 'VimEnter',
+  event = 'VeryLazy',
   opts_extend = { 'spec' },
   opts = {
     delay = 0,
@@ -51,6 +51,14 @@ return {
           expand = function()
             return require('which-key.extras').expand.buf()
           end,
+        },
+        {
+          '<leader>d',
+          group = 'Debug',
+        },
+        {
+          '<leader>T',
+          group = 'Toggle',
         },
         {
           '<leader>w',

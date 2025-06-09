@@ -92,8 +92,8 @@ return {
         end, 'Blame Buffer')
 
         -- toggles
-        map('n', '<leader>Tb', gs.toggle_current_line_blame, { desc = 'Toggle git show blame line' })
-        map('n', '<leader>TD', gs.preview_hunk_inline, { desc = 'Toggle git show Deleted' })
+        map('n', '<leader>Tb', gs.toggle_current_line_blame, 'Toggle git show blame line')
+        map('n', '<leader>TD', gs.preview_hunk_inline, 'Toggle git show deleted')
 
         -- operator
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'GitSigns Select Hunk')

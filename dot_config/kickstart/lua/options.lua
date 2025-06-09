@@ -46,6 +46,9 @@ vim.o.inccommand = 'split'
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- Only show 1 statusline, and it corresponds with current buffer
+vim.o.laststatus = 3
+
 vim.g.have_nerd_font = true
 
 -- wezterm won't let vim read from clipboard
@@ -75,6 +78,3 @@ local cache_dir = vim.fn.stdpath 'data'
 local unique_id = vim.fn.fnamemodify(workspace_path, ':t') .. '_' .. vim.fn.sha256(workspace_path):sub(1, 8) ---@type string
 local shadafile = cache_dir .. '/myshada/' .. unique_id .. '.shada'
 vim.opt.shadafile = shadafile
-
--- nvchad ui
-vim.g.base46_cache = vim.fn.stdpath 'data' .. '/base46_cache/'

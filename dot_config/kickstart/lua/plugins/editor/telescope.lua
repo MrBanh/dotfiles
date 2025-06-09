@@ -37,6 +37,7 @@ return {
             ['<C-x>'] = function(...)
               actions.delete_buffer(...)
             end,
+            ['q'] = actions.close,
           },
         },
       },
