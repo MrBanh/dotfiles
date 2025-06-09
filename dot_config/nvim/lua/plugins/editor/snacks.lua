@@ -64,7 +64,6 @@ return {
             ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
             ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
             ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-            ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
           },
         },
         -- when focus in on list
@@ -78,7 +77,6 @@ return {
             ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
             ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
             ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-            ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
           },
         },
       },
@@ -95,7 +93,6 @@ return {
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
                 ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-                ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
               },
             },
             list = {
@@ -107,7 +104,6 @@ return {
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
                 ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-                ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
               },
             },
           },
