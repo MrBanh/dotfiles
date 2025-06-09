@@ -2,7 +2,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "kanagawa-paper",
+      colorscheme = "everforest",
     },
   },
 
@@ -50,7 +50,7 @@ return {
         },
         -- adjust overall color balance for each theme [-1, 1]
         color_offset = {
-          ink = { brightness = 0, saturation = 0 },
+          ink = { brightness = 1, saturation = 0 },
           canvas = { brightness = 0, saturation = 0 },
         },
         -- override highlight groups
@@ -77,7 +77,7 @@ return {
             WinBarNC = { bg = "None" },
             Pmenu = { bg = "None" },
             WinSeparator = { fg = theme.ui.float.fg_border, bg = "None" },
-            LspInlayHint = { fg = theme.ui.fg_dim, bg = "None" },
+            LspInlayHint = { link = "Comment" },
 
             -- Plugin Specific Highlights
             BlinkCmpDoc = { link = "Pmenu" },
@@ -272,7 +272,7 @@ return {
           FoldColumn = { bg = "None" },
           CursorLine = { bg = "None" },
           CursorColumn = { bg = "None" },
-          WinSeparator = { fg = C.accent, bg = "None" },
+          WinSeparator = { bg = "None" },
           StatusLine = { bg = "None" },
           StatusLineNC = { bg = "None" },
           WinBar = { bg = "None" },
