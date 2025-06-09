@@ -81,6 +81,20 @@ config.window_padding = {
 config.initial_rows = 30
 config.initial_cols = 120
 
+-- keybindings
+config.keys = {
+	{
+		key = "w",
+		mods = "SHIFT|CTRL",
+		action = wezterm.action.CloseCurrentPane({ confirm = true }),
+	},
+	{
+		key = "w",
+		mods = "CMD",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
+}
+
 -- Miscellaneous settings
 config.max_fps = 120
 config.prefer_egl = true
