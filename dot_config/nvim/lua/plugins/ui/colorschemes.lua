@@ -191,6 +191,7 @@ return {
           hl.NormalFloat = { bg = palette.none }
           hl.FloatBorder = { bg = palette.none }
           hl.Pmenu = { bg = palette.none }
+          hl.CursorLine = { bg = palette.none }
         end,
         colours_override = function(palette) end,
       })
