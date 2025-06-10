@@ -25,7 +25,16 @@ return {
         terminalColors = true, -- define vim.g.terminal_color_{0,17}
         colors = { -- add/modify theme and palette colors
           palette = {},
-          theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+          theme = {
+            wave = {},
+            lotus = {},
+            dragon = {},
+            all = {
+              ui = {
+                bg_gutter = "none",
+              },
+            },
+          },
         },
         overrides = function(colors) -- add/modify highlights
           local theme = colors.theme
@@ -55,14 +64,8 @@ return {
             BlinkCmpDocBorder = { link = "TelescopePromptBorder" },
             BlinkCmpMenuBorder = { link = "TelescopePromptBorder" },
             BlinkCmpSignatureHelpBorder = { link = "TelescopePromptBorder" },
-            GitSignsAdd = { bg = "None" },
-            GitSignsChange = { bg = "None" },
-            GitSignsDelete = { bg = "None" },
-            LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-            MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
             NoicePopupBorder = { link = "FloatBorder" },
             NoiceCmdlinePopupBorder = { link = "FloatBorder" },
-            NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
             TreesitterContext = { bg = "None" },
             TreesitterContextBottom = { sp = theme.ui.fg_dim, bg = "None" },
             TreesitterContextLineNumber = { bg = "None" },
