@@ -46,6 +46,9 @@ vim.g.bullets_enable_in_empty_buffers = 0
 -- blink, requires NeoVim >= 0.11
 vim.o.winborder = "rounded"
 
+-- Preview substitutions live, as you type!
+vim.o.inccommand = "nosplit"
+
 -- shada file
 vim.opt.exrc = true
 vim.opt.secure = true
