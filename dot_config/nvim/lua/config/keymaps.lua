@@ -6,7 +6,7 @@ local opts = { noremap = true, silent = true }
 
 set({ "n", "v" }, "H", "^", opts)
 set({ "n", "v" }, "L", "$", opts)
---
+
 -- Paste without overwriting
 set("v", "p", "P", opts)
 
