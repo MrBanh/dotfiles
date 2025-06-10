@@ -2,62 +2,33 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "everforest",
+      colorscheme = "kanagawa",
     },
   },
 
   {
-    "thesimonho/kanagawa-paper.nvim",
+    "rebelot/kanagawa.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      require("kanagawa-paper").setup({
-        -- enable undercurls for underlined text
-        undercurl = true,
-        -- transparent background
-        transparent = true,
-        -- highlight background for the left gutter
-        gutter = false,
-        -- background for diagnostic virtual text
-        diag_background = true,
-        -- dim inactive windows. Disabled when transparent
-        dim_inactive = false,
-        -- set colors for terminal buffers
-        terminal_colors = true,
-        -- cache highlights and colors for faster startup.
-        -- see Cache section for more details.
-        cache = false,
-
-        styles = {
-          -- style for comments
-          comment = { italic = true },
-          -- style for functions
-          functions = { italic = false },
-          -- style for keywords
-          keyword = { italic = false, bold = false },
-          -- style for statements
-          statement = { italic = false, bold = false },
-          -- style for types
-          type = { italic = false },
-        },
-        -- override default palette and theme colors
-        colors = {
+      -- Default options:
+      require("kanagawa").setup({
+        compile = false, -- enable compiling the colorscheme
+        undercurl = true, -- enable undercurls
+        commentStyle = { italic = true },
+        functionStyle = {},
+        keywordStyle = { italic = true },
+        statementStyle = { bold = true },
+        typeStyle = {},
+        transparent = true, -- do not set background color
+        dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+        terminalColors = true, -- define vim.g.terminal_color_{0,17}
+        colors = { -- add/modify theme and palette colors
           palette = {},
-          theme = {
-            ink = {},
-            canvas = {},
-          },
+          theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
         },
-        -- adjust overall color balance for each theme [-1, 1]
-        color_offset = {
-          ink = { brightness = 1, saturation = 0 },
-          canvas = { brightness = 0, saturation = 0 },
-        },
-        -- override highlight groups
-        overrides = function(colors)
-          -- https://github.com/thesimonho/kanagawa-paper.nvim/blob/master/palette_colors.md
+        overrides = function(colors) -- add/modify highlights
           local theme = colors.theme
-          -- local palette = colors.palette
 
           return {
             FloatTitle = { fg = theme.ui.float.fg, bg = "none" },
@@ -85,9 +56,12 @@ return {
             BlinkCmpMenuBorder = { link = "TelescopePromptBorder" },
             BlinkCmpSignatureHelpBorder = { link = "TelescopePromptBorder" },
             GitSignsAdd = { bg = "None" },
+            GitSignsChange = { bg = "None" },
+            GitSignsDelete = { bg = "None" },
             LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
             MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
             NoicePopupBorder = { link = "FloatBorder" },
+            NoiceCmdlinePopupBorder = { link = "FloatBorder" },
             NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
             TreesitterContext = { bg = "None" },
             TreesitterContextBottom = { sp = theme.ui.fg_dim, bg = "None" },
@@ -95,28 +69,10 @@ return {
             WhichKeyBorder = { fg = "None", bg = "None" },
           }
         end,
-
-        -- uses lazy.nvim, if installed, to automatically enable needed plugins
-        auto_plugins = true,
-        -- enable highlights for all plugins (disabled if using lazy.nvim)
-        all_plugins = package.loaded.lazy == nil,
-        -- manually enable/disable individual plugins.
-        -- check the `groups/plugins` directory for the exact names
-        plugins = {
-          -- examples:
-          -- rainbow_delimiters = true
-          -- which_key = false
-        },
-
-        -- enable integrations with other applications
-        integrations = {
-          wezterm = {
-            -- automatically set wezterm theme to match the current neovim theme
-            enabled = false,
-            -- neovim will write the theme name to this file
-            -- wezterm will read from this file to know which theme to use
-            path = (os.getenv("TEMP") or "/tmp") .. "/nvim-theme",
-          },
+        theme = "dragon", -- Load "wave" theme
+        background = { -- map the value of 'background' option to a theme
+          dark = "dragon", -- try "dragon" !
+          light = "lotus",
         },
       })
     end,

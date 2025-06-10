@@ -49,7 +49,7 @@ if is_windows then
 end
 
 -- https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = "Everforest Dark (Gogh)"
+config.color_scheme = "Kanagawa (Gogh)"
 
 -- https://wezfurlong.org/wezterm/config/lua/config/window_decorations.html
 config.window_decorations = "RESIZE"
