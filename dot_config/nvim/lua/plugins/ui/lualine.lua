@@ -68,15 +68,20 @@ return {
 
     -- winbar
     opts.winbar = {
-      lualine_a = {
+      lualine_a = {},
+      lualine_b = {
         {
-          function()
-            return " "
-          end,
-          color = { bg = "NONE", fg = Snacks.util.color("Special") },
+          "filetype",
+          icon_only = true,
+          padding = { left = 1, right = 0 },
+          separator = { left = "" },
+        },
+        {
+          "filename",
+          file_status = false,
+          symbols = {},
         },
       },
-      lualine_b = {},
       lualine_c = {},
       lualine_x = {},
       lualine_y = {},
@@ -84,15 +89,20 @@ return {
     }
 
     opts.inactive_winbar = {
-      lualine_a = {
+      lualine_a = {},
+      lualine_b = {
         {
-          function()
-            return " "
-          end,
-          color = { bg = "NONE", fg = "lualine_a_inactive" },
+          "filetype",
+          icon_only = true,
+          padding = { left = 1, right = 0 },
+          separator = { left = "" },
+        },
+        {
+          "filename",
+          file_status = false,
+          symbols = {},
         },
       },
-      lualine_b = {},
       lualine_c = {},
       lualine_x = {},
       lualine_y = {},
