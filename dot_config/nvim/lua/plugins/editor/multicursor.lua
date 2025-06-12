@@ -41,10 +41,10 @@ return {
     end, { desc = "Add Cursor at previous match" })
 
     -- skip match
-    set({ "n", "x" }, "<leader>ms", function()
+    set({ "n", "x" }, "<leader>mn", function()
       mc.matchSkipCursor(1)
     end, { desc = "Skip next match" })
-    set({ "n", "x" }, "<leader>mS", function()
+    set({ "n", "x" }, "<leader>mp", function()
       mc.matchSkipCursor(-1)
     end, { desc = "Skip previous match" })
 
