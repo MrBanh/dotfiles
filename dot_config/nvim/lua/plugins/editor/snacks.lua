@@ -8,6 +8,16 @@ return {
         col = -1,
       },
     },
+    lazygit = {
+      config = {
+        os = {
+          edit = '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}})',
+          editAtLine = '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" &&  nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":{{line}}<CR>")',
+          editAtLineAndWait = "nvim +{{line}} {{filename}}",
+          openDirInEditor = '[ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{dir}})',
+        },
+      },
+    },
     image = {
       enabled = false,
       doc = {
@@ -58,13 +68,12 @@ return {
         -- when focus is on input box above list
         input = {
           keys = {
-            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
+            ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
             ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
             ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
             ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-            ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
           },
         },
         -- when focus in on list
@@ -73,12 +82,11 @@ return {
             self:execute("calculate_file_truncate_width")
           end,
           keys = {
-            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
+            ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
             ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
             ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
             ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-            ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
           },
         },
       },
@@ -89,25 +97,23 @@ return {
           win = {
             input = {
               keys = {
-                ["`"] = "tcd",
-                ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
+                ["<LocalLeader>c"] = "tcd",
+                ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
                 ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
                 ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-                ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
               },
             },
             list = {
               keys = {
                 ["<c-/>"] = "terminal",
-                ["`"] = "tcd",
-                ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
+                ["<LocalLeader>c"] = "tcd",
+                ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
                 ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
                 ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-                ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
               },
             },
           },

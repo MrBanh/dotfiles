@@ -18,7 +18,8 @@ return {
     local icons = LazyVim.config.icons
 
     -- https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
-    local custom_theme = require("lualine.themes.ayu_mirage")
+    -- local custom_theme = require("lualine.themes.ayu_mirage")
+    local custom_theme = require("lualine.themes.auto")
     local lualine_modes = { "normal", "inactive" }
     for _, field in ipairs(lualine_modes) do
       if custom_theme[field] and custom_theme[field].c then
@@ -67,15 +68,22 @@ return {
 
     -- winbar
     opts.winbar = {
-      lualine_a = {
+      lualine_a = {},
+      lualine_b = {
         {
-          function()
-            return " "
-          end,
-          color = { bg = "NONE", fg = Snacks.util.color("Special") },
+          "filetype",
+          icon_only = true,
+          padding = { left = 1, right = 0 },
+          color = { fg = "lualine_b_inactive", bg = "NONE" },
+        },
+        {
+          "filename",
+          file_status = false,
+          symbols = {},
+          separator = { right = "" },
+          color = { fg = "lualine_b_inactive", bg = "NONE" },
         },
       },
-      lualine_b = {},
       lualine_c = {},
       lualine_x = {},
       lualine_y = {},
@@ -83,15 +91,22 @@ return {
     }
 
     opts.inactive_winbar = {
-      lualine_a = {
+      lualine_a = {},
+      lualine_b = {
         {
-          function()
-            return " "
-          end,
-          color = { bg = "NONE", fg = "lualine_a_inactive" },
+          "filetype",
+          icon_only = true,
+          padding = { left = 1, right = 0 },
+          color = { fg = Snacks.util.color("Comment"), bg = "NONE" },
+        },
+        {
+          "filename",
+          file_status = false,
+          symbols = {},
+          separator = { right = " " },
+          color = { fg = Snacks.util.color("Comment"), bg = "NONE" },
         },
       },
-      lualine_b = {},
       lualine_c = {},
       lualine_x = {},
       lualine_y = {},

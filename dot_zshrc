@@ -117,8 +117,6 @@ export FZF_CTRL_R_OPTS="
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
-export YAZI_CONFIG_HOME="$HOME/.config/yazi"
-
 # ===================
 
 # OTHER
@@ -149,7 +147,6 @@ alias lg="lazygit"
 alias dev="cd $HOME/src"
 alias nv='nvim'
 alias vi='nvim'
-alias chad='NVIM_APPNAME="NvChad" nvim'
 alias kick='NVIM_APPNAME="kickstart" nvim'
 
 # Detect if WSL
