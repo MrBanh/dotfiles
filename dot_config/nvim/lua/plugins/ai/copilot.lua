@@ -2,9 +2,11 @@ return {
   {
     "zbirenbaum/copilot.lua",
     opts = {
+      panel = { enabled = false },
       suggestion = {
+        enabled = false,
         keymap = {
-          -- accept = "<Tab>",
+          accept = "<Tab>",
           dismiss = "<C-e>",
         },
       },
@@ -21,6 +23,27 @@ return {
     "saghen/blink.cmp",
     dependencies = { "fang2hou/blink-copilot" },
     opts = {
+      keymap = {
+        preset = "super-tab",
+        ["<Tab>"] = {
+          function(cmp)
+            if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+              cmp.hide()
+              return (
+                require("copilot-lsp.nes").apply_pending_nes()
+                and require("copilot-lsp.nes").walk_cursor_end_edit()
+              )
+            end
+            if cmp.snippet_active() then
+              return cmp.accept()
+            else
+              return cmp.select_and_accept()
+            end
+          end,
+          "snippet_forward",
+          "fallback",
+        },
+      },
       sources = {
         providers = {
           copilot = {
@@ -37,6 +60,15 @@ return {
       local nes = require("copilot-lsp.nes")
 
       vim.g.copilot_nes_debounce = 500
+
+      vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+        callback = function()
+          if not nes.clear() then
+            return
+          end
+        end,
+      })
+
       vim.lsp.enable("copilot_ls")
 
       -- Keymaps for Copilot Next Edit Suggestions
