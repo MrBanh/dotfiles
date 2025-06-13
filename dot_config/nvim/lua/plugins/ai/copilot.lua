@@ -55,7 +55,6 @@ return {
   },
   {
     "copilotlsp-nvim/copilot-lsp",
-    lazy = false,
     init = function()
       local nes = require("copilot-lsp.nes")
 
