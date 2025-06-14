@@ -30,8 +30,16 @@ return {
     end,
     formatters_by_ft = {
       lua = { 'stylua' },
+      javascript = { 'prettier' },
+      typescript = { 'prettier' },
+      javascriptreact = { 'prettier' },
+      typescriptreact = { 'prettier' },
+      svelte = { 'prettier' },
       css = { 'prettier' },
       html = { 'prettier' },
+      yaml = { 'prettier' },
+      markdown = { 'prettier' },
+      graphql = { 'prettier' },
     },
   },
 }
