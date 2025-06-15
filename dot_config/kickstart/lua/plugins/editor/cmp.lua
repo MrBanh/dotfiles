@@ -4,6 +4,11 @@ return {
   'saghen/blink.cmp',
   event = 'VimEnter',
   version = '1.*',
+  opts_extend = {
+    'sources.completion.enabled_providers',
+    'sources.compat',
+    'sources.default',
+  },
   dependencies = {
     {
       'L3MON4D3/LuaSnip',
@@ -27,7 +32,6 @@ return {
       },
       opts = {},
     },
-    'folke/lazydev.nvim',
   },
 
   --- @module 'blink.cmp'
@@ -79,10 +83,7 @@ return {
       },
     },
     sources = {
-      default = { 'lsp', 'snippets', 'buffer', 'path', 'lazydev' },
-      providers = {
-        lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-      },
+      default = { 'lsp', 'snippets', 'buffer', 'path' },
     },
 
     snippets = { preset = 'luasnip' },
@@ -94,7 +95,7 @@ return {
     -- the rust implementation via `'prefer_rust_with_warning'`
     --
     -- See :h blink-cmp-config-fuzzy for more information
-    fuzzy = { implementation = 'prefer_rust' },
+    fuzzy = { implementation = 'prefer_rust_with_warning' },
 
     -- Shows a signature help window while you type arguments for a function
     signature = { enabled = true, window = { border = border } },

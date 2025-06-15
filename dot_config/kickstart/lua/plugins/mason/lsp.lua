@@ -1,5 +1,7 @@
 vim.keymap.set('n', '<leader>cw', vim.lsp.buf.add_workspace_folder, { desc = 'Add workspace folder' })
 vim.keymap.set('n', '<leader>cW', vim.lsp.buf.remove_workspace_folder, { desc = 'Remove workspace folder' })
+vim.keymap.set({ 'n', 'x' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code action' })
+
 -- vim.keymap.set("n", "K", function()
 --   vim.lsp.buf.hover { border = "rounded" }
 -- end, { desc = "LSP show details", silent = true })
@@ -50,8 +52,6 @@ return {
           end
 
           map('<leader>cr', require 'nvchad.lsp.renamer', 'Rename')
-          -- map('<leader>cr', vim.lsp.buf.rename, '[R]e[n]ame')
-          map('<leader>ca', vim.lsp.buf.code_action, 'Code action', { 'n', 'x' })
 
           map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
           map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
@@ -105,36 +105,6 @@ return {
         end,
       })
 
-      -- Diagnostic Config
-      -- See :help vim.diagnostic.Opts
-      vim.diagnostic.config {
-        severity_sort = true,
-        float = { border = 'rounded', source = 'if_many' },
-        underline = { severity = vim.diagnostic.severity.ERROR },
-        signs = vim.g.have_nerd_font and {
-          text = {
-            [vim.diagnostic.severity.ERROR] = '󰅚 ',
-            [vim.diagnostic.severity.WARN] = '󰀪 ',
-            [vim.diagnostic.severity.INFO] = '󰋽 ',
-            [vim.diagnostic.severity.HINT] = '󰌶 ',
-          },
-        } or {},
-        virtrual_text = false, -- see diagnostics.lua
-        -- virtual_text = {
-        --   source = 'if_many',
-        --   spacing = 2,
-        --   format = function(diagnostic)
-        --     local diagnostic_message = {
-        --       [vim.diagnostic.severity.ERROR] = diagnostic.message,
-        --       [vim.diagnostic.severity.WARN] = diagnostic.message,
-        --       [vim.diagnostic.severity.INFO] = diagnostic.message,
-        --       [vim.diagnostic.severity.HINT] = diagnostic.message,
-        --     }
-        --     return diagnostic_message[diagnostic.severity]
-        --   end,
-        -- },
-      }
-
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -155,6 +125,7 @@ return {
             hostInfo = 'neovim',
           },
         },
+        copilot = {},
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },

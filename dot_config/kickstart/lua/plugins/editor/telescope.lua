@@ -33,6 +33,8 @@ return {
             end,
           },
           n = {
+            ['<C-n>'] = actions.move_selection_next,
+            ['<C-p>'] = actions.move_selection_previous,
             ['<C-s>'] = actions.select_horizontal,
             ['<C-x>'] = function(...)
               actions.delete_buffer(...)

@@ -12,6 +12,35 @@ vim.keymap.set('n', '<leader>xS', '<cmd>Trouble lsp toggle<cr>', { desc = 'LSP r
 vim.keymap.set('n', '<leader>xL', '<cmd>Trouble loclist toggle<cr>', { desc = 'Location List (Trouble)' })
 vim.keymap.set('n', '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', { desc = 'Quickfix List (Trouble)' })
 
+-- Diagnostic Config
+-- See :help vim.diagnostic.Opts
+vim.diagnostic.config {
+  severity_sort = true,
+  float = { border = 'rounded', source = 'if_many' },
+  underline = { severity = vim.diagnostic.severity.ERROR },
+  signs = vim.g.have_nerd_font and {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '󰅚 ',
+      [vim.diagnostic.severity.WARN] = '󰀪 ',
+      [vim.diagnostic.severity.INFO] = '󰋽 ',
+      [vim.diagnostic.severity.HINT] = '󰌶 ',
+    },
+  } or {},
+  virtrual_text = false, -- see diagnostics.lua
+  -- virtual_text = {
+  --   source = 'if_many',
+  --   spacing = 2,
+  --   format = function(diagnostic)
+  --     local diagnostic_message = {
+  --       [vim.diagnostic.severity.ERROR] = diagnostic.message,
+  --       [vim.diagnostic.severity.WARN] = diagnostic.message,
+  --       [vim.diagnostic.severity.INFO] = diagnostic.message,
+  --       [vim.diagnostic.severity.HINT] = diagnostic.message,
+  --     }
+  --     return diagnostic_message[diagnostic.severity]
+  --   end,
+  -- },
+}
 return {
   {
     'folke/trouble.nvim',
@@ -46,7 +75,6 @@ return {
       require('tiny-inline-diagnostic').setup {
         preset = 'powerline',
       }
-      vim.diagnostic.config { virtual_text = false } -- Only if needed in your configuration, if you already have native LSP diagnostics
     end,
   },
   {
