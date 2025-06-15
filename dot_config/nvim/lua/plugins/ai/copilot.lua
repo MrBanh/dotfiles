@@ -89,7 +89,7 @@ return {
         nes.clear_suggestion()
       end, { desc = "Clear suggestion" })
 
-      vim.keymap.set("n", "<C-e>", function()
+      vim.keymap.set({ "n", "i" }, "<C-e>", function()
         if not nes.clear() then
           return
         end
