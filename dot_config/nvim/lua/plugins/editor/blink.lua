@@ -36,6 +36,10 @@ return {
         },
       },
     },
+    cmdline = {
+      enabled = true,
+      completion = { ghost_text = { enabled = true } },
+    },
 
     keymap = {
       ["<CR>"] = { "accept", "fallback" },
