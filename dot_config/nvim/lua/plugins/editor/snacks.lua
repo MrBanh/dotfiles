@@ -136,4 +136,13 @@ return {
       },
     },
   },
+  keys = {
+    {
+      "<leader>sP",
+      function()
+        Snacks.picker.lazy()
+      end,
+      desc = "Search for Plugin Spec",
+    },
+  },
 }
