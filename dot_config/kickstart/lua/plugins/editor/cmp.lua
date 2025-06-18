@@ -99,6 +99,8 @@ return {
 
     -- Shows a signature help window while you type arguments for a function
     signature = { enabled = true, window = { border = border } },
-    cmdline = { enabled = true },
+    cmdline = { enabled = true, {
+      completion = { ghost_text = { enabled = true } },
+    } },
   },
 }
