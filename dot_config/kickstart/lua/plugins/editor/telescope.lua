@@ -9,10 +9,8 @@ for _, cmd in ipairs { 'make', 'cmake', 'gmake' } do
   end
 end
 
-local actions = require 'telescope.actions'
-local builtin = require 'telescope.builtin'
-
 return {
+
   {
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
@@ -22,48 +20,104 @@ return {
       'nvim-telescope/telescope-fzf-native.nvim',
       'nvim-telescope/telescope-ui-select.nvim',
     },
-    opts = {
-      -- https://github.com/nvim-telescope/telescope.nvim/blob/b4da76be54691e854d3e0e02c36b0245f945c2c7/lua/telescope/mappings.lua#L133
-      defaults = {
-        mappings = {
-          i = {
-            ['<C-s>'] = actions.select_horizontal,
-            ['<C-x>'] = function(...)
-              actions.delete_buffer(...)
-            end,
+    config = function()
+      local actions = require 'telescope.actions'
+      local builtin = require 'telescope.builtin'
+      local fb_actions = require 'telescope._extensions.file_browser.actions'
+
+      require('telescope').setup {
+        -- https://github.com/nvim-telescope/telescope.nvim/blob/b4da76be54691e854d3e0e02c36b0245f945c2c7/lua/telescope/mappings.lua#L133
+        defaults = {
+          mappings = {
+            i = {
+              ['<C-s>'] = actions.select_horizontal,
+              ['<C-x>'] = function(...)
+                actions.delete_buffer(...)
+              end,
+            },
+            n = {
+              ['<C-n>'] = actions.move_selection_next,
+              ['<C-p>'] = actions.move_selection_previous,
+              ['<C-s>'] = actions.select_horizontal,
+              ['<C-x>'] = function(...)
+                actions.delete_buffer(...)
+              end,
+              ['q'] = actions.close,
+            },
           },
-          n = {
-            ['<C-n>'] = actions.move_selection_next,
-            ['<C-p>'] = actions.move_selection_previous,
-            ['<C-s>'] = actions.select_horizontal,
-            ['<C-x>'] = function(...)
-              actions.delete_buffer(...)
-            end,
-            ['q'] = actions.close,
+        },
+        pickers = {
+          find_files = {
+            theme = 'ivy',
+          },
+          live_grep = {
+            theme = 'ivy',
+          },
+          grep_string = {
+            theme = 'ivy',
           },
         },
-      },
-      -- https://github.com/nvim-telescope/telescope.nvim/wiki/Extensions
-      extensions = {
-        fzf = {
-          fuzzy = true, -- false will only do exact matching
-          override_generic_sorter = true, -- override the generic sorter
-          override_file_sorter = true, -- override the file sorter
-          case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
+        -- https://github.com/nvim-telescope/telescope.nvim/wiki/Extensions
+        extensions = {
+          fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = 'smart_case', -- or "ignore_case" or "respect_case"
+          },
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown(),
+          },
+          file_browser = {
+            theme = 'ivy',
+            -- disables netrw and use telescope-file-browser in its place
+            hijack_netrw = true,
+            mappings = {
+              ['i'] = {
+                ['<A-c>'] = fb_actions.create,
+                ['<S-CR>'] = fb_actions.create_from_prompt,
+                ['<A-r>'] = fb_actions.rename,
+                ['<A-m>'] = fb_actions.move,
+                ['<A-y>'] = fb_actions.copy,
+                ['<A-d>'] = fb_actions.remove,
+                ['<C-o>'] = fb_actions.open,
+                ['<C-g>'] = fb_actions.goto_parent_dir,
+                ['<C-e>'] = fb_actions.goto_home_dir,
+                ['<C-w>'] = fb_actions.goto_cwd,
+                ['<C-t>'] = fb_actions.change_cwd,
+                ['<C-f>'] = fb_actions.toggle_browser,
+                ['<C-h>'] = fb_actions.toggle_hidden,
+                ['<C-s>'] = fb_actions.toggle_all,
+                ['<bs>'] = fb_actions.backspace,
+              },
+              ['n'] = {
+                ['c'] = fb_actions.create,
+                ['r'] = fb_actions.rename,
+                ['m'] = fb_actions.move,
+                ['y'] = fb_actions.copy,
+                ['d'] = fb_actions.remove,
+                ['o'] = fb_actions.open,
+                ['g'] = fb_actions.goto_parent_dir,
+                ['e'] = fb_actions.goto_home_dir,
+                ['w'] = fb_actions.goto_cwd,
+                ['t'] = fb_actions.change_cwd,
+                ['f'] = fb_actions.toggle_browser,
+                ['h'] = fb_actions.toggle_hidden,
+                ['s'] = fb_actions.toggle_all,
+              },
+            },
+          },
         },
-        ['ui-select'] = {
-          require('telescope.themes').get_dropdown(),
-        },
-      },
-    },
-    config = function(_, opts)
-      require('telescope').setup(opts)
+      }
 
       -- extensions
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'file_browser')
 
       local set = vim.keymap.set
+
+      set('n', '<space>e', ':Telescope file_browser path=%:p:h select_buffer=true<CR>')
 
       set('n', '<leader>/', '<cmd>Telescope live_grep<CR>', { desc = 'live grep', remap = true })
       set('n', '<leader>:', '<cmd>Telescope command_history<CR>', { desc = 'Command history' })
@@ -145,5 +199,9 @@ return {
   },
   {
     'nvim-telescope/telescope-ui-select.nvim',
+  },
+  {
+    'nvim-telescope/telescope-file-browser.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
   },
 }
