@@ -87,6 +87,8 @@ return {
             -- disables netrw and use telescope-file-browser in its place
             hijack_netrw = true,
             initial_mode = 'normal',
+            grouped = true,
+            sorting_strategy = 'ascending',
             mappings = {
               ['i'] = {
                 ['<C-h>'] = fb_actions.goto_parent_dir,
