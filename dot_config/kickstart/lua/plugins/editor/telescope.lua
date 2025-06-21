@@ -9,8 +9,21 @@ for _, cmd in ipairs { 'make', 'cmake', 'gmake' } do
   end
 end
 
-return {
+local focus_preview = function(prompt_bufnr)
+  local action_state = require 'telescope.actions.state'
+  local picker = action_state.get_current_picker(prompt_bufnr)
+  local prompt_win = picker.prompt_win
+  local previewer = picker.previewer
+  local winid = previewer.state.winid
+  local bufnr = previewer.state.bufnr
+  vim.keymap.set('n', '<Tab>', function()
+    vim.cmd(string.format('noautocmd lua vim.api.nvim_set_current_win(%s)', prompt_win))
+  end, { buffer = bufnr })
+  vim.cmd(string.format('noautocmd lua vim.api.nvim_set_current_win(%s)', winid))
+  -- api.nvim_set_current_win(winid)
+end
 
+return {
   {
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
@@ -34,6 +47,7 @@ return {
               ['<C-x>'] = function(...)
                 actions.delete_buffer(...)
               end,
+              ['<Tab>'] = focus_preview,
             },
             n = {
               ['<C-n>'] = actions.move_selection_next,
@@ -43,6 +57,7 @@ return {
                 actions.delete_buffer(...)
               end,
               ['q'] = actions.close,
+              ['<Tab>'] = focus_preview,
             },
           },
         },
@@ -69,41 +84,56 @@ return {
             require('telescope.themes').get_dropdown(),
           },
           file_browser = {
-            theme = 'ivy',
             -- disables netrw and use telescope-file-browser in its place
             hijack_netrw = true,
+            initial_mode = 'normal',
             mappings = {
               ['i'] = {
-                ['<A-c>'] = fb_actions.create,
-                ['<S-CR>'] = fb_actions.create_from_prompt,
-                ['<A-r>'] = fb_actions.rename,
-                ['<A-m>'] = fb_actions.move,
-                ['<A-y>'] = fb_actions.copy,
-                ['<A-d>'] = fb_actions.remove,
-                ['<C-o>'] = fb_actions.open,
-                ['<C-g>'] = fb_actions.goto_parent_dir,
-                ['<C-e>'] = fb_actions.goto_home_dir,
-                ['<C-w>'] = fb_actions.goto_cwd,
-                ['<C-t>'] = fb_actions.change_cwd,
+                ['<C-h>'] = fb_actions.goto_parent_dir,
+                ['<C-e>'] = fb_actions.goto_cwd,
+                ['<C-c>'] = fb_actions.change_cwd,
                 ['<C-f>'] = fb_actions.toggle_browser,
-                ['<C-h>'] = fb_actions.toggle_hidden,
-                ['<C-s>'] = fb_actions.toggle_all,
+                ['<C-.>'] = fb_actions.toggle_hidden,
+                ['<C-a>'] = fb_actions.toggle_all,
                 ['<bs>'] = fb_actions.backspace,
+
+                ['<A-c>'] = false,
+                ['<S-CR>'] = false,
+                ['<A-r>'] = false,
+                ['<A-m>'] = false,
+                ['<A-y>'] = false,
+                ['<A-d>'] = false,
+                ['<C-o>'] = false,
+                ['<C-g>'] = false,
+                -- ['<C-e>'] = false,
+                ['<C-w>'] = false,
+                ['<C-t>'] = false,
+                -- ['<C-f>'] = false,
+                -- ['<C-h>'] = false,
+                ['<C-s>'] = false,
+                -- ['<bs>'] = false,
               },
               ['n'] = {
-                ['c'] = fb_actions.create,
+                ['a'] = fb_actions.create,
                 ['r'] = fb_actions.rename,
                 ['m'] = fb_actions.move,
                 ['y'] = fb_actions.copy,
                 ['d'] = fb_actions.remove,
                 ['o'] = fb_actions.open,
-                ['g'] = fb_actions.goto_parent_dir,
-                ['e'] = fb_actions.goto_home_dir,
-                ['w'] = fb_actions.goto_cwd,
-                ['t'] = fb_actions.change_cwd,
+
+                ['~'] = fb_actions.goto_home_dir,
+                ['h'] = fb_actions.goto_parent_dir,
+                ['e'] = fb_actions.goto_cwd,
+                ['c'] = fb_actions.change_cwd,
                 ['f'] = fb_actions.toggle_browser,
-                ['h'] = fb_actions.toggle_hidden,
-                ['s'] = fb_actions.toggle_all,
+                ['.'] = fb_actions.toggle_hidden,
+                ['<C-a>'] = fb_actions.toggle_all,
+                ['<bs>'] = fb_actions.backspace,
+
+                ['g'] = false,
+                ['w'] = false,
+                ['t'] = false,
+                ['s'] = false,
               },
             },
           },
