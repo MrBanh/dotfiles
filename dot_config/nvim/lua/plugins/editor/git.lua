@@ -20,4 +20,22 @@ return {
       }):map("<leader>uB")
     end,
   },
+  {
+    "folke/snacks.nvim",
+    keys = {
+      {
+        "<leader>go",
+        function()
+          Snacks.gitbrowse()
+        end,
+        desc = "Git Open in Browser",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>gB",
+        nil,
+        mode = { "n", "v" },
+      },
+    },
+  },
 }

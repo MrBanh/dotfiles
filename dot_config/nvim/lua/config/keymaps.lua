@@ -50,8 +50,3 @@ set("n", "<leader>so", ":SearchInBrowser<CR>", {
 
 set("n", "<leader>fw", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
 set("n", "<leader>fW", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
-
--- Snacks
-set({ "n", "x" }, "<leader>go", function()
-  Snacks.gitbrowse()
-end, { desc = "Git Browse (open)" })
