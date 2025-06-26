@@ -8,6 +8,10 @@ return {
             enabled = true,
             blocked_filetypes = { "typescriptreact", "javascriptreact", "astro" },
           },
+          semantic_token_resolution = {
+            enabled = true,
+            blocked_filetypes = { "typescriptreact", "javascriptreact", "astro" },
+          },
         },
       },
       menu = {
@@ -38,7 +42,9 @@ return {
     },
     cmdline = {
       enabled = true,
-      completion = { ghost_text = { enabled = true } },
+      completion = {
+        ghost_text = { enabled = true },
+      },
     },
 
     keymap = {
