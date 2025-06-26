@@ -31,6 +31,14 @@ set("x", "K", ":move '<-2<CR>gv-gv", opts)
 set("c", [[\\*]], [[\(.*\)]], { desc = "Inserts \\(.*\\)" })
 set("c", [[\\-]], [[\(.\{-}\)]], { desc = "Inserts \\(.{-})" })
 
+-- Search current word under cursor in current buffer
+set({ "n", "x" }, "<leader>/", function()
+  local word = vim.fn.expand("<cword>")
+  vim.cmd("/" .. word)
+end, {
+  desc = "Search current word in buffer",
+})
+
 -- Yank to clipboard
 set({ "n", "v" }, "<leader>Y", [["+y]], vim.tbl_extend("force", opts, { desc = "[Y]ank selected to clipboard" }))
 
