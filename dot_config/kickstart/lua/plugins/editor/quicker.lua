@@ -1,25 +1,25 @@
 return {
-  "stevearc/quicker.nvim",
-  event = "FileType qf",
+  'stevearc/quicker.nvim',
+  event = 'FileType qf',
   config = function()
-    vim.keymap.set("n", "<leader>xq", function()
-      require("quicker").toggle()
+    vim.keymap.set('n', '<leader>xq', function()
+      require('quicker').toggle()
     end, {
-      desc = "Quickfix List",
+      desc = 'Quickfix List',
     })
-    vim.keymap.set("n", "<leader>xl", function()
-      require("quicker").toggle({ loclist = true })
+    vim.keymap.set('n', '<leader>xl', function()
+      require('quicker').toggle { loclist = true }
     end, {
-      desc = "Location List",
+      desc = 'Location List',
     })
 
-    require("quicker").setup({
+    require('quicker').setup {
       -- Local options to set for quickfix
       opts = {
         buflisted = false,
         number = false,
         relativenumber = false,
-        signcolumn = "auto",
+        signcolumn = 'auto',
         winfixheight = true,
         wrap = false,
       },
@@ -28,18 +28,41 @@ return {
       -- Keymaps to set for the quickfix buffer
       keys = {
         {
-          ">",
+          '>',
           function()
-            require("quicker").expand({ before = 5, after = 5, add_to_existing = true })
+            require('quicker').expand { before = 5, after = 5, add_to_existing = true }
           end,
-          desc = "Expand quickfix context",
+          desc = 'Expand quickfix context',
         },
         {
-          "<",
+          '<',
           function()
-            require("quicker").collapse()
+            require('quicker').collapse()
           end,
-          desc = "Collapse quickfix context",
+          desc = 'Collapse quickfix context',
+        },
+        {
+          '<localleader>r',
+          function()
+            require('quicker').refresh(nil, {
+              keep_diagnostics = true,
+            })
+          end,
+          desc = 'Refresh quickfix list',
+        },
+        {
+          '<localleader>>',
+          function()
+            -- prompt for number of lines to expand
+            local num_of_lines = vim.fn.input 'Num of Lines: '
+
+            require('quicker').expand {
+              -- Convert input to number, default to 5 if empty
+              before = tonumber(num_of_lines) or 5,
+              after = tonumber(num_of_lines) or 5,
+            }
+          end,
+          desc = 'Expand by X number of lines',
         },
       },
       -- Callback function to run any custom logic or keymaps for the quickfix buffer
@@ -49,7 +72,7 @@ return {
         enabled = true,
         -- Set to true to write buffers after applying edits.
         -- Set to "unmodified" to only write unmodified buffers.
-        autosave = "unmodified",
+        autosave = 'unmodified',
       },
       -- Keep the cursor to the right of the filename and lnum columns
       constrain_cursor = true,
@@ -67,26 +90,26 @@ return {
       },
       -- Map of quickfix item type to icon
       type_icons = {
-        E = "󰅚 ",
-        W = "󰀪 ",
-        I = " ",
-        N = " ",
-        H = " ",
+        E = '󰅚 ',
+        W = '󰀪 ',
+        I = ' ',
+        N = ' ',
+        H = ' ',
       },
       -- Border characters
       borders = {
-        vert = "│",
+        vert = '│',
         -- Strong headers separate results from different files
-        strong_header = "─",
-        strong_cross = "┼",
-        strong_end = "┤",
+        strong_header = '─',
+        strong_cross = '┼',
+        strong_end = '┤',
         -- Soft headers separate results within the same file
-        soft_header = "┄",
-        soft_cross = "┼",
-        soft_end = "┤",
+        soft_header = '┄',
+        soft_cross = '┼',
+        soft_end = '┤',
       },
       -- How to trim the leading whitespace from results. Can be 'all', 'common', or false
-      trim_leading_whitespace = "common",
+      trim_leading_whitespace = 'common',
       -- Maximum width of the filename column
       max_filename_width = function()
         return math.floor(math.min(95, vim.o.columns / 2))
@@ -95,6 +118,6 @@ return {
       header_length = function(type, start_col)
         return vim.o.columns - start_col
       end,
-    })
+    }
   end,
 }

@@ -41,6 +41,29 @@ return {
           end,
           desc = "Collapse quickfix context",
         },
+        {
+          "<localleader>r",
+          function()
+            require("quicker").refresh(nil, {
+              keep_diagnostics = true,
+            })
+          end,
+          desc = "Refresh quickfix list",
+        },
+        {
+          "<localleader>>",
+          function()
+            -- prompt for number of lines to expand
+            local num_of_lines = vim.fn.input("Num of Lines: ")
+
+            require("quicker").expand({
+              -- Convert input to number, default to 5 if empty
+              before = tonumber(num_of_lines) or 5,
+              after = tonumber(num_of_lines) or 5,
+            })
+          end,
+          desc = "Expand by X number of lines",
+        },
       },
       -- Callback function to run any custom logic or keymaps for the quickfix buffer
       on_qf = function(bufnr) end,
