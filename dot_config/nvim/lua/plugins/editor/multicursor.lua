@@ -17,10 +17,13 @@ return {
     set({ "n", "x" }, "<leader>mA", mc.matchAllAddCursors, { desc = "Add Cursors to all cursor word" })
 
     -- bring back cursors if you accidentally clear them
-    set("n", "<leader>ms", mc.restoreCursors, { desc = "Restore Cursors" })
+    set("n", "<leader>mv", mc.restoreCursors, { desc = "Restore Cursors" })
 
     -- Disable and enable cursors.
     set({ "n", "x" }, "<leader>mt", mc.toggleCursor, { desc = "Toggle Cursors" })
+
+    -- Split visual selections by regex.
+    set("x", "<leader>m!", mc.splitCursors, { desc = "Split Visual Selection by Regex" })
 
     -- match new cursors within visual selections by regex.
     set("x", "<leader>m%", mc.matchCursors, { desc = "Add cursors to matched regex in Visual Selection" })
@@ -70,6 +73,14 @@ return {
       layerSet({ "n", "x" }, "<S-down>", function()
         mc.lineSkipCursor(1)
       end, { desc = "Skip Cursor below" })
+
+      -- sequentual increment/decrement
+      layerSet({ "n", "x" }, "g<c-a>", mc.sequenceIncrement, {
+        desc = "Increment",
+      })
+      layerSet({ "n", "x" }, "g<c-x>", mc.sequenceDecrement, {
+        desc = "Decrement",
+      })
 
       -- align
       layerSet({ "n", "x" }, "|", mc.alignCursors, { desc = "Align Cursors" })
