@@ -140,13 +140,15 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias nvconf='cd ~/.config/nvim && nvim .'
-alias zshconf="$EDITOR ~/.zshrc"
+alias nvc='cd ~/.config/nvim && nvim .'
+alias zshc="$EDITOR ~/.zshrc"
 alias cm='chezmoi'
 alias lg="lazygit"
+alias gg="lazygit"
 alias dev="cd $HOME/src"
 alias nv='nvim'
 alias vi='nvim'
+alias v='nvim'
 alias kick='NVIM_APPNAME="kickstart" nvim'
 
 # Detect if WSL
