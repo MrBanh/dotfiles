@@ -1,6 +1,9 @@
 vim.keymap.set('n', '<leader>cw', vim.lsp.buf.add_workspace_folder, { desc = 'Add workspace folder' })
 vim.keymap.set('n', '<leader>cW', vim.lsp.buf.remove_workspace_folder, { desc = 'Remove workspace folder' })
-vim.keymap.set({ 'n', 'x' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code action' })
+vim.keymap.set({ 'n', 'x' }, '<leader>ca', function()
+  require('tiny-code-action').code_action()
+end, { desc = 'Code action', noremap = true, silent = true })
+-- vim.keymap.set({ 'n', 'x' }, '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code action' })
 
 -- vim.keymap.set("n", "K", function()
 --   vim.lsp.buf.hover { border = "rounded" }
