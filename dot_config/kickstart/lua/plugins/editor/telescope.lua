@@ -16,7 +16,7 @@ local focus_preview = function(prompt_bufnr)
   local previewer = picker.previewer
   local winid = previewer.state.winid
   local bufnr = previewer.state.bufnr
-  vim.keymap.set('n', '<Tab>', function()
+  vim.keymap.set('n', '<A-w>', function()
     vim.cmd(string.format('noautocmd lua vim.api.nvim_set_current_win(%s)', prompt_win))
   end, { buffer = bufnr })
   vim.cmd(string.format('noautocmd lua vim.api.nvim_set_current_win(%s)', winid))
@@ -47,7 +47,7 @@ return {
               ['<C-x>'] = function(...)
                 actions.delete_buffer(...)
               end,
-              ['<Tab>'] = focus_preview,
+              ['<A-w>'] = focus_preview,
             },
             n = {
               ['<C-n>'] = actions.move_selection_next,
@@ -57,7 +57,7 @@ return {
                 actions.delete_buffer(...)
               end,
               ['q'] = actions.close,
-              ['<Tab>'] = focus_preview,
+              ['<A-w>'] = focus_preview,
             },
           },
         },
