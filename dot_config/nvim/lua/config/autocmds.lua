@@ -49,3 +49,25 @@ vim.api.nvim_create_user_command("SearchInBrowser", function(args)
 end, {
   desc = "Search in browser",
 })
+
+-- -- Organize imports on save for JS/TS
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   callback = function()
+--     local fts = {
+--       "javascript",
+--       "javascriptreact",
+--       "typescript",
+--       "typescriptreact",
+--     }
+--     local ft = vim.bo.filetype
+--     for _, v in ipairs(fts) do
+--       if ft == v then
+--         vim.lsp.buf.code_action({
+--           context = { only = { "source.organizeImports" }, diagnostics = {} },
+--           apply = true,
+--         })
+--         return
+--       end
+--     end
+--   end,
+-- })
