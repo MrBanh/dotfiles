@@ -43,6 +43,9 @@ end, {
   desc = 'Search current word in buffer',
 })
 
+-- Search within selection
+set('x', '/', '<Esc>/\\%V', opts)
+
 -- Yank to clipboard
 set({ 'n', 'v' }, '<leader>Y', [["+y]], vim.tbl_extend('force', opts, { desc = '[Y]ank selected to clipboard' }))
 
