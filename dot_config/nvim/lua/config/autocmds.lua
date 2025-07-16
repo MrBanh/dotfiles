@@ -41,6 +41,11 @@ vim.api.nvim_create_user_command("SearchInBrowser", function(args)
     vim.ui.open(q)
   end
 
+  if args.args and #args.args > 0 then
+    query_browser(args.args)
+    return
+  end
+
   vim.ui.input({ prompt = "Search: " }, function(input)
     if input then
       query_browser(input)
@@ -48,6 +53,7 @@ vim.api.nvim_create_user_command("SearchInBrowser", function(args)
   end)
 end, {
   desc = "Search in browser",
+  nargs = "?",
 })
 
 -- -- Organize imports on save for JS/TS

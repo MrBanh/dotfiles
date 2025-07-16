@@ -58,6 +58,13 @@ set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 set("n", "<leader>so", ":SearchInBrowser<CR>", {
   desc = "Search in browser",
 })
+set("v", "<leader>so", function()
+  local lines = require("utils").get_visual_selection_text()
+  local search = lines[1] or "" -- search only first line of selection
+  vim.cmd("SearchInBrowser " .. search)
+end, {
+  desc = "Search in browser",
+})
 
 set("n", "<leader>fw", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
 set("n", "<leader>fW", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
