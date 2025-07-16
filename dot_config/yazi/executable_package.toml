@@ -23,6 +23,11 @@ use = "yazi-rs/plugins:git"
 rev = "63f9650"
 hash = "bf6f074cd41ee33c3360341d168f9733"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "b886025"
+hash = "1adc12c2b2b025411ab61eb8f0879574"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"
 rev = "1a419b2"

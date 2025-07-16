@@ -16,37 +16,37 @@ prepend_keymap = [
   # https://github.com/MasouShizuka/projects.yazi
   { on = [
     "<Space>",
-    "y",
+    "q",
     "s",
   ], run = "plugin projects save", desc = "Save current project" },
   { on = [
     "<Space>",
-    "y",
+    "q",
     "l",
   ], run = "plugin projects load", desc = "Load project" },
   { on = [
     "<Space>",
-    "y",
+    "q",
     "L",
   ], run = "plugin projects load_last", desc = "Load last project" },
   { on = [
     "<Space>",
-    "y",
+    "q",
     "d",
   ], run = "plugin projects delete", desc = "Delete project" },
   { on = [
     "<Space>",
-    "y",
+    "q",
     "D",
   ], run = "plugin projects delete_all", desc = "Delete all projects" },
   { on = [
     "<Space>",
-    "y",
+    "q",
     "m",
   ], run = "plugin projects 'merge current'", desc = "Merge current tab to other projects" },
   { on = [
     "<Space>",
-    "y",
+    "q",
     "M",
   ], run = "plugin projects 'merge all'", desc = "Merge current project to other projects" },
 
@@ -71,6 +71,12 @@ prepend_keymap = [
     "b",
     "D",
   ], run = "plugin bookmarks delete_all", desc = "Delete all bookmarks" },
+
+  # https://github.com/yazi-rs/plugins/tree/main/chmod.yazi
+  { on = [
+    "c",
+    "m",
+  ], run = "plugin chmod", desc = "Change file permissions" },
 ]
 
 keymap = [
