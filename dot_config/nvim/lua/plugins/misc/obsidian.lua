@@ -34,6 +34,20 @@ return {
       folder = "templates",
       date_format = "%Y-%m-%d-%a",
       time_format = "%H:%M",
+      customizations = {
+        ["daily-template"] = {
+          notes_subdir = "Journal",
+        },
+        ["project-template"] = {
+          notes_subdir = "Projects",
+        },
+        ["rfc-template"] = {
+          notes_subdir = "RFCs",
+        },
+        ["topic-template"] = {
+          notes_subdir = "Topics",
+        },
+      },
     },
 
     daily_notes = {
@@ -130,10 +144,7 @@ return {
     set({ "n", "v" }, "<leader>nd", "<Cmd>ObsidianDailies -7 7<CR>", { desc = "Obsidian daily" })
     set({ "n", "v" }, "<leader>ng", "<Cmd>ObsidianSearch<CR>", { desc = "Obsidian search" })
     set({ "n", "v" }, "<leader>nl", "<Cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian list" })
-    set({ "n", "v" }, "<leader>nn", function()
-      local input = vim.fn.input("File name: ")
-      vim.cmd("ObsidianNewFromTemplate " .. input .. ".md")
-    end, { desc = "Obsidian template" })
+    set({ "n", "v" }, "<leader>nn", ":Obsidian new_from_template<CR>", { desc = "Obsidian template" })
     set({ "n", "v" }, "<leader>no", "<cmd>ObsidianOpen<CR>", { desc = "Open current note in Obsidian app" })
     set({ "n", "v" }, "<leader>np", "<Cmd>ObsidianPasteImg<CR>", { desc = "Obsidian paste IMG" })
     set({ "n", "v" }, "<leader>nR", "<Cmd>ObsidianRename<CR>", { desc = "Obsidian rename file" })
