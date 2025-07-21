@@ -25,15 +25,100 @@ return {
   },
   opts = {
     dir = vim.env.HOME .. "/obsidian-vault", -- specify the vault location. no need to call 'vim.fn.expand' here
-    picker = {
-      -- Set your preferred picker. Can be one of 'telescope.nvim', 'fzf-lua', 'mini.pick' or 'snacks.pick'.
-      name = "snacks.pick",
+
+    log_level = vim.log.levels.INFO,
+
+    daily_notes = {
+      folder = "Journal",
+      date_format = "%Y-%m-%d (%a)",
+      alias_format = "%B %-d, %Y",
+      default_tags = { "daily-notes" },
+      template = "daily-template.md",
+      workdays_only = false, -- yesterday/tomorrow will return the previous/next work day
     },
 
+    completion = {
+      nvim_cmp = false,
+      blink = true,
+      min_chars = 2,
+      create_new = true, -- false to disable new note creation in the picker
+    },
+
+    new_notes_location = "notes_subdir", -- "current_dir" (same buffer) or "notes_subdir" (default notes subdirectory)
+
+    -- Optional, customize how note IDs are generated given an optional title.
+    note_id_func = function(title)
+      if title == nil then
+        title = vim.fn.input("Note title: ")
+      end
+
+      local name = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+      return name -- "Hulk Hogan" → "hulk-hogan"
+    end,
+
+    -- Optional, customize how note file names are generated given the ID, target directory, and title.
+    ---@param spec { id: string, dir: obsidian.Path, title: string|? }
+    ---@return string|obsidian.Path The full path to the new note.
+    note_path_func = function(spec)
+      local path = spec.dir / tostring(spec.id)
+      return path:with_suffix(".md")
+    end,
+
+    -- Optional, customize how wiki links are formatted. You can set this to one of:
+    -- _ "use_alias_only", e.g. '[[Foo Bar]]'
+    -- _ "prepend*note_id", e.g. '[[foo-bar|Foo Bar]]'
+    -- * "prepend*note_path", e.g. '[[foo-bar.md|Foo Bar]]'
+    -- * "use_path_only", e.g. '[[foo-bar.md]]'
+    -- Or you can set it to a function that takes a table of options and returns a string, like this:
+    wiki_link_func = function(opts)
+      return require("obsidian.util").wiki_link_id_prefix(opts)
+    end,
+
+    -- Optional, customize how markdown links are formatted.
+    markdown_link_func = function(opts)
+      return require("obsidian.util").markdown_link(opts)
+    end,
+
+    -- Either 'wiki' or 'markdown'.
+    preferred_link_style = "wiki",
+
+    -- Optional, boolean or a function that takes a filename and returns a boolean.
+    -- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
+    disable_frontmatter = false,
+
+    -- Optional, alternatively you can customize the frontmatter data.
+    ---@return table
+    note_frontmatter_func = function(note)
+      -- Add the title of the note as an alias.
+      if note.title then
+        note:add_alias(note.title)
+      end
+
+      local out = { id = note.id, aliases = note.aliases, tags = note.tags }
+
+      -- `note.metadata` contains any manually added fields in the frontmatter.
+      -- So here we just make sure those fields are kept in the frontmatter.
+      if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+        for k, v in pairs(note.metadata) do
+          out[k] = v
+        end
+      end
+
+      return out
+    end,
+
+    -- Optional, for templates (see https://github.com/obsidian-nvim/obsidian.nvim/wiki/Using-templates)
     templates = {
       folder = "templates",
       date_format = "%Y-%m-%d-%a",
       time_format = "%H:%M",
+      -- A map for custom variables, the key should be the variable and the value a function.
+      -- Functions are called with obsidian.TemplateContext objects as their sole parameter.
+      -- See: https://github.com/obsidian-nvim/obsidian.nvim/wiki/Template#substitutions
+      substitutions = {},
+
+      -- A map for configuring unique directories and paths for specific templates
+      --- See: https://github.com/obsidian-nvim/obsidian.nvim/wiki/Template#customizations
       customizations = {
         ["daily-template"] = {
           notes_subdir = "Journal",
@@ -44,68 +129,98 @@ return {
         ["rfc-template"] = {
           notes_subdir = "RFCs",
         },
-        ["topic-template"] = {
+        ["topic-template.md"] = {
           notes_subdir = "Topics",
         },
       },
     },
 
-    daily_notes = {
-      -- Optional, if you keep daily notes in a separate directory.
-      folder = "Journal",
-      date_format = "%Y-%m-%d (%a)",
-      -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-      template = "daily-template.md",
-    },
-
-    -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
-    completion = {
-      -- Enables completion using nvim_cmp
-      nvim_cmp = false,
-      -- Enables completion using blink.cmp
-      blink = true,
-      -- Trigger completion at 2 chars.
-      min_chars = 2,
-    },
-
-    -- Optional, by default when you use `:ObsidianFollowLink` on a link to an external
-    -- URL it will be ignored but you can customize this behavior here.
-    ---@param url string
     follow_url_func = function(url)
-      -- Open the URL in the default web browser.
-      vim.fn.jobstart({ "open", url }) -- Mac OS
-      -- vim.fn.jobstart({"xdg-open", url})  -- linux
-      -- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
-      -- vim.ui.open(url) -- need Neovim 0.10.0+
+      vim.ui.open(url)
+      -- vim.ui.open(url, { cmd = { "firefox" } })
     end,
 
-    ---@param img string
     follow_img_func = function(img)
       vim.ui.open(img)
-      -- vim.fn.jobstart({ "qlmanage", "-p", img }) -- Mac OS quick look preview
-      -- vim.fn.jobstart({"xdg-open", url})  -- linux
-      -- vim.cmd(':silent exec "!start ' .. url .. '"') -- Windows
+      -- vim.ui.open(img, { cmd = { "loupe" } })
     end,
 
-    -- Optional, customize frontmatter data
-    ---@return table
-    note_frontmatter_func = function(note)
-      local out = { id = note.id, aliases = note.aliases, tags = note.tags }
-      -- `note.metadata` contains any manually added fields in the frontmatter.
-      -- So here we just make sure those fields are kept in the frontmatter.
-      if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-        for k, v in pairs(note.metadata) do
-          out[k] = v
-        end
-      end
-      return out
-    end,
+    open = {
+      use_advanced_uri = false, -- Opens the file with current line number
+      func = vim.ui.open, -- Function to do the opening
+    },
 
-    -- Optional, sort search results by "path", "modified", "accessed", or "created".
-    -- The recommend value is "modified" and `true` for `sort_reversed`, which means, for example,
-    -- that `:ObsidianQuickSwitch` will show the notes sorted by latest modified time
-    sort_by = "modified",
-    sort_reversed = true,
+    picker = {
+      name = "snacks.pick", -- telescope.nvim, fzf-lua, mini.pick, snacks.pick
+      -- Not all pickers support all mappings.
+      note_mappings = {
+        new = "<C-x>", -- Create a new note from the current query.
+        insert_link = "<C-l>", -- Insert a link to the selected note
+      },
+      tag_mappings = {
+        tag_note = "<C-x>", -- Add tag(s) to the current note.
+        insert_tag = "<C-l>", -- Insert a tag at the current location.
+      },
+    },
+
+    backlinks = {
+      parse_headers = true,
+    },
+
+    -- Sort search results
+    sort_by = "modified", -- "path", "modified", "accessed", "created"
+    sort_reversed = true, -- show notes by latest _
+
+    -- 1. "current" (the default) - to always open in the current window
+    -- 2. "vsplit" - only open in a vertical split if a vsplit does not exist.
+    -- 3. "hsplit" - only open in a horizontal split if a hsplit does not exist.
+    -- 4. "vsplit_force" - always open a new vertical split if the file is not in the adjacent vsplit.
+    -- 5. "hsplit_force" - always open a new horizontal split if the file is not in the adjacent hsplit.
+    open_notes_in = "current",
+
+    -- Optional, define your own callbacks to further customize behavior.
+    callbacks = {
+      -- Runs at the end of `require("obsidian").setup()`.
+      ---@param client obsidian.Client
+      post_setup = function(client) end,
+
+      -- Runs anytime you enter the buffer for a note.
+      ---@param client obsidian.Client
+      ---@param note obsidian.Note
+      enter_note = function(client, note) end,
+
+      -- Runs anytime you leave the buffer for a note.
+      ---@param client obsidian.Client
+      ---@param note obsidian.Note
+      leave_note = function(client, note) end,
+
+      -- Runs right before writing the buffer for a note.
+      ---@param client obsidian.Client
+      ---@param note obsidian.Note
+      pre_write_note = function(client, note) end,
+
+      -- Runs anytime the workspace is set/changed.
+      ---@param client obsidian.Client
+      ---@param workspace obsidian.Workspace
+      post_set_workspace = function(client, workspace) end,
+    },
+
+    -- requires `conceallevel` to be set to 1 or 2
+    ui = {
+      enable = false, -- md ui handled by render-markdown.nvim      ignore_conceal_warn = false, -- set to true to disable conceallevel specific warning
+      checkboxes = {
+        [" "] = { char = "☐", hl_group = "ObsidianTodo" },
+        ["~"] = { char = " ", hl_group = "ObsidianTilde" },
+        ["x"] = { char = "✔", hl_group = "ObsidianDone" },
+      },
+    },
+
+    footer = {
+      enabled = true,
+      format = "{{backlinks}} backlinks  {{properties}} properties  {{words}} words  {{chars}} chars",
+      hl_group = "Comment",
+      separator = string.rep("-", 80),
+    },
 
     mappings = {
       -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
@@ -121,15 +236,6 @@ return {
           return require("obsidian").util.smart_action()
         end,
         opts = { buffer = true, expr = true },
-      },
-    },
-
-    ui = {
-      enable = false, -- md ui handled by render-markdown.nvim
-      checkboxes = {
-        [" "] = { char = "☐", hl_group = "ObsidianTodo" },
-        ["~"] = { char = " ", hl_group = "ObsidianTilde" },
-        ["x"] = { char = "✔", hl_group = "ObsidianDone" },
       },
     },
   },
