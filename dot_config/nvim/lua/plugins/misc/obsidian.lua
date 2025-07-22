@@ -74,13 +74,12 @@ return {
       return require("obsidian.util").wiki_link_id_prefix(opts)
     end,
 
-    -- Optional, customize how markdown links are formatted.
+    -- Optional,customize how markdown links are formatted.
     markdown_link_func = function(opts)
       return require("obsidian.util").markdown_link(opts)
     end,
 
-    -- Either 'wiki' or 'markdown'.
-    preferred_link_style = "wiki",
+    preferred_link_style = "wiki", -- 'wiki' or 'markdown'
 
     -- Optional, boolean or a function that takes a filename and returns a boolean.
     -- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
@@ -216,7 +215,7 @@ return {
     },
 
     footer = {
-      enabled = true,
+      enabled = false,
       format = "{{backlinks}} backlinks  {{properties}} properties  {{words}} words  {{chars}} chars",
       hl_group = "Comment",
       separator = string.rep("-", 80),
