@@ -55,8 +55,6 @@ require("git"):setup()
 
 -- https://github.com/sxyazi/yazi/blob/548bb0d063e0d4d00ed299bb519fef64397cc2c3/yazi-plugin/preset/components/linemode.lua
 function Linemode:custom()
-	local permissions = self._file.cha:perm() or ""
-
 	local file_size = self._file:size()
 	local size = file_size and ya.readable_size(file_size) or "-"
 
@@ -69,5 +67,19 @@ function Linemode:custom()
 		time = os.date("%b %d  %Y", time)
 	end
 
-	return string.format("%s %s %s", size, permissions, time)
+	return string.format("%s %s", size, time)
 end
+
+Status:children_add(function()
+	local h = cx.active.current.hovered
+	if not h or ya.target_family() ~= "unix" then
+		return ""
+	end
+
+	return ui.Line({
+		ui.Span(ya.user_name(h.cha.uid) or tostring(h.cha.uid)):fg("magenta"),
+		":",
+		ui.Span(ya.group_name(h.cha.gid) or tostring(h.cha.gid)):fg("magenta"),
+		" ",
+	})
+end, 500, Status.RIGHT)
