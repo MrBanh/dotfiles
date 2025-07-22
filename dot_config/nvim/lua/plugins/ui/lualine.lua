@@ -58,14 +58,15 @@ return {
           },
         },
       }
-      opts.sections.lualine_z = {
+      opts.sections.lualine_y = {
+        { "progress", separator = " ", padding = { left = 1, right = 0 } },
         {
-          function()
-            return " " .. os.date("%R")
-          end,
-          separator = { left = "", right = "" },
+          "location",
+          padding = { left = 0, right = 1 },
+          separator = { right = "" },
         },
       }
+      opts.sections.lualine_z = {}
 
       -- winbar
       opts.winbar = {
