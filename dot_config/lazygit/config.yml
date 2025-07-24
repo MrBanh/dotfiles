@@ -13,3 +13,7 @@ git:
   overrideGpg: true
 
 promptToReturnFromSubprocess: false
+
+notARepository: "skip" # prompt | create | skip
+
+quitOnTopLevelReturn: true
