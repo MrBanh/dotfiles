@@ -1,5 +1,8 @@
 return {
   "LintaoAmons/scratch.nvim",
+  dependencies = {
+    { "ibhagwan/fzf-lua" }, --optional: if you want to use fzf-lua to pick scratch file. Recommanded, since it will order the files by modification datetime desc. (require rg)
+  },
   cmd = { "Scratch", "ScratchWithName", "ScratchOpen", "ScratchOpenFzf" },
   keys = {
     { "<leader>Sn", "<cmd>Scratch<cr>", desc = "new scratch" },

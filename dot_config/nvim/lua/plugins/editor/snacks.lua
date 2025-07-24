@@ -198,5 +198,12 @@ return {
       end,
       desc = "Search for Plugin Spec",
     },
+    {
+      "<leader>gF",
+      function()
+        Snacks.lazygit.log_file()
+      end,
+      desc = "LazyGit File Log",
+    },
   },
 }
