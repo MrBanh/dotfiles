@@ -58,6 +58,7 @@ return {
           BlinkCmpSignatureHelpBorder = { link = "TelescopePromptBorder" },
           NoicePopupBorder = { link = "FloatBorder" },
           NoiceCmdlinePopupBorder = { link = "FloatBorder" },
+          RenderMarkdownCode = { bg = theme.ui.bg_m3 },
           TreesitterContext = { bg = "None" },
           TreesitterContextBottom = { sp = theme.ui.fg_dim, bg = "None" },
           TreesitterContextLineNumber = { bg = "None" },

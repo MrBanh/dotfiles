@@ -14,6 +14,11 @@ return {
         conceal = false,
       },
     },
+    code = {
+      -- right_pad = 0,
+      -- width = "block",
+      -- language_border = " ",
+    },
     checkbox = {
       enabled = true,
       custom = {
