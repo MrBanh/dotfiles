@@ -45,7 +45,7 @@ return {
           StatusLine = { bg = "None" },
           StatusLineNC = { bg = "None" },
           LineNr = { bg = "None" },
-          WinBar = { bg = "None" },
+          WinBar = { bg = "None", bold = true, cterm = { bold = true } },
           WinBarNC = { bg = "None" },
           Pmenu = { bg = "None" },
           WinSeparator = { fg = theme.ui.float.fg_border, bg = "None" },
