@@ -33,11 +33,14 @@ return {
       opts.options.disabled_filetypes.winbar = disabled_filetypes
 
       -- separators
+      local l_separator = ""
+      local r_separator = ""
+
       opts.options.component_separators = ""
-      opts.options.section_separators = { left = "", right = "" }
+      opts.options.section_separators = { left = r_separator, right = l_separator }
 
       -- sections: https://github.com/nvim-lualine/lualine.nvim?tab=readme-ov-file#available-components
-      opts.sections.lualine_a = { { "mode", separator = { left = "", right = "" } } }
+      opts.sections.lualine_a = { { "mode", separator = { right = r_separator } } }
       opts.sections.lualine_c = {
         LazyVim.lualine.root_dir({
           ---@diagnostic disable-next-line: assign-type-mismatch
@@ -63,7 +66,7 @@ return {
         {
           "location",
           padding = { left = 0, right = 1 },
-          separator = { right = "" },
+          separator = {},
         },
       }
       opts.sections.lualine_z = {}
@@ -76,14 +79,12 @@ return {
             "filetype",
             icon_only = true,
             padding = { left = 1, right = 0 },
-            color = { fg = "lualine_b_inactive", bg = "NONE" },
           },
           {
             "filename",
             file_status = false,
             symbols = {},
-            separator = { right = "" },
-            color = { fg = "lualine_b_inactive", bg = "NONE" },
+            separator = { right = r_separator },
           },
         },
         lualine_c = {
@@ -103,14 +104,13 @@ return {
             "filetype",
             icon_only = true,
             padding = { left = 1, right = 0 },
-            color = { fg = Snacks.util.color("Comment"), bg = "NONE" },
           },
           {
             "filename",
             file_status = false,
             symbols = {},
-            separator = { right = " " },
-            color = { fg = Snacks.util.color("Comment"), bg = "NONE" },
+            separator = { right = r_separator },
+            color = { fg = "None" },
           },
         },
         lualine_c = {
