@@ -104,13 +104,14 @@ return {
             "filetype",
             icon_only = true,
             padding = { left = 1, right = 0 },
+            color = { bg = "None" },
           },
           {
             "filename",
             file_status = false,
             symbols = {},
-            separator = { right = r_separator },
-            color = { fg = "None" },
+            separator = { right = "" },
+            color = { bg = "None" },
           },
         },
         lualine_c = {
