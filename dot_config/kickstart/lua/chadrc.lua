@@ -3,7 +3,6 @@
 -- Please read that file to know all available options :(
 --
 -- :h nvui
---
 
 local options = {
   base46 = {
@@ -35,14 +34,15 @@ local options = {
       'git',
       'git-conflict',
       'grug_far',
+      'lspsaga',
       'navic',
       'notify',
       'render-markdown',
       'semantic_tokens',
-      -- 'tiny-inline-diagnostic',
       'todo',
       'trouble',
       'whichkey',
+      -- 'tiny-inline-diagnostic',
     },
     -- changed_themes = {},
     -- theme_toggle = { "onedark", "one_light" },
@@ -68,7 +68,8 @@ local options = {
       -- default/round/block/arrow separators work only for default statusline theme
       -- round and block will work for minimal theme only
       separator_style = 'round',
-      order = { 'mode', 'file', 'git', '%=', 'lsp_msg', '%=', 'recording', 'diagnostics', 'lsp', 'cwd', 'cursor' },
+      order = { 'mode', 'file', 'read_only', 'git', '%=', 'lsp_msg', '%=', 'recording', 'diagnostics', 'lsp', 'cwd', 'cursor' },
+      -- examples: https://github.com/NvChad/ui/blob/v3.0/lua/nvchad/stl/minimal.lua
       modules = {
         recording = function()
           if vim.fn.reg_recording() ~= '' then
@@ -76,6 +77,9 @@ local options = {
           else
             return ''
           end
+        end,
+        read_only = function()
+          return '%#St_file_sep#' .. (vim.bo.readonly and '' or '')
         end,
       },
     },
@@ -115,6 +119,7 @@ local options = {
       { txt = '  Find File', keys = 'ff', cmd = 'Telescope find_files' },
       { txt = '  Recent Files', keys = 'fo', cmd = 'Telescope oldfiles' },
       { txt = '󰈭  Find Word', keys = 'fw', cmd = 'Telescope live_grep' },
+      { txt = '󰒲  Lazy', keys = 'l', cmd = 'Lazy' },
       { txt = '󰑓  Restore Session', keys = 's', cmd = ":lua require('persistence').load()" },
 
       { txt = '─', hl = 'NvDashFooter', no_gap = true, rep = true },

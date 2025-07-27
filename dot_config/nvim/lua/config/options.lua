@@ -13,7 +13,7 @@ vim.cmd("autocmd InsertLeave * set nu rnu")
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
-vim.opt.conceallevel = 1
+vim.o.conceallevel = 1
 
 vim.opt.clipboard = ""
 
@@ -36,15 +36,8 @@ vim.g.clipboard = {
   },
 }
 
--- use ai suggestion in cmp, false shows inline suggestion
-vim.g.ai_cmp = false
-
--- Fixes: Snacks picker not opening files with <CR> in insert mode with bullets.vim
---- https://github.com/folke/snacks.nvim/issues/812
-vim.g.bullets_enable_in_empty_buffers = 0
-
--- blink, requires NeoVim >= 0.11
-vim.o.winborder = "rounded"
+-- Preview substitutions live, as you type!
+vim.o.inccommand = "nosplit"
 
 -- shada file
 vim.opt.exrc = true
@@ -55,5 +48,17 @@ local unique_id = vim.fn.fnamemodify(workspace_path, ":t") .. "_" .. vim.fn.sha2
 local shadafile = cache_dir .. "/myshada/" .. unique_id .. ".shada"
 vim.opt.shadafile = shadafile
 
+-- Plugin/distro specific --
+
+-- LazyVim: use ai suggestion in cmp, false shows inline suggestion
+vim.g.ai_cmp = false
+
+-- Fixes: Snacks picker not opening files with <CR> in insert mode with bullets.vim
+--- https://github.com/folke/snacks.nvim/issues/812
+vim.g.bullets_enable_in_empty_buffers = 0
+
+-- blink, requires NeoVim >= 0.11
+vim.o.winborder = "rounded"
+
 -- Snacks picker root detection: https://github.com/LazyVim/LazyVim/blob/25abbf546d564dc484cf903804661ba12de45507/NEWS.md?plain=1#L254
--- vim.g.root_spec = { "cwd" }
+vim.g.root_spec = { "cwd" }

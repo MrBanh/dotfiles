@@ -19,26 +19,6 @@ return {
       require('git-conflict').setup(opts)
     end,
   },
-  {
-    'kdheepak/lazygit.nvim',
-    lazy = true,
-    cmd = {
-      'LazyGit',
-      'LazyGitConfig',
-      'LazyGitCurrentFile',
-      'LazyGitFilter',
-      'LazyGitFilterCurrentFile',
-    },
-    -- optional for floating window border decoration
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    -- setting the keybinding for LazyGit with 'keys' is recommended in
-    -- order to load the plugin when the command is run for the first time
-    keys = {
-      { '<leader>gg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
-    },
-  },
 
   {
     'lewis6991/gitsigns.nvim',
@@ -55,6 +35,7 @@ return {
         map('n', '<leader>gD', function()
           gs.diffthis '@'
         end, 'Diff this against last commit')
+        map('n', '<leader>gp', gs.preview_hunk_inline, 'Preview hunk inline')
         map('n', '<leader>gx', gs.reset_buffer, 'Reset Buffer')
         map('n', '<leader>gX', gs.reset_base, 'Reset all changes')
 
@@ -92,8 +73,17 @@ return {
         end, 'Blame Buffer')
 
         -- toggles
-        map('n', '<leader>Tb', gs.toggle_current_line_blame, 'Toggle git show blame line')
-        map('n', '<leader>TD', gs.preview_hunk_inline, 'Toggle git show deleted')
+
+        local current_line_blame = gs.toggle_current_line_blame()
+        Snacks.toggle({
+          name = 'Git Inline Blame',
+          get = function()
+            return current_line_blame
+          end,
+          set = function()
+            current_line_blame = gs.toggle_current_line_blame()
+          end,
+        }):map '<leader>Tb'
 
         -- operator
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'GitSigns Select Hunk')

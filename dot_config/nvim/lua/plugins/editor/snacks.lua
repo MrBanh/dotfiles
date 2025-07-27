@@ -8,6 +8,16 @@ return {
         col = -1,
       },
     },
+    lazygit = {
+      config = {
+        os = {
+          edit = '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}})',
+          editAtLine = '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" &&  nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":{{line}}<CR>")',
+          editAtLineAndWait = "nvim +{{line}} {{filename}}",
+          openDirInEditor = '[ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{dir}})',
+        },
+      },
+    },
     image = {
       enabled = false,
       doc = {
@@ -27,6 +37,51 @@ return {
         calculate_file_truncate_width = function(self)
           local width = self.list.win:size().width
           self.opts.formatters.file.truncate = width - 6
+        end,
+
+        -- yank and paste file + rename if duplicate
+        -- https://github.com/folke/snacks.nvim/discussions/1748
+        explorer_paste_rename = function(picker)
+          local uv = vim.uv or vim.loop
+          local Tree = require("snacks.explorer.tree")
+          local M = require("snacks.explorer.actions")
+
+          local files = vim.split(vim.fn.getreg(vim.v.register or "+") or "", "\n", { plain = true })
+          files = vim.tbl_filter(function(file)
+            return file ~= "" and vim.fn.filereadable(file) == 1
+          end, files)
+
+          if #files == 0 then
+            return Snacks.notify.warn(("The `%s` register does not contain any files"):format(vim.v.register or "+"))
+          end
+          if #files == 1 then
+            local file = files[1]
+            local base = vim.fn.fnamemodify(file, ":t")
+            local dir = picker:dir()
+            Snacks.input({
+              prompt = "Rename pasted file",
+              default = base,
+            }, function(value)
+              if not value or value:find("^%s*$") then
+                return
+              end
+              local target = vim.fs.normalize(dir .. "/" .. value)
+              if uv.fs_stat(target) then
+                Snacks.notify.warn("File already exists:\n- `" .. target .. "`")
+                return
+              end
+              Snacks.picker.util.copy_path(file, target)
+              Tree:refresh(dir)
+              Tree:open(dir)
+              M.update(picker, { target = dir })
+            end)
+          else
+            local dir = picker:dir()
+            Snacks.picker.util.copy(files, dir)
+            Tree:refresh(dir)
+            Tree:open(dir)
+            M.update(picker, { target = dir })
+          end
         end,
       },
       layout = {
@@ -58,13 +113,12 @@ return {
         -- when focus is on input box above list
         input = {
           keys = {
-            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
+            ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
             ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
             ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
             ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-            ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
           },
         },
         -- when focus in on list
@@ -73,12 +127,15 @@ return {
             self:execute("calculate_file_truncate_width")
           end,
           keys = {
-            ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
+            ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
             ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
             ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
             ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-            ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
+          },
+          wo = {
+            number = true,
+            relativenumber = true,
           },
         },
       },
@@ -89,25 +146,28 @@ return {
           win = {
             input = {
               keys = {
-                ["`"] = "tcd",
-                ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
+                ["<LocalLeader>c"] = "tcd",
+                ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
                 ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
                 ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-                ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
               },
             },
             list = {
               keys = {
+                ["p"] = "explorer_paste_rename",
                 ["<c-/>"] = "terminal",
-                ["`"] = "tcd",
-                ["<leader>`"] = { "toggle_cwd", mode = { "n", "i" } },
+                ["<LocalLeader>c"] = "tcd",
+                ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
                 ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
                 ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
                 ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
                 ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
-                ["<c-w><Tab>"] = { "focus_preview", desc = "Focus Preview" },
+              },
+              wo = {
+                number = true,
+                relativenumber = true,
               },
             },
           },
@@ -121,13 +181,29 @@ return {
       win = {
         style = {
           border = "rounded",
-          -- position = "float",
+          position = "float",
           -- backdrop = 60,
-          -- height = 0.9,
-          -- width = 0.9,
+          height = 0.6,
+          width = 0.6,
           -- zindex = 50,
         },
       },
+    },
+  },
+  keys = {
+    {
+      "<leader>sP",
+      function()
+        Snacks.picker.lazy()
+      end,
+      desc = "Search for Plugin Spec",
+    },
+    {
+      "<leader>gF",
+      function()
+        Snacks.lazygit.log_file()
+      end,
+      desc = "LazyGit File Log",
     },
   },
 }

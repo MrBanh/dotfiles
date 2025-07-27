@@ -1,16 +1,17 @@
 return {
-  "axelvc/template-string.nvim",
+  'axelvc/template-string.nvim',
+  event = 'VeryLazy',
   config = function()
-    require("template-string").setup({
+    require('template-string').setup {
       filetypes = {
-        "html",
-        "typescript",
-        "javascript",
-        "typescriptreact",
-        "javascriptreact",
-        "vue",
-        "svelte",
-        "python",
+        'html',
+        'typescript',
+        'javascript',
+        'typescriptreact',
+        'javascriptreact',
+        'vue',
+        'svelte',
+        'python',
       }, -- filetypes where the plugin is active
       jsx_brackets = true, -- must add brackets to JSX attributes
       remove_template_string = true, -- remove backticks when there are no template strings
@@ -19,6 +20,6 @@ return {
         normal = [[']],
         jsx = [["]],
       },
-    })
+    }
   end,
 }

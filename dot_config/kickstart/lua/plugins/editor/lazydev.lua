@@ -7,6 +7,7 @@ return {
         -- See the configuration section for more details
         -- Load luvit types when the `vim.uv` word is found
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        { path = 'snacks.nvim', words = { 'Snacks' } },
       },
     },
   },
@@ -15,7 +16,7 @@ return {
     opts = {
       sources = {
         -- add lazydev to your completion providers
-        default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+        default = { 'lazydev' },
         providers = {
           lazydev = {
             name = 'LazyDev',

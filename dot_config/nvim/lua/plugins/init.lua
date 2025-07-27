@@ -4,4 +4,5 @@ return {
   { import = "plugins.mason" },
   { import = "plugins.misc" },
   { import = "plugins.ui" },
+  { import = "plugins.ui.colorschemes" },
 }
