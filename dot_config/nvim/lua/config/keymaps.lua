@@ -48,11 +48,8 @@ set({ "n", "v" }, "<leader>Y", [["+y]], vim.tbl_extend("force", opts, { desc = "
 -- paste from system clipboard
 set({ "n", "v" }, "<leader>P", [["+p]], vim.tbl_extend("force", opts, { desc = "[P]aste from clipboard" }))
 
--- source lua file
-set("n", "<C-w>%", "<Cmd>source %<CR>")
-
 -- exit terminal mode while in terminal
-set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+set("t", "<C-w>[", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
 -- Browser search bar (see autocmds.lua)
 set("n", "<leader>so", ":SearchInBrowser<CR>", {
