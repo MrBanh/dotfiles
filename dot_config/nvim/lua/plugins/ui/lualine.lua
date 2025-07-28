@@ -10,6 +10,7 @@ local disabled_filetypes = {
   "undotree",
   "Trouble",
   "dap-repl",
+  "leetcode.nvim",
 }
 
 return {
