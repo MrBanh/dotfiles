@@ -24,6 +24,12 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
   },
   opts = {
+    workspaces = {
+      {
+        name = "work",
+        path = "~/obsidian-vault",
+      },
+    },
     dir = vim.env.HOME .. "/obsidian-vault", -- specify the vault location. no need to call 'vim.fn.expand' here
 
     log_level = vim.log.levels.INFO,
@@ -201,7 +207,7 @@ return {
       -- Runs anytime the workspace is set/changed.
       ---@param client obsidian.Client
       ---@param workspace obsidian.Workspace
-      post_set_workspace = function(client, workspace) end,
+      -- post_set_workspace = function(client, workspace) end,
     },
 
     -- requires `conceallevel` to be set to 1 or 2
@@ -213,29 +219,15 @@ return {
         ["x"] = { char = "✔", hl_group = "ObsidianDone" },
       },
     },
+    checkbox = {
+      order = { " ", "~", "x" },
+    },
 
     footer = {
       enabled = false,
       format = "{{backlinks}} backlinks  {{properties}} properties  {{words}} words  {{chars}} chars",
       hl_group = "Comment",
       separator = string.rep("-", 80),
-    },
-
-    mappings = {
-      -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-      ["gf"] = {
-        action = function()
-          return require("obsidian").util.gf_passthrough()
-        end,
-        opts = { noremap = false, expr = true, buffer = true },
-      },
-      -- Smart action depending on context: follow link, show notes with tag, or toggle checkbox.
-      ["<cr>"] = {
-        action = function()
-          return require("obsidian").util.smart_action()
-        end,
-        opts = { buffer = true, expr = true },
-      },
     },
   },
 
