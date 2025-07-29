@@ -328,6 +328,12 @@ keymap = [
   # Tasks
   { on = "w", run = "tasks_show", desc = "Show task manager" },
 
+  # Follow symlink
+  { on = [
+    "g",
+    "l",
+  ], run = "plugin follow-link", desc = "Go to the symlink original directory" },
+
   # Help
   { on = [
     "g",
