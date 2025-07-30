@@ -20,8 +20,8 @@ return {
       local icons = LazyVim.config.icons
 
       -- https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
-      -- local custom_theme = require("lualine.themes.ayu_mirage")
-      local custom_theme = require("lualine.themes.auto")
+      local custom_theme = require("lualine.themes.nightfox")
+      -- local custom_theme = require("lualine.themes.auto")
       local lualine_modes = { "normal", "inactive" }
       for _, field in ipairs(lualine_modes) do
         if custom_theme[field] and custom_theme[field].c then
