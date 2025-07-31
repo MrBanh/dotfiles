@@ -3,8 +3,13 @@ keybinding:
     scrollUpMain-alt1: <c-k>
     scrollDownMain-alt1: <c-j>
   commits:
-    moveDownCommit: "J" # move commit down one
-    moveUpCommit: "K" # move commit up one
+    moveDownCommit: J # move commit down one
+    moveUpCommit: K # move commit up one
+    renameCommit: R
+    renameCommitWithEditor: r
+  files:
+    commitChanges: C
+    commitChangesWithEditor: c
 
 os:
   editPreset: "nvim"

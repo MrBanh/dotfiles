@@ -6,7 +6,7 @@ return {
       servers = {
         -- https://github.com/typescript-language-server/typescript-language-server
         ts_ls = {
-          enabled = true,
+          enabled = false,
           keys = {
             {
               "<leader>co",
@@ -46,14 +46,6 @@ return {
             hostInfo = "neovim",
           },
         },
-        vtsls = {
-          enabled = false,
-        },
-      },
-      setup = {
-        vtsls = function()
-          return true
-        end,
       },
     },
   },

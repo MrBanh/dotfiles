@@ -49,7 +49,13 @@ if is_windows then
 end
 
 -- https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = "Kanagawa (Gogh)"
+config.color_scheme = "Blazer"
+
+-- color schemes I like:
+--- "Blazer"
+--- "Kanagawa (Gogh)"
+--- "nightfox"
+--- "Everforest Dark (Gogh)"
 
 -- https://wezfurlong.org/wezterm/config/lua/config/window_decorations.html
 config.window_decorations = "RESIZE"
