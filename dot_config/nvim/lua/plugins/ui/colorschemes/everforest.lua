@@ -70,6 +70,7 @@ return {
         hl.PmenuSel = { bg = palette.bg_green, fg = palette.none }
         hl.CursorLine = { bg = palette.none }
         hl.LspSignatureActiveParameter = { bg = palette.bg1 }
+        hl.NonText = { link = "Comment" }
       end,
       colours_override = function(palette) end,
     })
