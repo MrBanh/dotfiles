@@ -11,6 +11,8 @@ return {
   },
 
   -- Copilot LSP for Next Edit Suggestions
+
+  -- Only if you want inline completions with blink
   -- { import = "lazyvim.plugins.extras.ai.copilot" },
   -- {
   --   "giuxtaposition/blink-cmp-copilot",
@@ -50,47 +52,37 @@ return {
   --     },
   --   },
   -- },
-  -- {
-  --   "copilotlsp-nvim/copilot-lsp",
-  --   init = function()
-  --     local nes = require("copilot-lsp.nes")
-  --
-  --     vim.g.copilot_nes_debounce = 1000
-  --
-  --     vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-  --       callback = function()
-  --         if not nes.clear() then
-  --           return
-  --         end
-  --       end,
-  --     })
-  --
-  --     vim.lsp.enable("copilot_ls")
-  --
-  --     -- Keymaps for Copilot Next Edit Suggestions
-  --     vim.keymap.set("n", "g<Tab>", function()
-  --       local _ = nes.walk_cursor_start_edit() or (nes.apply_pending_nes() and nes.walk_cursor_end_edit())
-  --     end, {
-  --       desc = "Jump to start of suggestion edit or apply pending suggestion & jump to end of edit",
-  --     })
-  --
-  --     require("which-key").add({
-  --       "<leader>as",
-  --       group = "Suggestions",
-  --     })
-  --     vim.keymap.set("n", "<leader>asn", function()
-  --       nes.request_nes("copilot_ls")
-  --     end, { desc = "Request Next Edit Suggestion" })
-  --
-  --     vim.keymap.set("n", "<leader>asc", function()
-  --       nes.clear_suggestion()
-  --     end, { desc = "Clear suggestion" })
-  --
-  --     vim.keymap.set({ "n", "i" }, "<C-c>", function()
-  --       if not nes.clear() then
-  --         return
-  --       end
-  --     end, { desc = "Clear Copilot suggestion or fallback" })
-  --   end,
-  -- },
+
+  {
+    "copilotlsp-nvim/copilot-lsp",
+    init = function()
+      local nes = require("copilot-lsp.nes")
+
+      vim.g.copilot_nes_debounce = 500
+
+      vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+        callback = function()
+          if not nes.clear() then
+            return
+          end
+        end,
+      })
+
+      vim.lsp.enable("copilot_ls")
+
+      vim.keymap.set({ "n", "i" }, "<M-Tab>", function()
+        local _ = nes.walk_cursor_start_edit()
+          or (nes.apply_pending_nes() and nes.walk_cursor_end_edit())
+          or nes.request_nes("copilot_ls")
+      end, {
+        desc = "Jump to start of suggestion edit or apply pending suggestion & jump to end of edit",
+      })
+
+      vim.keymap.set({ "n", "i" }, "<C-c>", function()
+        if not nes.clear() then
+          return
+        end
+      end, { desc = "Clear Copilot suggestion or fallback" })
+    end,
+  },
 }
