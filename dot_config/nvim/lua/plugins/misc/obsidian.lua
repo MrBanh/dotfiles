@@ -28,6 +28,9 @@ return {
       {
         name = "work",
         path = "~/obsidian-vault",
+        overrides = {
+          notes_subdir = "notes",
+        },
       },
     },
     dir = vim.env.HOME .. "/obsidian-vault", -- specify the vault location. no need to call 'vim.fn.expand' here
@@ -134,7 +137,7 @@ return {
         ["rfc-template"] = {
           notes_subdir = "RFCs",
         },
-        ["topic-template.md"] = {
+        ["topic-template"] = {
           notes_subdir = "Topics",
         },
       },
