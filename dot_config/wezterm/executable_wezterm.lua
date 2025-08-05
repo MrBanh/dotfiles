@@ -49,7 +49,7 @@ if is_windows then
 end
 
 -- https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = "Blazer"
+config.color_scheme = "nightfox"
 
 -- color schemes I like:
 --- "Blazer"
