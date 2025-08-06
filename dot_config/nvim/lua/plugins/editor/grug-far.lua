@@ -15,13 +15,12 @@ return {
       function()
         local grug = require("grug-far")
 
-        local search = vim.fn.expand("<cword>")
+        -- local search = vim.fn.expand("<cword>")
         -- local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
 
         grug.open({
           transient = true,
           prefills = {
-            search = search,
             -- filesFilter = ext and ext ~= "" and "*." .. ext or nil,
             flags = "-i",
           },
