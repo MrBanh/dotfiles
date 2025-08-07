@@ -2,7 +2,9 @@ return {
   "MagicDuck/grug-far.nvim",
   opts = {
     headerMaxWidth = 80,
-
+    folding = {
+      enabled = false,
+    },
     keymaps = {
       -- :h grug-far-opts
       historyOpen = { n = "<localleader>h" },
