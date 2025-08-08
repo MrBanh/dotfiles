@@ -71,6 +71,8 @@ return {
         hl.CursorLine = { bg = palette.none }
         hl.LspSignatureActiveParameter = { bg = palette.bg1 }
         hl.NonText = { link = "Comment" }
+        hl.GitConflictCurrent = { bg = palette.bg_blue }
+        hl.GitConflictCurrentLabel = { link = "GitConflictCurrent" }
       end,
       colours_override = function(palette) end,
     })
