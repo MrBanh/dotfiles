@@ -1,5 +1,3 @@
-require("which-key").add({ "<leader>a", group = "ai", icon = { icon = "󰚩 ", color = "green", cat = "extension" } })
-
 return {
   "olimorris/codecompanion.nvim",
   dependencies = {
