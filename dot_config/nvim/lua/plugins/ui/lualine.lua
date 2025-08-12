@@ -34,7 +34,7 @@ return {
       opts.options.disabled_filetypes.winbar = disabled_filetypes
 
       -- separators
-      local l_separator = ""
+      local l_separator = ""
       local r_separator = ""
 
       opts.options.component_separators = ""
