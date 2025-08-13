@@ -117,8 +117,8 @@ export FZF_CTRL_R_OPTS="
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
-# For OpenCode to work with GitHub Copilot; can comment out once authed
-# export NODE_TLS_REJECT_UNAUTHORIZED=0
+# For OpenCode to work with GitHub Copilot, needs to be set to 0
+export NODE_TLS_REJECT_UNAUTHORIZED=1
 
 # ===================
 
