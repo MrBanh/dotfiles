@@ -4,6 +4,51 @@
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
 "$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
 
+# https://github.com/dedukun/relative-motions.yazi
+[[mgr.prepend_keymap]]
+on = ["1"]
+run = "plugin relative-motions 1"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = ["2"]
+run = "plugin relative-motions 2"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = ["3"]
+run = "plugin relative-motions 3"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = ["4"]
+run = "plugin relative-motions 4"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = ["5"]
+run = "plugin relative-motions 5"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = ["6"]
+run = "plugin relative-motions 6"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = ["7"]
+run = "plugin relative-motions 7"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = ["8"]
+run = "plugin relative-motions 8"
+desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = ["9"]
+run = "plugin relative-motions 9"
+desc = "Move in relative steps"
 
 # https://github.com/dedukun/bookmarks.yazi
 [[mgr.prepend_keymap]]
@@ -283,21 +328,73 @@ keymap = [
   # Tabs
   { on = "t", run = "tab_create --current", desc = "Create a new tab with CWD" },
 
-  { on = "1", run = "tab_switch 0", desc = "Switch to the first tab" },
-  { on = "2", run = "tab_switch 1", desc = "Switch to the second tab" },
-  { on = "3", run = "tab_switch 2", desc = "Switch to the third tab" },
-  { on = "4", run = "tab_switch 3", desc = "Switch to the fourth tab" },
-  { on = "5", run = "tab_switch 4", desc = "Switch to the fifth tab" },
-  { on = "6", run = "tab_switch 5", desc = "Switch to the sixth tab" },
-  { on = "7", run = "tab_switch 6", desc = "Switch to the seventh tab" },
-  { on = "8", run = "tab_switch 7", desc = "Switch to the eighth tab" },
-  { on = "9", run = "tab_switch 8", desc = "Switch to the ninth tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "1",
+  ], run = "tab_switch 0", desc = "Switch to the first tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "2",
+  ], run = "tab_switch 1", desc = "Switch to the second tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "3",
+  ], run = "tab_switch 2", desc = "Switch to the third tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "4",
+  ], run = "tab_switch 3", desc = "Switch to the fourth tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "5",
+  ], run = "tab_switch 4", desc = "Switch to the fifth tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "6",
+  ], run = "tab_switch 5", desc = "Switch to the sixth tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "7",
+  ], run = "tab_switch 6", desc = "Switch to the seventh tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "8",
+  ], run = "tab_switch 7", desc = "Switch to the eighth tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "9",
+  ], run = "tab_switch 8", desc = "Switch to the ninth tab" },
 
-  { on = "[", run = "tab_switch -1 --relative", desc = "Switch to the previous tab" },
-  { on = "]", run = "tab_switch 1 --relative", desc = "Switch to the next tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "[",
+  ], run = "tab_switch -1 --relative", desc = "Switch to the previous tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "]",
+  ], run = "tab_switch 1 --relative", desc = "Switch to the next tab" },
 
-  { on = "{", run = "tab_swap -1", desc = "Swap current tab with previous tab" },
-  { on = "}", run = "tab_swap 1", desc = "Swap current tab with next tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "{",
+  ], run = "tab_swap -1", desc = "Swap current tab with previous tab" },
+  { on = [
+    "<Space>",
+    "<Tab>",
+    "}",
+  ], run = "tab_swap 1", desc = "Swap current tab with next tab" },
 
   # Tasks
   { on = "w", run = "tasks_show", desc = "Show task manager" },
