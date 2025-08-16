@@ -99,6 +99,16 @@ config.keys = {
 		mods = "CMD",
 		action = wezterm.action.DisableDefaultAssignment,
 	},
+	{
+		key = "Enter",
+		mods = "ALT",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
+	{
+		key = "m",
+		mods = "SHIFT|CTRL",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
 }
 
 -- Miscellaneous settings
