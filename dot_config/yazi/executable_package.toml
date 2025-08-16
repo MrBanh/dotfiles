@@ -4,11 +4,6 @@ rev = "3309c78"
 hash = "ced88fdc206396265f0007fc491436cd"
 
 [[plugin.deps]]
-use = "yazi-rs/plugins:vcs-files"
-rev = "63f9650"
-hash = "70898957e9e4c1ca291ff26e8fdc434"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:git"
 rev = "63f9650"
 hash = "bf6f074cd41ee33c3360341d168f9733"
@@ -32,6 +27,16 @@ hash = "e02a788e5b8ae0fb47fd0193dda589cc"
 use = "imsi32/yatline"
 rev = "88bd1c5"
 hash = "981acbe9b758b1af3a8154c932bb936d"
+
+[[plugin.deps]]
+use = "ktunprasert/git-files"
+rev = "c7289ad"
+hash = "cdb1a69bed63211c75b72521bbab875d"
+
+[[plugin.deps]]
+use = "dedukun/bookmarks"
+rev = "9ef1254"
+hash = "92fbb5483657fa7976cdf4e0104e18e0"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"

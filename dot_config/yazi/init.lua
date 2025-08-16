@@ -10,7 +10,26 @@ require("save-clipboard-to-file"):setup({
 	hide_notify = false,
 })
 
--- JUMPING --
+-- BOOKMARKS / JUMPING --
+
+-- https://github.com/dedukun/bookmarks.yazi
+require("bookmarks"):setup({
+	last_directory = { enable = true, persist = true, mode = "dir" },
+	persist = "all",
+	desc_format = "full",
+	file_pick_mode = "hover",
+	custom_desc_input = false,
+	show_keys = true,
+	notify = {
+		enable = true,
+		timeout = 1,
+		message = {
+			new = "New bookmark '<key>' -> '<folder>'",
+			delete = "Deleted bookmark in '<key>'",
+			delete_all = "Deleted all bookmarks",
+		},
+	},
+})
 
 -- https://github.com/stelcodes/bunny.yazi
 require("bunny"):setup({
@@ -156,15 +175,5 @@ function Linemode:custom()
 		time = os.date("%b %d  %Y", time)
 	end
 
-	return string.format("%s %s", size, time)
+	return string.format("%s | %s", size, time)
 end
-
--- Shows symlink in status bar
-Status:children_add(function(self)
-	local h = self._current.hovered
-	if h and h.link_to then
-		return " -> " .. tostring(h.link_to)
-	else
-		return ""
-	end
-end, 3300, Status.LEFT)
