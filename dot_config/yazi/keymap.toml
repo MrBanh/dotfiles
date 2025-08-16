@@ -13,67 +13,20 @@ prepend_keymap = [
   ], run = "plugin save-clipboard-to-file", desc = "Paste clipboard content to file and hover after created" },
   #{ on = [ "p", "c" ], run = "plugin save-clipboard-to-file -- --no-hover", desc = "Paste clipboard content to file without hover after created" },
 
-  # https://github.com/MasouShizuka/projects.yazi
-  { on = [
-    "<Space>",
-    "q",
-    "s",
-  ], run = "plugin projects save", desc = "Save current project" },
-  { on = [
-    "<Space>",
-    "q",
-    "l",
-  ], run = "plugin projects load", desc = "Load project" },
-  { on = [
-    "<Space>",
-    "q",
-    "L",
-  ], run = "plugin projects load_last", desc = "Load last project" },
-  { on = [
-    "<Space>",
-    "q",
-    "d",
-  ], run = "plugin projects delete", desc = "Delete project" },
-  { on = [
-    "<Space>",
-    "q",
-    "D",
-  ], run = "plugin projects delete_all", desc = "Delete all projects" },
-  { on = [
-    "<Space>",
-    "q",
-    "m",
-  ], run = "plugin projects 'merge current'", desc = "Merge current tab to other projects" },
-  { on = [
-    "<Space>",
-    "q",
-    "M",
-  ], run = "plugin projects 'merge all'", desc = "Merge current project to other projects" },
-
   # https://github.com/yazi-rs/plugins/tree/main/vcs-files.yazi
   { on = [
-    "<Space>",
+    ",",
     "g",
-  ], run = "plugin vcs-files", desc = "Show Git file changes" },
+  ], run = "plugin vcs-files", desc = "Show only Git file changes" },
 
-  # https://github.com/dedukun/bookmarks.yazi
-  { on = [
-    "m",
-  ], run = "plugin bookmarks save", desc = "Save current position as a bookmark" },
+  # https://github.com/stelcodes/bunny.yazi
   { on = [
     "'",
-  ], run = "plugin bookmarks jump", desc = "Jump to a bookmark" },
-  { on = [
-    "b",
-    "d",
-  ], run = "plugin bookmarks delete", desc = "Delete a bookmark" },
-  { on = [
-    "b",
-    "D",
-  ], run = "plugin bookmarks delete_all", desc = "Delete all bookmarks" },
+  ], run = "plugin bunny", desc = "Start bunny.yazi" },
 
   # https://github.com/yazi-rs/plugins/tree/main/chmod.yazi
   { on = [
+    "<Space>",
     "c",
     "m",
   ], run = "plugin chmod", desc = "Change file permissions" },
@@ -148,7 +101,7 @@ keymap = [
   { on = "D", run = "remove --permanently", desc = "Permanently delete selected files" },
   { on = "a", run = "create", desc = "Create a file (ends with / for directories)" },
   { on = "r", run = "rename --cursor=before_ext", desc = "Rename selected file(s)" },
-  { on = ";", run = "shell --interactive", desc = "Run a shell command" },
+  { on = "!", run = "shell --interactive", desc = "Run a shell command" },
   { on = ":", run = "shell --block --interactive", desc = "Run a shell command (block until finishes)" },
   { on = ".", run = "hidden toggle", desc = "Toggle the visibility of hidden files" },
   { on = "s", run = "search --via=fd", desc = "Search files by name via fd" },
@@ -395,6 +348,12 @@ keymap = [
 
 [input]
 
+prepend_keymap = [
+  { on = [
+    'j',
+    'k',
+  ], run = "escape", desc = "Go back the normal mode, or cancel input" },
+]
 keymap = [
   { on = "<C-c>", run = "close", desc = "Cancel input" },
   { on = "q", run = "close", desc = "Cancel input" },
@@ -439,9 +398,9 @@ keymap = [
   { on = "x", run = "backspace --under", desc = "Delete the character under the cursor" },
 
   # Kill - only in insert mode
-  # { on = "<C-h>", run = "kill bol", desc = "Kill backwards to the BOL" },
-  # { on = "<C-l>", run = "kill eol", desc = "Kill forwards to the EOL" },
-  # { on = "<C-w>", run = "kill backward", desc = "Kill backwards to the start of the current word" },
+  { on = "<C-h>", run = "kill bol", desc = "Kill backwards to the BOL" },
+  { on = "<C-l>", run = "kill eol", desc = "Kill forwards to the EOL" },
+  { on = "<C-w>", run = "kill backward", desc = "Kill backwards to the start of the current word" },
   # { on = "<A-d>", run = "kill forward", desc = "Kill forwards to the end of the current word" },
 
   # Cut/Yank/Paste
