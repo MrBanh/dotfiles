@@ -17,7 +17,7 @@ require("bookmarks"):setup({
 	last_directory = { enable = true, persist = true, mode = "dir" },
 	persist = "all",
 	desc_format = "full",
-	file_pick_mode = "hover",
+	file_pick_mode = "parent",
 	custom_desc_input = false,
 	show_keys = true,
 	notify = {
@@ -36,12 +36,14 @@ require("bunny"):setup({
 	hops = {
 		-- key and path attributes are required, desc is optional
 		{ key = "/", path = "/" },
-		{ key = "t", path = "/tmp" },
 		{ key = "~", path = "~", desc = "Home" },
+		{ key = "c", path = "~/.config", desc = "config files" },
 		{ key = "d", path = "~/downloads", desc = "downloads" },
 		{ key = "D", path = "~/desktop", desc = "desktop" },
-		{ key = "c", path = "~/.config", desc = "config files" },
-		{ key = "s", path = "~/src" },
+		{ key = "h", path = "~", desc = "Home" },
+		{ key = { "l", "s" }, path = "~/.local/share", desc = "local share" },
+		{ key = { "l", "b" }, path = "~/.local/bin", desc = "local bin" },
+		{ key = { "l", "t" }, path = "~/.local/state", desc = "local state" },
 		{ key = { "p", "1" }, path = "~/src/pricing-pages-unified-ui/", desc = "pricing-pages-unified-ui" },
 		{ key = { "p", "2" }, path = "~/src/self-service-api/", desc = "self-service-api" },
 		{
@@ -54,14 +56,13 @@ require("bunny"):setup({
 			path = "~/src/purchase-staging-ui/",
 			desc = "purchase-staging-ui",
 		},
-		{ key = { "l", "s" }, path = "~/.local/share", desc = "local share" },
-		{ key = { "l", "b" }, path = "~/.local/bin", desc = "local bin" },
-		{ key = { "l", "t" }, path = "~/.local/state", desc = "local state" },
+		{ key = "s", path = "~/src" },
+		{ key = "t", path = "/tmp" },
 	},
 	desc_strategy = "path", -- if desc isn't present, use "path" or "filename", default is "path"
 	ephemeral = true, -- enable ephemeral hops, default is true
 	tabs = true, -- enable tab hops, default is true
-	notify = false, -- notify after hopping, default is false
+	notify = true, -- notify after hopping, default is false
 	fuzzy_cmd = "fzf", -- fuzzy searching command, default is "fzf"
 })
 
