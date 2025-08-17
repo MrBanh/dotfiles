@@ -49,7 +49,7 @@ set({ "n", "v" }, "<leader>Y", [["+y]], vim.tbl_extend("force", opts, { desc = "
 set({ "n", "v" }, "<leader>P", [["+p]], vim.tbl_extend("force", opts, { desc = "[P]aste from clipboard" }))
 
 -- exit terminal mode while in terminal
-set("t", "<C-w>[", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+set("t", "<C-Space>[", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
 -- Browser search bar (see autocmds.lua)
 set("n", "<leader>so", ":SearchInBrowser<CR>", {
