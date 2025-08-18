@@ -118,12 +118,8 @@ require("yatline"):setup({
 		left = {
 			section_a = {},
 			section_b = {
-				{
-					type = "string",
-					custom = false,
-					name = "hovered_name",
-					params = { { trimed = false, show_symlink = true, max_length = 24, trim_length = 10 } },
-				},
+				-- {type = "line", custom = false, name = "tabs", params = {"left"}},
+				{ type = "string", custom = false, name = "hovered_path" },
 			},
 			section_c = {},
 		},
@@ -141,7 +137,12 @@ require("yatline"):setup({
 			},
 			section_b = {},
 			section_c = {
-				{ type = "string", custom = false, name = "hovered_path" },
+				{
+					type = "string",
+					custom = false,
+					name = "hovered_name",
+					params = { { trimed = false, show_symlink = true, max_length = 24, trim_length = 10 } },
+				},
 				{ type = "string", custom = false, name = "hovered_size" },
 				{ type = "coloreds", custom = false, name = "permissions" },
 			},
