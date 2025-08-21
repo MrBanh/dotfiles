@@ -43,10 +43,9 @@ end, {
 set("x", "/", "<Esc>/\\%V", opts)
 
 -- Yank to clipboard
-set({ "n", "v" }, "<leader>Y", [["+y]], vim.tbl_extend("force", opts, { desc = "[Y]ank selected to clipboard" }))
-
--- paste from system clipboard
-set({ "n", "v" }, "<leader>P", [["+p]], vim.tbl_extend("force", opts, { desc = "[P]aste from clipboard" }))
+set({ "v" }, "<leader>y", [["+y]], vim.tbl_extend("force", opts, { desc = "[Y]ank selected to clipboard" }))
+set({ "n" }, "<leader>y", [["+yiw]], vim.tbl_extend("force", opts, { desc = "[Y]ank word to clipboard" }))
+set({ "n", "v" }, "<leader>Y", [["+Y]], vim.tbl_extend("force", opts, { desc = "[Y]ank line to clipboard" }))
 
 -- exit terminal mode while in terminal
 set("t", "<C-Space>[", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
