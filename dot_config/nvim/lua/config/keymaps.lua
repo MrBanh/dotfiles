@@ -31,14 +31,6 @@ set("x", "K", ":move '<-2<CR>gv-gv", opts)
 set("c", [[\\*]], [[\(.*\)]], { desc = "Inserts \\(.*\\)" })
 set("c", [[\\-]], [[\(.\{-}\)]], { desc = "Inserts \\(.{-})" })
 
--- Search current word under cursor in current buffer
-set({ "n", "x" }, "<leader>/", function()
-  local word = vim.fn.expand("<cword>")
-  vim.cmd("/" .. word)
-end, {
-  desc = "Search current word in buffer",
-})
-
 -- Search within selection
 set("x", "/", "<Esc>/\\%V", opts)
 
