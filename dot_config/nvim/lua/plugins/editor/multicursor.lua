@@ -1,13 +1,12 @@
-require("which-key").add({
-  "<leader>m",
-  group = "MultiCursor",
-  icon = { icon = "󰆿 " },
-})
-
 return {
   "jake-stewart/multicursor.nvim",
-  branch = "1.0",
   config = function()
+    require("which-key").add({
+      "<leader>m",
+      group = "MultiCursor",
+      icon = { icon = "󰆿 " },
+    })
+
     local mc = require("multicursor-nvim")
     mc.setup()
 
