@@ -2,12 +2,6 @@
 --- https://github.com/magnusriga/markdown-tools.nvim
 --- + https://github.com/artempyanykh/marksman
 
-require("which-key").add({
-  "<leader>n",
-  group = "Notes/New...",
-  icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
-})
-
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
@@ -235,6 +229,12 @@ return {
   },
 
   config = function(_, opts)
+    require("which-key").add({
+      "<leader>n",
+      group = "Notes/New...",
+      icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
+    })
+
     require("obsidian").setup(opts)
 
     local del = vim.keymap.del
