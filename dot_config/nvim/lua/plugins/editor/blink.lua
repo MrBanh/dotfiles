@@ -16,7 +16,11 @@ return {
       },
       menu = {
         draw = {
-          columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 } },
+          columns = {
+            { "label", "label_description", gap = 1 },
+            { "source_name", gap = 1 },
+            { "kind_icon", "kind", gap = 1 },
+          },
           components = {
             kind_icon = {
               text = function(ctx)
