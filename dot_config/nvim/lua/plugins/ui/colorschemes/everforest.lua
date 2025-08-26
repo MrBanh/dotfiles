@@ -73,6 +73,8 @@ return {
         hl.NonText = { link = "Comment" }
         hl.GitConflictCurrent = { bg = palette.bg_blue }
         hl.GitConflictCurrentLabel = { link = "GitConflictCurrent" }
+        -- hl.FloatBorder = { link = "VertSplit" }
+        -- hl.Pmenu = { link = "VertSplit" }
       end,
       colours_override = function(palette) end,
     })
