@@ -1,13 +1,7 @@
 return {
   "folke/snacks.nvim",
   opts = {
-    styles = {
-      -- This keeps the image on the top right corner
-      snacks_image = {
-        relative = "editor",
-        col = -1,
-      },
-    },
+    bigfile = {},
     lazygit = {
       config = {
         os = {
@@ -20,11 +14,7 @@ return {
     },
     image = {
       enabled = false,
-      doc = {
-        float = true,
-        inline = true,
-      },
-      cache = nil,
+      formats = {},
     },
     notifier = {
       top_down = false,

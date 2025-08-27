@@ -2,12 +2,6 @@
 --- https://github.com/magnusriga/markdown-tools.nvim
 --- + https://github.com/artempyanykh/marksman
 
-require("which-key").add({
-  "<leader>n",
-  group = "Notes/New...",
-  icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
-})
-
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
@@ -24,6 +18,15 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
   },
   opts = {
+    workspaces = {
+      {
+        name = "work",
+        path = "~/obsidian-vault",
+        overrides = {
+          notes_subdir = "notes",
+        },
+      },
+    },
     dir = vim.env.HOME .. "/obsidian-vault", -- specify the vault location. no need to call 'vim.fn.expand' here
 
     log_level = vim.log.levels.INFO,
@@ -128,7 +131,7 @@ return {
         ["rfc-template"] = {
           notes_subdir = "RFCs",
         },
-        ["topic-template.md"] = {
+        ["topic-template"] = {
           notes_subdir = "Topics",
         },
       },
@@ -201,7 +204,7 @@ return {
       -- Runs anytime the workspace is set/changed.
       ---@param client obsidian.Client
       ---@param workspace obsidian.Workspace
-      post_set_workspace = function(client, workspace) end,
+      -- post_set_workspace = function(client, workspace) end,
     },
 
     -- requires `conceallevel` to be set to 1 or 2
@@ -213,6 +216,9 @@ return {
         ["x"] = { char = "✔", hl_group = "ObsidianDone" },
       },
     },
+    checkbox = {
+      order = { " ", "~", "x" },
+    },
 
     footer = {
       enabled = false,
@@ -220,26 +226,15 @@ return {
       hl_group = "Comment",
       separator = string.rep("-", 80),
     },
-
-    mappings = {
-      -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-      ["gf"] = {
-        action = function()
-          return require("obsidian").util.gf_passthrough()
-        end,
-        opts = { noremap = false, expr = true, buffer = true },
-      },
-      -- Smart action depending on context: follow link, show notes with tag, or toggle checkbox.
-      ["<cr>"] = {
-        action = function()
-          return require("obsidian").util.smart_action()
-        end,
-        opts = { buffer = true, expr = true },
-      },
-    },
   },
 
   config = function(_, opts)
+    require("which-key").add({
+      "<leader>n",
+      group = "Notes/New...",
+      icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
+    })
+
     require("obsidian").setup(opts)
 
     local del = vim.keymap.del

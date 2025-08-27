@@ -29,7 +29,6 @@ return {
   opts = {
     condition = function(buf)
       local filetype = vim.fn.getbufvar(buf, "&filetype")
-      -- don't save for 'harpoon'
       if
         vim.list_contains({
           -- from plugins
@@ -50,6 +49,26 @@ return {
           "wezterm.lua",
         }, filetype)
       then
+        return false
+      end
+
+      -- coder/claudecode.nvim
+      --- Exclude claudecode diff buffers by buffer name patterns
+      local bufname = vim.api.nvim_buf_get_name(buf)
+      if bufname:match("%(proposed%)") or bufname:match("%(NEW FILE %- proposed%)") or bufname:match("%(New%)") then
+        return false
+      end
+      --- Exclude by buffer variables (claudecode sets these)
+      if
+        vim.b[buf].claudecode_diff_tab_name
+        or vim.b[buf].claudecode_diff_new_win
+        or vim.b[buf].claudecode_diff_target_win
+      then
+        return false
+      end
+      --- Exclude by buffer type (claudecode diff buffers use "acwrite")
+      local buftype = vim.fn.getbufvar(buf, "&buftype")
+      if buftype == "acwrite" then
         return false
       end
 

@@ -1,5 +1,3 @@
-require("which-key").add({ "<leader>y", group = "Yazi", icon = { icon = "󰇥 ", color = "yellow", cat = "extension" } })
-
 return {
   "mikavilpas/yazi.nvim",
   event = "VeryLazy",
@@ -20,7 +18,7 @@ return {
       -- https://github.com/sxyazi/yazi/pull/1305 from 2024-07-18
       "<leader>-",
       "<cmd>Yazi toggle<cr>",
-      desc = "Resume the last yazi session",
+      desc = "Resume the last Yazi session",
     },
   },
   ---@type YaziConfig
@@ -40,7 +38,7 @@ return {
       cycle_open_buffers = "]b",
       copy_relative_path_to_selected_files = "<c-y>",
       send_to_quickfix_list = "<c-q>",
-      change_working_directory = "`",
+      change_working_directory = "<LocalLeader>c",
     },
   },
 }

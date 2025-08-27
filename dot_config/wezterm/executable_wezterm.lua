@@ -49,7 +49,13 @@ if is_windows then
 end
 
 -- https://wezfurlong.org/wezterm/colorschemes/index.html
-config.color_scheme = "Kanagawa (Gogh)"
+config.color_scheme = "nightfox"
+
+-- color schemes I like:
+--- "Blazer"
+--- "Kanagawa (Gogh)"
+--- "nightfox"
+--- "Everforest Dark (Gogh)"
 
 -- https://wezfurlong.org/wezterm/config/lua/config/window_decorations.html
 config.window_decorations = "RESIZE"
@@ -91,6 +97,16 @@ config.keys = {
 	{
 		key = "w",
 		mods = "CMD",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
+	{
+		key = "Enter",
+		mods = "ALT",
+		action = wezterm.action.DisableDefaultAssignment,
+	},
+	{
+		key = "m",
+		mods = "SHIFT|CTRL",
 		action = wezterm.action.DisableDefaultAssignment,
 	},
 }

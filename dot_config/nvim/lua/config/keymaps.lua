@@ -31,28 +31,15 @@ set("x", "K", ":move '<-2<CR>gv-gv", opts)
 set("c", [[\\*]], [[\(.*\)]], { desc = "Inserts \\(.*\\)" })
 set("c", [[\\-]], [[\(.\{-}\)]], { desc = "Inserts \\(.{-})" })
 
--- Search current word under cursor in current buffer
-set({ "n", "x" }, "<leader>/", function()
-  local word = vim.fn.expand("<cword>")
-  vim.cmd("/" .. word)
-end, {
-  desc = "Search current word in buffer",
-})
-
 -- Search within selection
 set("x", "/", "<Esc>/\\%V", opts)
 
 -- Yank to clipboard
-set({ "n", "v" }, "<leader>Y", [["+y]], vim.tbl_extend("force", opts, { desc = "[Y]ank selected to clipboard" }))
-
--- paste from system clipboard
-set({ "n", "v" }, "<leader>P", [["+p]], vim.tbl_extend("force", opts, { desc = "[P]aste from clipboard" }))
-
--- source lua file
-set("n", "<C-w>%", "<Cmd>source %<CR>")
+set({ "n", "v" }, "<leader>y", [["+y]], vim.tbl_extend("force", opts, { desc = "[Y]ank to clipboard" }))
+set({ "n", "v" }, "<leader>Y", [["+y$]], vim.tbl_extend("force", opts, { desc = "[Y]ank to end of line to clipboard" }))
 
 -- exit terminal mode while in terminal
-set("t", "<C-x>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+set("t", "<C-Space>[", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 
 -- Browser search bar (see autocmds.lua)
 set("n", "<leader>so", ":SearchInBrowser<CR>", {
