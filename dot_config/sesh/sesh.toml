@@ -1,5 +1,7 @@
 [default_session]
-startup_command = "nvim -c ':lua Snacks.explorer()'"
+startup_command = "nvim -c ':lua Snacks.explorer({ focus = \"input\" })'"
+
+[[session]]
 preview_command = "eza --all --git --icons --color=always {}"
 
 [[session]]

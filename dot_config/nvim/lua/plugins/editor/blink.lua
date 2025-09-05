@@ -48,6 +48,12 @@ return {
       enabled = true,
       completion = {
         ghost_text = { enabled = true },
+        list = {
+          selection = {
+            -- When `true`, will automatically select the first item in the completion list
+            preselect = false,
+          },
+        },
       },
     },
 
