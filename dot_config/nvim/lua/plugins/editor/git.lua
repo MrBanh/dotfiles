@@ -1,5 +1,17 @@
 return {
   {
+    "akinsho/git-conflict.nvim",
+    version = "*",
+    opts = {
+      default_mappings = {
+        ours = "o",
+        theirs = "t",
+        none = "x",
+        both = "a",
+      },
+    },
+  },
+  {
     "sindrets/diffview.nvim",
     lazy = false,
     keys = {
@@ -49,7 +61,7 @@ return {
           },
           merge_tool = {
             -- Config for conflicted files in diff views during a merge or rebase.
-            layout = "diff3_horizontal",
+            layout = "diff3_mixed",
             disable_diagnostics = true, -- Temporarily disable diagnostics for diff buffers while in the view.
             winbar_info = true, -- See |diffview-config-view.x.winbar_info|
           },
@@ -102,7 +114,7 @@ return {
         },
         hooks = {}, -- See |diffview-config-hooks|
         keymaps = {
-          disable_defaults = false, -- Disable the default keymaps
+          disable_defaults = true, -- Disable the default keymaps
           view = {
             {
               "n",
@@ -188,7 +200,7 @@ return {
               actions.conflict_choose("all"),
               { desc = "Choose all the versions of a conflict" },
             },
-            { "n", "dx", actions.conflict_choose("none"), { desc = "Delete the conflict region" } },
+            { "n", "<localleader>cx", actions.conflict_choose("none"), { desc = "Delete the conflict region" } },
             {
               "n",
               "<localleader>cO",
@@ -215,7 +227,7 @@ return {
             },
             {
               "n",
-              "dX",
+              "<localleader>cX",
               actions.conflict_choose_all("none"),
               { desc = "Delete the conflict region for the whole file" },
             },
@@ -447,7 +459,7 @@ return {
             },
             {
               "n",
-              "dX",
+              "<localleader>cX",
               actions.conflict_choose_all("none"),
               { desc = "Delete the conflict region for the whole file" },
             },
