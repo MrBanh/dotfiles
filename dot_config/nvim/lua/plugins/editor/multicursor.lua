@@ -1,5 +1,6 @@
 return {
   "jake-stewart/multicursor.nvim",
+  event = "VeryLazy",
   config = function()
     require("which-key").add({
       "<leader>m",

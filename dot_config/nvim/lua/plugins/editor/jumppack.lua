@@ -1,5 +1,6 @@
 return {
   "suliatis/Jumppack.nvim",
+  event = "VeryLazy",
   opts = {
     window = {
       config = function()
