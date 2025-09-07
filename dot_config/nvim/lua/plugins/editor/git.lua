@@ -13,7 +13,8 @@ return {
   },
   {
     "sindrets/diffview.nvim",
-    lazy = false,
+    event = "VeryLazy",
+    cmd = { "DiffviewOpen" },
     keys = {
       {
         "<leader>gd",
