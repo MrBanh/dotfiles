@@ -68,18 +68,6 @@ autocmd("User", {
   end,
 })
 
-local Format = augroup("Format", { clear = true })
-autocmd("BufWritePre", {
-  desc = "Organize imports on save for JS/TS",
-  group = Format,
-  pattern = "*.ts,*.tsx,*.jsx,*.js",
-  callback = function()
-    if vim.fn.exists(":TSToolsOrganizeImports") then
-      vim.cmd("TSToolsOrganizeImports")
-    end
-  end,
-})
-
 autocmd("FileType", {
   desc = "Define windows to close with 'q'",
   pattern = {
