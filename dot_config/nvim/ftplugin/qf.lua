@@ -12,6 +12,6 @@ vim.keymap.set("v", "D", del_qf_item, { silent = true, buffer = true, desc = "Re
 -- force quickfix to open at the bottom all the time, even if there's a vert split
 vim.cmd.wincmd("J")
 
--- set the height of quickfix
+-- set the height
 local height = math.floor(vim.o.lines * 0.3)
 vim.cmd(height .. "wincmd_")
