@@ -4,10 +4,10 @@ return {
     version = "*",
     opts = {
       default_mappings = {
-        ours = "o",
-        theirs = "t",
-        none = "x",
-        both = "a",
+        ours = "<localleader>co",
+        theirs = "<localleader>ct",
+        none = "<localleader>cx",
+        both = "<localleader>ca",
       },
     },
   },
@@ -119,7 +119,7 @@ return {
           view = {
             {
               "n",
-              "<localleader>q",
+              "q",
               ":DiffviewClose<CR>",
               { desc = "Close Diffview" },
             },
@@ -282,7 +282,7 @@ return {
           file_panel = {
             {
               "n",
-              "<localleader>q",
+              "q",
               ":DiffviewClose<CR>",
               { desc = "Close Diffview" },
             },
