@@ -7,9 +7,13 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
+local autocmd = vim.api.nvim_create_autocmd
+local usercmd = vim.api.nvim_create_user_command
+local augroup = vim.api.nvim_create_augroup
+
 -- USER COMMANDS
 
-vim.api.nvim_create_user_command("SearchInBrowser", function(args)
+usercmd("SearchInBrowser", function(args)
   local config = {
     default_engine = "google",
     query_map = {
@@ -56,8 +60,40 @@ end, {
   nargs = "?",
 })
 
+autocmd("User", {
+  desc = "Add which key for Git Conflict",
+  pattern = "GitConflictDetected",
+  callback = function()
+    vim.keymap.set("n", "<localleader>c", "<nop>", { buffer = true, desc = "Git Conflict" })
+  end,
+})
+
+local Format = augroup("Format", { clear = true })
+autocmd("BufWritePre", {
+  desc = "Organize imports on save for JS/TS",
+  group = Format,
+  pattern = "*.ts,*.tsx,*.jsx,*.js",
+  callback = function()
+    if vim.fn.exists(":TSToolsOrganizeImports") then
+      vim.cmd("TSToolsOrganizeImports")
+    end
+  end,
+})
+
+autocmd("FileType", {
+  desc = "Define windows to close with 'q'",
+  pattern = {
+    "grug-far-history",
+  },
+  group = vim.api.nvim_create_augroup("WinCloseOnQDefinition", { clear = true }),
+  command = [[
+            nnoremap <buffer><silent> q :close<CR>
+            set nobuflisted
+        ]],
+})
+
 -- -- Organize imports on save for JS/TS
--- vim.api.nvim_create_autocmd("BufWritePre", {
+-- autocmd("BufWritePre", {
 --   callback = function()
 --     local fts = {
 --       "javascript",
