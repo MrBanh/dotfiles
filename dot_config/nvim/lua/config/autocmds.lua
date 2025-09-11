@@ -79,25 +79,3 @@ autocmd("FileType", {
             set nobuflisted
         ]],
 })
-
--- -- Organize imports on save for JS/TS
--- autocmd("BufWritePre", {
---   callback = function()
---     local fts = {
---       "javascript",
---       "javascriptreact",
---       "typescript",
---       "typescriptreact",
---     }
---     local ft = vim.bo.filetype
---     for _, v in ipairs(fts) do
---       if ft == v then
---         vim.lsp.buf.code_action({
---           context = { only = { "source.organizeImports" }, diagnostics = {} },
---           apply = true,
---         })
---         return
---       end
---     end
---   end,
--- })
