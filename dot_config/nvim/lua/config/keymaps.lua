@@ -27,6 +27,10 @@ set("v", "K", ":m .-2<CR>==", opts)
 set("x", "J", ":move '>+1<CR>gv-gv", opts)
 set("x", "K", ":move '<-2<CR>gv-gv", opts)
 
+-- Remap macros
+set("n", "q", "<nop>", {})
+set("n", "<M-q>", "q", vim.tbl_extend("force", opts, { desc = "Start/stop recording macro" }))
+
 -- regex helpers
 set("c", [[\\*]], [[\(.*\)]], { desc = "Inserts \\(.*\\)" })
 set("c", [[\\-]], [[\(.\{-}\)]], { desc = "Inserts \\(.{-})" })
@@ -39,7 +43,7 @@ set({ "n", "v" }, "<leader>y", [["+y]], vim.tbl_extend("force", opts, { desc = "
 set({ "n", "v" }, "<leader>Y", [["+y$]], vim.tbl_extend("force", opts, { desc = "[Y]ank to end of line to clipboard" }))
 
 -- exit terminal mode while in terminal
-set("t", "<C-Space>[", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
+set("t", "<C-Space>[", "<C-\\><C-N>", vim.tbl_extend("force", opts, { desc = "terminal escape terminal mode" }))
 
 -- Browser search bar (see autocmds.lua)
 set("n", "<leader>so", ":SearchInBrowser<CR>", {
@@ -53,5 +57,6 @@ end, {
   desc = "Search in browser",
 })
 
+-- LSP Workspace Folders
 set("n", "<leader>fw", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
 set("n", "<leader>fW", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })

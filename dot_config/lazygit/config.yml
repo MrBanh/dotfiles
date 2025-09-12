@@ -19,6 +19,6 @@ git:
 
 promptToReturnFromSubprocess: false
 
-notARepository: "skip" # prompt | create | skip
+notARepository: "prompt" # prompt | create | skip
 
 quitOnTopLevelReturn: true

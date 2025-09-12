@@ -6,6 +6,9 @@ return {
         wo = {
           wrap = true,
         },
+        size = {
+          height = 0.3,
+        },
       },
       modes = {
         diagnostics = {

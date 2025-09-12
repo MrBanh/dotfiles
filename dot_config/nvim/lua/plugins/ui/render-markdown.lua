@@ -1,6 +1,8 @@
 -- Lazy: https://www.lazyvim.org/extras/lang/markdown#render-markdownnvim
 return {
   "MeanderingProgrammer/render-markdown.nvim",
+  lazy = true,
+  ft = { "markdown" },
   opts = {
     heading = {
       icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },

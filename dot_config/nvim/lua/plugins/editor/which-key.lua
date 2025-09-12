@@ -9,8 +9,15 @@ return {
     local wk = require("which-key")
     wk.setup(opts)
     wk.add({
-      "<leader>a",
-      group = "ai",
+      {
+        "<leader>a",
+        group = "ai",
+      },
+      {
+        "<leader>n",
+        group = "Notes/New...",
+        icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
+      },
     })
   end,
 }

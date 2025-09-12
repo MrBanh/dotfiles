@@ -5,8 +5,35 @@
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
-  lazy = false,
+  lazy = true,
   ft = "markdown",
+  cmd = {
+    "ObsidianDailies",
+    "ObsidianSearch",
+    "ObsidianQuickSwitch",
+    "Obsidian",
+    "ObsidianOpen",
+    "ObsidianPasteImg",
+    "ObsidianRename",
+    "ObsidianToday",
+    "ObsidianBacklinks",
+  },
+  keys = {
+    { "<leader>nd", ":ObsidianDailies -7 7<CR>", mode = { "n", "v" }, desc = "Obsidian daily" },
+    { "<leader>ng", ":ObsidianSearch<CR>", mode = { "n", "v" }, desc = "Obsidian search" },
+    { "<leader>nl", ":ObsidianQuickSwitch<CR>", mode = { "n", "v" }, desc = "Obsidian list" },
+    { "<leader>nn", ":Obsidian new_from_template<CR>", mode = { "n", "v" }, desc = "Obsidian template" },
+    { "<leader>no", ":ObsidianOpen<CR>", mode = { "n", "v" }, desc = "Open current note in Obsidian app" },
+    { "<leader>np", ":ObsidianPasteImg<CR>", mode = { "n", "v" }, desc = "Obsidian paste IMG" },
+    { "<leader>nR", ":ObsidianRename<CR>", mode = { "n", "v" }, desc = "Obsidian rename file" },
+    { "<leader>nt", ":ObsidianToday<CR>", mode = { "n", "v" }, desc = "Obsidian today" },
+    {
+      "<leader>nr",
+      ":ObsidianBacklinks<CR>",
+      mode = { "n", "v" },
+      desc = "Obsidian find references to current buffer",
+    },
+  },
   dependencies = {
     -- required
     "nvim-lua/plenary.nvim",
@@ -229,31 +256,6 @@ return {
   },
 
   config = function(_, opts)
-    require("which-key").add({
-      "<leader>n",
-      group = "Notes/New...",
-      icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
-    })
-
     require("obsidian").setup(opts)
-
-    local del = vim.keymap.del
-    del("n", "<Leader>n")
-
-    local set = vim.keymap.set
-    set({ "n", "v" }, "<leader>nd", "<Cmd>ObsidianDailies -7 7<CR>", { desc = "Obsidian daily" })
-    set({ "n", "v" }, "<leader>ng", "<Cmd>ObsidianSearch<CR>", { desc = "Obsidian search" })
-    set({ "n", "v" }, "<leader>nl", "<Cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian list" })
-    set({ "n", "v" }, "<leader>nn", ":Obsidian new_from_template<CR>", { desc = "Obsidian template" })
-    set({ "n", "v" }, "<leader>no", "<cmd>ObsidianOpen<CR>", { desc = "Open current note in Obsidian app" })
-    set({ "n", "v" }, "<leader>np", "<Cmd>ObsidianPasteImg<CR>", { desc = "Obsidian paste IMG" })
-    set({ "n", "v" }, "<leader>nR", "<Cmd>ObsidianRename<CR>", { desc = "Obsidian rename file" })
-    set({ "n", "v" }, "<leader>nt", "<Cmd>ObsidianToday<CR>", { desc = "Obsidian today" })
-    set(
-      { "n", "v" },
-      "<leader>nr",
-      "<Cmd>ObsidianBacklinks<CR>",
-      { desc = "Obsidian find references to current buffer" }
-    )
   end,
 }

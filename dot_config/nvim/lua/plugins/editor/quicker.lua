@@ -75,7 +75,7 @@ return {
         autosave = "unmodified",
       },
       -- Keep the cursor to the right of the filename and lnum columns
-      constrain_cursor = true,
+      constrain_cursor = false,
       highlight = {
         -- Use treesitter highlighting
         treesitter = true,
