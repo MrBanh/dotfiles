@@ -21,6 +21,7 @@ return {
     },
     -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#%EF%B8%8F-config
     picker = {
+      hidden = true,
       actions = {
         -- Make file truncation consider window width.
         -- <https://github.com/folke/snacks.nvim/issues/1217#issuecomment-2661465574>
@@ -130,6 +131,9 @@ return {
         },
       },
       sources = {
+        files = {
+          hidden = true,
+        },
         explorer = {
           auto_close = true,
           layout = { preset = "default", preview = true },
