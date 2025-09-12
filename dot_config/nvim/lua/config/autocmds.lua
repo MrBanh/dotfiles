@@ -72,6 +72,7 @@ autocmd("FileType", {
   desc = "Define windows to close with 'q'",
   pattern = {
     "grug-far-history",
+    "dap-float",
   },
   group = vim.api.nvim_create_augroup("WinCloseOnQDefinition", { clear = true }),
   command = [[
