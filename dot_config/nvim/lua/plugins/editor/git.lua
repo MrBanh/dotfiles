@@ -1,3 +1,18 @@
+local function open_commit(_, item)
+  if item and item.commit then
+    local snacks = require("snacks")
+    local cwd = snacks.git.get_root() or vim.fn.getcwd()
+    local remote_url = vim.fn.system("git -C " .. vim.fn.shellescape(cwd) .. " remote get-url origin"):gsub("\n", "")
+    if remote_url and remote_url ~= "" then
+      ---@diagnostic disable-next-line: invisible
+      local repo = snacks.gitbrowse.get_repo(remote_url)
+      local url = snacks.gitbrowse.get_url(repo, { commit = item.commit }, { what = "commit" })
+      snacks.notify("Opening URL: " .. url, { title = "Git Browse" })
+      vim.ui.open(url)
+    end
+  end
+end
+
 return {
   {
     "akinsho/git-conflict.nvim",
@@ -628,6 +643,63 @@ return {
   },
   {
     "folke/snacks.nvim",
+    opts = {
+      picker = {
+        sources = {
+          git_log = {
+            actions = {
+              open_commit = open_commit,
+            },
+            win = {
+              input = {
+                keys = {
+                  ["<c-g>"] = { "open_commit", mode = { "n", "i" } },
+                },
+              },
+              list = {
+                keys = {
+                  ["<c-g>"] = { "open_commit" },
+                },
+              },
+            },
+          },
+          git_log_file = {
+            actions = {
+              open_commit = open_commit,
+            },
+            win = {
+              input = {
+                keys = {
+                  ["<c-g>"] = { "open_commit", mode = { "n", "i" } },
+                },
+              },
+              list = {
+                keys = {
+                  ["<c-g>"] = { "open_commit" },
+                },
+              },
+            },
+          },
+          git_log_line = {
+            actions = {
+              open_commit = open_commit,
+            },
+            win = {
+              input = {
+                keys = {
+                  ["<c-g>"] = { "open_commit", mode = { "n", "i" } },
+                },
+              },
+              list = {
+                keys = {
+                  ["<c-g>"] = { "open_commit" },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
     keys = {
       {
         "<leader>go",
