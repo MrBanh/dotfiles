@@ -6,7 +6,8 @@ return {
     },
     opts = {
       lightbulb = {
-        enable = true,
+        enable = false,
+        sign = false,
         virtual_text = false, -- disables just the one at the end of the line
       },
       ui = {
