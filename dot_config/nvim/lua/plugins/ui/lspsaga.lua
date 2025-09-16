@@ -6,7 +6,8 @@ return {
     },
     opts = {
       lightbulb = {
-        enable = true,
+        enable = false,
+        sign = false,
         virtual_text = false, -- disables just the one at the end of the line
       },
       ui = {
@@ -19,6 +20,32 @@ return {
       },
       code_action = {
         extend_gitsigns = true,
+      },
+      rename = {
+        in_select = false,
+        auto_save = true,
+        keys = {
+          select = "<Tab>",
+          quit = "<C-c>",
+        },
+      },
+    },
+    keys = {
+      {
+        "<leader>rn",
+        function()
+          require("lspsaga.rename"):lsp_rename()
+        end,
+        desc = "Rename",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>rN",
+        function()
+          require("lspsaga.rename"):lsp_rename({ "++project" })
+        end,
+        desc = "Rename (project-wide)",
+        mode = { "n", "v" },
       },
     },
   },
