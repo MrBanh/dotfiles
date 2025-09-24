@@ -237,11 +237,6 @@ return {
     -- requires `conceallevel` to be set to 1 or 2
     ui = {
       enable = false, -- md ui handled by render-markdown.nvim      ignore_conceal_warn = false, -- set to true to disable conceallevel specific warning
-      checkboxes = {
-        [" "] = { char = "☐", hl_group = "ObsidianTodo" },
-        ["~"] = { char = " ", hl_group = "ObsidianTilde" },
-        ["x"] = { char = "✔", hl_group = "ObsidianDone" },
-      },
     },
     checkbox = {
       order = { " ", "~", "x" },
