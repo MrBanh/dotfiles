@@ -50,6 +50,9 @@ return {
           dismiss = "<C-c>",
         },
       },
+      filetypes = {
+        gitcommit = true,
+      },
     },
   },
   {
