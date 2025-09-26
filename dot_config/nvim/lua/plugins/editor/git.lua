@@ -37,6 +37,12 @@ return {
         desc = "Git Diff",
         mode = { "n", "v" },
       },
+      {
+        "<leader>gD",
+        ":DiffviewOpen --staged<CR>",
+        desc = "Git Diff (Staged)",
+        mode = { "n", "v" },
+      },
     },
     config = function()
       local actions = require("diffview.actions")
