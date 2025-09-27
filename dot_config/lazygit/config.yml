@@ -1,7 +1,9 @@
 keybinding:
   universal:
-    scrollUpMain-alt1: <c-k>
-    scrollDownMain-alt1: <c-j>
+    scrollUpMain-alt1: <c-b>
+    scrollDownMain-alt1: <c-f>
+    copyToClipboard: y
+
   commits:
     moveDownCommit: J # move commit down one
     moveUpCommit: K # move commit up one
@@ -10,6 +12,8 @@ keybinding:
   files:
     commitChanges: C
     commitChangesWithEditor: c
+    openStatusFilter: F
+    findBaseCommitForFixup: B
 
 os:
   editPreset: "nvim"
