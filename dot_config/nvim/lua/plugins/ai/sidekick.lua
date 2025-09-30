@@ -34,14 +34,6 @@ return {
       desc = "Sidekick New Tool",
     },
     {
-      "<A-w>",
-      function()
-        require("sidekick.cli").focus()
-      end,
-      mode = { "n", "x", "i", "t" },
-      desc = "Sidekick Switch Focus",
-    },
-    {
       "<leader>ap",
       function()
         require("sidekick.cli").select_prompt()
@@ -52,14 +44,10 @@ return {
     {
       "<leader>aa",
       false,
-      mode = { "n" },
-      desc = "Sidekick Toggle",
     },
     {
       "<c-.>",
       false,
-      mode = { "n", "x", "i", "t" },
-      desc = "Sidekick Switch Focus",
     },
   },
 }
