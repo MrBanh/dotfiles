@@ -1,6 +1,10 @@
 return {
   "folke/sidekick.nvim",
   opts = {
+    signs = {
+      enabled = true, -- enable signs by default
+      icon = " ",
+    },
     cli = {
       mux = {
         backend = "tmux",
