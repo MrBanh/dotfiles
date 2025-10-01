@@ -90,6 +90,7 @@ autoload -U compinit && (compinit &; compinit -C)
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/nvim:$PATH"
+export XDG_CONFIG_HOME="$HOME/.config"
 export WEZTERM_CONFIG_FILE="$HOME/.config/wezterm/wezterm.lua"
 
 ## Disables directory highlight
