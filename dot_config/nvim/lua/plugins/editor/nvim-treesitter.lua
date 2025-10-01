@@ -5,6 +5,6 @@ return {
     vim.filetype.add({
       extension = { lyaml = "yaml" },
     })
-    require("nvim-treesitter.configs").setup(opts)
+    require("nvim-treesitter").setup(opts)
   end,
 }

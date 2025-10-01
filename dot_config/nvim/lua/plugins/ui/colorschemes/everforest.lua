@@ -60,9 +60,7 @@ return {
       ---provide you with additional information. You can use this option to customize
       ---the background color of inlay hints.
       inlay_hints_background = "none", -- or "dimmed"
-      ---You can override specific highlights to use other groups or a hex colour.
-      ---@param hl Highlights
-      ---@param palette Palette https://github.com/neanias/everforest-nvim/blob/main/lua/everforest/colours.lua
+      -- https://github.com/neanias/everforest-nvim/blob/main/lua/everforest/colours.lua
       on_highlights = function(hl, palette)
         hl.NormalFloat = { bg = palette.none }
         hl.FloatBorder = { bg = palette.none }
@@ -73,6 +71,7 @@ return {
         hl.NonText = { link = "Comment" }
         hl.GitConflictCurrent = { bg = palette.bg_blue }
         hl.GitConflictCurrentLabel = { link = "GitConflictCurrent" }
+        hl.TSParameter = { fg = palette.purple }
         -- hl.FloatBorder = { link = "VertSplit" }
         -- hl.Pmenu = { link = "VertSplit" }
       end,

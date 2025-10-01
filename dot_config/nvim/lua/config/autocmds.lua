@@ -73,8 +73,9 @@ autocmd("FileType", {
   pattern = {
     "grug-far-history",
     "dap-float",
+    "sagarename",
   },
-  group = vim.api.nvim_create_augroup("WinCloseOnQDefinition", { clear = true }),
+  group = augroup("WinCloseOnQDefinition", { clear = true }),
   command = [[
             nnoremap <buffer><silent> q :close<CR>
             set nobuflisted

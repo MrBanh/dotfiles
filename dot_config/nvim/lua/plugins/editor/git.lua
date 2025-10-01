@@ -37,6 +37,12 @@ return {
         desc = "Git Diff",
         mode = { "n", "v" },
       },
+      {
+        "<leader>gD",
+        ":DiffviewOpen --staged<CR>",
+        desc = "Git Diff (Staged)",
+        mode = { "n", "v" },
+      },
     },
     config = function()
       local actions = require("diffview.actions")
@@ -154,6 +160,18 @@ return {
             },
             {
               "n",
+              "<c-n>",
+              actions.select_next_entry,
+              { desc = "Open the diff for the next file" },
+            },
+            {
+              "n",
+              "<c-p>",
+              actions.select_prev_entry,
+              { desc = "Open the diff for the previous file" },
+            },
+            {
+              "n",
               "[F",
               actions.select_first_entry,
               { desc = "Open the diff for the first file" },
@@ -170,10 +188,9 @@ return {
               actions.goto_file_edit,
               { desc = "Open the file in the previous tabpage" },
             },
-            { "n", "<C-w><C-f>", actions.goto_file_split, { desc = "Open the file in a new split" } },
+            { "n", "<C-w><C-s>", actions.goto_file_split, { desc = "Open the file in a new split" } },
             { "n", "<C-w>gf", actions.goto_file_tab, { desc = "Open the file in a new tabpage" } },
-            { "n", "<localleader>e", actions.focus_files, { desc = "Bring focus to the file panel" } },
-            { "n", "<localleader>b", actions.toggle_files, { desc = "Toggle the file panel." } },
+            { "n", "<localleader>e", actions.toggle_files, { desc = "Toggle the file panel." } },
             {
               "n",
               "g<C-x>",
@@ -304,20 +321,20 @@ return {
             {
               "n",
               "j",
-              actions.next_entry,
-              { desc = "Bring the cursor to the next file entry" },
+              actions.select_next_entry,
+              { desc = "Open the diff for the next file" },
+            },
+            {
+              "n",
+              "k",
+              actions.select_prev_entry,
+              { desc = "Open the diff for the previous file" },
             },
             {
               "n",
               "<down>",
               actions.next_entry,
               { desc = "Bring the cursor to the next file entry" },
-            },
-            {
-              "n",
-              "k",
-              actions.prev_entry,
-              { desc = "Bring the cursor to the previous file entry" },
             },
             {
               "n",
@@ -330,30 +347,6 @@ return {
               "<cr>",
               actions.select_entry,
               { desc = "Open the diff for the selected entry" },
-            },
-            {
-              "n",
-              "o",
-              actions.select_entry,
-              { desc = "Open the diff for the selected entry" },
-            },
-            {
-              "n",
-              "l",
-              actions.select_entry,
-              { desc = "Open the diff for the selected entry" },
-            },
-            {
-              "n",
-              "<2-LeftMouse>",
-              actions.select_entry,
-              { desc = "Open the diff for the selected entry" },
-            },
-            {
-              "n",
-              "-",
-              actions.toggle_stage_entry,
-              { desc = "Stage / unstage the selected entry" },
             },
             {
               "n",
@@ -392,6 +385,18 @@ return {
             },
             {
               "n",
+              "<c-n>",
+              actions.select_next_entry,
+              { desc = "Open the diff for the next file" },
+            },
+            {
+              "n",
+              "<c-p>",
+              actions.select_prev_entry,
+              { desc = "Open the diff for the previous file" },
+            },
+            {
+              "n",
               "[F",
               actions.select_first_entry,
               { desc = "Open the diff for the first file" },
@@ -407,12 +412,6 @@ return {
               "gf",
               actions.goto_file_edit,
               { desc = "Open the file in the previous tabpage" },
-            },
-            {
-              "n",
-              "<C-w><C-f>",
-              actions.goto_file_split,
-              { desc = "Open the file in a new split" },
             },
             {
               "n",
@@ -481,6 +480,12 @@ return {
             },
           },
           file_history_panel = {
+            {
+              "n",
+              "q",
+              ":DiffviewClose<CR>",
+              { desc = "Close Diffview" },
+            },
             { "n", "g!", actions.options, { desc = "Open the option panel" } },
             {
               "n",
@@ -510,20 +515,20 @@ return {
             {
               "n",
               "j",
-              actions.next_entry,
-              { desc = "Bring the cursor to the next file entry" },
+              actions.select_next_entry,
+              { desc = "Open the diff for the next file" },
+            },
+            {
+              "n",
+              "k",
+              actions.select_prev_entry,
+              { desc = "Open the diff for the previous file" },
             },
             {
               "n",
               "<down>",
               actions.next_entry,
               { desc = "Bring the cursor to the next file entry" },
-            },
-            {
-              "n",
-              "k",
-              actions.prev_entry,
-              { desc = "Bring the cursor to the previous file entry" },
             },
             {
               "n",
@@ -537,30 +542,19 @@ return {
               actions.select_entry,
               { desc = "Open the diff for the selected entry" },
             },
-            {
-              "n",
-              "o",
-              actions.select_entry,
-              { desc = "Open the diff for the selected entry" },
-            },
-            {
-              "n",
-              "l",
-              actions.select_entry,
-              { desc = "Open the diff for the selected entry" },
-            },
-            {
-              "n",
-              "<2-LeftMouse>",
-              actions.select_entry,
-              { desc = "Open the diff for the selected entry" },
-            },
             { "n", "<c-b>", actions.scroll_view(-0.25), { desc = "Scroll the view up" } },
             { "n", "<c-f>", actions.scroll_view(0.25), { desc = "Scroll the view down" } },
             { "n", "<tab>", actions.select_next_entry, { desc = "Open the diff for the next file" } },
             {
               "n",
               "<s-tab>",
+              actions.select_prev_entry,
+              { desc = "Open the diff for the previous file" },
+            },
+            { "n", "<c-n>", actions.select_next_entry, { desc = "Open the diff for the next file" } },
+            {
+              "n",
+              "<c-p>",
               actions.select_prev_entry,
               { desc = "Open the diff for the previous file" },
             },
@@ -577,10 +571,9 @@ return {
               actions.goto_file_edit,
               { desc = "Open the file in the previous tabpage" },
             },
-            { "n", "<C-w><C-f>", actions.goto_file_split, { desc = "Open the file in a new split" } },
+            { "n", "<C-w><C-s>", actions.goto_file_split, { desc = "Open the file in a new split" } },
             { "n", "<C-w>gf", actions.goto_file_tab, { desc = "Open the file in a new tabpage" } },
-            { "n", "<localleader>e", actions.focus_files, { desc = "Bring focus to the file panel" } },
-            { "n", "<localleader>b", actions.toggle_files, { desc = "Toggle the file panel" } },
+            { "n", "<localleader>e", actions.toggle_files, { desc = "Toggle the file panel" } },
             { "n", "g<C-x>", actions.cycle_layout, { desc = "Cycle available layouts" } },
             { "n", "g?", actions.help("file_history_panel"), { desc = "Open the help panel" } },
           },
