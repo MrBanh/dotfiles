@@ -1,16 +1,21 @@
 return {
   "LintaoAmons/scratch.nvim",
   dependencies = {
-    { "ibhagwan/fzf-lua" }, --optional: if you want to use fzf-lua to pick scratch file. Recommanded, since it will order the files by modification datetime desc. (require rg)
+    { "folke/snacks.nvim" }, -- optional: if you want to pick scratch file by snacks picker
   },
   cmd = { "Scratch", "ScratchWithName", "ScratchOpen", "ScratchOpenFzf" },
+  opts = {
+    filetypes = { "lua", "js", "sh", "ts" },
+    file_picker = "snacks", -- "fzflua" | "telescope" | "snacks" | nil
+    filetype_details = {
+      ["diffthis"] = {
+        subdir = "diffthis", -- group scratch files under specific sub folder
+      },
+    },
+  },
   keys = {
     { "<leader>Sn", "<cmd>Scratch<cr>", desc = "new scratch" },
     { "<leader>SN", "<cmd>ScratchWithName<cr>", desc = "new scratch (named)" },
     { "<leader>So", "<cmd>ScratchOpen<cr>", desc = "open scratch" },
-    { "<leader>Sg", "<cmd>ScratchOpenFzf<cr>", desc = "open scratch (fzf)" },
-  },
-  opts = {
-    filetypes = { "lua", "js", "sh", "ts" },
   },
 }
