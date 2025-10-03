@@ -50,7 +50,62 @@ return {
         "<leader>dw",
         false,
       },
+      {
+        "<F5>",
+        function()
+          require("dap").continue()
+        end,
+        desc = "Run/Continue",
+      },
+      {
+        "<F10>",
+        function()
+          require("dap").step_over()
+        end,
+        desc = "Step Over",
+      },
+      {
+        "<F11>",
+        function()
+          require("dap").step_into()
+        end,
+        desc = "Step Into",
+      },
+      {
+        "<F12>",
+        function()
+          require("dap").step_out()
+        end,
+        desc = "Step Out",
+      },
     },
+    opts = function()
+      local dap = require("dap")
+
+      -- adapter definitions
+      if not dap.adapters["chrome"] then
+        dap.adapters["chrome"] = {
+          type = "executable",
+          command = "node",
+          args = {
+            LazyVim.get_pkg_path("js-debug-adapter", "/js-debug/src/dapDebugServer.js"),
+          },
+        }
+      end
+
+      local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+      for _, language in ipairs(js_filetypes) do
+        dap.configurations[language] = dap.configurations[language] or {}
+
+        -- Add your custom configurations
+        local custom_configs = {}
+
+        -- Append custom configs to existing ones
+        for _, config in ipairs(custom_configs) do
+          table.insert(dap.configurations[language], config)
+        end
+      end
+    end,
   },
   {
     "rcarriga/nvim-dap-ui",
