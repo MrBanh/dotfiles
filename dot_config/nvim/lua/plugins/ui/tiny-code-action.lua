@@ -29,7 +29,7 @@ return {
           -- text_diff_based = "Fix all" => "fa", "Fix others" => "fo" smarter than text_based
           hotkeys_mode = "sequential", -- "text_diff_based" | "text_based" | "sequential"
           auto_preview = true, -- Enable auto preview of the code action
-          position = "center", -- "cursor" or "center"
+          position = "cursor", -- "cursor" or "center"
           winborder = "rounded", -- Set the window border style ("single", "rounded", "solid", etc.)
         },
       },
