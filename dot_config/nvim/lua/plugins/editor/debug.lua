@@ -51,32 +51,39 @@ return {
         false,
       },
       {
-        "<F5>",
+        "<leader>dR",
         function()
-          require("dap").continue()
+          require("dap").restart()
         end,
-        desc = "Run/Continue",
+        desc = "Restart Debugging",
       },
       {
-        "<F10>",
+        "<F2>",
         function()
           require("dap").step_over()
         end,
         desc = "Step Over",
       },
       {
-        "<F11>",
+        "<F3>",
         function()
           require("dap").step_into()
         end,
         desc = "Step Into",
       },
       {
-        "<F12>",
+        "<F4>",
         function()
           require("dap").step_out()
         end,
         desc = "Step Out",
+      },
+      {
+        "<F5>",
+        function()
+          require("dap").continue()
+        end,
+        desc = "Run/Continue",
       },
     },
     opts = function()
@@ -112,6 +119,7 @@ return {
     keys = {
       {
         "<leader>dw",
+        "",
         desc = "Watch Epression",
       },
       {
@@ -135,6 +143,13 @@ return {
           require("dap.ui.widgets").hover()
         end,
         desc = "Widgets",
+      },
+      {
+        "<M-S-k>",
+        function()
+          require("dapui").eval()
+        end,
+        desc = "Eval",
       },
     },
   },
