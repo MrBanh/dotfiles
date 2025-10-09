@@ -30,28 +30,11 @@ return {
       desc = "Sidekick Toggle",
     },
     {
-      "<leader>an",
+      "<leader>af",
       function()
-        require("sidekick.cli").select_tool()
+        require("sidekick.cli").send({ msg = "{file}" })
       end,
-      mode = { "n" },
-      desc = "Sidekick New Tool",
-    },
-    {
-      "<leader>ap",
-      function()
-        require("sidekick.cli").select_prompt()
-      end,
-      desc = "Sidekick Ask Prompt",
-      mode = { "n", "v" },
-    },
-    {
-      "<leader>aa",
-      false,
-    },
-    {
-      "<c-.>",
-      false,
+      desc = "Send File",
     },
   },
 }

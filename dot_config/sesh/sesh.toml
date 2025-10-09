@@ -1,4 +1,4 @@
-blacklist = ['sidekick claude', 'floating-tmux']
+blacklist = ['sidekick claude', 'floating-tmux', 'claude ']
 
 [default_session]
 startup_command = "nvim -c ':lua Snacks.explorer({ focus = \"input\" })'"
