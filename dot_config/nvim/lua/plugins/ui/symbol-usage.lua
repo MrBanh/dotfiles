@@ -58,8 +58,14 @@ return {
       return res
     end
 
+    ---@diagnostic disable: missing-fields
     require("symbol-usage").setup({
       text_format = text_format,
+      disable = {
+        filetypes = {
+          "markdown",
+        },
+      },
     })
   end,
 }
