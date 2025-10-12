@@ -145,6 +145,15 @@ return {
         desc = "Widgets",
       },
       {
+        "<leader>du",
+        function()
+          require("dapui").toggle({
+            reset = true,
+          })
+        end,
+        desc = "Dap UI",
+      },
+      {
         "<M-S-k>",
         function()
           require("dapui").eval()
