@@ -29,5 +29,8 @@ return {
         todo = { raw = "[~]", rendered = " ", highlight = "RenderMarkdownTodo", scope_highlight = nil },
       },
     },
+    latex = {
+      enabled = false,
+    },
   },
 }
