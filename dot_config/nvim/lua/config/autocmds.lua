@@ -60,6 +60,24 @@ end, {
   nargs = "?",
 })
 
+usercmd("Btop", function()
+  if vim.fn.executable("btop") == 1 then
+    Snacks.terminal.toggle("btop", {
+      win = {
+        style = "float",
+        width = 0.9,
+        height = 0.9,
+      },
+    })
+  else
+    Snacks.notify.error("btop is not installed. Please install it to use this command.", {
+      title = "Btop",
+    })
+  end
+end, {
+  desc = "Toggle btop in terminal",
+})
+
 autocmd("User", {
   desc = "Add which key for Git Conflict",
   pattern = "GitConflictDetected",
