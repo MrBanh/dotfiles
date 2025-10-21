@@ -10,17 +10,16 @@ return {
         backend = "tmux",
         enabled = true,
       },
-    },
-    nes = {
-      clear = {
-        -- events that clear the current next edit suggestion
-        events = { "TextChangedI", "InsertEnter" },
-        esc = true, -- clear next edit suggestions when pressing <Esc>
+      win = {
+        layout = "float", ---@type "float"|"left"|"bottom"|"top"|"right"
+        float = {
+          width = 0.6,
+          height = 0.6,
+        },
       },
     },
   },
   keys = {
-    { "<tab>", LazyVim.cmp.map({ "ai_nes" }, "<tab>"), mode = { "n" }, expr = true },
     {
       "<M-/>",
       function()
@@ -30,11 +29,19 @@ return {
       desc = "Sidekick Toggle",
     },
     {
+      "<c-.>",
+      false,
+    },
+    {
       "<leader>af",
+      false,
+    },
+    {
+      "<leader>ab",
       function()
         require("sidekick.cli").send({ msg = "{file}" })
       end,
-      desc = "Send File",
+      desc = "Send Current Buffer",
     },
   },
 }
