@@ -38,24 +38,6 @@ return {
       desc = "Sidekick Toggle",
     },
     {
-      "<leader>ab",
-      function()
-        local file_path = vim.fn.expand("%")
-        require("sidekick.cli").send({ msg = "@" .. file_path })
-      end,
-      desc = "Send current buffer",
-    },
-    {
-      "<leader>ay",
-      function()
-        local file_path = vim.fn.expand("%")
-        local ctx = require("sidekick.cli.context").ctx()
-        require("sidekick.cli").send({ msg = "@" .. file_path .. "#L" .. ctx.range.from[1] .. "-" .. ctx.range.to[1] })
-      end,
-      mode = { "x" },
-      desc = "Send current selection",
-    },
-    {
       "<c-.>",
       false,
     },
