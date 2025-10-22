@@ -21,6 +21,14 @@ return {
     },
     -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#%EF%B8%8F-config
     picker = {
+      formatters = {
+        file = {
+          filename_first = true, -- display filename before the file path
+          ---@type "left"|"center"|"right"
+          truncate = "center",
+          min_width = 80, -- minimum length of the truncated path
+        },
+      },
       hidden = true,
       actions = {
         -- yank and paste file + rename if duplicate
@@ -69,8 +77,24 @@ return {
         end,
       },
       layout = {
-        preset = "ivy",
+        -- preset = "ivy",
         cycle = false,
+        layout = {
+          box = "vertical",
+          backdrop = false,
+          row = -1,
+          width = 0,
+          height = 0.4,
+          border = "top",
+          title = " {title} {live} {flags}",
+          title_pos = "left",
+          { win = "input", height = 1, border = "none" },
+          {
+            box = "horizontal",
+            { win = "list", border = "top" },
+            { win = "preview", title = "{preview}", width = 0.5, border = "top", title_pos = "left" },
+          },
+        },
       },
       matcher = {
         fuzzy = true, -- use fuzzy matching
