@@ -41,16 +41,5 @@ return {
       "<c-.>",
       false,
     },
-    {
-      "<leader>af",
-      false,
-    },
-    {
-      "<leader>ab",
-      function()
-        require("sidekick.cli").send({ msg = "{file}" })
-      end,
-      desc = "Send Current Buffer",
-    },
   },
 }
