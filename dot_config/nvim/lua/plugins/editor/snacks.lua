@@ -23,13 +23,6 @@ return {
     picker = {
       hidden = true,
       actions = {
-        -- Make file truncation consider window width.
-        -- <https://github.com/folke/snacks.nvim/issues/1217#issuecomment-2661465574>
-        calculate_file_truncate_width = function(self)
-          local width = self.list.win:size().width
-          self.opts.formatters.file.truncate = width - 6
-        end,
-
         -- yank and paste file + rename if duplicate
         -- https://github.com/folke/snacks.nvim/discussions/1748
         explorer_paste_rename = function(picker)
@@ -93,14 +86,6 @@ return {
         history_bonus = true, -- give more weight to chronological order
       },
       win = {
-        preview = {
-          on_buf = function(self)
-            self:execute("calculate_file_truncate_width")
-          end,
-          on_close = function(self)
-            self:execute("calculate_file_truncate_width")
-          end,
-        },
         -- when focus is on input box above list
         input = {
           keys = {
@@ -110,9 +95,6 @@ return {
         },
         -- when focus in on list
         list = {
-          on_buf = function(self)
-            self:execute("calculate_file_truncate_width")
-          end,
           keys = {
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
           },
