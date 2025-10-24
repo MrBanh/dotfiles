@@ -118,13 +118,13 @@ return {
         desc = "Widgets",
       },
       {
-        "<leader>du",
+        "<leader>dU",
         function()
           require("dapui").toggle({
             reset = true,
           })
         end,
-        desc = "Dap UI",
+        desc = "Dap UI (reset)",
       },
       {
         "<M-S-k>",
