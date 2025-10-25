@@ -31,14 +31,15 @@ return {
     event = "VeryLazy",
     cmd = { "DiffviewOpen" },
     keys = {
+      { "<leader>gd", "", desc = "+Git Diff", mode = { "n", "v" } },
       {
-        "<leader>gd",
+        "<leader>gda",
         ":DiffviewOpen<CR>",
-        desc = "Git Diff",
+        desc = "Git Diff (All)",
         mode = { "n", "v" },
       },
       {
-        "<leader>gD",
+        "<leader>gds",
         ":DiffviewOpen --staged<CR>",
         desc = "Git Diff (Staged)",
         mode = { "n", "v" },
