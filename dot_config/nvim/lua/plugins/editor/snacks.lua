@@ -91,8 +91,8 @@ return {
           { win = "input", height = 1, border = "none" },
           {
             box = "horizontal",
-            { win = "list", border = "top" },
-            { win = "preview", title = "{preview}", width = 0.5, border = "top", title_pos = "left" },
+            { win = "list", border = true },
+            { win = "preview", title = "{preview}", width = 0.5, border = true, title_pos = "left" },
           },
         },
       },
