@@ -37,24 +37,22 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    opts = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      -- change a keymap
-      keys[#keys + 1] = {
-        "<leader>ca",
-        function()
-          require("tiny-code-action").code_action({})
-        end,
-        desc = "Code Action",
-        mode = { "n", "v" },
-        has = "codeAction",
-      }
-
-      -- disable a keymap
-      -- keys[#keys + 1] = { "K", false }
-
-      -- add a keymap
-      -- keys[#keys + 1] = { "H", "<cmd>echo 'hello'<cr>" }
-    end,
+    opts = {
+      servers = {
+        ["*"] = {
+          keys = {
+            {
+              "<leader>ca",
+              function()
+                require("tiny-code-action").code_action({})
+              end,
+              desc = "Code Action",
+              mode = { "n", "v" },
+              has = "codeAction",
+            },
+          },
+        },
+      },
+    },
   },
 }
