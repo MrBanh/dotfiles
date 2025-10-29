@@ -86,6 +86,57 @@ return {
         desc = "Run/Continue",
       },
     },
+    opts = function()
+      local dap = require("dap")
+
+      local js_filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+      for _, language in ipairs(js_filetypes) do
+        local runtimeExecutable = nil
+        local args = {}
+        if language:find("typescript") then
+          if vim.fn.executable("tsx") == 1 then
+            runtimeExecutable = "tsx"
+            args = { "${file}" }
+          elseif vim.fn.executable("ts-node") == 1 then
+            runtimeExecutable = "ts-node"
+            args = { "--esm", "${file}" }
+          else
+            runtimeExecutable = "node"
+            args = { "--inspect", "${file}" }
+          end
+        end
+
+        local skipFiles = { "<node_internals>/**", "node_modules/**" }
+        local resolveSourceMapLocations = { "${workspaceFolder}/**", "!**/node_modules/**" }
+
+        local configs = {
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch file",
+            cwd = "${workspaceFolder}",
+            sourceMaps = true,
+            runtimeExecutable = runtimeExecutable,
+            args = args,
+            skipFiles = skipFiles,
+            resolveSourceMapLocations = resolveSourceMapLocations,
+          },
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "Attach",
+            processId = require("dap.utils").pick_process,
+            cwd = "${workspaceFolder}",
+            sourceMaps = true,
+            runtimeExecutable = runtimeExecutable,
+            skipFiles = skipFiles,
+            resolveSourceMapLocations = resolveSourceMapLocations,
+          },
+        }
+
+        dap.configurations[language] = configs
+      end
+    end,
   },
   {
     "rcarriga/nvim-dap-ui",
