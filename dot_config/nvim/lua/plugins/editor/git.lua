@@ -33,9 +33,15 @@ return {
     keys = {
       { "<leader>gd", "", desc = "+Git Diff", mode = { "n", "v" } },
       {
-        "<leader>gda",
+        "<leader>gdd",
         ":DiffviewOpen<CR>",
-        desc = "Git Diff (All)",
+        desc = "Git Diff",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>gdf",
+        ":DiffviewFileHistory<CR>",
+        desc = "File History",
         mode = { "n", "v" },
       },
       {
