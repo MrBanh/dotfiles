@@ -104,7 +104,7 @@ export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-export FZF_DEFAULT_OPTS="--color=gutter:-1"
+export FZF_DEFAULT_OPTS="--gutter ' ' --style minimal"
 
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
@@ -117,9 +117,6 @@ export FZF_CTRL_R_OPTS="
   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
-
-# For OpenCode to work with GitHub Copilot, needs to be set to 0
-export NODE_TLS_REJECT_UNAUTHORIZED=1
 
 # ===================
 
