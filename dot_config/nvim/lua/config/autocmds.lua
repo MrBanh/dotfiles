@@ -63,10 +63,12 @@ end, {
 usercmd("Btop", function()
   if vim.fn.executable("btop") == 1 then
     Snacks.terminal.toggle("btop", {
-      win = {
+      win = vim.g.floating_terminal and {
         style = "float",
-        width = 0.9,
-        height = 0.9,
+      } or {
+        style = "terminal",
+        width = 0,
+        height = 0,
       },
     })
   else

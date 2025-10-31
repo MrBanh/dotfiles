@@ -46,6 +46,9 @@ local unique_id = vim.fn.fnamemodify(workspace_path, ":t") .. "_" .. vim.fn.sha2
 local shadafile = cache_dir .. "/myshada/" .. unique_id .. ".shada"
 vim.opt.shadafile = shadafile
 
+-- Personal - controls floating terminal for various plugins.
+vim.g.floating_terminal = false
+
 -- Plugin/distro specific --
 
 -- LazyVim: use ai suggestion in cmp, false shows inline suggestion
