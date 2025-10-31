@@ -9,7 +9,7 @@ preview_command = "eza --all --git --icons --color=always {}"
 [[session]]
 name = " chezmoi"
 path = "~/.local/share/chezmoi"
-startup_command = "chezmoi re-add && chezmoi forget --force ~/.config/nvim && chezmoi add ~/.config/nvim && lazygit"
+startup_command = "chezmoi re-add && chezmoi forget --force ~/.config/nvim && chezmoi add ~/.config/nvim && lazygit && tmux kill-session"
 
 [[session]]
 name = " downloads"
