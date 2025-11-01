@@ -190,6 +190,9 @@ return {
             },
           },
         },
+        projects = {
+          dev = { "~/dev", "~/projects", "~/src", "~/.config" },
+        },
       },
     },
     scroll = {
@@ -222,6 +225,13 @@ return {
         Snacks.lazygit.log_file()
       end,
       desc = "LazyGit File Log",
+    },
+    {
+      "<leader>fP",
+      function()
+        Snacks.picker.zoxide()
+      end,
+      desc = "Projects (Zoxide)",
     },
   },
 }
