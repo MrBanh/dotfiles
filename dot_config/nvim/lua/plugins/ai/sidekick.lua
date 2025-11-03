@@ -28,18 +28,4 @@ return {
       end,
     },
   },
-  keys = {
-    {
-      "<M-/>",
-      function()
-        require("sidekick.cli").toggle()
-      end,
-      mode = { "n", "x", "i", "t" },
-      desc = "Sidekick Toggle",
-    },
-    {
-      "<c-.>",
-      false,
-    },
-  },
 }
