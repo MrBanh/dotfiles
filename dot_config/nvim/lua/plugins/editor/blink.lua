@@ -59,6 +59,8 @@ return {
 
     keymap = {
       ["<CR>"] = { "accept", "fallback" },
+      ["<C-k>"] = { "scroll_documentation_up", "fallback" },
+      ["<C-j>"] = { "scroll_documentation_down", "fallback" },
     },
 
     fuzzy = {

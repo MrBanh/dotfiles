@@ -20,12 +20,17 @@ return {
       -- right_pad = 0,
       -- width = "block",
       -- language_border = " ",
+      language_border = " ",
+      language_right = "",
     },
     checkbox = {
       enabled = true,
       custom = {
         todo = { raw = "[~]", rendered = " ", highlight = "RenderMarkdownTodo", scope_highlight = nil },
       },
+    },
+    latex = {
+      enabled = false,
     },
   },
 }

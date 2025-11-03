@@ -4,6 +4,7 @@ local M = {}
 
 M.apply_to_config = function(config)
 	config.keys = {
+		{ key = "Enter", mods = "SHIFT", action = wezterm.action({ SendString = "\x1b\r" }) },
 		{
 			key = "w",
 			mods = "SHIFT|CTRL",

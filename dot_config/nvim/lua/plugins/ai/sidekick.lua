@@ -10,48 +10,22 @@ return {
         backend = "tmux",
         enabled = true,
       },
-    },
-    nes = {
-      clear = {
-        -- events that clear the current next edit suggestion
-        events = { "TextChangedI", "InsertEnter" },
-        esc = true, -- clear next edit suggestions when pressing <Esc>
+      win = {
+        layout = vim.g.floating_terminal and "float" or "right", ---@type "float"|"left"|"bottom"|"top"|"right"
+        float = {
+          width = 0.6,
+          height = 0.6,
+        },
       },
     },
-  },
-  keys = {
-    { "<tab>", LazyVim.cmp.map({ "ai_nes" }, "<tab>"), mode = { "n" }, expr = true },
-    {
-      "<M-/>",
-      function()
-        require("sidekick.cli").toggle()
+    nes = {
+      enabled = function(buf)
+        local ft = vim.bo[buf].filetype
+        if ft == "markdown" then
+          return false
+        end
+        return vim.g.sidekick_nes ~= false and vim.b.sidekick_nes ~= false
       end,
-      mode = { "n", "x", "i", "t" },
-      desc = "Sidekick Toggle",
-    },
-    {
-      "<leader>an",
-      function()
-        require("sidekick.cli").select_tool()
-      end,
-      mode = { "n" },
-      desc = "Sidekick New Tool",
-    },
-    {
-      "<leader>ap",
-      function()
-        require("sidekick.cli").select_prompt()
-      end,
-      desc = "Sidekick Ask Prompt",
-      mode = { "n", "v" },
-    },
-    {
-      "<leader>aa",
-      false,
-    },
-    {
-      "<c-.>",
-      false,
     },
   },
 }

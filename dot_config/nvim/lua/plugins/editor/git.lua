@@ -31,14 +31,21 @@ return {
     event = "VeryLazy",
     cmd = { "DiffviewOpen" },
     keys = {
+      { "<leader>gd", "", desc = "+Git Diff", mode = { "n", "v" } },
       {
-        "<leader>gd",
+        "<leader>gdd",
         ":DiffviewOpen<CR>",
         desc = "Git Diff",
         mode = { "n", "v" },
       },
       {
-        "<leader>gD",
+        "<leader>gdf",
+        ":DiffviewFileHistory<CR>",
+        desc = "File History",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>gds",
         ":DiffviewOpen --staged<CR>",
         desc = "Git Diff (Staged)",
         mode = { "n", "v" },
@@ -369,8 +376,8 @@ return {
             { "n", "za", actions.toggle_fold, { desc = "Toggle fold" } },
             { "n", "zR", actions.open_all_folds, { desc = "Expand all folds" } },
             { "n", "zM", actions.close_all_folds, { desc = "Collapse all folds" } },
-            { "n", "<c-b>", actions.scroll_view(-0.25), { desc = "Scroll the view up" } },
-            { "n", "<c-f>", actions.scroll_view(0.25), { desc = "Scroll the view down" } },
+            { "n", "<c-k>", actions.scroll_view(-0.25), { desc = "Scroll the view up" } },
+            { "n", "<c-j>", actions.scroll_view(0.25), { desc = "Scroll the view down" } },
             {
               "n",
               "<tab>",
@@ -542,8 +549,8 @@ return {
               actions.select_entry,
               { desc = "Open the diff for the selected entry" },
             },
-            { "n", "<c-b>", actions.scroll_view(-0.25), { desc = "Scroll the view up" } },
-            { "n", "<c-f>", actions.scroll_view(0.25), { desc = "Scroll the view down" } },
+            { "n", "<c-k>", actions.scroll_view(-0.25), { desc = "Scroll the view up" } },
+            { "n", "<c-j>", actions.scroll_view(0.25), { desc = "Scroll the view down" } },
             { "n", "<tab>", actions.select_next_entry, { desc = "Open the diff for the next file" } },
             {
               "n",

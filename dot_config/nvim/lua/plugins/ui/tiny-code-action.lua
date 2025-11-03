@@ -29,7 +29,7 @@ return {
           -- text_diff_based = "Fix all" => "fa", "Fix others" => "fo" smarter than text_based
           hotkeys_mode = "sequential", -- "text_diff_based" | "text_based" | "sequential"
           auto_preview = true, -- Enable auto preview of the code action
-          position = "center", -- "cursor" or "center"
+          position = "cursor", -- "cursor" or "center"
           winborder = "rounded", -- Set the window border style ("single", "rounded", "solid", etc.)
         },
       },
@@ -37,24 +37,22 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    opts = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      -- change a keymap
-      keys[#keys + 1] = {
-        "<leader>ca",
-        function()
-          require("tiny-code-action").code_action({})
-        end,
-        desc = "Code Action",
-        mode = { "n", "v" },
-        has = "codeAction",
-      }
-
-      -- disable a keymap
-      -- keys[#keys + 1] = { "K", false }
-
-      -- add a keymap
-      -- keys[#keys + 1] = { "H", "<cmd>echo 'hello'<cr>" }
-    end,
+    opts = {
+      servers = {
+        ["*"] = {
+          keys = {
+            {
+              "<leader>ca",
+              function()
+                require("tiny-code-action").code_action({})
+              end,
+              desc = "Code Action",
+              mode = { "n", "v" },
+              has = "codeAction",
+            },
+          },
+        },
+      },
+    },
   },
 }

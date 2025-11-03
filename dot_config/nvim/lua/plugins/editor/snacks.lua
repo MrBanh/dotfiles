@@ -4,6 +4,7 @@ return {
     bigfile = {},
     lazygit = {
       config = {
+        -- TODO: uncomment once LazyVim fixes
         os = {
           edit = '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}})',
           editAtLine = '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" &&  nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":{{line}}<CR>")',
@@ -21,15 +22,16 @@ return {
     },
     -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#%EF%B8%8F-config
     picker = {
+      formatters = {
+        file = {
+          filename_first = true, -- display filename before the file path
+          ---@type "left"|"center"|"right"
+          truncate = "center",
+          min_width = 80, -- minimum length of the truncated path
+        },
+      },
       hidden = true,
       actions = {
-        -- Make file truncation consider window width.
-        -- <https://github.com/folke/snacks.nvim/issues/1217#issuecomment-2661465574>
-        calculate_file_truncate_width = function(self)
-          local width = self.list.win:size().width
-          self.opts.formatters.file.truncate = width - 6
-        end,
-
         -- yank and paste file + rename if duplicate
         -- https://github.com/folke/snacks.nvim/discussions/1748
         explorer_paste_rename = function(picker)
@@ -74,10 +76,34 @@ return {
             M.update(picker, { target = dir })
           end
         end,
+        find_in_project = function(picker, item, action)
+          picker:close()
+          local dir = item.file
+          vim.defer_fn(function()
+            Snacks.picker.files()
+          end, 100)
+          vim.fn.chdir(dir)
+        end,
       },
       layout = {
-        preset = "ivy",
+        -- preset = "ivy",
         cycle = false,
+        layout = {
+          box = "vertical",
+          backdrop = false,
+          row = -1,
+          width = 0,
+          height = 0.4,
+          border = "top",
+          title = " {title} {live} {flags}",
+          title_pos = "left",
+          { win = "input", height = 1, border = "none" },
+          {
+            box = "horizontal",
+            { win = "list", border = true },
+            { win = "preview", title = "{preview}", width = 0.5, border = true, title_pos = "left" },
+          },
+        },
       },
       matcher = {
         fuzzy = true, -- use fuzzy matching
@@ -93,28 +119,25 @@ return {
         history_bonus = true, -- give more weight to chronological order
       },
       win = {
-        preview = {
-          on_buf = function(self)
-            self:execute("calculate_file_truncate_width")
-          end,
-          on_close = function(self)
-            self:execute("calculate_file_truncate_width")
-          end,
-        },
         -- when focus is on input box above list
         input = {
           keys = {
             ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
+            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
+            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
           },
         },
         -- when focus in on list
         list = {
-          on_buf = function(self)
-            self:execute("calculate_file_truncate_width")
-          end,
           keys = {
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
+            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
+            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
+            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
           },
           wo = {
             number = true,
@@ -128,7 +151,24 @@ return {
         },
         explorer = {
           auto_close = true,
-          layout = { preset = "default", preview = true },
+          layout = {
+            -- preset = "default",
+            preview = true,
+            layout = {
+              box = "horizontal",
+              width = 0.8,
+              min_width = 120,
+              height = 0.8,
+              {
+                box = "vertical",
+                border = true,
+                title = "{title} {live} {flags}",
+                { win = "input", height = 1, border = "bottom" },
+                { win = "list", border = "none" },
+              },
+              { win = "preview", title = "{preview}", border = true, width = 0.5 },
+            },
+          },
           win = {
             input = {
               keys = {
@@ -158,6 +198,9 @@ return {
             },
           },
         },
+        projects = {
+          dev = { "~/dev", "~/projects", "~/src", "~/.config" },
+        },
       },
     },
     scroll = {
@@ -165,14 +208,14 @@ return {
     },
     terminal = {
       win = {
-        style = {
+        style = vim.g.floating_terminal and {
           border = "rounded",
           position = "float",
-          -- backdrop = 60,
+          backdrop = 60,
           height = 0.6,
           width = 0.6,
-          -- zindex = 50,
-        },
+          zindex = 50,
+        } or "terminal",
       },
     },
   },
@@ -190,6 +233,38 @@ return {
         Snacks.lazygit.log_file()
       end,
       desc = "LazyGit File Log",
+    },
+    {
+      "<leader>fp",
+      function()
+        Snacks.picker.projects({
+          confirm = "find_in_project",
+        })
+      end,
+      desc = "Find in Projects",
+    },
+    {
+      "<leader>fP",
+      function()
+        Snacks.picker.zoxide({
+          confirm = "find_in_project",
+        })
+      end,
+      desc = "Find in Projects (Zoxide)",
+    },
+    {
+      "<leader>qp",
+      function()
+        Snacks.picker.projects({})
+      end,
+      desc = "Load Projects Session",
+    },
+    {
+      "<leader>qP",
+      function()
+        Snacks.picker.zoxide({})
+      end,
+      desc = "Load Projects Session (Zoxide)",
     },
   },
 }

@@ -41,4 +41,26 @@ function M.get_visual_selection_text()
   end
 end
 
+function M.is_claudecode_diff(buf)
+  local bufname = vim.api.nvim_buf_get_name(buf)
+  if bufname:match("%(proposed%)") or bufname:match("%(NEW FILE %- proposed%)") or bufname:match("%(New%)") then
+    return true
+  end
+
+  if
+    vim.b[buf].claudecode_diff_tab_name
+    or vim.b[buf].claudecode_diff_new_win
+    or vim.b[buf].claudecode_diff_target_win
+  then
+    return true
+  end
+
+  local buftype = vim.fn.getbufvar(buf, "&buftype")
+  if buftype == "acwrite" then
+    return true
+  end
+
+  return false
+end
+
 return M
