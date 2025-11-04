@@ -79,10 +79,11 @@ return {
         find_in_project = function(picker, item, action)
           picker:close()
           local dir = item.file
-          vim.defer_fn(function()
-            Snacks.picker.files()
-          end, 100)
-          vim.fn.chdir(dir)
+          Snacks.picker.files({
+            dirs = {
+              dir,
+            },
+          })
         end,
       },
       layout = {
