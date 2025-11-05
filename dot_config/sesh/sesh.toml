@@ -5,35 +5,35 @@ startup_command = "nvim -c ':lua Snacks.explorer({ focus = \"input\" })'"
 preview_command = "eza --all --git --icons --long --group-directories-first --color=always {}"
 
 [[session]]
-name = " chezmoi"
+name = "  chezmoi"
 path = "~/.local/share/chezmoi"
 startup_command = "chezmoi re-add && chezmoi forget --force ~/.config/nvim && chezmoi add ~/.config/nvim && lazygit && tmux kill-session"
 
 [[session]]
-name = " nvim config"
+name = "  nvim config"
 path = "~/.config/nvim"
 startup_command = "nvim"
 
 [[session]]
-name = " zsh config"
+name = "  zsh config"
 path = "~/"
 startup_command = "nvim .zshrc"
 preview_command = "bat --color=always ~/.zshrc"
 
 [[session]]
-name = " tmux config"
+name = "  tmux config"
 path = "~/.config/tmux"
 startup_command = "nvim tmux.conf"
 preview_command = "bat --color=always ~/.config/tmux/tmux.conf"
 
 [[session]]
-name = " sesh config"
+name = "  sesh config"
 path = "~/.config/sesh"
 startup_command = "nvim sesh.toml"
 preview_command = "bat --color=always ~/.config/sesh/sesh.toml"
 
 [[session]]
-name = " downloads"
+name = "  downloads"
 path = "~/Downloads"
 startup_command = "ls"
 
