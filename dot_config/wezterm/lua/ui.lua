@@ -9,11 +9,6 @@ M.apply_to_config = function(config)
 
 	-- https://wezfurlong.org/wezterm/colorschemes/index.html
 	config.color_scheme = "Rapture"
-	-- config.color_scheme = "Night Owl (Gogh)"
-	-- config.color_scheme = "Mirage"
-	-- config.color_scheme = "Galaxy"
-	-- config.color_scheme = "Frontend Galaxy (Gogh)"
-	-- config.color_scheme = "Ef-Night"
 	-- config.color_scheme = "nightfox"
 
 	-- Transparency
@@ -21,14 +16,14 @@ M.apply_to_config = function(config)
 	wezterm.on("window-focus-changed", function(window, pane)
 		local overrides = window:get_config_overrides() or {}
 		if window:is_focused() then
-			overrides.window_background_opacity = 0.8
+			overrides.window_background_opacity = 0.9
 		else
 			overrides.window_background_opacity = opacity
 		end
 		window:set_config_overrides(overrides)
 	end)
 	config.window_background_opacity = opacity
-	config.macos_window_background_blur = 30
+	config.macos_window_background_blur = 50
 	config.win32_system_backdrop = "Acrylic"
 
 	config.window_padding = {
