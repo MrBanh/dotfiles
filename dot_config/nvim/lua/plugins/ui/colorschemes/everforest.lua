@@ -72,6 +72,8 @@ return {
         hl.GitConflictCurrent = { bg = palette.bg_blue }
         hl.GitConflictCurrentLabel = { link = "GitConflictCurrent" }
         hl.TSParameter = { fg = palette.purple }
+        hl.TreesitterContextLineNumber = { fg = palette.yellow }
+        hl.TreesitterContext = { bg = palette.none }
         -- hl.FloatBorder = { link = "VertSplit" }
         -- hl.Pmenu = { link = "VertSplit" }
       end,
