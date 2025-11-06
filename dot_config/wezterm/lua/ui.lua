@@ -8,24 +8,27 @@ M.apply_to_config = function(config)
 	config.hide_tab_bar_if_only_one_tab = true
 
 	-- https://wezfurlong.org/wezterm/colorschemes/index.html
-	config.color_scheme = "nightfox"
-	-- config.color_scheme = "Blazer"
-	-- config.color_scheme = "Kanagawa (Gogh)"
-	-- config.color_scheme = "Everforest Dark (Gogh)"
+	config.color_scheme = "Rapture"
+	-- config.color_scheme = "Night Owl (Gogh)"
+	-- config.color_scheme = "Mirage"
+	-- config.color_scheme = "Galaxy"
+	-- config.color_scheme = "Frontend Galaxy (Gogh)"
+	-- config.color_scheme = "Ef-Night"
+	-- config.color_scheme = "nightfox"
 
 	-- Transparency
 	local opacity = 0.8
 	wezterm.on("window-focus-changed", function(window, pane)
 		local overrides = window:get_config_overrides() or {}
 		if window:is_focused() then
-			overrides.window_background_opacity = 0.9
+			overrides.window_background_opacity = 0.8
 		else
 			overrides.window_background_opacity = opacity
 		end
 		window:set_config_overrides(overrides)
 	end)
 	config.window_background_opacity = opacity
-	config.macos_window_background_blur = 50
+	config.macos_window_background_blur = 30
 	config.win32_system_backdrop = "Acrylic"
 
 	config.window_padding = {
