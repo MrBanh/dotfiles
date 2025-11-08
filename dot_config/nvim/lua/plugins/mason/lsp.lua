@@ -54,6 +54,11 @@ return {
     },
 
     opts = {
+      on_attach = function(client, _)
+        -- Disable formatting to use a dedicated formatter (like conform.nvim)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      end,
       settings = {
         tsserver_path = nil,
         tsserver_plugins = {},
