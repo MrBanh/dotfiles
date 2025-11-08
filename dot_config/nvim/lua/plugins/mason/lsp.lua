@@ -2,7 +2,6 @@ return {
   {
     -- sticking with this because vtsls does not handle file renames well (does not update imports)
     "pmizio/typescript-tools.nvim",
-    event = { "BufReadPost *.ts", "BufReadPost *.js", "BufReadPost *.tsx", "BufReadPost *.jsx" },
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
@@ -15,10 +14,45 @@ return {
             vtsls = {
               enabled = false,
             },
+            ["typescript-tools"] = {
+              keys = {
+                {
+                  "<leader>co",
+                  ":TSToolsOrganizeImports<CR>",
+                  desc = "Organize Imports",
+                  ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+                },
+                {
+                  "<leader>ci",
+                  ":TSToolsAddMissingImports<CR>",
+                  desc = "Add missing imports",
+                  ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+                },
+                {
+                  "<leader>cu",
+                  ":TSToolsRemoveUnused<CR>",
+                  desc = "Remove unused statements",
+                  ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+                },
+                {
+                  "<leader>cD",
+                  ":TSToolsFixAll<CR>",
+                  desc = "Fix all diagnostics",
+                  ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+                },
+                {
+                  "gR",
+                  ":TSToolsFileReferences<CR>",
+                  desc = "File References",
+                  ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+                },
+              },
+            },
           },
         },
       },
     },
+
     opts = {
       settings = {
         tsserver_path = nil,
@@ -46,38 +80,6 @@ return {
           enable = false,
           filetypes = { "javascriptreact", "typescriptreact" },
         },
-      },
-    },
-    keys = {
-      {
-        "<leader>co",
-        ":TSToolsOrganizeImports<CR>",
-        desc = "Organize Imports",
-        ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-      },
-      {
-        "<leader>ci",
-        ":TSToolsAddMissingImports<CR>",
-        desc = "Add missing imports",
-        ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-      },
-      {
-        "<leader>cu",
-        ":TSToolsRemoveUnused<CR>",
-        desc = "Remove unused statements",
-        ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-      },
-      {
-        "<leader>cD",
-        ":TSToolsFixAll<CR>",
-        desc = "Fix all diagnostics",
-        ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-      },
-      {
-        "gR",
-        ":TSToolsFileReferences<CR>",
-        desc = "File References",
-        ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
       },
     },
   },
