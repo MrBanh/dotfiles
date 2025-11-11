@@ -14,7 +14,11 @@ return {
           },
         },
       },
+      ghost_text = {
+        show_with_menu = not vim.g.ai_cmp,
+      },
       menu = {
+        auto_show = not vim.g.ai_cmp,
         draw = {
           columns = {
             { "label", "label_description", gap = 1 },
@@ -58,9 +62,9 @@ return {
     },
 
     keymap = {
-      ["<CR>"] = { "accept", "fallback" },
       ["<C-k>"] = { "scroll_documentation_up", "fallback" },
       ["<C-j>"] = { "scroll_documentation_down", "fallback" },
+      ["<C-c>"] = { "hide", "hide_signature", "hide_documentation", "fallback" },
     },
 
     fuzzy = {
