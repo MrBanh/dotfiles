@@ -3,7 +3,7 @@ return {
   opts = {},
   config = function(_, opts)
     vim.filetype.add({
-      extension = { lyaml = "yaml", git = "git" },
+      extension = { lyaml = "yaml", git = "git", keymap = "dts" },
     })
     require("nvim-treesitter").setup(opts)
   end,
