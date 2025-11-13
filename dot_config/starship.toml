@@ -9,12 +9,14 @@ command_timeout = 2000
 format = """
 $os\
 $username\
+[ 󰉋 ](fg:color_directory)\
 $directory\
 $git_branch\
 $git_commit\
 $git_status\
 $git_metrics\
 $git_state\
+$fill\
 $c\
 $rust\
 $golang\
@@ -37,7 +39,7 @@ $time\
 $cmd_duration\
 $status\
 $line_break\
-$character\
+$character
 """
 
 palette = 'default'
@@ -144,6 +146,9 @@ Debian = "󰣚"
 Redhat = "󱄛"
 RedHatEnterprise = "󱄛"
 Pop = ""
+
+[fill]
+symbol = ' '
 
 [username]
 show_always = true
