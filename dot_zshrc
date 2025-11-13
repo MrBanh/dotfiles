@@ -191,24 +191,6 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# ZSH Vi Mode widget(s)
-WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
-
-## Custom widget to make Ctrl-W delete by slash-separated path components
-function my_backward_kill_word() {
-  # Save the original WORDCHARS
-  local wordchars=$WORDCHARS
-
-  # Change the WORDCHARS
-  WORDCHARS='/'
-
-  # Call the backward-kill-word widget
-  zle backward-kill-word
-
-  # Restore the WORDCHARS
-  WORDCHARS=$wordchars
-}
-
 # See: https://github.com/atuinsh/atuin/issues/977
 function zvm_after_init() {
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -216,12 +198,6 @@ function zvm_after_init() {
   # Atuin:
   eval "$(atuin init zsh)"
   zvm_bindkey vicmd '^R' atuin-search
-
-  # Custom Widget:
-  zvm_define_widget my_backward_kill_word
-
-  # Bind key(s) to the custom widget(s)
-  bindkey '^W' my_backward_kill_word
 }
 
 # Carapace:
