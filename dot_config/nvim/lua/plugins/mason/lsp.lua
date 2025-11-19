@@ -93,6 +93,21 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = { enabled = false },
+      servers = {
+        vtsls = {
+          keys = {
+            {
+              "<leader>cM",
+              false,
+            },
+            {
+              "<leader>ci",
+              LazyVim.lsp.action["source.addMissingImports.ts"],
+              desc = "Add missing imports",
+            },
+          },
+        },
+      },
     },
   },
 }
