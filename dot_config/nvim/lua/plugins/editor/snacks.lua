@@ -86,26 +86,28 @@ return {
           })
         end,
       },
-      layout = {
-        -- preset = "ivy",
-        cycle = false,
-        layout = {
-          box = "vertical",
-          backdrop = false,
-          row = -1,
-          width = 0,
-          height = 0.4,
-          border = "top",
-          title = " {title} {live} {flags}",
-          title_pos = "left",
-          { win = "input", height = 1, border = "none" },
-          {
-            box = "horizontal",
-            { win = "list", border = true },
-            { win = "preview", title = "{preview}", width = 0.5, border = true, title_pos = "left" },
+      layouts = {
+        custom_ivy = {
+          cycle = false,
+          layout = {
+            box = "vertical",
+            backdrop = false,
+            row = -1,
+            width = 0,
+            height = 0.4,
+            border = "top",
+            title = " {title} {live} {flags}",
+            title_pos = "left",
+            { win = "input", height = 1, border = "none" },
+            {
+              box = "horizontal",
+              { win = "list", border = true },
+              { win = "preview", title = "{preview}", width = 0.5, border = true, title_pos = "left" },
+            },
           },
         },
       },
+      layout = "custom_ivy",
       matcher = {
         fuzzy = true, -- use fuzzy matching
         smartcase = true, -- use smartcase
@@ -152,24 +154,7 @@ return {
         },
         explorer = {
           auto_close = true,
-          layout = {
-            -- preset = "default",
-            preview = true,
-            layout = {
-              box = "horizontal",
-              width = 0.8,
-              min_width = 120,
-              height = 0.8,
-              {
-                box = "vertical",
-                border = true,
-                title = "{title} {live} {flags}",
-                { win = "input", height = 1, border = "bottom" },
-                { win = "list", border = "none" },
-              },
-              { win = "preview", title = "{preview}", border = true, width = 0.5 },
-            },
-          },
+          layout = { preset = "default", preview = true },
           win = {
             input = {
               keys = {
@@ -198,6 +183,12 @@ return {
               },
             },
           },
+        },
+        gh_issue = {
+          layout = { preset = "default" },
+        },
+        gh_pr = {
+          layout = { preset = "default" },
         },
         projects = {
           dev = { "~/dev", "~/projects", "~/src", "~/.config" },
