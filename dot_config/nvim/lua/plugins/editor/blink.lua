@@ -14,8 +14,10 @@ return {
           },
         },
       },
-      ghost_text = {
-        show_without_selection = false,
+      list = {
+        selection = {
+          auto_insert = false,
+        },
       },
       menu = {
         draw = {
@@ -61,7 +63,7 @@ return {
     },
 
     keymap = {
-      preset = vim.g.ai_cmp and "super-tab" or "enter",
+      preset = "super-tab",
       ["<C-k>"] = { "scroll_documentation_up", "fallback" },
       ["<C-j>"] = { "scroll_documentation_down", "fallback" },
       ["<C-c>"] = { "hide", "hide_signature", "hide_documentation", "fallback" },
