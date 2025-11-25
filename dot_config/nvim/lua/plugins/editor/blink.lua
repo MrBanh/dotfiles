@@ -14,6 +14,9 @@ return {
           },
         },
       },
+      ghost_text = {
+        show_without_selection = false,
+      },
       menu = {
         draw = {
           columns = {
@@ -58,9 +61,10 @@ return {
     },
 
     keymap = {
-      ["<CR>"] = { "accept", "fallback" },
+      preset = vim.g.ai_cmp and "super-tab" or "enter",
       ["<C-k>"] = { "scroll_documentation_up", "fallback" },
       ["<C-j>"] = { "scroll_documentation_down", "fallback" },
+      ["<C-c>"] = { "hide", "hide_signature", "hide_documentation", "fallback" },
     },
 
     fuzzy = {

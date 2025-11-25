@@ -22,8 +22,12 @@ os:
 git:
   overrideGpg: true
 
+gui:
+  # If true, capture mouse events.
+  # When mouse events are captured, it's a little harder to select text: e.g.
+  # requiring you to hold the option key when on macOS.
+  mouseEvents: true
+
 promptToReturnFromSubprocess: false
 
-notARepository: "prompt" # prompt | create | skip
-
-quitOnTopLevelReturn: true
+notARepository: "skip" # prompt | create | skip

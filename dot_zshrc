@@ -194,6 +194,8 @@ function y() {
 # See: https://github.com/atuinsh/atuin/issues/977
 function zvm_after_init() {
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+  # Atuin:
   eval "$(atuin init zsh)"
   zvm_bindkey vicmd '^R' atuin-search
 }

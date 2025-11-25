@@ -1,0 +1,23 @@
+# UI
+theme = Cobalt Next Minimal
+background-opacity = 0.8
+background-blur = true
+background-blur-radius = 30
+
+# Font
+font-size = 15
+font-feature = -calt, -liga, -dlig, zero
+
+# Functionality
+copy-on-select = clipboard
+quit-after-last-window-closed = true
+
+# Misc settings
+window-decoration = none
+window-show-tab-bar = never
+window-padding-balance = true
+title = " "
+macos-titlebar-style = hidden
+macos-titlebar-proxy-icon = hidden
+
+keybind = shift+enter=text:\x1b\r
