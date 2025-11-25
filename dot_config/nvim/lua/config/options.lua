@@ -52,7 +52,7 @@ vim.g.floating_terminal = false
 -- Plugin/distro specific --
 
 -- LazyVim: use ai suggestion in cmp, false shows inline suggestion
-vim.g.ai_cmp = false
+vim.g.ai_cmp = true
 
 -- Fixes: Snacks picker not opening files with <CR> in insert mode with bullets.vim
 --- https://github.com/folke/snacks.nvim/issues/812
