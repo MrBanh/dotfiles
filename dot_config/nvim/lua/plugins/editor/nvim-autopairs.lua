@@ -7,7 +7,14 @@ return {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {
-      disable_filetype = { "TelescopePrompt", "spectre_panel", "snacks_picker_input", "codecompanion", "grug-far" },
+      disable_filetype = {
+        "TelescopePrompt",
+        "codecompanion",
+        "grug-far",
+        "snacks_input",
+        "snacks_picker_input",
+        "spectre_panel",
+      },
       map_c_w = true, -- map <c-w> to delete a pair if possible
     },
   },
