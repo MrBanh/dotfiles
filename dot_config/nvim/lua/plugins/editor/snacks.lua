@@ -184,11 +184,14 @@ return {
             },
           },
         },
+        gh_diff = {
+          layout = { preset = "default", fullscreen = true },
+        },
         gh_issue = {
-          layout = { preset = "default" },
+          layout = { preset = "default", fullscreen = true },
         },
         gh_pr = {
-          layout = { preset = "default" },
+          layout = { preset = "default", fullscreen = true },
         },
         projects = {
           dev = { "~/dev", "~/projects", "~/src", "~/.config" },
