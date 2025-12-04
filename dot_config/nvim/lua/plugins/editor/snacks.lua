@@ -193,6 +193,9 @@ return {
         gh_pr = {
           layout = { preset = "default", fullscreen = true },
         },
+        git_diff = {
+          layout = { preset = "default", fullscreen = true },
+        },
         projects = {
           dev = { "~/dev", "~/projects", "~/src", "~/.config" },
         },
@@ -262,4 +265,11 @@ return {
       desc = "Load Projects Session (Zoxide)",
     },
   },
+
+  config = function(_, opts)
+    require("snacks").setup(opts)
+
+    -- Register custom GitHub actions
+    require("utils.snacks.gh").register()
+  end,
 }
