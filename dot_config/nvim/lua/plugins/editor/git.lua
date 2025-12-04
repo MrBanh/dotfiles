@@ -195,7 +195,7 @@ return {
               actions.goto_file_edit,
               { desc = "Open the file in the previous tabpage" },
             },
-            { "n", "<C-w><C-s>", actions.goto_file_split, { desc = "Open the file in a new split" } },
+            { "n", "<C-w>s", actions.goto_file_split, { desc = "Open the file in a new split" } },
             { "n", "<C-w>gf", actions.goto_file_tab, { desc = "Open the file in a new tabpage" } },
             { "n", "<localleader>e", actions.toggle_files, { desc = "Toggle the file panel." } },
             {
@@ -578,7 +578,7 @@ return {
               actions.goto_file_edit,
               { desc = "Open the file in the previous tabpage" },
             },
-            { "n", "<C-w><C-s>", actions.goto_file_split, { desc = "Open the file in a new split" } },
+            { "n", "<C-w>s", actions.goto_file_split, { desc = "Open the file in a new split" } },
             { "n", "<C-w>gf", actions.goto_file_tab, { desc = "Open the file in a new tabpage" } },
             { "n", "<localleader>e", actions.toggle_files, { desc = "Toggle the file panel" } },
             { "n", "g<C-x>", actions.cycle_layout, { desc = "Cycle available layouts" } },
