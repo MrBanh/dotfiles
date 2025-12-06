@@ -1,9 +1,13 @@
+local ft = { "markdown", "opencode_output" }
+
 -- Lazy: https://www.lazyvim.org/extras/lang/markdown#render-markdownnvim
 return {
   "MeanderingProgrammer/render-markdown.nvim",
   lazy = true,
-  ft = { "markdown" },
+  ft = ft,
   opts = {
+    -- Filetypes this plugin will run on.
+    file_types = ft,
     heading = {
       icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
       position = "inline",
