@@ -122,29 +122,29 @@ return {
         history_bonus = true, -- give more weight to chronological order
       },
       win = {
-        -- when focus is on input box above list
+        -- input window: when focus is on input box above list
         input = {
           keys = {
             ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
-            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+            ["<a-p>"] = { "focus_preview", mode = { "i", "n" } },
           },
         },
-        -- when focus in on list
+        -- result list window: when focus in on list
         list = {
           keys = {
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
-            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+            ["<a-p>"] = { "focus_preview", mode = { "i", "n" } },
           },
           wo = {
             number = true,
             relativenumber = true,
+          },
+        },
+        -- preview window
+        preview = {
+          keys = {
+            ["<a-p>"] = "focus_list",
           },
         },
       },
@@ -160,10 +160,6 @@ return {
               keys = {
                 ["<LocalLeader>c"] = "tcd",
                 ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
-                ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-                ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-                ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-                ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
               },
             },
             list = {
@@ -172,10 +168,6 @@ return {
                 ["<c-/>"] = "terminal",
                 ["<LocalLeader>c"] = "tcd",
                 ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
-                ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-                ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-                ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-                ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
               },
               wo = {
                 number = true,
