@@ -106,3 +106,10 @@ autocmd("FileType", {
             set nobuflisted
         ]],
 })
+
+autocmd("FileType", {
+  pattern = { "markdown", "md" },
+  callback = function()
+    vim.opt_local.wrap = false
+  end,
+})
