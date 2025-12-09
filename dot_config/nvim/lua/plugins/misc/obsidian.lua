@@ -42,7 +42,8 @@ return {
     "saghen/blink.cmp",
     "folke/snacks.nvim",
     "nvim-treesitter/nvim-treesitter",
-    "MeanderingProgrammer/render-markdown.nvim",
+    { "MeanderingProgrammer/render-markdown.nvim", optional = true },
+    { "OXY2DEV/markview.nvim", optional = true },
   },
   opts = {
     workspaces = {

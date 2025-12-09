@@ -4,9 +4,10 @@ return {
   "sudo-tee/opencode.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "MeanderingProgrammer/render-markdown.nvim",
     "saghen/blink.cmp",
     "folke/snacks.nvim",
+    { "MeanderingProgrammer/render-markdown.nvim", optional = true },
+    { "OXY2DEV/markview.nvim", optional = true },
   },
   config = function()
     require("opencode").setup({
