@@ -26,6 +26,12 @@ return {
           code_blocks = {
             style = "simple",
           },
+          metadata_minus = {
+            enable = false,
+          },
+          metadata_plus = {
+            enable = false,
+          },
         },
         preview = {
           enable = true,
@@ -68,6 +74,110 @@ return {
             ["%.jpg$"] = { icon = "󰈥 " },
             ["%.gif$"] = { icon = "󰵸 " },
             ["%.pdf$"] = { icon = " " },
+          },
+        },
+        yaml = {
+          enable = true,
+          properties = {
+            enable = true,
+
+            data_types = {
+              ["text"] = {
+                text = "󰗊 ",
+                hl = "MarkviewPalette4Sign",
+              },
+              ["list"] = {
+                text = "󰝖 ",
+                hl = "MarkviewPalette5Sign",
+              },
+              ["number"] = {
+                text = " ",
+                hl = "MarkviewPalette6Sign",
+              },
+              ["checkbox"] = {
+                ---@diagnostic disable
+                text = function(_, item)
+                  return item.value == "true" and "󰄲 " or "󰄱 "
+                end,
+                ---@diagnostic enable
+                hl = "MarkviewPalette6Sign",
+              },
+              ["date"] = {
+                text = "󰃭 ",
+                hl = "MarkviewPalette2Sign",
+              },
+              ["date_&_time"] = {
+                text = "󰥔 ",
+                hl = "MarkviewPalette3Sign",
+              },
+            },
+
+            default = {
+              use_types = true,
+
+              border_top = nil,
+              border_middle = nil,
+              border_bottom = nil,
+
+              border_hl = nil,
+            },
+
+            ["^tags$"] = {
+              use_types = false,
+
+              text = "󰓹 ",
+              hl = "MarkviewPalette0Sign",
+            },
+            ["^aliases$"] = {
+              match_string = "^aliases$",
+              use_types = false,
+
+              text = "󱞫 ",
+              hl = "MarkviewPalette2Sign",
+            },
+            ["^cssclasses$"] = {
+              match_string = "^cssclasses$",
+              use_types = false,
+
+              text = " ",
+              hl = "MarkviewPalette3Sign",
+            },
+
+            ["^publish$"] = {
+              match_string = "^publish$",
+              use_types = false,
+
+              text = "󰅧 ",
+              hl = "MarkviewPalette5Sign",
+            },
+            ["^permalink$"] = {
+              match_string = "^permalink$",
+              use_types = false,
+
+              text = " ",
+              hl = "MarkviewPalette2Sign",
+            },
+            ["^description$"] = {
+              match_string = "^description$",
+              use_types = false,
+
+              text = "󰋼 ",
+              hl = "MarkviewPalette0Sign",
+            },
+            ["^image$"] = {
+              match_string = "^image$",
+              use_types = false,
+
+              text = "󰋫 ",
+              hl = "MarkviewPalette4Sign",
+            },
+            ["^cover$"] = {
+              match_string = "^cover$",
+              use_types = false,
+
+              text = "󰹉 ",
+              hl = "MarkviewPalette2Sign",
+            },
           },
         },
       })
