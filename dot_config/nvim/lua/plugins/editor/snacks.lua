@@ -211,20 +211,6 @@ return {
   },
   keys = {
     {
-      "<leader>sP",
-      function()
-        Snacks.picker.lazy()
-      end,
-      desc = "Search for Plugin Spec",
-    },
-    {
-      "<leader>gF",
-      function()
-        Snacks.lazygit.log_file()
-      end,
-      desc = "LazyGit File Log",
-    },
-    {
       "<leader>fp",
       function()
         Snacks.picker.projects({
@@ -243,6 +229,17 @@ return {
       desc = "Find in Projects (Zoxide)",
     },
     {
+      "<leader>gF",
+      function()
+        Snacks.lazygit.log_file()
+      end,
+      desc = "LazyGit File Log",
+    },
+    {
+      "<leader>n",
+      false,
+    },
+    {
       "<leader>qp",
       function()
         Snacks.picker.projects({})
@@ -255,6 +252,17 @@ return {
         Snacks.picker.zoxide({})
       end,
       desc = "Load Projects Session (Zoxide)",
+    },
+    {
+      "<leader>sP",
+      function()
+        Snacks.picker.lazy()
+      end,
+      desc = "Search for Plugin Spec",
+    },
+    {
+      "<leader>S",
+      false,
     },
   },
 

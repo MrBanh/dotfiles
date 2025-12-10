@@ -18,6 +18,11 @@ return {
         group = "Notes/New...",
         icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
       },
+      {
+        "<leader>S",
+        group = "scratch",
+        icon = { icon = " " },
+      },
     })
   end,
 }
