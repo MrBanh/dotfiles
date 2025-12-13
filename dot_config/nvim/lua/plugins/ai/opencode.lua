@@ -22,15 +22,32 @@ return {
         },
         input_window = {
           ["<cr>"] = false,
-          ["<C-s>"] = { "submit_input_prompt", mode = { "n", "i" } }, -- Submit prompt (normal mode and insert mode)
 
           ["q"] = { "close", mode = { "n" } }, -- Close UI windows
-          ["<M-w>"] = { "toggle_pane", mode = { "n", "i" } }, -- Toggle between input and output panes
           ["<tab>"] = { "switch_mode" }, -- Switch between modes (build/plan)
+          ["<M-w>"] = { "toggle_pane", mode = { "n", "i" } }, -- Toggle between input and output panes
+          ["<C-n>"] = { "next_prompt_history", mode = { "n", "i" } }, -- Navigate to next prompt in history
+          ["<C-p>"] = { "prev_prompt_history", mode = { "n", "i" } }, -- Navigate to previous prompt in history
+          ["<C-s>"] = { "submit_input_prompt", mode = { "n", "i" } }, -- Submit prompt (normal mode and insert mode)
         },
         output_window = {
           ["q"] = { "close" }, -- Close UI windows
           ["<M-w>"] = { "toggle_pane", mode = { "n", "i" } }, -- Toggle between input and output panes
+        },
+        session_picker = {
+          delete_session = { "<C-x>" }, -- Delete selected session in the session picker
+        },
+        history_picker = {
+          delete_entry = { "<C-x>", mode = { "i", "n" } }, -- Delete selected entry in the history picker
+          clear_all = { "<C-S-x>", mode = { "i", "n" } }, -- Clear all entries in the history picker
+        },
+      },
+      ui = {
+        window_width = 0.50,
+        input = {
+          text = {
+            wrap = false,
+          },
         },
       },
     })
