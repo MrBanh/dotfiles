@@ -36,10 +36,11 @@ return {
         },
         session_picker = {
           delete_session = { "<C-x>" }, -- Delete selected session in the session picker
+          new_session = { "<C-s>" }, -- Create and switch to a new session in the session picker
         },
         history_picker = {
           delete_entry = { "<C-x>", mode = { "i", "n" } }, -- Delete selected entry in the history picker
-          clear_all = { "<C-S-x>", mode = { "i", "n" } }, -- Clear all entries in the history picker
+          clear_all = { "<C-d>", mode = { "i", "n" } }, -- Clear all entries in the history picker
         },
       },
       ui = {
