@@ -16,7 +16,8 @@ return {
       },
       list = {
         selection = {
-          auto_insert = false,
+          auto_insert = true,
+          preselect = false,
         },
       },
       menu = {

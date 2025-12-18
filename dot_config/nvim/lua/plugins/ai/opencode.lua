@@ -24,7 +24,7 @@ return {
           ["<cr>"] = false,
 
           ["q"] = { "close", mode = { "n" } }, -- Close UI windows
-          ["<tab>"] = { "switch_mode" }, -- Switch between modes (build/plan)
+          ["<tab>"] = { "switch_mode", mode = { "n", "i" } }, -- Switch between modes (build/plan)
           ["<M-w>"] = { "toggle_pane", mode = { "n", "i" } }, -- Toggle between input and output panes
           ["<C-n>"] = { "next_prompt_history", mode = { "n", "i" } }, -- Navigate to next prompt in history
           ["<C-p>"] = { "prev_prompt_history", mode = { "n", "i" } }, -- Navigate to previous prompt in history
