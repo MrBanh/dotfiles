@@ -74,6 +74,7 @@ return {
         hl.TSParameter = { fg = palette.purple }
         hl.TreesitterContextLineNumber = { fg = palette.yellow }
         hl.TreesitterContext = { bg = palette.none }
+        hl.DiffChange = { bg = palette.none }
         -- hl.FloatBorder = { link = "VertSplit" }
         -- hl.Pmenu = { link = "VertSplit" }
       end,
