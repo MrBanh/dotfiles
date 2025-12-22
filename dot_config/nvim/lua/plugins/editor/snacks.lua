@@ -127,14 +127,16 @@ return {
           keys = {
             ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
-            ["<a-p>"] = { "focus_preview", mode = { "i", "n" } },
+            ["<C-j>"] = { "focus_list", mode = { "i", "n" } },
+            ["<C-l>"] = { "focus_preview", mode = { "i", "n" } },
           },
         },
         -- result list window: when focus in on list
         list = {
           keys = {
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
-            ["<a-p>"] = { "focus_preview", mode = { "i", "n" } },
+            ["<C-k>"] = { "focus_input", mode = { "i", "n" } },
+            ["<C-l>"] = { "focus_preview", mode = { "i", "n" } },
           },
           wo = {
             number = true,
@@ -144,7 +146,7 @@ return {
         -- preview window
         preview = {
           keys = {
-            ["<a-p>"] = "focus_list",
+            ["<C-h>"] = { "focus_list", mode = { "i", "n" } },
           },
         },
       },
