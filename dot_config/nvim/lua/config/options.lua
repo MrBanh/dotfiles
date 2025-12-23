@@ -63,3 +63,6 @@ vim.o.winborder = "rounded"
 
 -- Snacks picker root detection: https://github.com/LazyVim/LazyVim/blob/25abbf546d564dc484cf903804661ba12de45507/NEWS.md?plain=1#L254
 vim.g.root_spec = { "cwd" }
+
+-- log level
+-- vim.lsp.set_log_level("info")
