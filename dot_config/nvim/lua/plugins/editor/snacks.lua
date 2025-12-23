@@ -170,6 +170,7 @@ return {
                 ["<c-/>"] = "terminal",
                 ["<LocalLeader>c"] = "tcd",
                 ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
+                ["H"] = false,
               },
               wo = {
                 number = true,
@@ -193,6 +194,13 @@ return {
         projects = {
           dev = { "~/dev", "~/projects", "~/src", "~/.config" },
         },
+      },
+      toggles = {
+        follow = " follow",
+        hidden = " hidden",
+        ignored = " ignored",
+        modified = " modified",
+        regex = { icon = " regex", value = false },
       },
     },
     scroll = {
