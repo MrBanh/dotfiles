@@ -1,15 +1,17 @@
 return {
-  {
-    "zbirenbaum/copilot.lua",
-    opts = {
-      suggestion = {
-        keymap = {
-          dismiss = "<C-c>",
-        },
+  "zbirenbaum/copilot.lua",
+  opts = {
+    ---@type SuggestionConfig
+    ---@diagnostic disable-next-line: missing-fields
+    suggestion = {
+      ---@diagnostic disable-next-line: missing-fields
+      keymap = {
+        accept = false,
+        dismiss = "<C-c>",
       },
-      filetypes = {
-        gitcommit = true,
-      },
+    },
+    filetypes = {
+      gitcommit = true,
     },
   },
 }
