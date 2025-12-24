@@ -2,6 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
 local set = vim.keymap.set
+local del = vim.keymap.del
 local opts = { noremap = true, silent = true }
 
 set({ "n", "v" }, "H", "^", opts)
@@ -60,3 +61,9 @@ end, {
 -- LSP Workspace Folders
 set("n", "<leader>fw", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
 set("n", "<leader>fW", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
+
+-- LazyVim specific
+del("n", "<leader>L")
+set("n", "<leader>Nl", function()
+  LazyVim.news.changelog()
+end, { desc = "LazyVim Changelog" })

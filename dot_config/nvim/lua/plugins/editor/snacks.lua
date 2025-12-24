@@ -250,6 +250,14 @@ return {
       false,
     },
     {
+      "<leader>Nn",
+      function()
+        Snacks.picker.notifications()
+      end,
+      desc = "Notification History",
+    },
+
+    {
       "<leader>qp",
       function()
         Snacks.picker.projects({})

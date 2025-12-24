@@ -19,6 +19,11 @@ return {
         icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
       },
       {
+        "<leader>N",
+        group = "News...",
+        icon = { icon = "󰅸 " },
+      },
+      {
         "<leader>S",
         group = "scratch",
         icon = { icon = " " },
