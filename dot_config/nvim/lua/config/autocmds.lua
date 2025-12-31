@@ -41,6 +41,11 @@ usercmd("SearchInBrowser", function(args)
     if not looks_like_url(input) then
       local format = config.query_map[prefix]
       q = format:format(vim.uri_encode(q))
+    else
+      -- Ensure URL has a protocol
+      if not q:match("^https?://") then
+        q = "https://" .. q
+      end
     end
     vim.ui.open(q)
   end
@@ -100,4 +105,11 @@ autocmd("FileType", {
             nnoremap <buffer><silent> q :close<CR>
             set nobuflisted
         ]],
+})
+
+autocmd("FileType", {
+  pattern = { "markdown", "md" },
+  callback = function()
+    vim.opt_local.wrap = false
+  end,
 })

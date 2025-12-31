@@ -8,7 +8,7 @@ return {
     cli = {
       mux = {
         backend = "tmux",
-        enabled = true,
+        enabled = vim.fn.executable("tmux") == 1,
       },
       win = {
         layout = vim.g.floating_terminal and "float" or "right", ---@type "float"|"left"|"bottom"|"top"|"right"
@@ -27,15 +27,20 @@ return {
         return vim.g.sidekick_nes ~= false and vim.b.sidekick_nes ~= false
       end,
     },
-  },
-  keys = {
-    {
-      "<M-/>",
-      function()
-        require("sidekick.cli").toggle()
-      end,
-      desc = "Sidekick Toggle",
-      mode = { "n", "t", "i", "x" },
+    copilot = {
+      status = {
+        enabled = false,
+      },
     },
   },
+  -- Disable cli keybindings, only keeping nes
+  keys = function()
+    return {
+      { "<tab>", LazyVim.cmp.map({ "ai_nes" }, "<tab>"), mode = { "n" }, expr = true },
+      {
+        "<c-.>",
+        false,
+      },
+    }
+  end,
 }

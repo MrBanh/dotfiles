@@ -14,6 +14,12 @@ return {
           },
         },
       },
+      list = {
+        selection = {
+          auto_insert = true,
+          preselect = false,
+        },
+      },
       menu = {
         draw = {
           columns = {
@@ -58,9 +64,26 @@ return {
     },
 
     keymap = {
-      ["<CR>"] = { "accept", "fallback" },
-      ["<C-k>"] = { "scroll_documentation_up", "fallback" },
-      ["<C-j>"] = { "scroll_documentation_down", "fallback" },
+      ["<C-c>"] = { "hide", "hide_signature", "hide_documentation", "fallback" },
+      ["<C-y>"] = { "select_and_accept", "fallback" },
+      ["<Tab>"] = {
+        --- @module "blink.cmp"
+        --- @param _ blink.cmp.API
+        function(_)
+          local copilot_suggestion = require("copilot.suggestion")
+
+          if copilot_suggestion.is_visible() then
+            LazyVim.create_undo() -- Creates an undo point before accepting
+            copilot_suggestion.accept()
+            return true
+          end
+
+          return false
+        end,
+        "select_and_accept",
+        "snippet_forward",
+        "fallback",
+      },
     },
 
     fuzzy = {

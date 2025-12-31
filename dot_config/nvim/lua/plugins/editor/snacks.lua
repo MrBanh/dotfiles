@@ -79,32 +79,35 @@ return {
         find_in_project = function(picker, item, action)
           picker:close()
           local dir = item.file
-          vim.defer_fn(function()
-            Snacks.picker.files()
-          end, 100)
-          vim.fn.chdir(dir)
+          Snacks.picker.files({
+            dirs = {
+              dir,
+            },
+          })
         end,
       },
-      layout = {
-        -- preset = "ivy",
-        cycle = false,
-        layout = {
-          box = "vertical",
-          backdrop = false,
-          row = -1,
-          width = 0,
-          height = 0.4,
-          border = "top",
-          title = " {title} {live} {flags}",
-          title_pos = "left",
-          { win = "input", height = 1, border = "none" },
-          {
-            box = "horizontal",
-            { win = "list", border = true },
-            { win = "preview", title = "{preview}", width = 0.5, border = true, title_pos = "left" },
+      layouts = {
+        custom_ivy = {
+          cycle = false,
+          layout = {
+            box = "vertical",
+            backdrop = false,
+            row = -1,
+            width = 0,
+            height = 0.4,
+            border = "top",
+            title = " {title} {live} {flags}",
+            title_pos = "left",
+            { win = "input", height = 1, border = "none" },
+            {
+              box = "horizontal",
+              { win = "list", border = true },
+              { win = "preview", title = "{preview}", width = 0.5, border = true, title_pos = "left" },
+            },
           },
         },
       },
+      layout = "custom_ivy",
       matcher = {
         fuzzy = true, -- use fuzzy matching
         smartcase = true, -- use smartcase
@@ -119,29 +122,31 @@ return {
         history_bonus = true, -- give more weight to chronological order
       },
       win = {
-        -- when focus is on input box above list
+        -- input window: when focus is on input box above list
         input = {
           keys = {
             ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
-            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+            ["<C-j>"] = { "focus_list", mode = { "i", "n" } },
+            ["<C-l>"] = { "focus_preview", mode = { "i", "n" } },
           },
         },
-        -- when focus in on list
+        -- result list window: when focus in on list
         list = {
           keys = {
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
-            ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-            ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-            ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-            ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+            ["<C-k>"] = { "focus_input", mode = { "i", "n" } },
+            ["<C-l>"] = { "focus_preview", mode = { "i", "n" } },
           },
           wo = {
             number = true,
             relativenumber = true,
+          },
+        },
+        -- preview window
+        preview = {
+          keys = {
+            ["<C-h>"] = { "focus_list", mode = { "i", "n" } },
           },
         },
       },
@@ -151,33 +156,12 @@ return {
         },
         explorer = {
           auto_close = true,
-          layout = {
-            -- preset = "default",
-            preview = true,
-            layout = {
-              box = "horizontal",
-              width = 0.8,
-              min_width = 120,
-              height = 0.8,
-              {
-                box = "vertical",
-                border = true,
-                title = "{title} {live} {flags}",
-                { win = "input", height = 1, border = "bottom" },
-                { win = "list", border = "none" },
-              },
-              { win = "preview", title = "{preview}", border = true, width = 0.5 },
-            },
-          },
+          layout = { preset = "default", preview = true },
           win = {
             input = {
               keys = {
                 ["<LocalLeader>c"] = "tcd",
                 ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
-                ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-                ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-                ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-                ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
               },
             },
             list = {
@@ -186,10 +170,7 @@ return {
                 ["<c-/>"] = "terminal",
                 ["<LocalLeader>c"] = "tcd",
                 ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
-                ["<c-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
-                ["<c-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-                ["<c-h>"] = { "preview_scroll_left", mode = { "i", "n" } },
-                ["<c-l>"] = { "preview_scroll_right", mode = { "i", "n" } },
+                ["H"] = false,
               },
               wo = {
                 number = true,
@@ -198,9 +179,28 @@ return {
             },
           },
         },
+        gh_diff = {
+          layout = { preset = "default", fullscreen = true },
+        },
+        gh_issue = {
+          layout = { preset = "default", fullscreen = true },
+        },
+        gh_pr = {
+          layout = { preset = "default", fullscreen = true },
+        },
+        git_diff = {
+          layout = { preset = "default", fullscreen = true },
+        },
         projects = {
           dev = { "~/dev", "~/projects", "~/src", "~/.config" },
         },
+      },
+      toggles = {
+        follow = " follow",
+        hidden = " hidden",
+        ignored = " ignored",
+        modified = " modified",
+        regex = { icon = " regex", value = false },
       },
     },
     scroll = {
@@ -221,20 +221,6 @@ return {
   },
   keys = {
     {
-      "<leader>sP",
-      function()
-        Snacks.picker.lazy()
-      end,
-      desc = "Search for Plugin Spec",
-    },
-    {
-      "<leader>gF",
-      function()
-        Snacks.lazygit.log_file()
-      end,
-      desc = "LazyGit File Log",
-    },
-    {
       "<leader>fp",
       function()
         Snacks.picker.projects({
@@ -253,6 +239,25 @@ return {
       desc = "Find in Projects (Zoxide)",
     },
     {
+      "<leader>gF",
+      function()
+        Snacks.lazygit.log_file()
+      end,
+      desc = "LazyGit File Log",
+    },
+    {
+      "<leader>n",
+      false,
+    },
+    {
+      "<leader>Nn",
+      function()
+        Snacks.picker.notifications()
+      end,
+      desc = "Notification History",
+    },
+
+    {
       "<leader>qp",
       function()
         Snacks.picker.projects({})
@@ -266,5 +271,23 @@ return {
       end,
       desc = "Load Projects Session (Zoxide)",
     },
+    {
+      "<leader>sP",
+      function()
+        Snacks.picker.lazy()
+      end,
+      desc = "Search for Plugin Spec",
+    },
+    {
+      "<leader>S",
+      false,
+    },
   },
+
+  config = function(_, opts)
+    require("snacks").setup(opts)
+
+    -- Register custom GitHub actions
+    require("utils.snacks.gh").register()
+  end,
 }

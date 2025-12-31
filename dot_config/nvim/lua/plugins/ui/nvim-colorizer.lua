@@ -2,7 +2,7 @@ return {
   "catgoose/nvim-colorizer.lua",
   event = "BufReadPre",
   opts = {
-    filetypes = { "*", "!grug-far", "!snacks_terminal" }, -- Filetype options.  Accepts table like `user_default_options`
+    filetypes = { "*", "!grug-far", "!snacks_terminal", "!snacks_picker_input", "!sidekick_terminal", "!lazy" }, -- Filetype options.  Accepts table like `user_default_options`
     buftypes = {}, -- Buftype options.  Accepts table like `user_default_options`
     -- Boolean | List of usercommands to enable.  See User commands section.
     user_commands = true, -- Enable all or some usercommands
@@ -40,7 +40,7 @@ return {
       -- Highlighting mode.  'background'|'foreground'|'virtualtext'
       mode = "virtualtext", -- Set the display mode
       -- Virtualtext character to use
-      virtualtext = "■",
+      virtualtext = "󱓻",
       -- Display virtualtext inline with color.  boolean|'before'|'after'.  True sets to 'after'
       virtualtext_inline = "before",
       -- Virtualtext highlight mode: 'background'|'foreground'

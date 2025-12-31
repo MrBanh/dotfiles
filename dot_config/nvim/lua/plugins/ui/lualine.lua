@@ -12,6 +12,8 @@ local disabled_filetypes = {
   "dap-repl",
   "leetcode.nvim",
   "sidekick_terminal",
+  "opencode",
+  "opencode_output",
 }
 
 return {

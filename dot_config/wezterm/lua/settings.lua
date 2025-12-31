@@ -6,12 +6,10 @@ local M = {}
 M.apply_to_config = function(config)
 	-- Font & Ligatures
 	config.font = wezterm.font_with_fallback({
-		"CodeNewRoman Nerd Font",
 		"JetBrains Mono",
-		"DengXian",
 	})
-	config.font_size = is_windows and 12 or 16
-	config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" } -- disable ligatures
+	config.font_size = is_windows and 12 or 15
+	config.harfbuzz_features = { "calt=0", "clig=0", "liga=0", "zero" } -- disable ligatures
 
 	-- Windows specific setup to SSH into WSL, for image render to work in terminal
 	if is_windows then
