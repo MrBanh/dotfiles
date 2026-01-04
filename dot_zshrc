@@ -151,12 +151,22 @@ if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLIn
 	  echo "$CUTBUFFER" | clip.exe
 	  zvm_exit_visual_mode
   }
+
+# Mac
 elif [[ $(uname) == "Darwin" ]]; then
   function zvm_vi_yank() {
     zvm_yank
     echo ${CUTBUFFER} | pbcopy
     zvm_exit_visual_mode
   }
+
+elif [[ $(uname) == "Linux" ]]; then
+  function zvm_vi_yank() {
+    zvm_yank
+    echo ${CUTBUFFER} | wl-copy -n
+    zvm_exit_visual_mode
+  }
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 
@@ -182,7 +192,7 @@ function y() {
 function zvm_after_init() {
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-  # Atuin:
+  # Atuin (install with brew wherever possible)
   eval "$(atuin init zsh)"
   zvm_bindkey vicmd '^R' atuin-search
 }
