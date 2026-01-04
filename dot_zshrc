@@ -88,6 +88,7 @@ autoload -U compinit && (compinit &; compinit -C)
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/nvim:$PATH"
+export PATH="$HOME/.opencode/bin:$PATH"
 export XDG_CONFIG_HOME="$HOME/.config"
 export WEZTERM_CONFIG_FILE="$HOME/.config/wezterm/wezterm.lua"
 
@@ -116,15 +117,9 @@ export FZF_CTRL_R_OPTS="
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
-# ===================
-
-# OTHER
 
 ## oh-my-zsh
 source $ZSH/oh-my-zsh.sh
-
-## Fuzzy find
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # ===================
 
@@ -135,20 +130,14 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
 alias nvc='cd ~/.config/nvim && nvim .'
 alias zshc="$EDITOR ~/.zshrc"
 alias cm='chezmoi'
-alias lg="lazygit"
 alias gg="lazygit"
 alias dev="cd $HOME/src"
-alias nv='nvim'
-alias vi='nvim'
 alias v='nvim'
 alias kick='NVIM_APPNAME="kickstart" nvim'
+alias ls="eza --icons=always --group-directories-last --color=auto -h -l"
 
 # Detect if WSL
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
@@ -170,8 +159,6 @@ elif [[ $(uname) == "Darwin" ]]; then
   }
 fi
 
-## https://github.com/eza-community/eza/tree/main
-alias ls="eza --icons=always --group-directories-last --color=auto -h -l"
 
 ## Better cd: https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh --cmd cd)"
