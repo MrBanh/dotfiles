@@ -197,3 +197,10 @@ function zvm_after_init() {
   eval "$(atuin init zsh)"
   zvm_bindkey vicmd '^R' atuin-search
 }
+
+# Git global config
+if command -v git > /dev/null; then
+  eval "$(git config --global core.editor 'nvim -f')"
+  eval "$(git config --global commit.verbose true)"
+  eval "$(git config --global pull.rebase true)"
+fi
