@@ -167,6 +167,7 @@ elif [[ $(uname) == "Linux" ]]; then
     zvm_exit_visual_mode
   }
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 fi
 
 
@@ -196,11 +197,3 @@ function zvm_after_init() {
   eval "$(atuin init zsh)"
   zvm_bindkey vicmd '^R' atuin-search
 }
-
-# Carapace:
-if command -v carapace > /dev/null; then
-  export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
-  zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
-  source <(carapace _carapace)
-fi
-
