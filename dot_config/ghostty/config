@@ -11,6 +11,7 @@ font-feature = -calt, -liga, -dlig, zero
 # Functionality
 copy-on-select = clipboard
 quit-after-last-window-closed = true
+command=tmux attach || tmux
 
 # Misc settings
 window-decoration = none
