@@ -204,3 +204,4 @@ if command -v git > /dev/null; then
   eval "$(git config --global commit.verbose true)"
   eval "$(git config --global pull.rebase true)"
 fi
+
