@@ -88,7 +88,6 @@ autoload -U compinit && (compinit &; compinit -C)
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/nvim:$PATH"
-export PATH="$HOME/.opencode/bin:$PATH"
 export XDG_CONFIG_HOME="$HOME/.config"
 export WEZTERM_CONFIG_FILE="$HOME/.config/wezterm/wezterm.lua"
 
@@ -161,6 +160,8 @@ elif [[ $(uname) == "Darwin" ]]; then
   }
 
 elif [[ $(uname) == "Linux" ]]; then
+  export PATH="$HOME/.opencode/bin:$PATH"
+
   function zvm_vi_yank() {
     zvm_yank
     echo ${CUTBUFFER} | wl-copy -n
@@ -202,6 +203,6 @@ function zvm_after_init() {
 if command -v git > /dev/null; then
   eval "$(git config --global core.editor 'nvim -f')"
   eval "$(git config --global commit.verbose true)"
-  eval "$(git config --global pull.rebase true)"
+  eval "$(git config --global pull.rebase false)"
 fi
 
