@@ -80,7 +80,6 @@ return {
 
           return false
         end,
-        "select_and_accept",
         "snippet_forward",
         "fallback",
       },

@@ -56,97 +56,6 @@ require("bunny"):setup({
 -- https://github.com/dedukun/relative-motions.yazi
 require("relative-motions"):setup({ show_numbers = "relative", show_motion = true, enter_mode = "first" })
 
--- UI --
-
-require("yatline"):setup({
-	--theme = my_theme,
-	section_separator = { open = "", close = "" },
-	part_separator = { open = " ", close = " " },
-	inverse_separator = { open = " ", close = " " },
-
-	style_a = {
-		fg = "#131A24",
-		bg_mode = {
-			normal = "#719CD6",
-			select = "#9D79D6",
-			un_set = "brightred",
-		},
-	},
-	style_b = { bg = "#2F4159", fg = "#CDCECF" },
-	style_c = { bg = "reset", fg = "#CDCECF" },
-
-	permissions_t_fg = "green",
-	permissions_r_fg = "yellow",
-	permissions_w_fg = "red",
-	permissions_x_fg = "cyan",
-	permissions_s_fg = "white",
-
-	tab_width = 20,
-	tab_use_inverse = false,
-
-	selected = { icon = "󰻭", fg = "yellow" },
-	copied = { icon = "", fg = "green" },
-	cut = { icon = "", fg = "red" },
-
-	total = { icon = "󰮍", fg = "yellow" },
-	succ = { icon = "", fg = "green" },
-	fail = { icon = "", fg = "red" },
-	found = { icon = "󰮕", fg = "blue" },
-	processed = { icon = "󰐍", fg = "green" },
-
-	show_background = true,
-
-	display_header_line = true,
-	display_status_line = true,
-
-	component_positions = { "header", "tab", "status" },
-
-	header_line = {
-		left = {
-			section_a = {},
-			section_b = {
-				-- {type = "line", custom = false, name = "tabs", params = {"left"}},
-				{ type = "string", custom = false, name = "hovered_path" },
-			},
-			section_c = {},
-		},
-		right = {
-			section_a = {},
-			section_b = {},
-			section_c = {},
-		},
-	},
-
-	status_line = {
-		left = {
-			section_a = {
-				{ type = "string", custom = false, name = "tab_mode" },
-			},
-			section_b = {},
-			section_c = {
-				{
-					type = "string",
-					custom = false,
-					name = "hovered_name",
-					params = { { trimed = false, show_symlink = true, max_length = 24, trim_length = 10 } },
-				},
-				{ type = "string", custom = false, name = "hovered_size" },
-				{ type = "coloreds", custom = false, name = "permissions" },
-			},
-		},
-		right = {
-			section_a = {},
-			section_b = {
-				{ type = "string", custom = false, name = "cursor_position" },
-				{ type = "string", custom = false, name = "cursor_percentage" },
-			},
-			section_c = {
-				{ type = "coloreds", custom = false, name = "count" },
-			},
-		},
-	},
-})
-
 -- https://github.com/yazi-rs/plugins/tree/main/git.yazi
 require("git"):setup()
 
@@ -166,3 +75,33 @@ function Linemode:custom()
 
 	return string.format("%s | %s", size, time)
 end
+
+-- Show symlink target in status bar
+Status:children_add(function(self)
+	local h = self._current.hovered
+	if h and h.link_to then
+		return " -> " .. tostring(h.link_to)
+	else
+		return ""
+	end
+end, 3300, Status.LEFT)
+
+-- Show selected / yanked files in status bar
+Status:children_add(function(self)
+	local files_yanked = #cx.yanked
+	local files_selected = #cx.active.selected
+	local files_cut = cx.yanked.is_cut
+
+	local selected_fg = files_selected > 0 and "yellow" or "grey"
+	local yanked_fg = files_yanked > 0 and (files_cut and "magenta" or "green") or "grey"
+
+	local selected_text = files_selected > 0 and "󰼢 " .. files_selected or "󰼢 " .. "0"
+	local yanked_text = files_yanked > 0 and "󱉨 " .. files_yanked or "󱉨 " .. "0"
+
+	return ui.Line({
+		ui.Span(" "),
+		ui.Span(selected_text):fg(selected_fg),
+		ui.Span(" "),
+		ui.Span(yanked_text):fg(yanked_fg),
+	})
+end, 4000, Status.LEFT)

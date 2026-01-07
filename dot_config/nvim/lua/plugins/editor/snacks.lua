@@ -88,7 +88,6 @@ return {
       },
       layouts = {
         custom_ivy = {
-          cycle = false,
           layout = {
             box = "vertical",
             backdrop = false,
@@ -107,7 +106,10 @@ return {
           },
         },
       },
-      layout = "custom_ivy",
+      layout = {
+        cycle = false,
+        preset = "custom_ivy",
+      },
       matcher = {
         fuzzy = true, -- use fuzzy matching
         smartcase = true, -- use smartcase

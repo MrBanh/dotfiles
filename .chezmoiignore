@@ -9,5 +9,6 @@ README.md
 .config/nvim/.claude
 .config/nvim/lazy-lock.json
 .config/nvim/lua/overseer/template/hubspot
+.config/tmux/plugins
 .config/yazi/flavors
 .config/yazi/plugins
