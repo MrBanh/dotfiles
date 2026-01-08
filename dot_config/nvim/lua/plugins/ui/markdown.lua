@@ -1,5 +1,5 @@
 ---@type "markview" | "render-markdown"
-local renderer = "markview"
+local renderer = "render-markdown"
 local ft = { "md", "markdown", "opencode_output" }
 
 return {
@@ -26,6 +26,12 @@ return {
           code_blocks = {
             style = "simple",
           },
+          ---@diagnostic disable-next-line: missing-fields
+          list_items = {
+            enable = true,
+            indent_size = 1,
+            shift_width = 1,
+          },
           metadata_minus = {
             enable = false,
           },
@@ -36,10 +42,15 @@ return {
         preview = {
           enable = true,
           map_gx = true,
-          -- hybrid_modes = { "n" },
           edit_range = { 0, 0 },
           filetypes = ft,
           ignore_buftypes = {},
+
+          -- modes where preview will be shown
+          modes = { "n" }, -- n, no, c
+          hybrid_modes = { "n" }, -- don't preview in current line + child lines
+          linewise_hybrid_mode = true, -- true current line hybrid controlled by edit_range, false all lines hybrid
+
           -- Optional, Use `condition()` to ignore other `nofile` buffers(e.g. LSP hover buffer, codecompanion, etc)
           condition = function(buffer)
             local buf_ft, buf_bt = vim.bo[buffer].ft, vim.bo[buffer].bt
@@ -194,11 +205,11 @@ return {
       -- Filetypes this plugin will run on.
       file_types = ft,
       heading = {
-        icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+        icons = { "󰼏 ", "󰎨 ", "󰼑 ", "󰎲 ", "󰼓 ", "󰎴 " },
         position = "inline",
         width = "block",
-        left_pad = 2,
-        right_pad = 2,
+        left_pad = 1,
+        right_pad = 1,
       },
       html = {
         comment = {
@@ -216,11 +227,18 @@ return {
       checkbox = {
         enabled = true,
         custom = {
-          todo = { raw = "[~]", rendered = "󰡖 ", highlight = "RenderMarkdownTodo", scope_highlight = nil },
+          todo = { raw = "[~]", rendered = "󰡖 ", highlight = "Orange", scope_highlight = "Orange" },
         },
         checked = {
-          scope_highlight = "RenderMarkdownChecked",
+          scope_highlight = "@markup.list.checked",
         },
+        unchecked = {
+          highlight = "Red",
+          scope_highlight = "Red",
+        },
+      },
+      bullet = {
+        icons = { "○", "●" },
       },
       latex = {
         enabled = false,
