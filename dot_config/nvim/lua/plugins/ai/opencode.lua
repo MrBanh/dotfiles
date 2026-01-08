@@ -52,6 +52,11 @@ return {
             wrap = false,
           },
         },
+        picker = {
+          snacks_layout = {
+            preset = "select",
+          },
+        },
       },
     })
 
