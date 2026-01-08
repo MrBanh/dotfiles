@@ -1,4 +1,5 @@
 # https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#default
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
 keybinding:
   universal:
     scrollUpMain-alt1: <c-b>
