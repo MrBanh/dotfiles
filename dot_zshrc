@@ -131,7 +131,7 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 alias nvc='cd ~/.config/nvim && nvim .'
-alias zshc="$EDITOR ~/.zshrc"
+alias zshrc="$EDITOR ~/.zshrc"
 alias cm='chezmoi'
 alias gg="lazygit"
 alias dev="cd $HOME/src"
@@ -218,4 +218,40 @@ elif [[ $(uname) == "Linux" ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 fi
+
+# Dynamically set GH_HOST based on git remote origin
+set_gh_host() {
+  if git rev-parse --is-inside-work-tree &>/dev/null; then
+    local remote_url=$(git remote get-url origin 2>/dev/null)
+    
+    if [[ -n "$remote_url" ]]; then
+      local hostname=""
+      
+      # Parse hostname from SSH URL (git@hostname:org/repo.git)
+      if [[ "$remote_url" =~ ^git@([^:]+): ]]; then
+        hostname="${match[1]}"
+      # Parse hostname from HTTPS URL (https://hostname/org/repo.git)
+      elif [[ "$remote_url" =~ ^https?://([^/]+) ]]; then
+        hostname="${match[1]}"
+      fi
+      
+      if [[ -n "$hostname" && "$hostname" != "github.com" ]]; then
+        export GH_HOST="$hostname"
+      else
+        unset GH_HOST
+      fi
+    else
+      unset GH_HOST
+    fi
+  else
+    unset GH_HOST
+  fi
+}
+
+# Hook into directory changes
+autoload -U add-zsh-hook
+add-zsh-hook chpwd set_gh_host
+
+# Run once on shell startup
+set_gh_host
 
