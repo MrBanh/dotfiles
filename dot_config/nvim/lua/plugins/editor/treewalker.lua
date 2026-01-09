@@ -1,0 +1,61 @@
+return {
+  "aaronik/treewalker.nvim",
+  keys = {
+    {
+      "<Up>",
+      ":Treewalker Up<CR>",
+      mode = { "n", "v" },
+      desc = "Treewalker Up",
+      silent = true,
+    },
+    {
+      "<Down>",
+      ":Treewalker Down<CR>",
+      mode = { "n", "v" },
+      desc = "Treewalker Down",
+      silent = true,
+    },
+    {
+      "<Left>",
+      ":Treewalker Left<CR>",
+      mode = { "n", "v" },
+      desc = "Treewalker Left",
+      silent = true,
+    },
+    {
+      "<Right>",
+      ":Treewalker Right<CR>",
+      mode = { "n", "v" },
+      desc = "Treewalker Right",
+      silent = true,
+    },
+    {
+      "<S-Up>",
+      ":Treewalker SwapUp<CR>",
+      mode = { "n" },
+      desc = "Treewalker Swap Up",
+      silent = true,
+    },
+    {
+      "<S-Down>",
+      ":Treewalker SwapDown<CR>",
+      mode = { "n" },
+      desc = "Treewalker Swap Down",
+      silent = true,
+    },
+    {
+      "<S-Left>",
+      ":Treewalker SwapLeft<CR>",
+      mode = { "n" },
+      desc = "Treewalker Swap Left",
+      silent = true,
+    },
+    {
+      "<S-Right>",
+      ":Treewalker SwapRight<CR>",
+      mode = { "n" },
+      desc = "Treewalker Swap Right",
+      silent = true,
+    },
+  },
+}

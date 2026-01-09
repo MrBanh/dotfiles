@@ -75,6 +75,15 @@ return {
         hl.TreesitterContextLineNumber = { fg = palette.yellow }
         hl.TreesitterContext = { bg = palette.none }
         hl.DiffChange = { bg = palette.none }
+
+        hl.RenderMarkdownH1Bg = { link = "RenderMarkdownHeadingBG" }
+        hl.RenderMarkdownH2Bg = { link = "RenderMarkdownHeadingBG" }
+        hl.RenderMarkdownH3Bg = { link = "RenderMarkdownHeadingBG" }
+        hl.RenderMarkdownH4Bg = { link = "RenderMarkdownHeadingBG" }
+        hl.RenderMarkdownH5Bg = { link = "RenderMarkdownHeadingBG" }
+        hl.RenderMarkdownH6Bg = { link = "RenderMarkdownHeadingBG" }
+        hl.RenderMarkdownHeadingBG = { bg = "#2D2737" }
+
         -- hl.FloatBorder = { link = "VertSplit" }
         -- hl.Pmenu = { link = "VertSplit" }
       end,
