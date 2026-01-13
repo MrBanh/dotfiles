@@ -62,19 +62,27 @@ return {
       return method
     end
 
-    -- TextCase: uses current_word
+    -- TextCase: uses current_word in normal mode, operator in visual mode
     vim.api.nvim_create_user_command("TextCase", function(cmd_opts)
       local method = normalize_method(cmd_opts.args)
 
       if is_valid_method(method) then
-        textcase.current_word(method)
+        if cmd_opts.range > 0 then
+          -- Visual mode: use operator with visual selection
+          vim.cmd("normal! gv")
+          textcase.operator(method)
+        else
+          -- Normal mode: use current_word
+          textcase.current_word(method)
+        end
       else
         vim.notify("Invalid text case method: " .. cmd_opts.args, vim.log.levels.ERROR)
       end
     end, {
       nargs = 1,
+      range = true,
       complete = complete_methods,
-      desc = "Convert current word to specified case",
+      desc = "Convert current word or selection to specified case",
     })
 
     -- TextCaseLSP: uses lsp_rename
