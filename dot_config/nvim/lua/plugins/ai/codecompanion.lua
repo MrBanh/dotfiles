@@ -5,6 +5,8 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "ravitemer/mcphub.nvim",
     "ravitemer/codecompanion-history.nvim",
+    "MeanderingProgrammer/render-markdown.nvim",
+    "franco-ruggeri/codecompanion-spinner.nvim",
     {
       "HakonHarnes/img-clip.nvim",
       opts = {
@@ -26,87 +28,18 @@ return {
     "CodeCompanionHistory",
   },
   opts = {
-
-    adapters = {
-      -- copilot
-      gemini = function()
-        return require("codecompanion.adapters").extend("copilot", {
-          schema = {
-            model = {
-              default = "gemini-2.5-pro",
-            },
-          },
-        })
-      end,
-      claude = function()
-        return require("codecompanion.adapters").extend("copilot", {
-          schema = {
-            model = {
-              default = "claude-sonnet-4",
-            },
-            max_tokens = {
-              default = 65536,
-            },
-          },
-        })
-      end,
-      o1 = function()
-        return require("codecompanion.adapters").extend("copilot", {
-          schema = {
-            model = {
-              default = "o1",
-            },
-            max_tokens = {
-              default = 65536,
-            },
-          },
-        })
-      end,
-      -- OpenRouter
-      openrouter_deepseek = function()
-        return require("codecompanion.adapters").extend("openai_compatible", {
-          name = "openrouter",
-          env = {
-            url = "https://openrouter.ai/api",
-            api_key = "OPENROUTER_API_KEY",
-            chat_url = "/v1/chat/completions",
-          },
-          schema = {
-            model = {
-              default = "deepseek/deepseek-r1:free",
-            },
-          },
-        })
-      end,
-    },
-
-    strategies = {
+    interactions = {
       chat = {
-        adapter = "claude",
-        keymaps = {
-          send = {
-            callback = function(chat)
-              vim.cmd("stopinsert")
-              chat:add_buf_message({ role = "llm", content = "" })
-              chat:submit()
-            end,
-            index = 1,
-            description = "Send",
-          },
-        },
+        adapter = "opencode",
       },
       inline = {
-        adapter = "claude",
+        adapter = "opencode",
       },
       cmd = {
-        adapter = "claude",
+        adapter = "opencode",
       },
     },
-
-    opts = {
-      -- Set debug logging
-      log_level = "DEBUG",
-    },
+    log_level = "ERROR", -- TRACE|DEBUG|ERROR|INFO
 
     extensions = {
       history = {
@@ -140,10 +73,18 @@ return {
           make_slash_commands = true, -- Add prompts as /slash commands
         },
       },
+      spinner = {},
     },
   },
 
   keys = {
+    {
+      mode = { "n", "v" },
+      "<M-/>",
+      "<CMD>CodeCompanionChat Toggle<CR>",
+      silent = true,
+      desc = "CodeCompanion chat",
+    },
     {
       mode = "n",
       "<leader>a:",
@@ -196,12 +137,7 @@ return {
       desc = "CodeCompanion generate commit",
     },
   },
-
   config = function(_, opts)
-    local spinner = require("plugins.ai.utils.spinner")
-    spinner:init()
-
     require("codecompanion").setup(opts)
-    require("plugins.ai.utils.extmarks").setup()
   end,
 }
