@@ -1,4 +1,4 @@
-local ft = { "md", "markdown", "opencode_output" }
+local ft = { "md", "markdown", "opencode_output", "codecompanion" }
 
 return {
   -- Lazy: https://www.lazyvim.org/extras/lang/markdown#render-markdownnvim

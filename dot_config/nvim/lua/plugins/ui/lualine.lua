@@ -14,6 +14,7 @@ local disabled_filetypes = {
   "sidekick_terminal",
   "opencode",
   "opencode_output",
+  "codecompanion",
 }
 
 return {
