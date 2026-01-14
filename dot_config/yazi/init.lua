@@ -31,31 +31,6 @@ require("bookmarks"):setup({
 	},
 })
 
--- https://github.com/stelcodes/bunny.yazi
-require("bunny"):setup({
-	hops = {
-		-- key and path attributes are required, desc is optional
-		{ key = "/", path = "/" },
-		{ key = "c", path = "~/.config" },
-		{ key = "d", path = "~/downloads" },
-		{ key = "D", path = "~/desktop" },
-		{ key = "h", path = "~" },
-		{ key = { "l", "s" }, path = "~/.local/share" },
-		{ key = { "l", "b" }, path = "~/.local/bin" },
-		{ key = { "l", "t" }, path = "~/.local/state" },
-		{ key = "s", path = "~/src" },
-		{ key = "t", path = "/tmp" },
-	},
-	desc_strategy = "path", -- if desc isn't present, use "path" or "filename", default is "path"
-	ephemeral = true, -- enable ephemeral hops, default is true
-	tabs = true, -- enable tab hops, default is true
-	notify = true, -- notify after hopping, default is false
-	fuzzy_cmd = "fzf", -- fuzzy searching command, default is "fzf"
-})
-
--- https://github.com/dedukun/relative-motions.yazi
-require("relative-motions"):setup({ show_numbers = "relative", show_motion = true, enter_mode = "first" })
-
 -- https://github.com/yazi-rs/plugins/tree/main/git.yazi
 require("git"):setup()
 

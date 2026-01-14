@@ -1,4 +1,4 @@
-local ft = { "md", "markdown", "opencode_output" }
+local ft = { "md", "markdown", "opencode_output", "codecompanion" }
 
 return {
   -- Lazy: https://www.lazyvim.org/extras/lang/markdown#render-markdownnvim
@@ -21,12 +21,13 @@ return {
       },
     },
     code = {
-      -- right_pad = 0,
-      -- width = "block",
-      -- language_border = " ",
-      language_border = " ",
-      language_right = "",
-      sign = true,
+      language_border = "",
+      language_right = "█",
+      language_left = "█",
+      border = "thin",
+      above = "▄",
+      below = "▀",
+      sign = false,
     },
     checkbox = {
       enabled = true,
