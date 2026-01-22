@@ -28,9 +28,12 @@ set("v", "K", ":m .-2<CR>==", opts)
 set("x", "J", ":move '>+1<CR>gv-gv", opts)
 set("x", "K", ":move '<-2<CR>gv-gv", opts)
 
+del({ "n", "i", "v" }, "<A-j>")
+del({ "n", "i", "v" }, "<A-k>")
+
 -- Remap macros
 set("n", "q", "<nop>", {})
-set("n", "<M-q>", "q", vim.tbl_extend("force", opts, { desc = "Start/stop recording macro" }))
+set("n", "<C-q>", "q", vim.tbl_extend("force", opts, { desc = "Start/stop recording macro" }))
 
 -- regex helpers
 set("c", [[\\*]], [[\(.*\)]], { desc = "Inserts \\(.*\\)" })
