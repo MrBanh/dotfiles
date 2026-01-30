@@ -21,21 +21,18 @@ return {
           ["<leader>of"] = { "toggle_focus" }, -- Toggle focus between opencode and last window
         },
         input_window = {
-          ["<cr>"] = false,
           ["~"] = false,
 
           ["q"] = { "close", mode = { "n" } }, -- Close UI windows
-          ["<M-@>"] = { "mention_file", mode = { "n", "i" } }, -- Pick a file and add to context.
+          ["@f"] = { "mention_file", mode = { "n", "i" } }, -- Pick a file and add to context.
           ["<C-n>"] = { "next_prompt_history", mode = { "n", "i" } }, -- Navigate to next prompt in history
           ["<C-p>"] = { "prev_prompt_history", mode = { "n", "i" } }, -- Navigate to previous prompt in history
-          ["<C-s>"] = { "submit_input_prompt", mode = { "n", "i" } }, -- Submit prompt (normal mode and insert mode)
         },
         output_window = {
           ["q"] = { "close" }, -- Close UI windows
         },
         session_picker = {
           delete_session = { "<C-x>" }, -- Delete selected session in the session picker
-          new_session = { "<C-s>" }, -- Create and switch to a new session in the session picker
         },
         history_picker = {
           delete_entry = { "<C-x>", mode = { "i", "n" } }, -- Delete selected entry in the history picker
