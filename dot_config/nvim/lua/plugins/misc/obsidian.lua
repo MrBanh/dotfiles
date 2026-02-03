@@ -101,7 +101,7 @@ return {
       return require("obsidian.util").markdown_link(opts)
     end,
 
-    preferred_link_style = "wiki", -- 'wiki' or 'markdown'
+    preferred_link_style = "markdown", -- 'wiki' or 'markdown'
 
     --- List of string that sorts frontmatter properties, or a function that compares two values, set to vim.NIL/false to do no sorting
     ---@field sort? string[] | (fun(a: any, b: any): boolean) | vim.NIL | boolean
@@ -169,11 +169,11 @@ return {
       name = "snacks.pick", -- telescope.nvim, fzf-lua, mini.pick, snacks.pick
       -- Not all pickers support all mappings.
       note_mappings = {
-        new = "<C-x>", -- Create a new note from the current query.
+        new = "<C-s>", -- Create a new note from the current query.
         insert_link = "<C-l>", -- Insert a link to the selected note
       },
       tag_mappings = {
-        tag_note = "<C-x>", -- Add tag(s) to the current note.
+        tag_note = "<C-s>", -- Add tag(s) to the current note.
         insert_tag = "<C-l>", -- Insert a tag at the current location.
       },
     },
