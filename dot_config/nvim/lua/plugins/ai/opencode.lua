@@ -22,11 +22,14 @@ return {
         },
         input_window = {
           ["~"] = false,
+          ["<cr>"] = false,
+          ["<S-cr>"] = false,
 
           ["q"] = { "close", mode = { "n" } }, -- Close UI windows
           ["@f"] = { "mention_file", mode = { "n", "i" } }, -- Pick a file and add to context.
           ["<C-n>"] = { "next_prompt_history", mode = { "n", "i" } }, -- Navigate to next prompt in history
           ["<C-p>"] = { "prev_prompt_history", mode = { "n", "i" } }, -- Navigate to previous prompt in history
+          ["<C-s>"] = { "submit_input_prompt", mode = { "n", "i" } }, -- Submit prompt (normal mode and insert mode)
         },
         output_window = {
           ["q"] = { "close" }, -- Close UI windows
