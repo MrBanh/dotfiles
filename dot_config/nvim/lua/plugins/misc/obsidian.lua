@@ -221,6 +221,7 @@ return {
       enable = false, -- md ui handled by render-markdown.nvim      ignore_conceal_warn = false, -- set to true to disable conceallevel specific warning
     },
     checkbox = {
+      create_new = true,
       order = { " ", "~", "x" },
     },
 
