@@ -63,4 +63,31 @@ function M.is_claudecode_diff(buf)
   return false
 end
 
+---@return string|nil
+function M.get_commit_sha()
+  local line = vim.api.nvim_get_current_line()
+  local sha = line:match("^commit (%x+)")
+  if sha then
+    return sha
+  else
+    vim.notify("Not on a commit line", vim.log.levels.WARN)
+    return nil
+  end
+end
+
+---@param commit string
+function M.open_commit_in_browser(commit)
+  local snacks = require("snacks")
+  local cwd = snacks.git.get_root() or vim.fn.getcwd()
+  local remote_url = vim.fn.system("git -C " .. vim.fn.shellescape(cwd) .. " remote get-url origin"):gsub("\n", "")
+
+  if remote_url and remote_url ~= "" then
+    ---@diagnostic disable-next-line: invisible
+    local repo = snacks.gitbrowse.get_repo(remote_url)
+    local url = snacks.gitbrowse.get_url(repo, { commit = commit }, { what = "commit" })
+    snacks.notify("Opening URL: " .. url, { title = "Git Browse" })
+    vim.ui.open(url)
+  end
+end
+
 return M

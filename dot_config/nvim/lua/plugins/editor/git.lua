@@ -1,31 +1,11 @@
 local function open_commit(_, item)
   if item and item.commit then
-    local snacks = require("snacks")
-    local cwd = snacks.git.get_root() or vim.fn.getcwd()
-    local remote_url = vim.fn.system("git -C " .. vim.fn.shellescape(cwd) .. " remote get-url origin"):gsub("\n", "")
-    if remote_url and remote_url ~= "" then
-      ---@diagnostic disable-next-line: invisible
-      local repo = snacks.gitbrowse.get_repo(remote_url)
-      local url = snacks.gitbrowse.get_url(repo, { commit = item.commit }, { what = "commit" })
-      snacks.notify("Opening URL: " .. url, { title = "Git Browse" })
-      vim.ui.open(url)
-    end
+    local utils = require("utils")
+    utils.open_commit_in_browser(item.commit)
   end
 end
 
 return {
-  {
-    "akinsho/git-conflict.nvim",
-    version = "*",
-    opts = {
-      default_mappings = {
-        ours = "<localleader>co",
-        theirs = "<localleader>ct",
-        none = "<localleader>cx",
-        both = "<localleader>ca",
-      },
-    },
-  },
   {
     "sindrets/diffview.nvim",
     event = "VeryLazy",
@@ -595,6 +575,27 @@ return {
           },
         },
       })
+    end,
+  },
+  {
+    "akinsho/git-conflict.nvim",
+    version = "*",
+    opts = {
+      default_mappings = {
+        ours = "<localleader>co",
+        theirs = "<localleader>ct",
+        none = "<localleader>cx",
+        both = "<localleader>ca",
+      },
+    },
+  },
+  {
+    "lionyxml/gitlineage.nvim",
+    dependencies = {
+      "sindrets/diffview.nvim", -- optional, for open_diff feature
+    },
+    config = function()
+      require("gitlineage").setup()
     end,
   },
   {

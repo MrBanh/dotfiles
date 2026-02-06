@@ -177,13 +177,6 @@ return {
         end,
         desc = "Dap UI (reset)",
       },
-      {
-        "<M-S-k>",
-        function()
-          require("dapui").eval()
-        end,
-        desc = "Eval",
-      },
     },
   },
 }
