@@ -49,15 +49,8 @@ set({ "n", "v" }, "<leader>Y", [["+y$]], vim.tbl_extend("force", opts, { desc = 
 -- exit terminal mode while in terminal
 set("t", "<C-Space>[", "<C-\\><C-N>", vim.tbl_extend("force", opts, { desc = "terminal escape terminal mode" }))
 
--- Browser search bar (see autocmds.lua)
+-- Browser search bar
 set("n", "<leader>so", ":SearchInBrowser<CR>", {
-  desc = "Search in browser",
-})
-set("v", "<leader>so", function()
-  local lines = require("utils").get_visual_selection_text()
-  local search = lines[1] or "" -- search only first line of selection
-  vim.cmd("SearchInBrowser " .. search)
-end, {
   desc = "Search in browser",
 })
 
