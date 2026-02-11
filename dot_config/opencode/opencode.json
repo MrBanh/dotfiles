@@ -7,5 +7,6 @@
     "history_previous": "up,ctrl+p",
     "history_next": "down,ctrl+n"
   },
-  "provider": {}
+  "plugin": ["opencode-anthropic-auth@latest"],
+
 }
