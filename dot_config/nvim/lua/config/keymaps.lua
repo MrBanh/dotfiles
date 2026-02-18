@@ -28,9 +28,12 @@ set("v", "K", ":m .-2<CR>==", opts)
 set("x", "J", ":move '>+1<CR>gv-gv", opts)
 set("x", "K", ":move '<-2<CR>gv-gv", opts)
 
+del({ "n", "i", "v" }, "<A-j>")
+del({ "n", "i", "v" }, "<A-k>")
+
 -- Remap macros
 set("n", "q", "<nop>", {})
-set("n", "<M-q>", "q", vim.tbl_extend("force", opts, { desc = "Start/stop recording macro" }))
+set("n", "<C-q>", "q", vim.tbl_extend("force", opts, { desc = "Start/stop recording macro" }))
 
 -- regex helpers
 set("c", [[\\*]], [[\(.*\)]], { desc = "Inserts \\(.*\\)" })
@@ -46,15 +49,8 @@ set({ "n", "v" }, "<leader>Y", [["+y$]], vim.tbl_extend("force", opts, { desc = 
 -- exit terminal mode while in terminal
 set("t", "<C-Space>[", "<C-\\><C-N>", vim.tbl_extend("force", opts, { desc = "terminal escape terminal mode" }))
 
--- Browser search bar (see autocmds.lua)
+-- Browser search bar
 set("n", "<leader>so", ":SearchInBrowser<CR>", {
-  desc = "Search in browser",
-})
-set("v", "<leader>so", function()
-  local lines = require("utils").get_visual_selection_text()
-  local search = lines[1] or "" -- search only first line of selection
-  vim.cmd("SearchInBrowser " .. search)
-end, {
   desc = "Search in browser",
 })
 

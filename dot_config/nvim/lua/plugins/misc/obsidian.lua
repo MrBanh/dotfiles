@@ -7,29 +7,19 @@ return {
   version = "*", -- recommended, use latest release instead of latest commit
   lazy = true,
   ft = "markdown",
-  cmd = {
-    "ObsidianDailies",
-    "ObsidianSearch",
-    "ObsidianQuickSwitch",
-    "Obsidian",
-    "ObsidianOpen",
-    "ObsidianPasteImg",
-    "ObsidianRename",
-    "ObsidianToday",
-    "ObsidianBacklinks",
-  },
+  cmd = { "Obsidian" },
   keys = {
-    { "<leader>nd", ":ObsidianDailies -7 7<CR>", mode = { "n", "v" }, desc = "Obsidian daily" },
-    { "<leader>ng", ":ObsidianSearch<CR>", mode = { "n", "v" }, desc = "Obsidian search" },
-    { "<leader>nl", ":ObsidianQuickSwitch<CR>", mode = { "n", "v" }, desc = "Obsidian list" },
+    { "<leader>nd", ":Obsidian dailies -7 7<CR>", mode = { "n", "v" }, desc = "Obsidian daily" },
+    { "<leader>ng", ":Obsidian search<CR>", mode = { "n", "v" }, desc = "Obsidian search" },
+    { "<leader>nl", ":Obsidian quick_switch<CR>", mode = { "n", "v" }, desc = "Obsidian list" },
     { "<leader>nn", ":Obsidian new_from_template<CR>", mode = { "n", "v" }, desc = "Obsidian template" },
-    { "<leader>no", ":ObsidianOpen<CR>", mode = { "n", "v" }, desc = "Open current note in Obsidian app" },
-    { "<leader>np", ":ObsidianPasteImg<CR>", mode = { "n", "v" }, desc = "Obsidian paste IMG" },
-    { "<leader>nR", ":ObsidianRename<CR>", mode = { "n", "v" }, desc = "Obsidian rename file" },
-    { "<leader>nt", ":ObsidianToday<CR>", mode = { "n", "v" }, desc = "Obsidian today" },
+    { "<leader>no", ":Obsidian open<CR>", mode = { "n", "v" }, desc = "Open current note in Obsidian app" },
+    { "<leader>np", ":Obsidian paste_img<CR>", mode = { "n", "v" }, desc = "Obsidian paste IMG" },
+    { "<leader>nR", ":Obsidian rename<CR>", mode = { "n", "v" }, desc = "Obsidian rename file" },
+    { "<leader>nt", ":Obsidian today<CR>", mode = { "n", "v" }, desc = "Obsidian today" },
     {
       "<leader>nr",
-      ":ObsidianBacklinks<CR>",
+      ":Obsidian backlinks<CR>",
       mode = { "n", "v" },
       desc = "Obsidian find references to current buffer",
     },
@@ -46,6 +36,7 @@ return {
     { "OXY2DEV/markview.nvim", optional = true },
   },
   opts = {
+    legacy_commands = false, -- can remove after 4.0
     workspaces = {
       {
         name = "work",
@@ -110,32 +101,36 @@ return {
       return require("obsidian.util").markdown_link(opts)
     end,
 
-    preferred_link_style = "wiki", -- 'wiki' or 'markdown'
+    preferred_link_style = "markdown", -- 'wiki' or 'markdown'
 
-    -- Optional, boolean or a function that takes a filename and returns a boolean.
-    -- `true` indicates that you don't want obsidian.nvim to manage frontmatter.
-    disable_frontmatter = false,
+    --- List of string that sorts frontmatter properties, or a function that compares two values, set to vim.NIL/false to do no sorting
+    ---@field sort? string[] | (fun(a: any, b: any): boolean) | vim.NIL | boolean
+    frontmatter = {
+      enabled = true,
+      -- func = require("obsidian.builtin").frontmatter,
+      func = function(note)
+        -- Add the title of the note as an alias.
+        if note.title then
+          note:add_alias(note.title)
+        end
+
+        local out = { id = note.id, aliases = note.aliases, tags = note.tags }
+
+        -- `note.metadata` contains any manually added fields in the frontmatter.
+        -- So here we just make sure those fields are kept in the frontmatter.
+        if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+          for k, v in pairs(note.metadata) do
+            out[k] = v
+          end
+        end
+
+        return out
+      end,
+      sort = { "id", "aliases", "tags" },
+    },
 
     -- Optional, alternatively you can customize the frontmatter data.
     ---@return table
-    note_frontmatter_func = function(note)
-      -- Add the title of the note as an alias.
-      if note.title then
-        note:add_alias(note.title)
-      end
-
-      local out = { id = note.id, aliases = note.aliases, tags = note.tags }
-
-      -- `note.metadata` contains any manually added fields in the frontmatter.
-      -- So here we just make sure those fields are kept in the frontmatter.
-      if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-        for k, v in pairs(note.metadata) do
-          out[k] = v
-        end
-      end
-
-      return out
-    end,
 
     -- Optional, for templates (see https://github.com/obsidian-nvim/obsidian.nvim/wiki/Using-templates)
     templates = {
@@ -165,16 +160,6 @@ return {
       },
     },
 
-    follow_url_func = function(url)
-      vim.ui.open(url)
-      -- vim.ui.open(url, { cmd = { "firefox" } })
-    end,
-
-    follow_img_func = function(img)
-      vim.ui.open(img)
-      -- vim.ui.open(img, { cmd = { "loupe" } })
-    end,
-
     open = {
       use_advanced_uri = false, -- Opens the file with current line number
       func = vim.ui.open, -- Function to do the opening
@@ -184,11 +169,11 @@ return {
       name = "snacks.pick", -- telescope.nvim, fzf-lua, mini.pick, snacks.pick
       -- Not all pickers support all mappings.
       note_mappings = {
-        new = "<C-x>", -- Create a new note from the current query.
+        new = "<C-s>", -- Create a new note from the current query.
         insert_link = "<C-l>", -- Insert a link to the selected note
       },
       tag_mappings = {
-        tag_note = "<C-x>", -- Add tag(s) to the current note.
+        tag_note = "<C-s>", -- Add tag(s) to the current note.
         insert_tag = "<C-l>", -- Insert a tag at the current location.
       },
     },
@@ -196,10 +181,6 @@ return {
     backlinks = {
       parse_headers = true,
     },
-
-    -- Sort search results
-    sort_by = "modified", -- "path", "modified", "accessed", "created"
-    sort_reversed = true, -- show notes by latest _
 
     -- 1. "current" (the default) - to always open in the current window
     -- 2. "vsplit" - only open in a vertical split if a vsplit does not exist.
@@ -240,6 +221,7 @@ return {
       enable = false, -- md ui handled by render-markdown.nvim      ignore_conceal_warn = false, -- set to true to disable conceallevel specific warning
     },
     checkbox = {
+      create_new = true,
       order = { " ", "~", "x" },
     },
 

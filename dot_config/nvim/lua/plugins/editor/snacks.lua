@@ -127,6 +127,24 @@ return {
         -- input window: when focus is on input box above list
         input = {
           keys = {
+            ["<a-d>"] = false,
+            ["<a-f>"] = false,
+            ["<a-h>"] = false,
+            ["<a-i>"] = false,
+            ["<a-r>"] = false,
+            ["<a-m>"] = false,
+            ["<a-p>"] = false,
+            ["<a-w>"] = false,
+
+            ["<localleader>d"] = { "inspect", mode = { "n" } },
+            ["<localleader>f"] = { "toggle_follow", mode = { "n" } },
+            ["<localleader>h"] = { "toggle_hidden", mode = { "n" } },
+            ["<localleader>i"] = { "toggle_ignored", mode = { "n" } },
+            ["<localleader>r"] = { "toggle_regex", mode = { "n" } },
+            ["<localleader>m"] = { "toggle_maximize", mode = { "n" } },
+            ["<localleader>p"] = { "toggle_preview", mode = { "n" } },
+            ["<localleader>w"] = { "cycle_win", mode = { "n" } },
+
             ["<Esc>"] = { "close", mode = { "n", "i" } }, -- close picker instead of going to normal mode
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<C-j>"] = { "focus_list", mode = { "i", "n" } },
@@ -136,6 +154,22 @@ return {
         -- result list window: when focus in on list
         list = {
           keys = {
+            ["<a-d>"] = false,
+            ["<a-f>"] = false,
+            ["<a-h>"] = false,
+            ["<a-i>"] = false,
+            ["<a-m>"] = false,
+            ["<a-p>"] = false,
+            ["<a-w>"] = false,
+
+            ["<localleader>d"] = "inspect",
+            ["<localleader>f"] = "toggle_follow",
+            ["<localleader>h"] = "toggle_hidden",
+            ["<localleader>i"] = "toggle_ignored",
+            ["<localleader>m"] = "toggle_maximize",
+            ["<localleader>p"] = "toggle_preview",
+            ["<localleader>w"] = "cycle_win",
+
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<C-k>"] = { "focus_input", mode = { "i", "n" } },
             ["<C-l>"] = { "focus_preview", mode = { "i", "n" } },
@@ -148,6 +182,9 @@ return {
         -- preview window
         preview = {
           keys = {
+            ["<a-w>"] = false,
+            ["<localleader>w"] = "cycle_win",
+
             ["<C-h>"] = { "focus_list", mode = { "i", "n" } },
           },
         },
