@@ -113,3 +113,43 @@ autocmd("FileType", {
     vim.opt_local.wrap = false
   end,
 })
+
+-- QMK AUTOCMDS
+local group = augroup("MyQMK", {})
+autocmd("BufEnter", {
+  desc = "Format simple keymap",
+  group = group,
+  pattern = "*/eyelash_corne.keymap", -- this is a pattern to match the filepath of whatever board you wish to target
+  callback = function()
+    require("qmk").setup({
+      auto_format_pattern = "*/eyelash_corne.keymap",
+      name = "LAYOUT_eyelash_corne",
+      variant = "zmk",
+      layout = {
+        "_ x x x x x x _ _ x _ x x x x x x",
+        "_ x x x x x x _ x x x x x x x x x",
+        "_ x x x x x x x _ x _ x x x x x x",
+        "_ _ _ _ x x x _ _ _ _ x x x _ _ _",
+      },
+    })
+  end,
+})
+
+autocmd("BufEnter", {
+  desc = "Format overlap keymap",
+  group = group,
+  pattern = "*/MOKETA.keymap",
+  callback = function()
+    require("qmk").setup({
+      auto_format_pattern = "*/MOKETA.keymap",
+      name = "MOKETA",
+      variant = "zmk",
+      layout = {
+        "x x x x x x _ x x x x x x",
+        "x x x x x x _ x x x x x x",
+        "x x x x x x _ x x x x x x",
+        "_ _ _ x x x _ x x x _ _ _",
+      },
+    })
+  end,
+})
