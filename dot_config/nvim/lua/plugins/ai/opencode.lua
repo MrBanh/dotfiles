@@ -69,7 +69,7 @@ return {
 
           ["q"] = { "close", mode = { "n" } }, -- Close UI windows
           ["@f"] = { "mention_file", mode = { "n", "i" } }, -- Pick a file and add to context.
-          ["@v"] = { "paste_image", mode = { "n", "v" }, desc = "Paste image from clipboard" },
+          ["@v"] = { "paste_image", mode = { "n", "i" }, desc = "Paste image from clipboard" },
 
           ["<tab>"] = { "switch_mode", mode = { "n", "v", "i" } }, -- build/plan
           ["<C-t>"] = { "cycle_variant", mode = { "n", "v", "i" } }, -- model variants
