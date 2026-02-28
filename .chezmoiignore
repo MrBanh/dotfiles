@@ -6,6 +6,7 @@ README.md
 **/hubspot
 **/node_modules
 **/opencode-api-key.sh
+.config/opencode/commands
 .config/nvim/spell
 .config/nvim/.claude
 .config/nvim/lazy-lock.json
