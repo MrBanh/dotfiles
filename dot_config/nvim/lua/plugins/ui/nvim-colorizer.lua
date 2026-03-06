@@ -2,7 +2,16 @@ return {
   "catgoose/nvim-colorizer.lua",
   event = "BufReadPre",
   opts = {
-    filetypes = { "*", "!grug-far", "!snacks_terminal", "!snacks_picker_input", "!sidekick_terminal", "!lazy" },
+    filetypes = {
+      "*",
+      "!grug-far",
+      "!snacks_terminal",
+      "!snacks_picker_input",
+      "!sidekick_terminal",
+      "!lazy",
+      "!opencode",
+      "!opencode_output",
+    },
     buftypes = {},
     user_commands = true,
     lazy_load = false,
