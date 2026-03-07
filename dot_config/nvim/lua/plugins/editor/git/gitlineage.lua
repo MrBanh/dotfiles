@@ -1,8 +1,6 @@
 return {
   "lionyxml/gitlineage.nvim",
-  dependencies = {
-    "sindrets/diffview.nvim",
-  },
+  dependencies = {},
   config = function()
     require("gitlineage").setup()
   end,
