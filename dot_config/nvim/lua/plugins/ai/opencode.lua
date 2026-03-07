@@ -67,6 +67,9 @@ return {
         ["<M-r>"] = false,
 
         ["q"] = { "close", mode = { "n" } }, -- Close UI windows
+        ["<C-c>"] = { "close" },
+        ["<esc>"] = { "cancel" },
+
         ["@f"] = { "mention_file", mode = { "n", "i" } }, -- Pick a file and add to context.
         ["@v"] = { "paste_image", mode = { "n", "i" }, desc = "Paste image from clipboard" },
 
@@ -78,6 +81,8 @@ return {
       },
       output_window = {
         ["q"] = { "close" }, -- Close UI windows
+        ["<C-c>"] = { "close" },
+        ["<esc>"] = { "cancel" },
 
         ["<tab>"] = { "switch_mode", mode = { "n", "v" } },
         ["<C-t>"] = { "cycle_variant", mode = { "n", "v" } },
