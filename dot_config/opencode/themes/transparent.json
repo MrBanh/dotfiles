@@ -12,7 +12,9 @@
     "special": "#ffa502",
     "string": "#2ed573",
     "constant": "#3742fa",
-    "error": "#ff4757"
+    "error": "#ff4757",
+    "diffAddedBgColor": "#142e1e",
+    "diffRemovedBgColor": "#2e1419"
   },
   "theme": {
     "background": "transparent",
@@ -36,8 +38,8 @@
     "diffHunkHeader": "gutter",
     "diffHighlightAdded": "string",
     "diffHighlightRemoved": "error",
-    "diffAddedBg": "transparent",
-    "diffRemovedBg": "transparent",
+    "diffAddedBg": "diffAddedBgColor",
+    "diffRemovedBg": "diffRemovedBgColor",
     "diffContextBg": "transparent",
     "diffLineNumber": "gutter",
     "diffAddedLineNumberBg": "transparent",
