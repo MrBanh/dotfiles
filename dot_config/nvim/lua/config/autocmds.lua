@@ -85,6 +85,26 @@ end, {
   desc = "Toggle btop in terminal",
 })
 
+usercmd("Gh", function()
+  if vim.fn.executable("gh") == 1 then
+    Snacks.terminal.toggle({ "gh", "dash" }, {
+      win = vim.g.floating_terminal and {
+        style = "float",
+      } or {
+        style = "terminal",
+        width = 0,
+        height = 0,
+      },
+    })
+  else
+    Snacks.notify.error("gh-dash is not installed. Please install it with: `gh extension install dlvhdr/gh-dash`", {
+      title = "gh-dash",
+    })
+  end
+end, {
+  desc = "Toggle gh-dash in terminal",
+})
+
 autocmd("User", {
   desc = "Add which key for Git Conflict",
   pattern = "GitConflictDetected",
