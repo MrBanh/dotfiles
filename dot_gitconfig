@@ -1,0 +1,20 @@
+[commit]
+	gpgsign = true
+	verbose = true
+[diff]
+	tool = codediff
+[merge]
+	tool = codediff
+[mergetool "codediff"]
+	cmd = nvim \"$MERGED\" -c \"autocmd User CodeDiffClose qa\" -c \"CodeDiff merge \\\"$MERGED\\\"\"
+[difftool "codediff"]
+	cmd = nvim \"$LOCAL\" \"$REMOTE\" -c \"autocmd User CodeDiffClose qa\" +\"CodeDiff file $LOCAL $REMOTE\"
+[pull]
+	rebase = false
+[push]
+	autoSetupRemote = true
+[gpg]
+	format = ssh
+[core]
+  pager = less -FX
+	editor = nvim -f
