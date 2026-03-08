@@ -12,7 +12,7 @@ return {
     },
     {
       "<leader>gdf",
-      ":CodeDiff history<CR>",
+      ":CodeDiff history %<CR>",
       desc = "File History",
       mode = { "n", "v" },
     },
