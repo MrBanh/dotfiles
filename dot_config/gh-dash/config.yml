@@ -115,7 +115,7 @@ theme:
       primary: "#cdcecf"
       secondary: "#719cd6"
       inverted: "#131a24"
-      faint: "#e4e4e5"
+      faint: "#71839b"
       warning: "#dbc074"
       success: "#81b29a"
       error: "#c94f6d"
