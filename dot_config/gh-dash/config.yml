@@ -85,26 +85,24 @@ defaults:
 
 keybindings:
   prs:
+    - key: C
+      name: code review
+      command: >
+        nvim -c ':lua Snacks.picker.gh_diff({ repo = "{{.RepoName}}", pr = "{{.PrNumber}}", focus = "list", on_close = function() vim.cmd("qa") end})'
+    - key: "d"
+      name: "view (nvim)"
+      command: nvim -c "autocmd User CodeDiffClose qa" -c ":CodeDiff origin/{{.BaseRefName}} origin/{{.HeadRefName}}"
     - key: T
       name: github actions | enhance
       command: ENHANCE_THEME=overnight_slumber gh enhance -R {{.RepoName}} {{.PrNumber}}
-    - key: d
-      name: diff (nvim + snacks)
-      command: >
-        nvim -c ':lua Snacks.picker.gh_diff({ repo = "{{.RepoName}}", pr = "{{.PrNumber}}" })'
-    - key: "D"
-      name: "view diff"
-      command: nvim -c "autocmd User CodeDiffClose qa" -c ":CodeDiff origin/{{.BaseRefName}} origin/{{.HeadRefName}}"
   universal:
     - key: g
       name: lazygit
-      command: cd {{.RepoPath}} && lazygit
+      command: cd {{.RepoPath}} && echo {{.RepoPath}} && lazygit
     - key: "ctrl+f"
       builtin: pageDown
     - key: "ctrl+b"
       builtin: pageUp
-
-repoPaths: {}
 
 theme:
   ui:
@@ -136,3 +134,5 @@ confirmQuit: false
 showAuthorIcons: true
 smartFilteringAtLaunch: true
 includeReadNotifications: true
+
+repoPaths: {}
