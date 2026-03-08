@@ -30,10 +30,29 @@ return {
       },
     },
     picker = {
+      layouts = {
+        fullscreen = {
+          layout = {
+            box = "horizontal",
+            width = 0,
+            min_width = 120,
+            height = 0,
+            {
+              box = "vertical",
+              border = true,
+              title = "{title}",
+              { win = "input", height = 1, border = "bottom" },
+              { win = "list", border = "none" },
+            },
+            { win = "preview", title = "{preview}", border = true, width = 0.75 },
+          },
+        },
+      },
       sources = {
         gh_diff = {
-          layout = { preset = "default", fullscreen = true },
+          layout = { preset = "fullscreen", fullscreen = true },
           on_change = gh_remap_preview_keys,
+          formatters = { file = { filename_only = true } },
         },
         gh_issue = {
           layout = { preset = "default", fullscreen = true },
