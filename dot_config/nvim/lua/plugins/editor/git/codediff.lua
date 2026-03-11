@@ -98,8 +98,8 @@ return {
     keymaps = {
       view = {
         quit = "q", -- Close diff tab
-        toggle_explorer = "<leader>b", -- Toggle explorer visibility (explorer mode only)
-        focus_explorer = "<leader>e", -- Focus explorer panel (explorer mode only)
+        toggle_explorer = "<leader>ge", -- Toggle explorer visibility (explorer mode only)
+        focus_explorer = "<leader>gE", -- Focus explorer panel (explorer mode only)
         next_hunk = "]c", -- Jump to next change
         prev_hunk = "[c", -- Jump to previous change
         next_file = "]f", -- Next file in explorer/history mode
@@ -109,9 +109,9 @@ return {
         open_in_prev_tab = "gf", -- Open current buffer in previous tab (or create one before)
         close_on_open_in_prev_tab = false, -- Close codediff tab after gf opens file in previous tab
         toggle_stage = "-", -- Stage/unstage current file (works in explorer and diff buffers)
-        stage_hunk = "<leader>hs", -- Stage hunk under cursor to git index
-        unstage_hunk = "<leader>hu", -- Unstage hunk under cursor from git index
-        discard_hunk = "<leader>hr", -- Discard hunk under cursor (working tree only)
+        stage_hunk = "<leader>ghs", -- Stage hunk under cursor to git index
+        unstage_hunk = "<leader>ghu", -- Unstage hunk under cursor from git index
+        discard_hunk = "<leader>ghr", -- Discard hunk under cursor (working tree only)
         hunk_textobject = "ih", -- Textobject for hunk (vih to select, yih to yank, etc.)
         show_help = "g?", -- Show floating window with available keymaps
         align_move = "gm", -- Temporarily align moved code blocks across panes
@@ -152,15 +152,15 @@ return {
         fold_close_all = "zM", -- Close all folds in tree
       },
       conflict = {
-        accept_incoming = "<leader>ct", -- Accept incoming (theirs/left) change
-        accept_current = "<leader>co", -- Accept current (ours/right) change
-        accept_both = "<leader>cb", -- Accept both changes (incoming first)
-        discard = "<leader>cx", -- Discard both, keep base
+        accept_incoming = "<leader>gct", -- Accept incoming (theirs/left) change
+        accept_current = "<leader>gco", -- Accept current (ours/right) change
+        accept_both = "<leader>gcb", -- Accept both changes (incoming first)
+        discard = "<leader>gcx", -- Discard both, keep base
         -- Accept all (whole file) - uppercase versions
-        accept_all_incoming = "<leader>cT", -- Accept ALL incoming changes
-        accept_all_current = "<leader>cO", -- Accept ALL current changes
-        accept_all_both = "<leader>cB", -- Accept ALL both changes
-        discard_all = "<leader>cX", -- Discard ALL, reset to base
+        accept_all_incoming = "<leader>gcT", -- Accept ALL incoming changes
+        accept_all_current = "<leader>gcO", -- Accept ALL current changes
+        accept_all_both = "<leader>gcB", -- Accept ALL both changes
+        discard_all = "<leader>gcX", -- Discard ALL, reset to base
         next_conflict = "]x", -- Jump to next conflict
         prev_conflict = "[x", -- Jump to previous conflict
         diffget_incoming = "2do", -- Get hunk from incoming (left/theirs) buffer
