@@ -5,7 +5,9 @@ README.md
 **/hubspot-init.lua
 **/hubspot
 **/node_modules
+**/bun.lock
 **/opencode-api-key.sh
+**/opencode/package.json
 .config/opencode/commands
 .config/nvim/spell
 .config/nvim/.claude
