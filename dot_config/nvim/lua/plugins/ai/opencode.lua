@@ -102,6 +102,9 @@ return {
           wrap = false,
         },
       },
+      output = {
+        filetype = "markdown", -- Filetype assigned to the output buffer (default: 'opencode_output')
+      },
       picker = {
         snacks_layout = {
           preset = "select",
