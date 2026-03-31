@@ -12,6 +12,16 @@ return {
     },
     {
       "<leader>gdf",
+      function()
+        vim.fn.system("git rev-parse --verify main")
+        local branch = vim.v.shell_error == 0 and "main" or "master"
+        vim.cmd("CodeDiff file " .. branch .. "...")
+      end,
+      desc = "Git Diff Current File",
+      mode = { "n", "v" },
+    },
+    {
+      "<leader>gdh",
       ":CodeDiff history %<CR>",
       desc = "File History",
       mode = { "n", "v" },
@@ -77,7 +87,7 @@ return {
       file_filter = {
         ignore = { ".git/**", ".jj/**" }, -- Glob patterns to hide (e.g., {"*.lock", "dist/*"})
       },
-      focus_on_select = false, -- Jump to modified pane after selecting a file (default: stay in explorer)
+      focus_on_select = true, -- Jump to modified pane after selecting a file (default: stay in explorer)
       visible_groups = { -- Which groups to show (can be toggled at runtime)
         staged = true,
         unstaged = true,
@@ -98,8 +108,8 @@ return {
     keymaps = {
       view = {
         quit = "q", -- Close diff tab
-        toggle_explorer = "<leader>ge", -- Toggle explorer visibility (explorer mode only)
-        focus_explorer = "<leader>gE", -- Focus explorer panel (explorer mode only)
+        toggle_explorer = "<localleader>e", -- Toggle explorer visibility (explorer mode only)
+        focus_explorer = "<localleader>E", -- Focus explorer panel (explorer mode only)
         next_hunk = "]c", -- Jump to next change
         prev_hunk = "[c", -- Jump to previous change
         next_file = "]f", -- Next file in explorer/history mode
@@ -109,9 +119,9 @@ return {
         open_in_prev_tab = "gf", -- Open current buffer in previous tab (or create one before)
         close_on_open_in_prev_tab = false, -- Close codediff tab after gf opens file in previous tab
         toggle_stage = "-", -- Stage/unstage current file (works in explorer and diff buffers)
-        stage_hunk = "<leader>ghs", -- Stage hunk under cursor to git index
-        unstage_hunk = "<leader>ghu", -- Unstage hunk under cursor from git index
-        discard_hunk = "<leader>ghr", -- Discard hunk under cursor (working tree only)
+        stage_hunk = "<localleader>s", -- Stage hunk under cursor to git index
+        unstage_hunk = "<localleader>u", -- Unstage hunk under cursor from git index
+        discard_hunk = "<localleader>r", -- Discard hunk under cursor (working tree only)
         hunk_textobject = "ih", -- Textobject for hunk (vih to select, yih to yank, etc.)
         show_help = "g?", -- Show floating window with available keymaps
         align_move = "gm", -- Temporarily align moved code blocks across panes
@@ -152,15 +162,15 @@ return {
         fold_close_all = "zM", -- Close all folds in tree
       },
       conflict = {
-        accept_incoming = "<leader>gct", -- Accept incoming (theirs/left) change
-        accept_current = "<leader>gco", -- Accept current (ours/right) change
-        accept_both = "<leader>gcb", -- Accept both changes (incoming first)
-        discard = "<leader>gcx", -- Discard both, keep base
+        accept_incoming = "<localleader>ct", -- Accept incoming (theirs/left) change
+        accept_current = "<localleader>co", -- Accept current (ours/right) change
+        accept_both = "<localleader>cb", -- Accept both changes (incoming first)
+        discard = "<localleader>cx", -- Discard both, keep base
         -- Accept all (whole file) - uppercase versions
-        accept_all_incoming = "<leader>gcT", -- Accept ALL incoming changes
-        accept_all_current = "<leader>gcO", -- Accept ALL current changes
-        accept_all_both = "<leader>gcB", -- Accept ALL both changes
-        discard_all = "<leader>gcX", -- Discard ALL, reset to base
+        accept_all_incoming = "<localleader>cT", -- Accept ALL incoming changes
+        accept_all_current = "<localleader>cO", -- Accept ALL current changes
+        accept_all_both = "<localleader>cB", -- Accept ALL both changes
+        discard_all = "<localleader>cX", -- Discard ALL, reset to base
         next_conflict = "]x", -- Jump to next conflict
         prev_conflict = "[x", -- Jump to previous conflict
         diffget_incoming = "2do", -- Get hunk from incoming (left/theirs) buffer
