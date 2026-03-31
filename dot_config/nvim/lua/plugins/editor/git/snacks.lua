@@ -19,6 +19,7 @@ end
 return {
   "folke/snacks.nvim",
   opts = {
+    ---@class snacks.lazygit.Config: snacks.terminal.Opts
     lazygit = {
       config = {
         os = {
@@ -26,6 +27,12 @@ return {
           editAtLine = '[ -z "$NVIM" ] && (nvim +{{line}} -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" &&  nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":{{line}}<CR>")',
           editAtLineAndWait = "nvim +{{line}} {{filename}}",
           openDirInEditor = '[ -z "$NVIM" ] && (nvim -- {{dir}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{dir}})',
+        },
+      },
+      win = {
+        style = {
+          width = 0,
+          height = 0,
         },
       },
     },

@@ -58,6 +58,15 @@ set("n", "<leader>so", ":SearchInBrowser<CR>", {
 set("n", "<leader>fw", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
 set("n", "<leader>fW", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
 
+-- Restart neovim, only works for 0.12+
+set({ "n", "i", "v" }, "<leader>qr", function()
+  if vim.fn.has("nvim-0.12") == 0 then
+    print("Neovim 0.12 or higher is required to restart")
+    return
+  end
+  vim.cmd("restart | silent! lua require('persistence').load()")
+end, { desc = "Restart Neovim" })
+
 -- LazyVim specific
 del("n", "<leader>L")
 set("n", "<leader>Nl", function()
