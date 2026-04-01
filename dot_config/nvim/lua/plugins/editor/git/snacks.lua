@@ -56,10 +56,17 @@ return {
         },
       },
       sources = {
+        gh_actions = {
+          focus = "list",
+          on_show = function()
+            vim.cmd.stopinsert()
+          end,
+        },
         gh_diff = {
           layout = { preset = "fullscreen", fullscreen = true },
           on_change = gh_remap_preview_keys,
           formatters = { file = { filename_only = true } },
+          focus = "list",
         },
         gh_issue = {
           layout = { preset = "default", fullscreen = true },
@@ -71,6 +78,7 @@ return {
         },
         git_diff = {
           layout = { preset = "default", fullscreen = true },
+          focus = "list",
         },
         git_log = {
           actions = {
