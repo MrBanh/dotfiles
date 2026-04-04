@@ -62,30 +62,35 @@ return {
       inlay_hints_background = "none", -- or "dimmed"
       -- https://github.com/neanias/everforest-nvim/blob/main/lua/everforest/colours.lua
       on_highlights = function(hl, palette)
-        hl.NormalFloat = { bg = palette.none }
-        hl.FloatBorder = { bg = palette.none }
-        hl.Pmenu = { bg = palette.none }
-        hl.PmenuSel = { bg = palette.bg_green, fg = palette.none }
-        hl.CursorLine = { bg = palette.none }
-        hl.LspSignatureActiveParameter = { bg = palette.bg1 }
-        hl.NonText = { link = "Comment" }
-        hl.GitConflictCurrent = { bg = palette.bg_blue }
-        hl.GitConflictCurrentLabel = { link = "GitConflictCurrent" }
-        hl.TSParameter = { fg = palette.purple }
-        hl.TreesitterContextLineNumber = { fg = palette.yellow }
-        hl.TreesitterContext = { bg = palette.none }
-        hl.DiffChange = { bg = palette.none }
+        local highlights = {
+          NormalFloat = { bg = palette.none },
+          FloatBorder = { bg = palette.none },
+          Pmenu = { bg = palette.none },
+          PmenuSel = { bg = palette.bg_green, fg = palette.none },
 
-        hl.RenderMarkdownH1Bg = { link = "RenderMarkdownHeadingBG" }
-        hl.RenderMarkdownH2Bg = { link = "RenderMarkdownHeadingBG" }
-        hl.RenderMarkdownH3Bg = { link = "RenderMarkdownHeadingBG" }
-        hl.RenderMarkdownH4Bg = { link = "RenderMarkdownHeadingBG" }
-        hl.RenderMarkdownH5Bg = { link = "RenderMarkdownHeadingBG" }
-        hl.RenderMarkdownH6Bg = { link = "RenderMarkdownHeadingBG" }
-        hl.RenderMarkdownHeadingBG = { bg = "#2D2737" }
+          NonText = { link = "Comment" },
+          TSParameter = { fg = palette.purple },
+          LspSignatureActiveParameter = { bg = palette.bg1 },
 
-        -- hl.FloatBorder = { link = "VertSplit" }
-        -- hl.Pmenu = { link = "VertSplit" }
+          TreesitterContextLineNumber = { fg = palette.yellow },
+          TreesitterContext = { bg = palette.none },
+
+          GitConflictCurrent = { bg = palette.bg_blue },
+          GitConflictCurrentLabel = { link = "GitConflictCurrent" },
+          DiffChange = { bg = palette.none },
+
+          RenderMarkdownH1Bg = { link = "RenderMarkdownHeadingBG" },
+          RenderMarkdownH2Bg = { link = "RenderMarkdownHeadingBG" },
+          RenderMarkdownH3Bg = { link = "RenderMarkdownHeadingBG" },
+          RenderMarkdownH4Bg = { link = "RenderMarkdownHeadingBG" },
+          RenderMarkdownH5Bg = { link = "RenderMarkdownHeadingBG" },
+          RenderMarkdownH6Bg = { link = "RenderMarkdownHeadingBG" },
+          RenderMarkdownHeadingBG = { bg = "#2D2737" },
+        }
+
+        for group, opts in pairs(highlights) do
+          hl[group] = opts
+        end
       end,
       colours_override = function(palette) end,
     })
