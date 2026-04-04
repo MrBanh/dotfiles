@@ -24,15 +24,15 @@ return {
       local icons = LazyVim.config.icons
 
       -- https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
-      local custom_theme = require("lualine.themes.auto")
+      local theme = require("lualine.themes.auto")
       local lualine_modes = { "normal", "inactive" }
       for _, field in ipairs(lualine_modes) do
-        if custom_theme[field] and custom_theme[field].c then
-          custom_theme[field].c.bg = "NONE"
+        if theme[field] and theme[field].c then
+          theme[field].c.bg = "NONE"
         end
       end
 
-      opts.options.theme = custom_theme
+      opts.options.theme = theme
 
       opts.options.disabled_filetypes.winbar = disabled_filetypes
 
@@ -44,7 +44,6 @@ return {
       opts.options.section_separators = { left = r_separator, right = l_separator }
 
       -- sections: https://github.com/nvim-lualine/lualine.nvim?tab=readme-ov-file#available-components
-      opts.sections.lualine_a = { { "mode", separator = { right = r_separator } } }
       opts.sections.lualine_c = {
         LazyVim.lualine.root_dir({
           ---@diagnostic disable-next-line: assign-type-mismatch
@@ -65,14 +64,6 @@ return {
           },
         },
       }
-      opts.sections.lualine_y = {
-        { "progress", separator = " ", padding = { left = 1, right = 0 } },
-        {
-          "location",
-          padding = { left = 0, right = 1 },
-          separator = {},
-        },
-      }
       opts.sections.lualine_z = {}
 
       -- winbar
@@ -82,13 +73,11 @@ return {
           {
             "filetype",
             icon_only = true,
-            padding = { left = 1, right = 0 },
           },
           {
             "filename",
             file_status = false,
             symbols = {},
-            separator = { right = r_separator },
           },
         },
         lualine_c = {
@@ -107,15 +96,18 @@ return {
           {
             "filetype",
             icon_only = true,
-            padding = { left = 1, right = 0 },
+            padding = 1,
             color = { bg = "None" },
           },
           {
             "filename",
             file_status = false,
             symbols = {},
-            separator = { right = "" },
             color = { bg = "None" },
+            padding = {
+              left = 1,
+              right = 2,
+            },
           },
         },
         lualine_c = {
