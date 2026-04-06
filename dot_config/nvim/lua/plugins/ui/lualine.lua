@@ -108,6 +108,9 @@ return {
               left = 1,
               right = 2,
             },
+            separator = {
+              right = " ",
+            },
           },
         },
         lualine_c = {
