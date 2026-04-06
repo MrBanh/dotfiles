@@ -2,13 +2,12 @@ README.md
 **/.DS_Store
 **/.git
 **/hubspot.init.lua
-**/hubspot-init.lua
 **/hubspot
 **/node_modules
 **/bun.lock
 **/opencode-api-key.sh
 **/opencode/package.json
-.config/opencode/commands
+**/opencode/package-lock.json
 .config/nvim/spell
 .config/nvim/.claude
 .config/nvim/lazy-lock.json

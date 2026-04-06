@@ -1,3 +1,4 @@
+// https://opencode.ai/docs/config/
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["opencode-anthropic-auth@latest"],
@@ -6,7 +7,7 @@
     "external_directory": {
       "~/.config/opencode/**": "allow",
       "~/obsidian-vault/**": "allow",
-      "~/.claude/agents/**": "allow"
-    }
-  }
+      "~/.claude/agents/**": "allow",
+    },
+  },
 }
