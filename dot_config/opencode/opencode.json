@@ -6,6 +6,7 @@
     "external_directory": {
       "~/.config/opencode/**": "allow",
       "~/obsidian-vault/**": "allow",
+      "~/.claude/agents/**": "allow"
     }
   }
 }
