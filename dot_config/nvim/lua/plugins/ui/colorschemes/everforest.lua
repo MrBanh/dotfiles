@@ -88,7 +88,11 @@ return {
           RenderMarkdownH4Bg = { link = "RenderMarkdownHeadingBG" },
           RenderMarkdownH5Bg = { link = "RenderMarkdownHeadingBG" },
           RenderMarkdownH6Bg = { link = "RenderMarkdownHeadingBG" },
-          RenderMarkdownHeadingBG = { bg = "#2D2737" },
+          RenderMarkdownHeadingBG = { bg = palette.bg_purple },
+
+          -- conflict-marker.nvim
+          ConflictOurs = { bg = palette.bg_blue },
+          ConflictTheirs = { bg = palette.bg_green },
         }
 
         for group, opts in pairs(highlights) do
@@ -104,6 +108,8 @@ return {
           yellow = "#dbbc7f",
           purple = "#d699b6",
           aqua = "#95d1c9",
+
+          bg_purple = "#2d2737",
         }
 
         for color, value in pairs(overrides) do
