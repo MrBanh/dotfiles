@@ -1,22 +1,17 @@
 [[plugin.deps]]
 use = "boydaihungst/save-clipboard-to-file"
-rev = "9fcd6c4"
-hash = "d67c9d3df0b067be229fb526c77b08ae"
+rev = "4f034ac"
+hash = "4bdfecaa643db1cc28ccba799463d5b8"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "4e55902"
-hash = "36a484acf6a0a0219c543ccb4cee218f"
+rev = "7749958"
+hash = "26db011a778f261d730d4f5f8bf24b3f"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "4e55902"
-hash = "8da0b15a97b5dfd13941d1ecc617ac7c"
-
-[[plugin.deps]]
-use = "ktunprasert/git-files"
-rev = "c7289ad"
-hash = "cdb1a69bed63211c75b72521bbab875d"
+rev = "7749958"
+hash = "f0c8c378184d5f8abd1b095a443d336d"
 
 [[plugin.deps]]
 use = "dedukun/bookmarks"

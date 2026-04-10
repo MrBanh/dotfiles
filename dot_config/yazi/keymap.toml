@@ -77,12 +77,6 @@ on = ["<Space>", "P"]
 run = "plugin save-clipboard-to-file"
 desc = "Paste clipboard content to file and hover after created"
 
-# https://github.com/ktunprasert/git-files.yazi
-[[mgr.prepend_keymap]]
-on = [",", "g"]
-run = "plugin git-files"
-desc = "Show only Git file changes"
-
 # https://github.com/yazi-rs/plugins/tree/main/chmod.yazi
 [[mgr.prepend_keymap]]
 on = ["<Space>", "c", "m"]
