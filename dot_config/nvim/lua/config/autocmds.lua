@@ -173,3 +173,14 @@ autocmd("BufEnter", {
     })
   end,
 })
+
+local mdx_id = augroup("mdx", {
+  clear = false,
+})
+autocmd("BufEnter", {
+  group = mdx_id,
+  pattern = "*.mdx",
+  callback = function()
+    vim.o.filetype = "markdown"
+  end,
+})
