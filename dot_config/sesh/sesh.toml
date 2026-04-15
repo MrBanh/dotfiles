@@ -1,5 +1,9 @@
 blacklist = ['sidekick claude', 'floating-tmux', 'claude ']
 
+[[window]]
+name = "opencode"
+startup_script = "opencode"
+
 [default_session]
 startup_command = "nvim -c ':lua Snacks.explorer({ focus = \"list\" })'"
 preview_command = "eza --all --git --icons --long --group-directories-first --color=always {}"
