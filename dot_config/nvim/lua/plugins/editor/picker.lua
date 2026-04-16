@@ -68,7 +68,9 @@ return {
             ["<localleader>p"] = { "toggle_preview", mode = { "n" } },
             ["<localleader>w"] = { "cycle_win", mode = { "n" } },
 
-            ["<Esc>"] = { "close", mode = { "n", "i" } },
+            -- causes all pickers to close, e.g. Explorer + ivy, pressing <Esc in ivy closes both
+            -- ["<Esc>"] = { "close", mode = { "n", "i" } },
+
             ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
             ["<C-j>"] = { "focus_list", mode = { "i", "n" } },
             ["<C-l>"] = { "focus_preview", mode = { "i", "n" } },
