@@ -1,3 +1,6 @@
+---@type 'typescript-tools' | 'vtsls'
+local ts_lsp = "vtsls"
+
 local ft = {
   "javascript",
   "javascriptreact",
@@ -11,6 +14,7 @@ return {
   {
     -- sticking with this because vtsls does not handle file renames well (does not update imports)
     "pmizio/typescript-tools.nvim",
+    enabled = ts_lsp == "typescript-tools",
     ft = ft,
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -109,6 +113,11 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = { enabled = false },
+      servers = {
+        vtsls = {
+          enabled = ts_lsp == "vtsls",
+        },
+      },
     },
   },
 }

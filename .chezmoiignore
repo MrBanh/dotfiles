@@ -5,7 +5,7 @@ README.md
 **/hubspot
 **/node_modules
 **/bun.lock
-**/opencode-api-key.sh
+**/opencode/commands
 **/opencode/package.json
 **/opencode/package-lock.json
 .config/nvim/spell

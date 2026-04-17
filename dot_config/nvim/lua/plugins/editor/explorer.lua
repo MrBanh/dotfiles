@@ -63,6 +63,7 @@ return {
               keys = {
                 ["p"] = "explorer_paste_rename",
                 ["<c-/>"] = "terminal",
+                ["<C-c>"] = "cancel", -- default is tcd
                 ["<LocalLeader>c"] = "tcd",
                 ["<LocalLeader>C"] = { "toggle_cwd", mode = { "n", "i" } },
                 ["H"] = false,
