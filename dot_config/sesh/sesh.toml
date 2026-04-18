@@ -2,7 +2,7 @@ blacklist = ['sidekick claude', 'floating-tmux', 'claude ']
 
 [[window]]
 name = "opencode"
-startup_script = "opencode"
+startup_script = "opencode --continue"
 
 [default_session]
 startup_command = "nvim -c ':lua Snacks.explorer({ focus = \"list\" })'"
