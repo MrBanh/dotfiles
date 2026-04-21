@@ -13,6 +13,7 @@ vim.cmd("autocmd InsertLeave * set nu rnu")
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Keep system clipboard separate from vim clipboard
 vim.opt.clipboard = ""
 
 -- wezterm won't let vim read from clipboard
@@ -45,6 +46,8 @@ local cache_dir = vim.fn.stdpath("data")
 local unique_id = vim.fn.fnamemodify(workspace_path, ":t") .. "_" .. vim.fn.sha256(workspace_path):sub(1, 8) ---@type string
 local shadafile = cache_dir .. "/myshada/" .. unique_id .. ".shada"
 vim.opt.shadafile = shadafile
+
+vim.o.autoread = true
 
 -- Personal - controls floating terminal for various plugins.
 vim.g.floating_terminal = false

@@ -10,6 +10,12 @@ M.apply_to_config = function(config)
 	})
 	config.font_size = is_windows and 12 or 15
 	config.harfbuzz_features = { "calt=0", "clig=0", "liga=0", "zero" } -- disable ligatures
+	config.font_rules = {
+		{
+			italic = true,
+			font = wezterm.font("JetBrains Mono", { italic = true }),
+		},
+	}
 
 	-- Windows specific setup to SSH into WSL, for image render to work in terminal
 	if is_windows then

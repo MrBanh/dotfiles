@@ -30,23 +30,5 @@ return {
         },
       },
     },
-    keys = {
-      {
-        "<leader>rn",
-        function()
-          require("lspsaga.rename"):lsp_rename()
-        end,
-        desc = "Rename",
-        mode = { "n", "v" },
-      },
-      {
-        "<leader>rN",
-        function()
-          require("lspsaga.rename"):lsp_rename({ "++project" })
-        end,
-        desc = "Rename (project-wide)",
-        mode = { "n", "v" },
-      },
-    },
   },
 }

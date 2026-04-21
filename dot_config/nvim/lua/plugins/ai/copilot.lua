@@ -1,18 +1,21 @@
+local disabled_filetypes = {
+  "markdown",
+}
+
 return {
-  "zbirenbaum/copilot.lua",
+  "neovim/nvim-lspconfig",
   opts = {
-    ---@type SuggestionConfig
-    ---@diagnostic disable-next-line: missing-fields
-    suggestion = {
-      ---@diagnostic disable-next-line: missing-fields
-      keymap = {
-        accept = false,
-        dismiss = "<C-c>",
+    servers = {
+      copilot = {
+        on_attach = function(client, bufnr)
+          local ft = vim.bo[bufnr].filetype
+          if vim.tbl_contains(disabled_filetypes, ft) then
+            vim.schedule(function()
+              vim.lsp.buf_detach_client(bufnr, client.id)
+            end)
+          end
+        end,
       },
-    },
-    filetypes = {
-      yaml = true,
-      gitcommit = true,
     },
   },
 }

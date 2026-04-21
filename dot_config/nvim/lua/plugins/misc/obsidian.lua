@@ -86,25 +86,12 @@ return {
       return path:with_suffix(".md")
     end,
 
-    -- Optional, customize how wiki links are formatted. You can set this to one of:
-    -- _ "use_alias_only", e.g. '[[Foo Bar]]'
-    -- _ "prepend*note_id", e.g. '[[foo-bar|Foo Bar]]'
-    -- * "prepend*note_path", e.g. '[[foo-bar.md|Foo Bar]]'
-    -- * "use_path_only", e.g. '[[foo-bar.md]]'
-    -- Or you can set it to a function that takes a table of options and returns a string, like this:
-    wiki_link_func = function(opts)
-      return require("obsidian.util").wiki_link_id_prefix(opts)
-    end,
-
-    -- Optional,customize how markdown links are formatted.
-    markdown_link_func = function(opts)
-      return require("obsidian.util").markdown_link(opts)
-    end,
-
-    preferred_link_style = "markdown", -- 'wiki' or 'markdown'
+    link = {
+      style = "markdown", -- 'wiki' or 'markdown'
+    },
 
     --- List of string that sorts frontmatter properties, or a function that compares two values, set to vim.NIL/false to do no sorting
-    ---@field sort? string[] | (fun(a: any, b: any): boolean) | vim.NIL | boolean
+    --- @type string[] | (fun(a: any, b: any): boolean) | vim.NIL | boolean
     frontmatter = {
       enabled = true,
       -- func = require("obsidian.builtin").frontmatter,

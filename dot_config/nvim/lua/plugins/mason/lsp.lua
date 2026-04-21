@@ -1,55 +1,75 @@
+---@type 'typescript-tools' | 'vtsls'
+local ts_lsp = "vtsls"
+
+local ft = {
+  "javascript",
+  "javascriptreact",
+  "javascript.jsx",
+  "typescript",
+  "typescriptreact",
+  "typescript.tsx",
+}
+
 return {
   {
     -- sticking with this because vtsls does not handle file renames well (does not update imports)
     "pmizio/typescript-tools.nvim",
+    enabled = ts_lsp == "typescript-tools",
+    ft = ft,
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
         "neovim/nvim-lspconfig",
         opts = {
           servers = {
+            ["*"] = {
+              keys = {
+                {
+                  "<leader>co",
+                  false,
+                },
+              },
+            },
             ts_ls = {
               enabled = false,
             },
             vtsls = {
               enabled = false,
             },
-            ["typescript-tools"] = {
-              keys = {
-                {
-                  "<leader>co",
-                  ":TSToolsOrganizeImports<CR>",
-                  desc = "Organize Imports",
-                  ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-                },
-                {
-                  "<leader>ci",
-                  ":TSToolsAddMissingImports<CR>",
-                  desc = "Add missing imports",
-                  ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-                },
-                {
-                  "<leader>cu",
-                  ":TSToolsRemoveUnused<CR>",
-                  desc = "Remove unused statements",
-                  ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-                },
-                {
-                  "<leader>cD",
-                  ":TSToolsFixAll<CR>",
-                  desc = "Fix all diagnostics",
-                  ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-                },
-                {
-                  "gR",
-                  ":TSToolsFileReferences<CR>",
-                  desc = "File References",
-                  ft = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
-                },
-              },
-            },
           },
         },
+      },
+    },
+    keys = {
+      {
+        "<leader>co",
+        ":TSToolsOrganizeImports<CR>",
+        desc = "Organize Imports",
+        ft = ft,
+      },
+      {
+        "<leader>ci",
+        ":TSToolsAddMissingImports<CR>",
+        desc = "Add missing imports",
+        ft = ft,
+      },
+      {
+        "<leader>cu",
+        ":TSToolsRemoveUnused<CR>",
+        desc = "Remove unused statements",
+        ft = ft,
+      },
+      {
+        "<leader>cD",
+        ":TSToolsFixAll<CR>",
+        desc = "Fix all diagnostics",
+        ft = ft,
+      },
+      {
+        "gR",
+        ":TSToolsFileReferences<CR>",
+        desc = "File References",
+        ft = ft,
       },
     },
 
@@ -95,17 +115,7 @@ return {
       inlay_hints = { enabled = false },
       servers = {
         vtsls = {
-          keys = {
-            {
-              "<leader>cM",
-              false,
-            },
-            {
-              "<leader>ci",
-              LazyVim.lsp.action["source.addMissingImports.ts"],
-              desc = "Add missing imports",
-            },
-          },
+          enabled = ts_lsp == "vtsls",
         },
       },
     },

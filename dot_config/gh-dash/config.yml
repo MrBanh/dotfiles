@@ -1,0 +1,140 @@
+# yaml-language-server: $schema=https://gh-dash.dev/schema.json
+
+prSections:
+  - title: My Pull Requests
+    filters: author:@me is:open
+  - title: Needs My Review
+    filters: review-requested:@me is:open
+  - title: Involved
+    filters: -author:@me involves:@me is:open
+  - title: All (recent 2 weeks)
+    filters: is:open updated:>={{ nowModify "-2w" }}
+
+issuesSections:
+  - title: My Issues
+    filters: author:@me is:open
+  - title: Assigned
+    filters: assignee:@me is:open
+  - title: Involved
+    filters: involves:@me -author:@me is:open
+
+notificationsSections:
+  - title: All
+    filters: ""
+  - title: Created
+    filters: reason:author
+  - title: Participating
+    filters: reason:participating
+  - title: Mentioned
+    filters: reason:mention
+  - title: Review Requested
+    filters: reason:review-requested
+  - title: Assigned
+    filters: reason:assign
+  - title: Subscribed
+    filters: reason:subscribed
+  - title: Team Mentioned
+    filters: reason:team-mention
+
+repo:
+  branchesRefetchIntervalSeconds: 30
+  prsRefetchIntervalSeconds: 60
+
+defaults:
+  preview:
+    open: true
+    width: 0.45
+  prsLimit: 20
+  prApproveComment: LGTM
+  issuesLimit: 20
+  notificationsLimit: 20
+  view: prs
+  layout:
+    prs:
+      updatedAt:
+        width: 5
+      createdAt:
+        width: 5
+      repo:
+        width: 20
+      author:
+        width: 15
+      authorIcon:
+        hidden: false
+      assignees:
+        width: 20
+        hidden: true
+      base:
+        width: 15
+        hidden: true
+      lines:
+        width: 15
+    issues:
+      updatedAt:
+        width: 5
+      createdAt:
+        width: 5
+      repo:
+        width: 15
+      creator:
+        width: 10
+      creatorIcon:
+        hidden: false
+      assignees:
+        width: 20
+        hidden: true
+  refetchIntervalMinutes: 30
+
+keybindings:
+  prs:
+    - key: C
+      name: code review
+      command: >
+        nvim -c ':lua Snacks.picker.gh_diff({ repo = "{{.RepoName}}", pr = "{{.PrNumber}}", focus = "list", on_close = function() vim.cmd("qa") end})'
+    - key: "d"
+      name: "view (nvim)"
+      command: nvim -c "autocmd User CodeDiffClose qa" -c ":CodeDiff origin/{{.BaseRefName}} origin/{{.HeadRefName}}"
+    - key: T
+      name: github actions | enhance
+      command: ENHANCE_THEME=overnight_slumber gh enhance -R {{.RepoName}} {{.PrNumber}}
+  universal:
+    - key: g
+      name: lazygit
+      command: cd {{.RepoPath}} && echo {{.RepoPath}} && lazygit
+    - key: "ctrl+f"
+      builtin: pageDown
+    - key: "ctrl+b"
+      builtin: pageUp
+
+theme:
+  ui:
+    sectionsShowCount: true
+    table:
+      showSeparator: false # horizontal line separating each item in table
+      compact: false # compact table rows
+  colors:
+    text:
+      primary: "#cdcecf"
+      secondary: "#71839b"
+      inverted: "#131a24"
+      faint: "#71839b"
+      warning: "#dbc074"
+      success: "#81b29a"
+      error: "#c94f6d"
+      actor: "#63cdcf"
+    background:
+      selected: "#2b3b51"
+    border:
+      primary: "#2b3b51"
+      secondary: "#393b44"
+      faint: "#2b3b51"
+
+pager:
+  diff: ""
+
+confirmQuit: false
+showAuthorIcons: true
+smartFilteringAtLaunch: true
+includeReadNotifications: true
+
+repoPaths: {}
