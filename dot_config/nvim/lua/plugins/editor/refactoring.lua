@@ -4,6 +4,9 @@ local js_ts_print_var_statements = {
 
 return {
   "ThePrimeagen/refactoring.nvim",
+  dependencies = {
+    "lewis6991/async.nvim",
+  },
   opts = {
     print_var_statements = {
       javascript = js_ts_print_var_statements,
