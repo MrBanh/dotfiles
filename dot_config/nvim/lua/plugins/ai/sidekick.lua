@@ -11,10 +11,19 @@ return {
         enabled = vim.fn.executable("tmux") == 1,
       },
       win = {
+        wo = {
+          scrolloff = 0, -- prevent global scrolloff from shifting terminal view on toggle
+        },
         layout = vim.g.floating_terminal and "float" or "right", ---@type "float"|"left"|"bottom"|"top"|"right"
         float = {
           width = 0.6,
           height = 0.6,
+        },
+        -- Options used when layout is "left"|"bottom"|"top"|"right"
+        ---@type vim.api.keyset.win_config
+        split = {
+          width = 0, -- set to 0 for default split width
+          height = 0, -- set to 0 for default split height
         },
       },
     },
