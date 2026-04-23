@@ -1,3 +1,6 @@
+local keymap_prefix = vim.g.ai_cli == "sidekick" and "<leader>a" or "<leader>A"
+local toggle = vim.g.ai_cli == "sidekick" and "<M-/>" or "<M-?>"
+
 return {
   "folke/sidekick.nvim",
   opts = {
@@ -43,28 +46,31 @@ return {
     },
   },
   keys = function()
-    local keymap_prefix = "<leader>A"
+    require("which-key").add({
+      {
+        keymap_prefix,
+        group = "ai/sidekick",
+      },
+    })
+
     return {
       -- nes
       { "<tab>", LazyVim.cmp.map({ "ai_nes" }, "<tab>"), mode = { "n" }, expr = true },
 
       -- cli
       {
-        "<M-?>",
+        toggle,
         function()
           require("sidekick.cli").toggle()
         end,
         desc = "Sidekick Toggle",
         mode = { "n", "t", "i", "x" },
       },
-      { keymap_prefix, "", desc = "+ai Sidekick cli", mode = { "n", "v" } },
       {
         keymap_prefix .. "s",
         function()
-          require("sidekick.cli").select()
+          require("sidekick.cli").select({ filter = { installed = true } })
         end,
-        -- Or to select only installed tools:
-        -- require("sidekick.cli").select({ filter = { installed = true } })
         desc = "Select CLI",
       },
       {

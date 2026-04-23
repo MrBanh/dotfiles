@@ -1,4 +1,5 @@
-local keymap_prefix = "<leader>a"
+local keymap_prefix = vim.g.ai_cli == "opencode" and "<leader>a" or "<leader>A"
+local toggle = vim.g.ai_cli == "opencode" and "<M-/>" or "<M-?>"
 
 return {
   "sudo-tee/opencode.nvim",
@@ -46,11 +47,6 @@ return {
         ["<leader>osr"] = { "rename_session", desc = "Rename current session" },
         ["<leader>oT"] = false,
         ["<leader>ost"] = { "timeline", desc = "Session timeline" }, -- Display timeline picker to navigate/undo/redo/fork messages
-
-        -- Mentions
-        ["<leader>@/"] = { "quick_chat", mode = { "n", "x" } },
-        ["<leader>@v"] = { "paste_image" },
-        ["<leader>@y"] = { "add_visual_selection", mode = { "v" } },
 
         -- Toggle
         ["<leader>ox"] = false,
@@ -115,12 +111,18 @@ return {
   config = function(_, opts)
     require("opencode").setup(opts)
 
-    -- <M-/> does not work when passed into keymap config
-    vim.keymap.set({ "n", "t", "i", "x" }, "<M-/>", function()
+    -- does not work when passed into keymap config
+    vim.keymap.set({ "n", "t", "i", "x" }, toggle, function()
       require("opencode.api").toggle()
     end, { desc = "Opencode Toggle" })
 
-    vim.keymap.set({ "n", "v" }, "<leader>@", "", { desc = "+ai mentions" })
+    require("which-key").add({
+      {
+        keymap_prefix,
+        group = "ai/opencode",
+        icon = { icon = " ", color = "green" },
+      },
+    })
     vim.keymap.set({ "n", "v" }, keymap_prefix .. "c", "", { desc = "+configure models" })
     vim.keymap.set({ "n", "v" }, keymap_prefix .. "d", "", { desc = "+diff" })
     vim.keymap.set({ "n", "v" }, keymap_prefix .. "r", "", { desc = "+revert" })
