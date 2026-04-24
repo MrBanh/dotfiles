@@ -81,6 +81,7 @@ return {
 
           LspReferenceText = { bg = palette.bg1 },
           LspReferenceRead = { link = "LspReferenceText" },
+          LspCodeLens = { fg = palette.grey1, bg = palette.bg1, italic = true },
 
           RenderMarkdownH1Bg = { link = "RenderMarkdownHeadingBG" },
           RenderMarkdownH2Bg = { link = "RenderMarkdownHeadingBG" },
