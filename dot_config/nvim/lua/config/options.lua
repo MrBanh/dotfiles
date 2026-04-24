@@ -57,10 +57,6 @@ vim.lsp.codelens.enable()
 -- Personal - controls floating terminal for various plugins.
 vim.g.floating_terminal = false
 
--- Controls which ai cli tool to use
----@type "sidekick"|"opencode"
-vim.g.ai_cli = "sidekick"
-
 -- Plugin/distro specific --
 
 -- LazyVim: use ai suggestion in cmp, false shows inline suggestion

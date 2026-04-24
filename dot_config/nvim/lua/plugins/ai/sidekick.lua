@@ -1,5 +1,5 @@
-local keymap_prefix = vim.g.ai_cli == "sidekick" and "<leader>a" or "<leader>A"
-local toggle = vim.g.ai_cli == "sidekick" and "<M-/>" or "<M-?>"
+local keymap_prefix = "<leader>a"
+local toggle = "<M-/>"
 
 return {
   "folke/sidekick.nvim",

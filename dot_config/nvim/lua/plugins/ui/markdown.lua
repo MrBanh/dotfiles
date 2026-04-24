@@ -1,4 +1,4 @@
-local ft = { "md", "markdown", "opencode_output", "codecompanion" }
+local ft = { "md", "markdown" }
 
 return {
   -- visual keybinds for markdown, C-b for bold, C-k for link, etc

@@ -6,8 +6,6 @@ return {
       "*",
       "!grug-far",
       "!lazy",
-      "!opencode",
-      "!opencode_output",
       "!sidekick_terminal",
       "!snacks_input",
       "!snacks_picker_input",

@@ -12,7 +12,6 @@ return {
         "codecompanion",
         "grug-far",
         "markdown",
-        "opencode",
         "snacks_input",
         "snacks_picker_input",
         "spectre_panel",
