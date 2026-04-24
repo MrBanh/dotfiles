@@ -1,3 +1,4 @@
+-- TODO: remove plugin once neovim release has `scrolloffpad`
 return {
   "arnamak/stay-centered.nvim",
   config = function()
