@@ -10,11 +10,6 @@ return {
     wk.setup(opts)
     wk.add({
       {
-        "<leader>n",
-        group = "Notes/New...",
-        icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
-      },
-      {
         "<leader>N",
         group = "News...",
         icon = { icon = "󰅸 " },
