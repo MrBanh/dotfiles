@@ -3,6 +3,7 @@ return {
   lazy = false,
   opts = {
     preset = "classic",
+    sort = { "local", "order", "alphanum", "mod" },
   },
 
   config = function(_, opts)
@@ -11,7 +12,7 @@ return {
     wk.add({
       {
         "<leader>N",
-        group = "News...",
+        group = "news...",
         icon = { icon = "󰅸 " },
       },
       {
