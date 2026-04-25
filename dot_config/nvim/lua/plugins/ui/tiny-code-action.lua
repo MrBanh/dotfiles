@@ -2,8 +2,6 @@ return {
   {
     "rachartier/tiny-code-action.nvim",
     dependencies = {
-      -- {"nvim-telescope/telescope.nvim"},
-      -- { "ibhagwan/fzf-lua" },
       -- { "folke/snacks.nvim" },
     },
     event = "LspAttach",
@@ -29,9 +27,41 @@ return {
           auto_preview = true, -- Enable auto preview of the code action
           position = "cursor", -- "cursor" or "center"
           winborder = "rounded", -- Set the window border style ("single", "rounded", "solid", etc.)
+          keymaps = {
+            preview = "<C-l>", -- Key to show preview
+            preview_close = "<C-h>", -- Keys to return from preview to main window (can be string or table)
+            select = "<CR>",
+            close = { "q", "<Esc>" },
+          },
         },
       },
     },
+    config = function(_, opts)
+      require("tiny-code-action").setup(opts)
+
+      -- The plugin's safe_buf_op pcalls preview rendering and emits a DEBUG
+      -- vim.notify on failure ("Buffer operation failed: ..."). The preview
+      -- still works (or just stays blank), but the notification is noisy.
+      -- Drop the notify; keep the pcall.
+      ---@diagnostic disable-next-line: duplicate-set-field
+      require("tiny-code-action.utils").safe_buf_op = function(fn)
+        return pcall(fn)
+      end
+
+      -- When the LSP fails to resolve an action the previewer surfaces a
+      -- multi-line stack trace ("Unable to preview code action.\nError: ...").
+      -- Replace it with a quiet placeholder.
+      local prev = require("tiny-code-action.previewers.buffer")
+      local orig_resolve = prev.preview_with_resolve
+      ---@diagnostic disable-next-line: duplicate-set-field
+      prev.preview_with_resolve = function(...)
+        local content = orig_resolve(...)
+        if type(content) == "table" and content[1] == "Unable to preview code action." then
+          return { "No preview available for this action" }
+        end
+        return content
+      end
+    end,
   },
   {
     "neovim/nvim-lspconfig",
@@ -45,7 +75,7 @@ return {
                 require("tiny-code-action").code_action({})
               end,
               desc = "Code Action",
-              mode = { "n", "v" },
+              mode = { "n", "x" },
               has = "codeAction",
             },
           },
