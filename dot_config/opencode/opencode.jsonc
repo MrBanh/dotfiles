@@ -10,6 +10,7 @@
       "~/.config/opencode/**": "allow",
       "~/obsidian-vault/**": "allow",
       "~/.claude/agents/**": "allow",
+      "/tmp/**": "allow",
       "~/.local/share/nvim/**": "allow",
     },
     "edit": {
