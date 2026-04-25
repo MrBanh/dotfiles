@@ -17,6 +17,5 @@
       "~/.local/share/nvim/**": "deny",
     },
   },
-  "agent": {
-  },
+  "agent": {},
 }
