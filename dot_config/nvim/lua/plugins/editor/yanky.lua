@@ -11,6 +11,7 @@ return {
     {
       "<leader>p",
       nil,
+      mode = { "n", "x" },
     },
   },
 }
