@@ -13,7 +13,7 @@ return {
   opts = {
     marker = "LOG 🪵",
     visuals = {
-      icon = "󱂅", ---@type string|false
+      icon = false, ---@type string|false
     },
     logStatements = {
       variableLog = {
