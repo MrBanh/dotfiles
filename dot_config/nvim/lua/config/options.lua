@@ -13,8 +13,6 @@ vim.cmd("autocmd InsertLeave * set nu rnu")
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
-vim.o.scrollback = 0
-
 -- Keep system clipboard separate from vim clipboard
 vim.opt.clipboard = ""
 
