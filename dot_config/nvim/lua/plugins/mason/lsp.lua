@@ -116,6 +116,13 @@ return {
       servers = {
         vtsls = {
           enabled = ts_lsp == "vtsls",
+          keys = {
+            {
+              "<leader>cu",
+              LazyVim.lsp.action["source.removeUnused.ts"],
+              desc = "Remove unused",
+            },
+          },
         },
       },
     },

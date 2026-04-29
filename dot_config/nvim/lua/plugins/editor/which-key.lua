@@ -3,6 +3,7 @@ return {
   lazy = false,
   opts = {
     preset = "classic",
+    sort = { "local", "order", "alphanum", "mod" },
   },
 
   config = function(_, opts)
@@ -10,17 +11,8 @@ return {
     wk.setup(opts)
     wk.add({
       {
-        "<leader>a",
-        group = "ai",
-      },
-      {
-        "<leader>n",
-        group = "Notes/New...",
-        icon = { icon = "󰎝 ", color = "purple", cat = "extension" },
-      },
-      {
         "<leader>N",
-        group = "News...",
+        group = "news...",
         icon = { icon = "󰅸 " },
       },
       {

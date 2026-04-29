@@ -3,11 +3,19 @@
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["opencode-anthropic-auth@latest"],
 
+  "mcp": {
+  },
   "permission": {
     "external_directory": {
       "~/.config/opencode/**": "allow",
       "~/obsidian-vault/**": "allow",
       "~/.claude/agents/**": "allow",
+      "/tmp/**": "allow",
+      "~/.local/share/nvim/**": "allow",
+    },
+    "edit": {
+      "~/.local/share/nvim/**": "deny",
     },
   },
+  "agent": {},
 }

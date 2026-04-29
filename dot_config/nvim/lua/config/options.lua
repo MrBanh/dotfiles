@@ -49,6 +49,9 @@ vim.opt.shadafile = shadafile
 
 vim.o.autoread = true
 
+-- LSP
+vim.lsp.codelens.enable()
+
 -- Personal - controls floating terminal for various plugins.
 vim.g.floating_terminal = false
 

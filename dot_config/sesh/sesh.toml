@@ -1,4 +1,4 @@
-blacklist = ['sidekick claude', 'floating-tmux', 'claude ']
+blacklist = ['sidekick claude', 'floating-tmux', 'claude ', 'opencode ']
 
 [[window]]
 name = "opencode"

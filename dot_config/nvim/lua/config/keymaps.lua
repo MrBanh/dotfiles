@@ -1,6 +1,7 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
+local wk = require("which-key")
 local set = vim.keymap.set
 local del = vim.keymap.del
 local opts = { noremap = true, silent = true }
@@ -43,8 +44,22 @@ set("c", [[\\-]], [[\(.\{-}\)]], { desc = "Inserts \\(.{-})" })
 set("x", "/", "<Esc>/\\%V", opts)
 
 -- Yank to clipboard
-set({ "n", "v" }, "<leader>y", [["+y]], vim.tbl_extend("force", opts, { desc = "[Y]ank to clipboard" }))
-set({ "n", "v" }, "<leader>Y", [["+y$]], vim.tbl_extend("force", opts, { desc = "[Y]ank to end of line to clipboard" }))
+wk.add({
+  {
+    "<leader>y",
+    [["+y]],
+    desc = "yank to clipboard",
+    mode = { "n", "v" },
+    icon = { icon = " " },
+  },
+  {
+    "<leader>Y",
+    [["+y$]],
+    desc = "yank to end of line to clipboard",
+    mode = { "n", "v" },
+    icon = { icon = " " },
+  },
+})
 
 -- exit terminal mode while in terminal
 set("t", "<C-Space>[", "<C-\\><C-N>", vim.tbl_extend("force", opts, { desc = "terminal escape terminal mode" }))

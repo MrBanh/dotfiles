@@ -4,7 +4,7 @@ return {
   config = function()
     require("which-key").add({
       "<leader>m",
-      group = "MultiCursor",
+      group = "multiCursor",
       icon = { icon = "󰆿 " },
     })
 
