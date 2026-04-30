@@ -11,17 +11,27 @@ return {
   event = "VeryLazy",
   -- required even if left empty
   opts = {
-    marker = "LOG 🪵",
+    marker = "[LOG 🪵]",
     visuals = {
       icon = false, ---@type string|false
     },
+    -- https://github.com/chrisgrieser/nvim-chainsaw/blob/main/lua/chainsaw/config/log-statements-data.lua
     logStatements = {
       variableLog = {
         javascript = {
           "/* prettier-ignore */ // {{marker}}",
-          'console.log("[{{marker}}] {{filename}}:{{lnum}} - {{var}} → ", {{var}});',
+          'console.log("{{marker}} {{filename}}:{{lnum}} - {{var}} → ", {{var}});',
         },
         nvim_lua = "Chainsaw({{var}}) -- {{marker}}",
+      },
+      objectLog = {
+        javascript = {
+          "/* prettier-ignore */ // {{marker}}",
+          'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2))',
+        }, -- `2` ensures it's pretty-printed
+      },
+      emojiLog = {
+        javascript = 'console.log("{{marker}} {{emoji}} ------------------");',
       },
     },
   },
