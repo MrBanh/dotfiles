@@ -101,13 +101,13 @@ keybindings:
       name: github actions | enhance
       command: ENHANCE_THEME=overnight_slumber gh enhance -R {{.RepoName}} {{.PrNumber}}
   universal:
-    - key: g
-      name: lazygit
-      command: cd {{.RepoPath}} && echo {{.RepoPath}} && lazygit
-    - key: "ctrl+f"
-      builtin: pageDown
     - key: "ctrl+b"
       builtin: pageUp
+    - key: "ctrl+f"
+      builtin: pageDown
+    - key: "ctrl+g"
+      name: lazygit
+      command: cd {{.RepoPath}} && echo {{.RepoPath}} && lazygit
 
 theme:
   ui:
@@ -139,3 +139,4 @@ confirmQuit: false
 showAuthorIcons: true
 smartFilteringAtLaunch: true
 includeReadNotifications: true
+
