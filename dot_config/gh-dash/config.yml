@@ -87,6 +87,9 @@ defaults:
 
 keybindings:
   prs:
+    - key: "ctrl+r"
+      name: Request review
+      command: gh pr edit {{.PrNumber}} --add-reviewer $(gh pr view {{.PrNumber}} --json reviews --jq '[.reviews[].author.login] | unique | join(",")')
     - key: C
       name: code review
       command: >
@@ -136,5 +139,3 @@ confirmQuit: false
 showAuthorIcons: true
 smartFilteringAtLaunch: true
 includeReadNotifications: true
-
-repoPaths: {}
