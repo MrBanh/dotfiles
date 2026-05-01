@@ -61,7 +61,7 @@ return {
           title = marker .. " log statements",
           cmd = "rg",
           args = { "--trim" },
-          search = "[" .. marker .. "]",
+          search = marker,
           regex = false,
           live = false,
         })
