@@ -155,7 +155,10 @@ alias ls="eza --icons=always --group-directories-last --color=auto -h -l"
 # PLUGIN SPECIFIC INITIALIZATION SETTINGS
 
 ## Better cd: https://github.com/ajeetdsouza/zoxide
-eval "$(zoxide init zsh --cmd cd)"
+## disable zoxide for claude: https://github.com/anthropics/claude-code/issues/2632
+if [[ "$CLAUDECODE" != "1" ]]; then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
 
 # Git global config
 if command -v git > /dev/null; then
