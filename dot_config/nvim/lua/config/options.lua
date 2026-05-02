@@ -51,6 +51,13 @@ vim.o.autoread = true
 
 -- LSP
 vim.lsp.codelens.enable()
+vim.filetype.add({
+  extension = { lyaml = "yaml", git = "git", keymap = "dts" },
+  filename = {
+    [".zshrc"] = "zsh",
+    [".zshenv"] = "zsh",
+  },
+})
 
 -- Personal - controls floating terminal for various plugins.
 vim.g.floating_terminal = false
