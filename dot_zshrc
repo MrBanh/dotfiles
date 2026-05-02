@@ -75,7 +75,10 @@ plugins=(
   zsh-vi-mode
 )
 
-autoload -U compinit && (compinit &; compinit -C)
+autoload -U compinit && (
+  compinit &
+  compinit -C
+)
 
 # ===================
 
@@ -92,22 +95,26 @@ export LC_ALL=en_US.UTF-8
 ## Misc Settings
 export EDITOR='nvim'
 export XDG_CONFIG_HOME="$HOME/.config"
-LS_COLORS=$LS_COLORS:'ow=1;34:' ; export LS_COLORS # Disables directory highlight
+LS_COLORS=$LS_COLORS:'ow=1;34:'
+export LS_COLORS # Disables directory highlight
 
 ## Wezterm
 export WEZTERM_CONFIG_FILE="$HOME/.config/wezterm/wezterm.lua"
 
 # Only start tmux automatically in standalone terminals, not in IDEs
 # Docs: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/tmux
-if [[ "$TERM_PROGRAM" != "zed" &&
-      "$TERM_PROGRAM" != "vscode" ]]; then
+if
+  [[ 
+    "$TERM_PROGRAM" != "zed" &&
+    "$TERM_PROGRAM" != "vscode" ]]
+then
 
   plugins+=(tmux)
 
   ## Tmux - https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/tmux/README.md
-  ZSH_TMUX_AUTOSTART=true                         # Automatically start tmux session
-  ZSH_TMUX_AUTOSTART_ONCE=true                    # Only if tmux hasn't been started previously
-  ZSH_TMUX_AUTOQUIT=true                          # Automatically closes terminal once tmux exits
+  ZSH_TMUX_AUTOSTART=true      # Automatically start tmux session
+  ZSH_TMUX_AUTOSTART_ONCE=true # Only if tmux hasn't been started previously
+  ZSH_TMUX_AUTOQUIT=true       # Automatically closes terminal once tmux exits
 fi
 
 ## Zsh Vi Mode settings
@@ -160,7 +167,7 @@ if [[ "$CLAUDECODE" != "1" ]]; then
 fi
 
 # Git global config
-if command -v git > /dev/null; then
+if command -v git >/dev/null; then
   eval "$(git config --global core.editor 'nvim -f')"
   eval "$(git config --global commit.verbose true)"
   eval "$(git config --global pull.rebase false)"
@@ -170,12 +177,12 @@ fi
 ### Changes cwd when exiting yazi
 ### `y` to start, `q` to quit and have CWD change, `Q` to quit
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
 }
 
 # See: https://github.com/atuinsh/atuin/issues/977
@@ -198,17 +205,17 @@ bindkey '^[[B' history-search-forward
 
 # PLATFORM-SPECIFIC CONFIGURATION
 
-## WSL 
+## WSL
 if [[ -n "$IS_WSL" || -n "$WSL_DISTRO_NAME" || -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
   alias open="gio open"
   alias vsconf="cd /mnt/c/Users/tonyb/AppData/Roaming/Code/User"
   export PATH="/mnt/c/Program Files/Microsoft VS Code/bin:$PATH"
   export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
-  function zvm_vi_yank () {
-	  zvm_yank
-	  echo "$CUTBUFFER" | clip.exe
-	  zvm_exit_visual_mode
+  function zvm_vi_yank() {
+    zvm_yank
+    echo "$CUTBUFFER" | clip.exe
+    zvm_exit_visual_mode
   }
 
 ## Mac
@@ -236,10 +243,10 @@ fi
 set_gh_host() {
   if git rev-parse --is-inside-work-tree &>/dev/null; then
     local remote_url=$(git remote get-url origin 2>/dev/null)
-    
+
     if [[ -n "$remote_url" ]]; then
       local hostname=""
-      
+
       # Parse hostname from SSH URL (git@hostname:org/repo.git)
       if [[ "$remote_url" =~ ^git@([^:]+): ]]; then
         hostname="${match[1]}"
@@ -247,7 +254,7 @@ set_gh_host() {
       elif [[ "$remote_url" =~ ^https?://([^/]+) ]]; then
         hostname="${match[1]}"
       fi
-      
+
       if [[ -n "$hostname" && "$hostname" != "github.com" ]]; then
         export GH_HOST="$hostname"
       else
