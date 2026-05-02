@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local is_windows = wezterm.target_triple:find("windows") ~= nil
+local is_linux = wezterm.target_triple:find("linux") ~= nil
 
 local M = {}
 
@@ -8,7 +9,7 @@ M.apply_to_config = function(config)
 	config.font = wezterm.font_with_fallback({
 		"JetBrains Mono",
 	})
-	config.font_size = is_windows and 12 or 15
+	config.font_size = is_windows and 12 or is_linux and 12 or 15
 	config.harfbuzz_features = { "calt=0", "clig=0", "liga=0", "zero" } -- disable ligatures
 	config.font_rules = {
 		{
