@@ -166,13 +166,6 @@ if [[ "$CLAUDECODE" != "1" ]]; then
   eval "$(zoxide init zsh --cmd cd)"
 fi
 
-# Git global config
-if command -v git >/dev/null; then
-  eval "$(git config --global core.editor 'nvim -f')"
-  eval "$(git config --global commit.verbose true)"
-  eval "$(git config --global pull.rebase false)"
-fi
-
 ## Yazi - https://yazi-rs.github.io/docs/quick-start
 ### Changes cwd when exiting yazi
 ### `y` to start, `q` to quit and have CWD change, `Q` to quit
