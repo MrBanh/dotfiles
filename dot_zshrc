@@ -100,8 +100,7 @@ export WEZTERM_CONFIG_FILE="$HOME/.config/wezterm/wezterm.lua"
 # Only start tmux automatically in standalone terminals, not in IDEs
 # Docs: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/tmux
 if [[ "$TERM_PROGRAM" != "zed" &&
-      "$TERM_PROGRAM" != "vscode" &&
-      -z "$CONDUCTOR_WORKSPACE_NAME" ]]; then
+      "$TERM_PROGRAM" != "vscode" ]]; then
 
   plugins+=(tmux)
 
