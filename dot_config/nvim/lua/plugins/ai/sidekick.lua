@@ -1,5 +1,5 @@
-local keymap_prefix = "<leader>a"
-local toggle = "<M-/>"
+local keymap_prefix = "<leader>A"
+local toggle = "<M-?>"
 
 return {
   "folke/sidekick.nvim",
@@ -83,6 +83,19 @@ return {
         end,
         desc = "Sidekick Toggle",
         mode = { "n", "t", "i", "x" },
+      },
+
+      {
+        keymap_prefix .. "a",
+        function()
+          vim.ui.input({ prompt = "Ask sidekick: ", default = "{this}: " }, function(input)
+            if input and input ~= "" then
+              require("sidekick.cli").send({ msg = input, submit = true })
+            end
+          end)
+        end,
+        desc = "Ask sidekick",
+        mode = { "n", "x" },
       },
       {
         keymap_prefix .. "d",
