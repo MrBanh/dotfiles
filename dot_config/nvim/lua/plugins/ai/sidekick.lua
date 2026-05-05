@@ -1,5 +1,5 @@
-local keymap_prefix = "<leader>A"
-local toggle = "<M-?>"
+local keymap_prefix = "<leader>a"
+local toggle = "<M-/>"
 
 return {
   "folke/sidekick.nvim",
