@@ -21,6 +21,28 @@ vim.api.nvim_create_autocmd("ModeChanged", {
   end,
 })
 
+local function is_claudecode_diff(buf)
+  local bufname = vim.api.nvim_buf_get_name(buf)
+  if bufname:match("%(proposed%)") or bufname:match("%(NEW FILE %- proposed%)") or bufname:match("%(New%)") then
+    return true
+  end
+
+  if
+    vim.b[buf].claudecode_diff_tab_name
+    or vim.b[buf].claudecode_diff_new_win
+    or vim.b[buf].claudecode_diff_target_win
+  then
+    return true
+  end
+
+  local buftype = vim.fn.getbufvar(buf, "&buftype")
+  if buftype == "acwrite" then
+    return true
+  end
+
+  return false
+end
+
 return {
   "okuuva/auto-save.nvim",
   version = "*",
@@ -57,8 +79,7 @@ return {
         return false
       end
 
-      local is_claudecode_diff = require("utils").is_claudecode_diff(buf)
-      if is_claudecode_diff then
+      if is_claudecode_diff(buf) then
         --- Exclude claudecode diff buffers
         return false
       end
