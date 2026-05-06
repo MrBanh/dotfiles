@@ -1,130 +1,221 @@
 local keymap_prefix = "<leader>a"
+local toggle = "<M-/>"
+
+local opencode_cmd = "dvx opencode --port --continue"
+
+-- Snacks picker action: send selected items to opencode as @path references.
+local function opencode_send(picker)
+  local selected = picker:selected({ fallback = true })
+  local items, names = {}, {}
+  for _, item in ipairs(selected) do
+    if item.file then
+      table.insert(
+        items,
+        require("opencode.context").format(item.file, {
+          start_line = item.pos and item.pos[1] or nil,
+          start_col = item.pos and item.pos[2] or nil,
+          end_line = item.end_pos and item.end_pos[1] or nil,
+          end_col = item.end_pos and item.end_pos[2] or nil,
+        })
+      )
+      table.insert(names, vim.fn.fnamemodify(item.file, ":t"))
+    else
+      table.insert(items, item.text)
+      table.insert(names, item.text)
+    end
+  end
+
+  if #items > 0 then
+    require("opencode").prompt(table.concat(items, "\n") .. "\n")
+    vim.notify(
+      ("Sent %d item%s to opencode:\n%s"):format(#items, #items == 1 and "" or "s", table.concat(names, "\n")),
+      vim.log.levels.INFO,
+      { title = "opencode" }
+    )
+  end
+end
+
+-- Buffer-local keymaps for the opencode terminal window.
+local function setup_buffer_keys(win)
+  require("opencode.terminal").setup(win.win)
+
+  local function map(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, { buffer = win.buf, desc = desc })
+  end
+
+  map({ "n", "t" }, "<C-u>", function()
+    require("opencode").command("session.half.page.up")
+  end, "Scroll opencode up")
+
+  map({ "n", "t" }, "<C-d>", function()
+    require("opencode").command("session.half.page.down")
+  end, "Scroll opencode down")
+
+  map({ "t" }, "<M-C-g>", function()
+    require("opencode").command("session.last")
+  end, "Go to last opencode message")
+
+  map({ "n", "t" }, "<C-b>", function()
+    Snacks.picker.buffers({ confirm = "opencode_send" })
+  end, "Add buffer to opencode")
+
+  map({ "n", "t" }, "<C-f>", function()
+    Snacks.explorer({
+      win = { list = { keys = { ["<CR>"] = "opencode_send" } } },
+    })
+  end, "Add file(s) to opencode")
+end
+
+---@type snacks.terminal.Opts
+local snacks_terminal_opts = {
+  env = {
+    -- Neutralize tmux detection so opencode emits plain OSC 52 clipboard
+    -- writes instead of wrapping them in tmux DCS passthrough
+    -- (\ePtmux;...\e\\). Nvim's libvterm doesn't fully parse the
+    -- doubled-escape DCS wrapper, which causes the base64 payload to leak
+    -- onto the screen as visible text. With TMUX unset, opencode emits a
+    -- plain \e]52;c;<b64> sequence that libvterm forwards to the outer
+    -- tmux pane, which then hands it to the system clipboard via
+    -- set-clipboard + allow-passthrough.
+    TMUX = "",
+    TMUX_PANE = "",
+  },
+  win = {
+    position = "right",
+    width = 0.5,
+    enter = true,
+    on_win = setup_buffer_keys,
+  },
+}
 
 return {
-  "sudo-tee/opencode.nvim",
+  "nickjvandyke/opencode.nvim",
+  version = "*", -- Latest stable release
   dependencies = {
-    "nvim-lua/plenary.nvim",
-    "saghen/blink.cmp",
-    "folke/snacks.nvim",
-    { "MeanderingProgrammer/render-markdown.nvim", optional = true },
-    { "OXY2DEV/markview.nvim", optional = true },
-  },
-  opts = {
-    keymap_prefix = keymap_prefix, -- Default keymap prefix for global keymaps change to your preferred prefix and it will be applied to all keymaps starting with <leader>o
-    keymap = {
-      editor = {
-        ["<leader>oq"] = false,
-
-        ["<leader>og"] = false,
-        ["<leader>oa"] = { "toggle" }, -- Open opencode. Close if opened
-
-        ["<leader>ot"] = false,
-        ["<leader>of"] = { "toggle_focus" }, -- Toggle focus between opencode and last window
-
-        -- Diff
-        ["<leader>od"] = false,
-        ["<leader>odd"] = { "diff_open", desc = "Open diff view" },
-        ["<leader>o]"] = false,
-        ["<leader>od]"] = { "diff_next", desc = "Next diff" },
-        ["<leader>o["] = false,
-        ["<leader>od["] = { "diff_prev", desc = "Previous diff" },
-        ["<leader>oc"] = false,
-        ["<leader>odq"] = { "diff_close", desc = "Close diff view" },
-
-        -- Configure providers & variants
-        ["<leader>op"] = false,
-        ["<leader>ocp"] = { "configure_provider", desc = "Configure provider" },
-        ["<leader>oV"] = false,
-        ["<leader>ocv"] = { "configure_variant", desc = "Configure variant" },
-
-        -- Sessions
-        ["<leader>oI"] = false,
-        ["<leader>osn"] = { "open_input_new_session", desc = "Open input (new session)" },
-        ["<leader>os"] = false,
-        ["<leader>oss"] = { "select_session", desc = "Select and load a session" },
-        ["<leader>oR"] = false,
-        ["<leader>osr"] = { "rename_session", desc = "Rename current session" },
-        ["<leader>oT"] = false,
-        ["<leader>ost"] = { "timeline", desc = "Session timeline" }, -- Display timeline picker to navigate/undo/redo/fork messages
-
-        -- Mentions
-        ["<leader>@/"] = { "quick_chat", mode = { "n", "x" } },
-        ["<leader>@v"] = { "paste_image" },
-        ["<leader>@y"] = { "add_visual_selection", mode = { "v" } },
-
-        -- Toggle
-        ["<leader>ox"] = false,
-        ["<leader>otx"] = { "swap_position", desc = "Toggle Opencode pane left/right" },
-        ["<leader>oz"] = false,
-        ["<leader>otz"] = { "toggle_zoom", desc = "Toggle Zoom in/out on the Opencode windows" },
-      },
-      input_window = {
-        ["~"] = false,
-        ["<cr>"] = false,
-        ["<S-cr>"] = false,
-        ["<M-v>"] = false,
-        ["<M-m>"] = false,
-        ["<M-r>"] = false,
-
-        ["q"] = { "close", mode = { "n" } }, -- Close UI windows
-        ["<C-c>"] = { "close" },
-        ["<esc>"] = { "cancel" },
-
-        ["@f"] = { "mention_file", mode = { "n", "i" } }, -- Pick a file and add to context.
-        ["@v"] = { "paste_image", mode = { "n", "i" }, desc = "Paste image from clipboard" },
-
-        ["<tab>"] = { "switch_mode", mode = { "n", "v", "i" } }, -- build/plan
-        ["<C-t>"] = { "cycle_variant", mode = { "n", "v", "i" } }, -- model variants
-        ["<C-n>"] = { "next_prompt_history", mode = { "n", "i" } }, -- Navigate to next prompt in history
-        ["<C-p>"] = { "prev_prompt_history", mode = { "n", "i" } }, -- Navigate to previous prompt in history
-        ["<C-s>"] = { "submit_input_prompt", mode = { "n", "i" } }, -- Submit prompt (normal mode and insert mode)
-      },
-      output_window = {
-        ["q"] = { "close" }, -- Close UI windows
-        ["<C-c>"] = { "close" },
-        ["<esc>"] = { "cancel" },
-
-        ["<tab>"] = { "switch_mode", mode = { "n", "v" } },
-        ["<C-t>"] = { "cycle_variant", mode = { "n", "v" } },
-      },
-      session_picker = {
-        delete_session = { "<C-x>" }, -- Delete selected session in the session picker
-      },
-      history_picker = {
-        delete_entry = { "<C-x>", mode = { "i", "n" } }, -- Delete selected entry in the history picker
-        clear_all = { "<C-d>", mode = { "i", "n" } }, -- Clear all entries in the history picker
-      },
-    },
-    ui = {
-      window_width = 0.50,
-      input = {
-        text = {
-          wrap = false,
-        },
-      },
-      output = {
-        filetype = "markdown", -- Filetype assigned to the output buffer (default: 'opencode_output')
-      },
-      picker = {
-        snacks_layout = {
-          preset = "select",
+    {
+      -- `snacks.nvim` integration is recommended, but optional
+      ---@module "snacks" <- Loads `snacks.nvim` types for configuration intellisense
+      "folke/snacks.nvim",
+      optional = true,
+      opts = {
+        input = {}, -- Enhances `ask()`
+        picker = { -- Enhances `select()`
+          actions = { opencode_send = opencode_send },
+          win = {
+            input = { keys = { ["<M-CR>"] = { "opencode_send", mode = { "n", "i" } } } },
+            list = { keys = { ["<M-CR>"] = { "opencode_send", mode = { "n", "i" } } } },
+          },
         },
       },
     },
   },
-  config = function(_, opts)
-    require("opencode").setup(opts)
+  init = function()
+    ---@type opencode.Opts
+    vim.g.opencode_opts = {
+      server = {
+        start = function()
+          require("snacks.terminal").open(opencode_cmd, snacks_terminal_opts)
+        end,
+        stop = function()
+          require("snacks.terminal").get(opencode_cmd, snacks_terminal_opts):close()
+        end,
+        toggle = function()
+          require("snacks.terminal").toggle(opencode_cmd, snacks_terminal_opts)
+        end,
+      },
+      lsp = {
+        enabled = true,
+      },
+    }
 
-    -- <M-/> does not work when passed into keymap config
-    vim.keymap.set({ "n", "t", "i", "x" }, "<M-/>", function()
-      require("opencode.api").toggle()
-    end, { desc = "Opencode Toggle" })
-
-    vim.keymap.set({ "n", "v" }, "<leader>@", "", { desc = "+ai mentions" })
-    vim.keymap.set({ "n", "v" }, keymap_prefix .. "c", "", { desc = "+configure models" })
-    vim.keymap.set({ "n", "v" }, keymap_prefix .. "d", "", { desc = "+diff" })
-    vim.keymap.set({ "n", "v" }, keymap_prefix .. "r", "", { desc = "+revert" })
-    vim.keymap.set({ "n", "v" }, keymap_prefix .. "s", "", { desc = "+session management" })
-    vim.keymap.set({ "n", "v" }, keymap_prefix .. "t", "", { desc = "+toggle" })
+    vim.o.autoread = true -- Required for `opts.events.reload`
   end,
+  keys = {
+    {
+      toggle,
+      function()
+        require("opencode").toggle()
+      end,
+      mode = { "n", "t" },
+      desc = "Toggle opencode",
+    },
+    {
+      keymap_prefix .. ":",
+      function()
+        require("opencode").select()
+      end,
+      mode = { "n", "x" },
+      desc = "Opencode actions…",
+    },
+    {
+      keymap_prefix .. "a",
+      function()
+        require("opencode").ask("@this: ", { submit = true })
+      end,
+      mode = { "n", "x" },
+      desc = "Ask opencode…",
+    },
+    {
+      keymap_prefix .. "f",
+      function()
+        require("snacks.terminal").focus(opencode_cmd, snacks_terminal_opts)
+      end,
+      mode = { "n", "t", "i", "x" },
+      desc = "Focus opencode",
+    },
+    {
+      keymap_prefix .. "g",
+      function()
+        require("opencode").prompt("@buffer\n")
+      end,
+      desc = "Send File to opencode",
+    },
+    {
+      keymap_prefix .. "t",
+      function()
+        require("opencode").prompt("@this\n")
+      end,
+      mode = { "x", "n" },
+      desc = "Send This",
+    },
+    {
+      keymap_prefix .. "v",
+      function()
+        local lines = require("utils").get_visual_selection_text()
+        if not lines or #lines == 0 then
+          return
+        end
+        local text = table.concat(lines, "\n") .. "\n"
+
+        -- We skip the public `prompt()`
+        -- API because it runs the input through `Context:render()`, which
+        -- expands any `@buffer`, `@this`, etc. tokens that happen to appear
+        -- inside the user's selection (e.g. when sending source code that
+        -- already references those placeholders). Talk to the server
+        -- directly so the text is treated literally.
+        require("opencode.server").get():next(function(server)
+          server:tui_append_prompt(text)
+        end)
+      end,
+      mode = { "x" },
+      desc = "Send Visual Selection",
+    },
+    {
+      "go",
+      function()
+        return require("opencode").operator("@this\n")
+      end,
+      mode = { "n", "x" },
+      expr = true,
+      desc = "Add range to opencode",
+    },
+    {
+      "goo",
+      function()
+        return require("opencode").operator("@this\n") .. "_"
+      end,
+      expr = true,
+      desc = "Add line to opencode",
+    },
+  },
 }

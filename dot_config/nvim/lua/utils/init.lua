@@ -1,25 +1,28 @@
 local M = {}
 
-function M.is_claudecode_diff(buf)
-  local bufname = vim.api.nvim_buf_get_name(buf)
-  if bufname:match("%(proposed%)") or bufname:match("%(NEW FILE %- proposed%)") or bufname:match("%(New%)") then
-    return true
+--- Return the visually selected text as a list of lines.
+--- Works while still in visual mode AND after it has been exited (e.g. when
+--- called from a `<Cmd>`-style keymap, which lazy.nvim uses), by falling back
+--- to the `'<` / `'>` marks plus `visualmode()` in that case.
+---@return string[]
+function M.get_visual_selection_text()
+  local mode = vim.fn.mode()
+  local pos1, pos2
+
+  if mode == "v" or mode == "V" or mode == "\22" then
+    pos1 = vim.fn.getpos("v")
+    pos2 = vim.fn.getpos(".")
+  else
+    -- Not currently in visual mode — use the last-visual marks instead.
+    mode = vim.fn.visualmode()
+    if mode == "" then
+      return {}
+    end
+    pos1 = vim.fn.getpos("'<")
+    pos2 = vim.fn.getpos("'>")
   end
 
-  if
-    vim.b[buf].claudecode_diff_tab_name
-    or vim.b[buf].claudecode_diff_new_win
-    or vim.b[buf].claudecode_diff_target_win
-  then
-    return true
-  end
-
-  local buftype = vim.fn.getbufvar(buf, "&buftype")
-  if buftype == "acwrite" then
-    return true
-  end
-
-  return false
+  return vim.fn.getregion(pos1, pos2, { type = mode })
 end
 
 ---@return string|nil

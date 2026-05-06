@@ -13,7 +13,7 @@ return {
       ---components be transparent (e.g. status line background)
       transparent_background_level = 2,
       ---Whether italics should be used for keywords and more.
-      italics = true,
+      italics = false,
       ---Disable italic fonts for comments. Comments are in italics by default, set
       ---this to `true` to make them _not_ italic!
       disable_italic_comments = false,
@@ -81,6 +81,7 @@ return {
 
           LspReferenceText = { bg = palette.bg1 },
           LspReferenceRead = { link = "LspReferenceText" },
+          LspCodeLens = { fg = palette.grey1, bg = palette.bg1, italic = true },
 
           RenderMarkdownH1Bg = { link = "RenderMarkdownHeadingBG" },
           RenderMarkdownH2Bg = { link = "RenderMarkdownHeadingBG" },

@@ -8,6 +8,15 @@ return {
   lazy = true,
   ft = "markdown",
   cmd = { "Obsidian" },
+  init = function()
+    require("which-key").add({
+      {
+        "<leader>n",
+        group = "Notes/New...",
+        icon = { icon = "󰎝 " },
+      },
+    })
+  end,
   keys = {
     { "<leader>nd", ":Obsidian dailies -7 7<CR>", mode = { "n", "v" }, desc = "Obsidian daily" },
     { "<leader>ng", ":Obsidian search<CR>", mode = { "n", "v" }, desc = "Obsidian search" },
