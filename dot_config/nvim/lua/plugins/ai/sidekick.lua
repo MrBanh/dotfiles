@@ -1,5 +1,5 @@
-local keymap_prefix = "<leader>a"
-local toggle = "<M-/>"
+local keymap_prefix = "<leader>A"
+local toggle = "<M-?>"
 
 -- Build a location context (used by {this}/{position}/{line}/{file}) without
 -- the leading space that sidekick.nvim inserts before `:L<row>`.
