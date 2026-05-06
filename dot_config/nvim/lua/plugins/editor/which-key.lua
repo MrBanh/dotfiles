@@ -3,7 +3,15 @@ return {
   lazy = false,
   opts = {
     preset = "classic",
-    sort = { "local", "order", "alphanum", "mod" },
+
+    --- * local: buffer-local mappings first
+    --- * order: order of the items (Used by plugins like marks / registers)
+    --- * group: groups last
+    --- * alphanum: alpha-numerical first
+    --- * mod: special modifier keys last
+    --- * manual: the order the mappings were added
+    --- * case: lower-case first
+    sort = { "order", "alphanum", "mod" },
   },
 
   config = function(_, opts)
