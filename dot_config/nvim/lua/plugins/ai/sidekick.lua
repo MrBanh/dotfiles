@@ -68,6 +68,9 @@ return {
         enabled = vim.fn.executable("tmux") == 1,
       },
       win = {
+        keys = {
+          prompt = { "<C-a>p", "prompt", mode = "t", desc = "insert prompt or context" },
+        },
         wo = {
           scrolloff = 0, -- prevent global scrolloff from shifting terminal view on toggle
         },
