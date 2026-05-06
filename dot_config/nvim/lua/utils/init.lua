@@ -1,44 +1,28 @@
 local M = {}
 
+--- Return the visually selected text as a list of lines.
+--- Works while still in visual mode AND after it has been exited (e.g. when
+--- called from a `<Cmd>`-style keymap, which lazy.nvim uses), by falling back
+--- to the `'<` / `'>` marks plus `visualmode()` in that case.
+---@return string[]
 function M.get_visual_selection_text()
-  local _, srow, scol = unpack(vim.fn.getpos("v"))
-  local _, erow, ecol = unpack(vim.fn.getpos("."))
+  local mode = vim.fn.mode()
+  local pos1, pos2
 
-  -- visual line mode
-  if vim.fn.mode() == "V" then
-    if srow > erow then
-      return vim.api.nvim_buf_get_lines(0, erow - 1, srow, true)
-    else
-      return vim.api.nvim_buf_get_lines(0, srow - 1, erow, true)
+  if mode == "v" or mode == "V" or mode == "\22" then
+    pos1 = vim.fn.getpos("v")
+    pos2 = vim.fn.getpos(".")
+  else
+    -- Not currently in visual mode — use the last-visual marks instead.
+    mode = vim.fn.visualmode()
+    if mode == "" then
+      return {}
     end
+    pos1 = vim.fn.getpos("'<")
+    pos2 = vim.fn.getpos("'>")
   end
 
-  -- regular visual mode
-  if vim.fn.mode() == "v" then
-    if srow < erow or (srow == erow and scol <= ecol) then
-      return vim.api.nvim_buf_get_text(0, srow - 1, scol - 1, erow - 1, ecol, {})
-    else
-      return vim.api.nvim_buf_get_text(0, erow - 1, ecol - 1, srow - 1, scol, {})
-    end
-  end
-
-  -- visual block mode
-  if vim.fn.mode() == "\22" then
-    local lines = {}
-    if srow > erow then
-      srow, erow = erow, srow
-    end
-    if scol > ecol then
-      scol, ecol = ecol, scol
-    end
-    for i = srow, erow do
-      table.insert(
-        lines,
-        vim.api.nvim_buf_get_text(0, i - 1, math.min(scol - 1, ecol), i - 1, math.max(scol - 1, ecol), {})[1]
-      )
-    end
-    return lines
-  end
+  return vim.fn.getregion(pos1, pos2, { type = mode })
 end
 
 ---@return string|nil
