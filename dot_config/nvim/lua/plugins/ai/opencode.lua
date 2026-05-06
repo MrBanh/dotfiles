@@ -2,6 +2,70 @@ local keymap_prefix = "<leader>a"
 local toggle = "<M-/>"
 
 local opencode_cmd = "dvx opencode --port --continue"
+
+-- Snacks picker action: send selected items to opencode as @path references.
+local function opencode_send(picker)
+  local selected = picker:selected({ fallback = true })
+  local items, names = {}, {}
+  for _, item in ipairs(selected) do
+    if item.file then
+      table.insert(
+        items,
+        require("opencode.context").format(item.file, {
+          start_line = item.pos and item.pos[1] or nil,
+          start_col = item.pos and item.pos[2] or nil,
+          end_line = item.end_pos and item.end_pos[1] or nil,
+          end_col = item.end_pos and item.end_pos[2] or nil,
+        })
+      )
+      table.insert(names, vim.fn.fnamemodify(item.file, ":t"))
+    else
+      table.insert(items, item.text)
+      table.insert(names, item.text)
+    end
+  end
+
+  if #items > 0 then
+    require("opencode").prompt(table.concat(items, "\n") .. "\n")
+    vim.notify(
+      ("Sent %d item%s to opencode:\n%s"):format(#items, #items == 1 and "" or "s", table.concat(names, "\n")),
+      vim.log.levels.INFO,
+      { title = "opencode" }
+    )
+  end
+end
+
+-- Buffer-local keymaps for the opencode terminal window.
+local function setup_buffer_keys(win)
+  require("opencode.terminal").setup(win.win)
+
+  local function map(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, { buffer = win.buf, desc = desc })
+  end
+
+  map({ "n", "t" }, "<C-u>", function()
+    require("opencode").command("session.half.page.up")
+  end, "Scroll opencode up")
+
+  map({ "n", "t" }, "<C-d>", function()
+    require("opencode").command("session.half.page.down")
+  end, "Scroll opencode down")
+
+  map({ "t" }, "<M-C-g>", function()
+    require("opencode").command("session.last")
+  end, "Go to last opencode message")
+
+  map({ "n", "t" }, "<C-b>", function()
+    Snacks.picker.buffers({ confirm = "opencode_send" })
+  end, "Add buffer to opencode")
+
+  map({ "n", "t" }, "<C-f>", function()
+    Snacks.explorer({
+      win = { list = { keys = { ["<CR>"] = "opencode_send" } } },
+    })
+  end, "Add file(s) to opencode")
+end
+
 ---@type snacks.terminal.Opts
 local snacks_terminal_opts = {
   env = {
@@ -20,46 +84,7 @@ local snacks_terminal_opts = {
     position = "right",
     width = 0.5,
     enter = true,
-    on_win = function(win)
-      -- Set up keymaps and cleanup for an arbitrary terminal
-      require("opencode.terminal").setup(win.win)
-
-      ---@param mode string|string[]
-      ---@param lhs string
-      ---@param rhs string|function
-      ---@param desc? string
-      local function map(mode, lhs, rhs, desc)
-        vim.keymap.set(mode, lhs, rhs, { buffer = win.buf, desc = desc })
-      end
-
-      map({ "n", "t" }, "<C-u>", function()
-        require("opencode").command("session.half.page.up")
-      end, "Scroll opencode up")
-
-      map({ "n", "t" }, "<C-d>", function()
-        require("opencode").command("session.half.page.down")
-      end, "Scroll opencode down")
-
-      map({ "t" }, "<M-C-g>", function()
-        require("opencode").command("session.last")
-      end, "Go to last opencode message")
-
-      map({ "n", "t" }, "<C-b>", function()
-        Snacks.picker.buffers({
-          confirm = "opencode_send",
-        })
-      end, "Add buffer to opencode")
-
-      map({ "n", "t" }, "<C-f>", function()
-        Snacks.explorer({
-          win = {
-            list = { keys = {
-              ["<CR>"] = "opencode_send",
-            } },
-          },
-        })
-      end, "Add file(s) to opencode")
-    end,
+    on_win = setup_buffer_keys,
   },
 }
 
@@ -75,54 +100,10 @@ return {
       opts = {
         input = {}, -- Enhances `ask()`
         picker = { -- Enhances `select()`
-          actions = {
-            opencode_send = function(picker)
-              local selected = picker:selected({ fallback = true })
-              local items = {}
-              local names = {}
-              for _, item in ipairs(selected) do
-                if item.file then
-                  table.insert(
-                    items,
-                    require("opencode.context").format(item.file, {
-                      start_line = item.pos and item.pos[1] or nil,
-                      start_col = item.pos and item.pos[2] or nil,
-                      end_line = item.end_pos and item.end_pos[1] or nil,
-                      end_col = item.end_pos and item.end_pos[2] or nil,
-                    })
-                  )
-                  table.insert(names, vim.fn.fnamemodify(item.file, ":t"))
-                else
-                  table.insert(items, item.text)
-                  table.insert(names, item.text)
-                end
-              end
-
-              if #items > 0 then
-                require("opencode").prompt(table.concat(items, "\n") .. "\n")
-                vim.notify(
-                  ("Sent %d item%s to opencode:\n%s"):format(
-                    #items,
-                    #items == 1 and "" or "s",
-                    table.concat(names, "\n")
-                  ),
-                  vim.log.levels.INFO,
-                  { title = "opencode" }
-                )
-              end
-            end,
-          },
+          actions = { opencode_send = opencode_send },
           win = {
-            input = {
-              keys = {
-                ["<M-CR>"] = { "opencode_send", mode = { "n", "i" } },
-              },
-            },
-            list = {
-              keys = {
-                ["<M-CR>"] = { "opencode_send", mode = { "n", "i" } },
-              },
-            },
+            input = { keys = { ["<M-CR>"] = { "opencode_send", mode = { "n", "i" } } } },
+            list = { keys = { ["<M-CR>"] = { "opencode_send", mode = { "n", "i" } } } },
           },
         },
       },
