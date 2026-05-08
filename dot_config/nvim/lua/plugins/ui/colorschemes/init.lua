@@ -1,6 +1,10 @@
 return {
-  "LazyVim/LazyVim",
-  opts = {
-    colorscheme = "everforest",
+  { "catppuccin/nvim", enabled = false },
+  { "folke/tokyonight.nvim", enabled = false },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "everforest",
+    },
   },
 }
