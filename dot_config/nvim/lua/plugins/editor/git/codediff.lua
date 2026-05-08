@@ -54,7 +54,7 @@ return {
 
     -- Diff view behavior
     diff = {
-      layout = "side-by-side", -- Diff layout: "side-by-side" (two panes) or "inline" (single pane with virtual lines)
+      layout = "inline", -- Diff layout: "side-by-side" (two panes) or "inline" (single pane with virtual lines)
       disable_inlay_hints = true, -- Disable inlay hints in diff windows for cleaner view
       max_computation_time_ms = 5000, -- Maximum time for diff computation (VSCode default)
       ignore_trim_whitespace = false, -- Ignore leading/trailing whitespace changes (like diffopt+=iwhite)
@@ -87,7 +87,7 @@ return {
       file_filter = {
         ignore = { ".git/**", ".jj/**" }, -- Glob patterns to hide (e.g., {"*.lock", "dist/*"})
       },
-      focus_on_select = true, -- Jump to modified pane after selecting a file (default: stay in explorer)
+      focus_on_select = false, -- Jump to modified pane after selecting a file (default: stay in explorer)
       visible_groups = { -- Which groups to show (can be toggled at runtime)
         staged = true,
         unstaged = true,
