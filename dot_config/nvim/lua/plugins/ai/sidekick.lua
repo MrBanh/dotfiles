@@ -1,5 +1,5 @@
-local keymap_prefix = "<leader>A"
-local toggle = "<M-?>"
+local keymap_prefix = "<leader>a"
+local toggle = "<M-/>"
 
 local loc_context = require("plugins.ai.sidekick.util").loc_context
 
