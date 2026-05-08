@@ -13,6 +13,7 @@ return {
         "grug-far",
         "markdown",
         "opencode_ask",
+        "sidekick_ask",
         "snacks_input",
         "snacks_picker_input",
         "spectre_panel",
