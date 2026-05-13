@@ -54,7 +54,7 @@ return {
 
     -- Search
     {
-      keymap_prefix .. "g",
+      keymap_prefix .. "l",
       function()
         local marker = require("chainsaw.config.config").config.marker
         require("snacks").picker.grep_word({
@@ -66,7 +66,7 @@ return {
           live = false,
         })
       end,
-      desc = "Find logs",
+      desc = "Logs list",
     },
 
     -- maintenance
