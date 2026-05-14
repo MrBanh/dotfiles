@@ -13,7 +13,7 @@ preview_command = "eza --all --git --icons --long --group-directories-first --co
 [[session]]
 name = "chezmoi"
 path = "~/.local/share/chezmoi"
-startup_command = "chezmoi re-add && chezmoi forget --force ~/.config/nvim && chezmoi add ~/.config/nvim && lazygit && tmux kill-session"
+startup_command = "chezmoi sync && lazygit && tmux kill-session"
 
 [[session]]
 name = "nvim config"
