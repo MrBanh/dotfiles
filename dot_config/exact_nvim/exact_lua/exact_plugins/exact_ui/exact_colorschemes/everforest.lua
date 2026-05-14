@@ -94,6 +94,12 @@ return {
           -- conflict-marker.nvim
           ConflictOurs = { bg = palette.bg_blue },
           ConflictTheirs = { bg = palette.bg_green },
+
+          -- haunt.nvim
+          HauntAnnotation = {
+            fg = palette.grey2,
+            italic = true,
+          },
         }
 
         for group, opts in pairs(highlights) do
