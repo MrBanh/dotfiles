@@ -11,7 +11,7 @@ end
 
 local function open_commit(_, item)
   if item and item.commit then
-    local utils = require("utils")
+    local utils = require("user.utils")
     utils.open_commit_in_browser(item.commit)
   end
 end

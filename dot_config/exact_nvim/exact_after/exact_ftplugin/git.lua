@@ -1,4 +1,4 @@
-local utils = require("utils")
+local utils = require("user.utils")
 
 vim.keymap.set("n", "<C-g>", function()
   local sha = utils.get_commit_sha()
