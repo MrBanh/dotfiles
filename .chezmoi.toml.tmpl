@@ -1,3 +1,17 @@
+{{- $email := "" -}}
+{{- if lookPath "git" -}}
+  {{- $email = output "git" "config" "--global" "user.email" | trim -}}
+{{- end -}}
+
+[data.user]
+{{- if hasSuffix "@hubspot.com" $email }}
+    email = {{ $email | quote }}
+    host = "work"
+{{- else }}
+    email = {{ $email | quote }}
+    host = "personal"
+{{- end }}
+
 [merge]
     command = "nvim"
     args = [
@@ -6,5 +20,3 @@
         {{ print "{{ .Source }}" | quote }},
         {{ print "{{ .Target }}" | quote }}
     ]
-
-
