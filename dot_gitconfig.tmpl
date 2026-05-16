@@ -18,9 +18,11 @@
 [core]
   pager = less -FX
 	editor = nvim -f
-{{- if eq .chezmoi.hostname "cachyos-dank" }}
+
+{{- if eq .user.host "personal" }}
 [user]
 	email = 25971310+MrBanh@users.noreply.github.com
 	name = MrBanh
 	signingkey = ~/.ssh/id_ed25519
+{{- else if eq .user.host "work" }}
 {{- end }}
