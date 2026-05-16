@@ -1,0 +1,10 @@
+[merge]
+    command = "nvim"
+    args = [
+        "-d",
+        {{ print "{{ .Destination }}" | quote }},
+        {{ print "{{ .Source }}" | quote }},
+        {{ print "{{ .Target }}" | quote }}
+    ]
+
+
