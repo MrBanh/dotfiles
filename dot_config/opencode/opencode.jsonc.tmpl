@@ -1,7 +1,13 @@
 // https://opencode.ai/docs/config/
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": [],
+  "plugin": [
+{{- if eq .user.host "personal" }}
+    //
+    "superpowers@git+https://github.com/obra/superpowers.git",
+{{- else if eq .user.host "work" }}
+{{- end }}
+  ],
   "mcp": {},
   "lsp": true,
   "permission": {
