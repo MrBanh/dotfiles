@@ -1,0 +1,182 @@
+-- Autocmds are automatically loaded on the VeryLazy event
+-- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
+--
+-- Add any additional autocmds here
+-- with `vim.api.nvim_create_autocmd`
+--
+-- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
+-- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
+local autocmd = vim.api.nvim_create_autocmd
+local usercmd = vim.api.nvim_create_user_command
+local augroup = vim.api.nvim_create_augroup
+
+-- USER COMMANDS
+
+usercmd("SearchInBrowser", function(args)
+  local config = {
+    default_engine = "google",
+    query_map = {
+      google = "https://www.google.com/search?q=%s",
+    },
+  }
+
+  local function looks_like_url(input)
+    local pat = "[%w%.%-_]+%.[%w%.%-_/]+"
+    return input:match(pat) ~= nil
+  end
+
+  local function extract_prefix(input)
+    local pat = "@(%w+)"
+    local prefix = input:match(pat)
+    if not prefix or not config.query_map[prefix] then
+      return vim.trim(input), config.default_engine
+    end
+    local query = input:gsub("@" .. prefix, "")
+    return vim.trim(query), prefix
+  end
+
+  local function query_browser(input)
+    local q, prefix = extract_prefix(input)
+    if not looks_like_url(input) then
+      local format = config.query_map[prefix]
+      q = format:format(vim.uri_encode(q))
+    else
+      -- Ensure URL has a protocol
+      if not q:match("^https?://") then
+        q = "https://" .. q
+      end
+    end
+    vim.ui.open(q)
+  end
+
+  if args.args and #args.args > 0 then
+    query_browser(args.args)
+    return
+  end
+
+  vim.ui.input({ prompt = "Search: " }, function(input)
+    if input then
+      query_browser(input)
+    end
+  end)
+end, {
+  desc = "Search in browser",
+  nargs = "?",
+})
+
+usercmd("Btop", function()
+  if vim.fn.executable("btop") == 1 then
+    Snacks.terminal.toggle("btop", {
+      win = {
+        style = "terminal",
+        width = 0,
+        height = 0,
+      },
+    })
+  else
+    Snacks.notify.error("btop is not installed. Please install it to use this command.", {
+      title = "Btop",
+    })
+  end
+end, {
+  desc = "Toggle btop in terminal",
+})
+
+usercmd("Gh", function()
+  if vim.fn.executable("gh") == 1 then
+    Snacks.terminal.toggle({ "gh", "dash" }, {
+      win = {
+        style = "terminal",
+        width = 0,
+        height = 0,
+      },
+    })
+  else
+    Snacks.notify.error("gh-dash is not installed. Please install it with: `gh extension install dlvhdr/gh-dash`", {
+      title = "gh-dash",
+    })
+  end
+end, {
+  desc = "Toggle gh-dash in terminal",
+})
+
+autocmd("User", {
+  desc = "Add which key for Git Conflict",
+  pattern = "GitConflictDetected",
+  callback = function()
+    vim.keymap.set("n", "<localleader>c", "<nop>", { buffer = true, desc = "Git Conflict" })
+  end,
+})
+
+autocmd("FileType", {
+  desc = "Define windows to close with 'q'",
+  pattern = {
+    "grug-far-history",
+    "dap-float",
+    "sagarename",
+  },
+  group = augroup("WinCloseOnQDefinition", { clear = true }),
+  command = [[
+            nnoremap <buffer><silent> q :close<CR>
+            set nobuflisted
+        ]],
+})
+
+autocmd("FileType", {
+  pattern = { "markdown", "md" },
+  callback = function()
+    vim.opt_local.wrap = false
+  end,
+})
+
+-- QMK AUTOCMDS
+local group = augroup("MyQMK", {})
+autocmd("BufEnter", {
+  desc = "Format simple keymap",
+  group = group,
+  pattern = "*/eyelash_corne.keymap", -- this is a pattern to match the filepath of whatever board you wish to target
+  callback = function()
+    require("qmk").setup({
+      auto_format_pattern = "*/eyelash_corne.keymap",
+      name = "LAYOUT_eyelash_corne",
+      variant = "zmk",
+      layout = {
+        "_ x x x x x x _ _ x _ x x x x x x",
+        "_ x x x x x x _ x x x x x x x x x",
+        "_ x x x x x x x _ x _ x x x x x x",
+        "_ _ _ _ x x x _ _ _ _ x x x _ _ _",
+      },
+    })
+  end,
+})
+
+autocmd("BufEnter", {
+  desc = "Format overlap keymap",
+  group = group,
+  pattern = "*/MOKETA.keymap",
+  callback = function()
+    require("qmk").setup({
+      auto_format_pattern = "*/MOKETA.keymap",
+      name = "MOKETA",
+      variant = "zmk",
+      layout = {
+        "x x x x x x _ x x x x x x",
+        "x x x x x x _ x x x x x x",
+        "x x x x x x _ x x x x x x",
+        "_ _ _ x x x _ x x x _ _ _",
+      },
+    })
+  end,
+})
+
+local mdx_id = augroup("mdx", {
+  clear = false,
+})
+autocmd("BufEnter", {
+  group = mdx_id,
+  pattern = "*.mdx",
+  callback = function()
+    vim.o.filetype = "markdown"
+  end,
+})

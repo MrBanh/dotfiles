@@ -87,6 +87,9 @@ defaults:
 
 keybindings:
   prs:
+    - key: "ctrl+r"
+      name: Request review
+      command: gh pr edit {{.PrNumber}} --add-reviewer $(gh pr view {{.PrNumber}} --json reviews --jq '[.reviews[].author.login] | unique | join(",")')
     - key: C
       name: code review
       command: >
@@ -98,13 +101,13 @@ keybindings:
       name: github actions | enhance
       command: ENHANCE_THEME=overnight_slumber gh enhance -R {{.RepoName}} {{.PrNumber}}
   universal:
-    - key: g
-      name: lazygit
-      command: cd {{.RepoPath}} && echo {{.RepoPath}} && lazygit
-    - key: "ctrl+f"
-      builtin: pageDown
     - key: "ctrl+b"
       builtin: pageUp
+    - key: "ctrl+f"
+      builtin: pageDown
+    - key: "ctrl+g"
+      name: lazygit
+      command: cd {{.RepoPath}} && echo {{.RepoPath}} && lazygit
 
 theme:
   ui:
@@ -114,20 +117,20 @@ theme:
       compact: false # compact table rows
   colors:
     text:
-      primary: "#cdcecf"
-      secondary: "#71839b"
-      inverted: "#131a24"
-      faint: "#71839b"
-      warning: "#dbc074"
-      success: "#81b29a"
-      error: "#c94f6d"
-      actor: "#63cdcf"
+      primary: "#d3c6aa"
+      secondary: "#83c092"
+      inverted: "#2b3339"
+      faint: "#7393b3"
+      warning: "#dbbc7f"
+      success: "#83c092"
+      error: "#e67e80"
+      actor: "#7fbbb3"
     background:
-      selected: "#2b3b51"
+      selected: "#2E383C"
     border:
-      primary: "#2b3b51"
-      secondary: "#393b44"
-      faint: "#2b3b51"
+      primary: "#2E383C"
+      secondary: "#4e565c"
+      faint: "#2E383C"
 
 pager:
   diff: ""
@@ -137,4 +140,3 @@ showAuthorIcons: true
 smartFilteringAtLaunch: true
 includeReadNotifications: true
 
-repoPaths: {}

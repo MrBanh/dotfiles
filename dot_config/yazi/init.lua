@@ -67,8 +67,8 @@ Status:children_add(function(self)
 	local files_selected = #cx.active.selected
 	local files_cut = cx.yanked.is_cut
 
-	local selected_fg = files_selected > 0 and "yellow" or "grey"
-	local yanked_fg = files_yanked > 0 and (files_cut and "magenta" or "green") or "grey"
+	local selected_fg = files_selected > 0 and "#dbbc7f" or "#9DA9A0"
+	local yanked_fg = files_yanked > 0 and (files_cut and "#e67e80" or "#83c092") or "#9DA9A0"
 
 	local selected_text = files_selected > 0 and "󰼢 " .. files_selected or "󰼢 " .. "0"
 	local yanked_text = files_yanked > 0 and "󱉨 " .. files_yanked or "󱉨 " .. "0"

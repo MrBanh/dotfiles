@@ -1,4 +1,6 @@
-blacklist = ['sidekick claude', 'floating-tmux', 'claude ']
+#:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
+
+blacklist = ['sidekick claude', 'floating-tmux', 'claude ', 'opencode ']
 
 [[window]]
 name = "opencode"
@@ -11,7 +13,7 @@ preview_command = "eza --all --git --icons --long --group-directories-first --co
 [[session]]
 name = "chezmoi"
 path = "~/.local/share/chezmoi"
-startup_command = "chezmoi re-add && chezmoi forget --force ~/.config/nvim && chezmoi add ~/.config/nvim && lazygit && tmux kill-session"
+startup_command = "chezmoi sync && lazygit && tmux kill-session"
 
 [[session]]
 name = "nvim config"

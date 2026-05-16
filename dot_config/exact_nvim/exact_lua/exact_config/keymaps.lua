@@ -1,0 +1,106 @@
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+
+local wk = require("which-key")
+local set = vim.keymap.set
+local del = vim.keymap.del
+local opts = { noremap = true, silent = true }
+
+set({ "n", "v" }, "H", "^", opts)
+set({ "n", "v" }, "L", "$", opts)
+
+-- Paste without overwriting
+set("v", "p", "P", opts)
+
+-- Do not overwrite when using change command
+set("n", "c", [["_c]], opts)
+set("v", "c", [["_c]], opts)
+
+-- Better escape
+set("i", "jk", "<Esc>", opts)
+
+-- better indent handling
+set("v", "<", "<gv", opts)
+set("v", ">", ">gv", opts)
+
+-- move text up and down
+set("v", "J", ":m .+1<CR>==", opts)
+set("v", "K", ":m .-2<CR>==", opts)
+set("x", "J", ":move '>+1<CR>gv-gv", opts)
+set("x", "K", ":move '<-2<CR>gv-gv", opts)
+
+del({ "n", "i", "v" }, "<A-j>")
+del({ "n", "i", "v" }, "<A-k>")
+
+-- Remap macros
+set("n", "q", "<nop>", {})
+set("n", "<C-q>", "q", vim.tbl_extend("force", opts, { desc = "Start/stop recording macro" }))
+
+-- regex helpers
+set("c", [[\\*]], [[\(.*\)]], { desc = "Inserts \\(.*\\)" })
+set("c", [[\\-]], [[\(.\{-}\)]], { desc = "Inserts \\(.{-})" })
+
+-- Search within selection
+set("x", "/", "<Esc>/\\%V", opts)
+
+-- Yank to clipboard
+wk.add({
+  {
+    "<leader>y",
+    [["+y]],
+    desc = "yank to clipboard",
+    mode = { "n", "v" },
+    icon = { icon = " " },
+  },
+  {
+    "<leader>Y",
+    [["+y$]],
+    desc = "yank to end of line to clipboard",
+    mode = { "n", "v" },
+    icon = { icon = " " },
+  },
+})
+
+-- exit terminal mode while in terminal
+set("t", "<C-Space>[", "<C-\\><C-N>", vim.tbl_extend("force", opts, { desc = "terminal escape terminal mode" }))
+
+-- Browser search bar
+set("n", "<leader>so", ":SearchInBrowser<CR>", {
+  desc = "Search in browser",
+})
+
+-- LSP Workspace Folders
+set("n", "<leader>fw", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
+set("n", "<leader>fW", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
+
+-- LSP Selection Ranges, only works for 0.12+
+set({ "n", "x" }, "<M-o>", function()
+  if vim.treesitter.get_parser(nil, nil, { error = false }) then
+    require("vim.treesitter._select").select_parent(vim.v.count1)
+  else
+    vim.lsp.buf.selection_range(vim.v.count1)
+  end
+end, { desc = "Select parent (outer) node" })
+
+set({ "n", "x" }, "<M-i>", function()
+  if vim.treesitter.get_parser(nil, nil, { error = false }) then
+    require("vim.treesitter._select").select_child(vim.v.count1)
+  else
+    vim.lsp.buf.selection_range(-vim.v.count1)
+  end
+end, { desc = "Select child (inner) node" })
+
+-- Restart neovim, only works for 0.12+
+set({ "n", "i", "v" }, "<leader>qr", function()
+  if vim.fn.has("nvim-0.12") == 0 then
+    print("Neovim 0.12 or higher is required to restart")
+    return
+  end
+  vim.cmd("restart | silent! lua require('persistence').load()")
+end, { desc = "Restart Neovim" })
+
+-- LazyVim specific
+del("n", "<leader>L")
+set("n", "<leader>Nl", function()
+  LazyVim.news.changelog()
+end, { desc = "LazyVim Changelog" })
