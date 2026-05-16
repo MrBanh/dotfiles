@@ -258,8 +258,6 @@ elif [[ $(uname) == "Darwin" ]]; then
 
 ## Linux
 elif [[ $(uname) == "Linux" ]]; then
-  export PATH="$HOME/.opencode/bin:$PATH"
-
   function zvm_vi_yank() {
     zvm_yank
     echo ${CUTBUFFER} | wl-copy -n
@@ -304,4 +302,3 @@ add-zsh-hook chpwd set_gh_host
 
 # Run once on shell startup
 set_gh_host
-
