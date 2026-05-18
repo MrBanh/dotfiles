@@ -9,6 +9,10 @@ if command -v starship &>/dev/null; then
   eval "$(starship init zsh)"
 fi
 
+if command -v wt >/dev/null 2>&1; then
+  eval "$(command wt config shell init zsh)"
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
