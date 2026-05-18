@@ -7,6 +7,7 @@ return {
       -- :lua print(vim.bo.filetype)
       skip_filetypes = {
         "sidekick_terminal",
+        "snacks_terminal",
       },
       -- Set to false to disable by default
       enabled = true,
