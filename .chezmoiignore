@@ -1,8 +1,6 @@
 README.md
 **/.DS_Store
 **/.git
-**/hubspot.init.lua
-**/hubspot
 **/node_modules
 **/bun.lock
 **/opencode/package.json
@@ -10,7 +8,15 @@ README.md
 .config/nvim/spell
 .config/nvim/.claude
 .config/nvim/lazy-lock.json
-.config/nvim/lua/overseer/template/hubspot
 .config/tmux/plugins
 .config/yazi/flavors
 .config/yazi/plugins
+
+{{- if eq .user.host "personal" }}
+{{- else if eq .user.host "work" }}
+**/hubspot.init.lua
+**/hubspot
+.config/nvim/lua/overseer/template/hubspot
+.config/opencode/skills/playwright-cli
+.config/opencode/skills/herdr
+{{- end }}
