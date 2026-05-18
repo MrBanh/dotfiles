@@ -1,14 +1,21 @@
 // https://opencode.ai/docs/config/
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": [
 {{- if eq .user.host "personal" }}
-    //
+  "plugin": [
     "superpowers@git+https://github.com/obra/superpowers.git",
-{{- else if eq .user.host "work" }}
-{{- end }}
   ],
   "mcp": {},
+{{- else if eq .user.host "work" }}
+  "plugin": [],
+  "mcp": {
+    "Amplitude": {
+      "type": "remote",
+      "url": "https://mcp.amplitude.com/mcp",
+      "enabled": true,
+    },
+  },
+{{- end }}
   "lsp": true,
   "permission": {
     "external_directory": {
@@ -17,9 +24,14 @@
       "~/.claude/agents/**": "allow",
       "/tmp/**": "allow",
       "~/.local/share/nvim/**": "allow",
+
+      "/private/tmp/mcp-tool-outputs/**": "allow",
+      "~/.hubspot/**": "allow",
     },
     "edit": {
       "~/.local/share/nvim/**": "deny",
+
+      "~/.hubspot/**": "deny",
     },
   },
   "agent": {},

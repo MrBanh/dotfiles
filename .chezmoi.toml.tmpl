@@ -1,14 +1,18 @@
 {{- $email := "" -}}
+{{- $name := "" -}}
 {{- if lookPath "git" -}}
   {{- $email = output "git" "config" "--global" "user.email" | trim -}}
+  {{- $name = output "git" "config" "--global" "user.name" | trim -}}
 {{- end -}}
 
 [data.user]
 {{- if hasSuffix "@hubspot.com" $email }}
     email = {{ $email | quote }}
+    name = {{ $name | quote }}
     host = "work"
 {{- else }}
     email = {{ $email | quote }}
+    name = {{ $name | quote }}
     host = "personal"
 {{- end }}
 
