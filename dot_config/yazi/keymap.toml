@@ -476,7 +476,9 @@ keymap = [
   { on = "<Enter>", run = "close --submit", desc = "Submit the pick" },
 
   { on = "k", run = "arrow -1", desc = "Move cursor up" },
+  { on = "<C-p>", run = "arrow -1", desc = "Move cursor up" },
   { on = "j", run = "arrow 1", desc = "Move cursor down" },
+  { on = "<C-n>", run = "arrow 1", desc = "Move cursor down" },
 
   # Help
   { on = ["g", "?"], run = "help", desc = "Open help" },
