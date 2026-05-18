@@ -48,3 +48,4 @@ system "curl -fsSL https://herdr.dev/install.sh | sh"
 
 # Misc
 system "yay -S portmaster-bin" if OS.linux?
+system "curl -fsSL https://vicinae.com/install | sh" if OS.linux?
