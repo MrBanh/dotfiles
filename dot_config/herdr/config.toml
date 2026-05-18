@@ -1,0 +1,71 @@
+onboarding = false
+
+[keys]
+prefix = "ctrl+b"
+
+# workspace
+close_workspace = "shift+d"
+new_workspace = "n"
+next_workspace = "shift+u"
+previous_workspace = "shift+i"
+rename_workspace = "shift+n"
+
+# tabs
+new_tab = "t"
+next_tab = "shift+l"
+previous_tab = "shift+h"
+
+# pane
+close_pane = "x"
+focus_pane_down = "j"
+focus_pane_left = "h"
+focus_pane_right = "l"
+focus_pane_up = "k"
+rename_pane = "p"
+split_horizontal = "-"
+split_vertical = "v"
+
+# config
+detach = "q"
+edit_scrollback = "e"
+open_notification_target = "o"
+reload_config = "R"
+resize_mode = "r"
+toggle_sidebar = "b"
+zoom = "z"
+
+[[keys.command]]
+key = "g"
+type = "pane"
+command = "lazygit"
+
+[keys.indexed]
+workspaces = "ctrl+shift"
+tabs = "ctrl"
+agents = "alt"
+
+[theme.custom]
+panel_bg = "reset"
+surface0 = "#2e383c"
+surface1 = "#374145"
+surface_dim = "#1e2326"
+overlay0 = "#7a8478"
+overlay1 = "#859289"
+accent = "#83c092"
+text = "#d3c6aa"
+subtext0 = "#9da9a0"
+blue = "#7393b3"
+green = "#83c092"
+mauve = "#d699b6"
+peach = "#e69875"
+red = "#e67e80"
+teal = "#95d1c9"
+yellow = "#dbbc7f"
+
+[ui]
+sidebar_width = 40
+
+agent_panel_scope = "all"
+
+[ui.sound]
+enabled = true
