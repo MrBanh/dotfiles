@@ -1,0 +1,50 @@
+# Yazi + dependencies
+brew "fd"
+brew "ffmpeg-full"
+brew "font-symbols-only-nerd-font"
+brew "fzf"
+brew "imagemagick-full"
+brew "jq"
+brew "poppler"
+brew "resvg"
+brew "ripgrep"
+brew "sevenzip"
+brew "yazi"
+brew "zoxide"
+
+brew "anomalyco/tap/opencode"
+brew "atuin"
+brew "bat"
+brew "btop"
+brew "chezmoi"
+brew "eza"
+brew "gh"
+brew "git"
+brew "lazygit"
+brew "neovim"
+brew "node"
+brew "reattach-to-user-namespace" if OS.mac?
+brew "sesh"
+brew "starship"
+brew "tmux"
+brew "worktrunk"
+brew "zsh"
+
+cask "obsidian"
+cask "raycast" if OS.mac?
+cask "wezterm"
+
+# Oh My Zsh
+system 'test -d "$HOME/.oh-my-zsh" || sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
+system "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+system "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+system "git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions"
+system "git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search"
+system "git clone https://github.com/jeffreytse/zsh-vi-mode ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-vi-mode"
+
+# AI-related
+system "npx ctx7 setup" if OS.linux? # Context7 MCP
+system "curl -fsSL https://herdr.dev/install.sh | sh"
+
+# Misc
+system "yay -S portmaster-bin" if OS.linux?
