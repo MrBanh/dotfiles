@@ -143,6 +143,90 @@ return {
       desc = "LazyGit File Log",
     },
     {
+      "<leader>gw",
+      function()
+        Snacks.picker.pick({
+          source = "wt",
+          title = "Worktrees",
+          finder = function()
+            local cwd = vim.fn.getcwd()
+            local out = vim.fn.systemlist({ "wt", "-C", cwd, "list", "--format", "json" })
+            if vim.v.shell_error ~= 0 then
+              vim.notify("wt list failed: " .. table.concat(out, "\n"), vim.log.levels.ERROR)
+              return {}
+            end
+            local ok, data = pcall(vim.json.decode, table.concat(out, "\n"))
+            if not ok or type(data) ~= "table" then
+              return {}
+            end
+            local items = {}
+            for _, wt in ipairs(data) do
+              local branch = wt.branch or "(detached)"
+              local marker = wt.is_current and "● " or "  "
+              items[#items + 1] = {
+                text = marker .. branch,
+                branch = branch,
+                file = wt.path,
+                cwd = wt.path,
+                data = wt,
+              }
+            end
+            return items
+          end,
+          format = function(item)
+            local wt = item.data
+            local ret = {}
+            ret[#ret + 1] = { item.text, wt.is_current and "SnacksPickerDirectory" or "" }
+            ret[#ret + 1] = { "  " }
+            ret[#ret + 1] = { wt.commit and wt.commit.short_sha or "", "SnacksPickerGitCommit" }
+            ret[#ret + 1] = { "  " }
+            local ahead = wt.main and wt.main.ahead or 0
+            local behind = wt.main and wt.main.behind or 0
+            if ahead > 0 then
+              ret[#ret + 1] = { "↑" .. ahead, "diffAdded" }
+              ret[#ret + 1] = { " " }
+            end
+            if behind > 0 then
+              ret[#ret + 1] = { "↓" .. behind, "diffRemoved" }
+            end
+            return ret
+          end,
+          preview = function(ctx)
+            local item = ctx.item
+            if not item or not item.cwd then
+              return false
+            end
+            local lines = vim.fn.systemlist({
+              "git",
+              "-C",
+              item.cwd,
+              "log",
+              "--oneline",
+              "--decorate",
+              "--color=never",
+              "-n",
+              "20",
+            })
+            if vim.v.shell_error ~= 0 then
+              lines = { "git log failed:", unpack(lines) }
+            end
+            ctx.preview:reset()
+            ctx.preview:set_lines(lines)
+            ctx.preview:highlight({ ft = "git" })
+            return true
+          end,
+          confirm = function(picker, item)
+            picker:close()
+            if item and item.cwd then
+              vim.cmd.tcd(item.cwd)
+              vim.notify("tcd → " .. item.cwd)
+            end
+          end,
+        })
+      end,
+      desc = "Worktrees (wt)",
+    },
+    {
       "<leader>go",
       "",
       desc = "Open in browser",
