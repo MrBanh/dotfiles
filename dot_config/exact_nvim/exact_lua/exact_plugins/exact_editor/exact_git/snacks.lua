@@ -217,9 +217,37 @@ return {
           end,
           confirm = function(picker, item)
             picker:close()
-            if item and item.cwd then
-              vim.cmd.tcd(item.cwd)
-              vim.notify("tcd → " .. item.cwd)
+            if not (item and item.cwd) then
+              return
+            end
+            local path = vim.fn.fnamemodify(item.cwd, ":p"):gsub("/$", "")
+            local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":p"):gsub("/$", "")
+            if path == cwd then
+              vim.notify("Already in worktree: " .. path)
+              return
+            end
+            if vim.env.TMUX then
+              -- Replace the current pane's process: kill this nvim, start a
+              -- fresh interactive shell in the new worktree that auto-runs
+              -- `nvim .`. When that nvim exits, the shell remains in `path`.
+              local shell = vim.env.SHELL or "/bin/zsh"
+              local nvim_cmd = "nvim -c " .. vim.fn.shellescape("silent! lua require('persistence').load()")
+              local cmd = string.format(
+                "%s -i -c %s",
+                vim.fn.shellescape(shell),
+                vim.fn.shellescape(string.format("%s; exec %s -i", nvim_cmd, shell))
+              )
+              vim.fn.jobstart({
+                "tmux",
+                "respawn-pane",
+                "-k",
+                "-c",
+                path,
+                cmd,
+              }, { detach = true })
+            else
+              vim.cmd.tcd(path)
+              vim.notify("tcd → " .. path .. " (not in tmux; nvim not relaunched)")
             end
           end,
         })
