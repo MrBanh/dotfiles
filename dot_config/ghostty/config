@@ -1,11 +1,11 @@
 # UI
-theme = Cobalt Next Minimal
-background-opacity = 0.8
+theme = Nightfox
+background-opacity = 0.9
 background-blur = true
 
 # Font
 font-family = JetBrains Mono
-font-size = 12
+font-size = 15
 font-feature = -calt, -liga, -dlig, zero
 
 # Functionality
@@ -13,7 +13,6 @@ copy-on-select = clipboard
 quit-after-last-window-closed = true
 
 # Misc settings
-window-decoration = none
 window-show-tab-bar = never
 window-padding-balance = true
 title = " "
