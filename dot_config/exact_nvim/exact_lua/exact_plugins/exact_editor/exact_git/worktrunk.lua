@@ -158,25 +158,21 @@ local function wt_preview(ctx)
   return true
 end
 
-local function wt_confirm(picker, item)
-  picker:close()
-  if not item or not item.branch then
-    return
+--- Run `wt switch` (optionally with --create) and relaunch nvim in the
+--- resulting worktree.
+---@param branch string
+---@param opts? { create?: boolean }
+local function switch_and_relaunch(branch, opts)
+  opts = opts or {}
+  local args = { "wt", "switch", "--format", "json", "--no-cd", "-y" }
+  if opts.create then
+    -- `--base=@` explicitly bases the new branch on current HEAD.
+    args[#args + 1] = "--create"
+    args[#args + 1] = "--base=@"
   end
+  args[#args + 1] = branch
 
-  -- Resolve / create the worktree via `wt switch`. For branches without a
-  -- worktree, this creates one; for existing worktrees it just returns the
-  -- path. --no-cd because the cd will happen via tmux respawn-pane below
-  -- (we don't rely on wt's shell integration).
-  local switch_out = vim.fn.systemlist({
-    "wt",
-    "switch",
-    "--format",
-    "json",
-    "--no-cd",
-    "-y",
-    item.branch,
-  })
+  local switch_out = vim.fn.systemlist(args)
   if vim.v.shell_error ~= 0 then
     vim.notify("wt switch failed: " .. table.concat(switch_out, "\n"), vim.log.levels.ERROR)
     return
@@ -209,6 +205,30 @@ local function wt_confirm(picker, item)
     vim.cmd.tcd(path)
     vim.notify("tcd → " .. path)
   end
+end
+
+local function wt_confirm(picker, item)
+  picker:close()
+  if not item or not item.branch then
+    return
+  end
+
+  -- Selecting the current worktree means "branch off from here": prompt for
+  -- a new branch name and create a worktree from current HEAD.
+  if item.data and item.data.is_current then
+    vim.ui.input({ prompt = "New branch from HEAD: " }, function(name)
+      if not name or name == "" then
+        return
+      end
+      switch_and_relaunch(vim.trim(name), { create = true })
+    end)
+    vim.schedule(function()
+      vim.cmd("startinsert")
+    end)
+    return
+  end
+
+  switch_and_relaunch(item.branch)
 end
 
 return {
