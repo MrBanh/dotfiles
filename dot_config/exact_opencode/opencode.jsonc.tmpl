@@ -6,6 +6,7 @@
     "superpowers@git+https://github.com/obra/superpowers.git",
   ],
   "mcp": {},
+  "lsp": true,
 {{- else if eq .user.host "work" }}
   "plugin": [],
   "mcp": {
@@ -15,8 +16,12 @@
       "enabled": true,
     },
   },
+  "lsp": {
+    "typescript": {
+      "command": ["bend", "lsp", "--session-path", "{env:BEND_SESSION_PATH}"]
+    }
+  },
 {{- end }}
-  "lsp": true,
   "permission": {
     "external_directory": {
       "~/.config/opencode/**": "allow",
