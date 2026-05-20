@@ -18,11 +18,20 @@
 [core]
   pager = less -FX
 	editor = nvim -f
-
+[pager]
+	branch = false
+[user]
+	email = {{ .user.email }}
+	name = {{ .user.name }}
 {{- if eq .user.host "personal" }}
 [user]
-	email = 25971310+MrBanh@users.noreply.github.com
-	name = MrBanh
 	signingkey = ~/.ssh/id_ed25519
 {{- else if eq .user.host "work" }}
+[user]
+	signingkey = ~/.ssh/id_rsa.pub
+[core]
+	excludesfile = ~/.gitignore_global
+	hooksPath = ~/.git_hooks
+[init]
+	defaultBranch = master
 {{- end }}

@@ -185,43 +185,6 @@ function y() {
   rm -f -- "$tmp"
 }
 
-# `chezmoi sync`
-# Keep the source state in sync with target for all exact_ trees.
-#
-#   1. Find every top-level exact_ source dir and resolve its target path.
-#   2. `forget` + `add --exact` each one. The forget wipes the source dir, so
-#      `add --exact` rebuilds it from the current target. This is how deletions
-#      get captured (chezmoi has no built-in command that does this).
-#   3. `re-add` everything else (e.g. ~/.zshrc, ~/.gitconfig) for content updates.
-chezmoi() {
-  local -a pre=()
-  local found=0 arg src
-  for arg in "$@"; do
-    if [[ "$arg" == "sync" && $found -eq 0 ]]; then
-      found=1
-      continue
-    fi
-    ((found == 0)) && pre+=("$arg")
-  done
-
-  if ((found)); then
-    # Discover top-level exact_ targets (forget + add captures additions, deletions, content changes)
-    local -a targets=()
-    while IFS= read -r src; do
-      [[ -n "$src" ]] && targets+=("$(command chezmoi "${pre[@]}" target-path "$src")")
-    done < <(command chezmoi "${pre[@]}" managed --include=dirs --path-style=source-absolute |
-      command grep '/exact_[^/]*$' |
-      command grep -v '/exact_[^/]*/exact_[^/]*$')
-    if ((${#targets[@]} > 0)); then
-      command chezmoi "${pre[@]}" --force forget "${targets[@]}" &&
-        command chezmoi "${pre[@]}" add --exact "${targets[@]}"
-    fi
-    command chezmoi "${pre[@]}" re-add
-  else
-    command chezmoi "$@"
-  fi
-}
-
 # See: https://github.com/atuinsh/atuin/issues/977
 function zvm_after_init() {
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

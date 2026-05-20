@@ -2,10 +2,7 @@ return {
   "folke/snacks.nvim",
   opts = {
     bigfile = {},
-    image = {
-      enabled = false,
-      formats = {},
-    },
+    image = {},
     scroll = {
       enabled = false,
     },
