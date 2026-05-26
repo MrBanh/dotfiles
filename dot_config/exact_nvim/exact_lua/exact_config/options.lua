@@ -53,6 +53,9 @@ vim.o.autoread = true
 vim.lsp.codelens.enable()
 vim.filetype.add({
   extension = { lyaml = "yaml", git = "git", keymap = "dts" },
+  pattern = {
+    [".*/tmux/.*%.conf"] = "tmux",
+  },
   filename = {
     [".zshrc"] = "zsh",
     [".zshenv"] = "zsh",
