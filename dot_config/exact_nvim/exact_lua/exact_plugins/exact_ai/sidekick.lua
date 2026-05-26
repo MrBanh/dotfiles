@@ -39,6 +39,11 @@ return {
           height = 0, -- set to 0 for default split height
         },
       },
+      tools = {
+        opencode = {
+          cmd = { "opencode", "--continue" },
+        },
+      },
     },
     nes = {
       enabled = function(buf)

@@ -136,6 +136,26 @@ return {
   },
   keys = {
     {
+      "<leader>gc",
+      function()
+        vim.system({ "gh", "pr", "view", "--json", "number", "-q", ".number" }, { text = true }, function(out)
+          vim.schedule(function()
+            local pr_number = vim.trim(out.stdout or "")
+            if out.code ~= 0 or pr_number == "" then
+              Snacks.notify.warn("No PR found for current branch", { title = "GitHub" })
+              return
+            end
+            Snacks.picker.gh_pr({
+              search = "#" .. pr_number,
+              state = "all",
+              focus = "list",
+            })
+          end)
+        end)
+      end,
+      desc = "GitHub PR (current branch)",
+    },
+    {
       "<leader>gF",
       function()
         Snacks.lazygit.log_file()
