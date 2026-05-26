@@ -27,6 +27,7 @@ return {
           require("haunt.api").annotate()
         end,
         desc = "Annotate",
+        mode = { "n", "x" },
       },
       {
         prefix .. "t",

@@ -19,4 +19,5 @@ README.md
 .config/nvim/lua/overseer/template/hubspot
 .config/opencode/skills/playwright-cli
 .config/opencode/skills/herdr
+.config/opencode/AGENTS.md
 {{- end }}

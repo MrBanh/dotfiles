@@ -87,6 +87,11 @@ defaults:
 
 keybindings:
   prs:
+    - key: "ctrl+w"
+      name: Worktree
+      command: >
+        tmux new-window -n "Worktree | PR-{{.PrNumber}}" \;
+        send-keys "wt switch pr:{{.PrNumber}} && nvim -c 'lua require([[persistence]]).load()'" Enter
     - key: "ctrl+r"
       name: Request review
       command: gh pr edit {{.PrNumber}} --add-reviewer $(gh pr view {{.PrNumber}} --json reviews --jq '[.reviews[].author.login] | unique | join(",")')

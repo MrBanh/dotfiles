@@ -37,6 +37,51 @@ function M.get_commit_sha()
   end
 end
 
+--- Relaunch nvim inside the current tmux pane, optionally in a different
+--- directory and with persistence.nvim session restore. The current pane's
+--- nvim is killed and replaced with a fresh interactive shell that auto-runs
+--- `nvim`; when that nvim exits the shell remains in `path`.
+---
+--- No-op (with a warning) when not running inside tmux.
+---
+---@param path string|nil Target directory. Defaults to the current working directory.
+---@param opts? { restore_session?: boolean }
+---@return boolean started true when the tmux respawn was dispatched
+function M.tmux_relaunch_nvim(path, opts)
+  opts = opts or {}
+
+  if not vim.env.TMUX then
+    vim.notify("Not in tmux; cannot relaunch nvim", vim.log.levels.WARN)
+    return false
+  end
+
+  local target = path or vim.fn.getcwd()
+  target = vim.fn.fnamemodify(target, ":p"):gsub("/$", "")
+
+  local shell = vim.env.SHELL or "/bin/zsh"
+  local nvim_cmd = "nvim"
+  if opts.restore_session then
+    nvim_cmd = nvim_cmd .. " -c " .. vim.fn.shellescape("silent! lua require('persistence').load()")
+  end
+
+  local cmd = string.format(
+    "%s -i -c %s",
+    vim.fn.shellescape(shell),
+    vim.fn.shellescape(string.format("%s; exec %s -i", nvim_cmd, shell))
+  )
+
+  vim.fn.jobstart({
+    "tmux",
+    "respawn-pane",
+    "-k",
+    "-c",
+    target,
+    cmd,
+  }, { detach = true })
+
+  return true
+end
+
 ---@param commit string
 function M.open_commit_in_browser(commit)
   local snacks = require("snacks")

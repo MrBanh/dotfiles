@@ -124,7 +124,7 @@ return {
           require("sidekick.cli").focus()
         end,
         desc = "Sidekick Focus",
-        mode = { "n", "t", "i", "x" },
+        mode = { "n", "i", "x" },
       },
       {
         keymap_prefix .. "g",

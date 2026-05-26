@@ -140,6 +140,17 @@ return {
   },
   {
     "rcarriga/nvim-dap-ui",
+    opts = {
+      mappings = {
+        edit = "e",
+        expand = { "<CR>", "<2-LeftMouse>" },
+        open = "o",
+        remove = "d",
+        repl = "r",
+        toggle = "t",
+        watch = "<Tab>",
+      },
+    },
     keys = {
       {
         "<leader>dw",
