@@ -53,6 +53,9 @@ M.apply_to_config = function(config)
 	config.initial_cols = 120
 
 	-- Miscellaneous settings
+	--- tempfile=$(mktemp) \ && curl -o $tempfile https://raw.githubusercontent.com/kovidgoyal/kitty/refs/heads/master/terminfo/kitty.terminfo \ && tic -x -o ~/.terminfo $tempfile \ && rm $tempfile
+	config.term = "xterm-kitty"
+	config.enable_kitty_graphics = true
 	config.max_fps = 120
 	config.prefer_egl = true
 	config.enable_kitty_keyboard = true
