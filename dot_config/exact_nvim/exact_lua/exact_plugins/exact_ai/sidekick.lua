@@ -1,8 +1,6 @@
 local keymap_prefix = "<leader>a"
 local toggle = "<M-/>"
 
-local loc_context = require("plugins.ai.sidekick.util").loc_context
-
 return {
   "folke/sidekick.nvim",
   opts = {
@@ -11,11 +9,6 @@ return {
       icon = " ",
     },
     cli = {
-      context = {
-        position = loc_context("position"),
-        line = loc_context("line"),
-        file = loc_context("file"),
-      },
       mux = {
         backend = "tmux",
         enabled = vim.fn.executable("tmux") == 1,
