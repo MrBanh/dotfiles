@@ -2,6 +2,15 @@
 --- https://github.com/magnusriga/markdown-tools.nvim
 --- + https://github.com/artempyanykh/marksman
 
+local note_id_func = function(title)
+  if title == nil then
+    title = vim.fn.input("Note title: ")
+  end
+
+  local name = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+  return name -- "Hulk Hogan" → "hulk-hogan"
+end
+
 return {
   "obsidian-nvim/obsidian.nvim",
   version = "*", -- recommended, use latest release instead of latest commit
@@ -78,14 +87,7 @@ return {
     new_notes_location = "notes_subdir", -- "current_dir" (same buffer) or "notes_subdir" (default notes subdirectory)
 
     -- Optional, customize how note IDs are generated given an optional title.
-    note_id_func = function(title)
-      if title == nil then
-        title = vim.fn.input("Note title: ")
-      end
-
-      local name = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-      return name -- "Hulk Hogan" → "hulk-hogan"
-    end,
+    note_id_func = note_id_func,
 
     -- Optional, customize how note file names are generated given the ID, target directory, and title.
     ---@param spec { id: string, dir: obsidian.Path, title: string|? }
@@ -142,16 +144,23 @@ return {
       --- See: https://github.com/obsidian-nvim/obsidian.nvim/wiki/Template#customizations
       customizations = {
         ["daily-template"] = {
-          notes_subdir = "Journal",
+          notes_subdir = "journal",
+        },
+        ["performance-review-template"] = {
+          notes_subdir = "performance-review",
+          note_id_func = function(title)
+            local custom_title = note_id_func(title)
+            return "since-" .. custom_title
+          end,
         },
         ["project-template"] = {
-          notes_subdir = "Projects",
+          notes_subdir = "projects",
         },
         ["rfc-template"] = {
-          notes_subdir = "RFCs",
+          notes_subdir = "rfc",
         },
         ["topic-template"] = {
-          notes_subdir = "Topics",
+          notes_subdir = "topics",
         },
       },
     },
