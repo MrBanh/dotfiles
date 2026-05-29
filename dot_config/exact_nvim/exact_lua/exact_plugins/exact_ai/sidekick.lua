@@ -53,6 +53,16 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    -- Prefix the tmux/zellij session name with "sidekick|"
+    local Session = require("sidekick.cli.session")
+    local original_sid = Session.sid
+    ---@diagnostic disable-next-line: duplicate-set-field
+    Session.sid = function(o)
+      return "sidekick|" .. original_sid(o)
+    end
+    require("sidekick").setup(opts)
+  end,
   keys = function()
     require("which-key").add({
       {
