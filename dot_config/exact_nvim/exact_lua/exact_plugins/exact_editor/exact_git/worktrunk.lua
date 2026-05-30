@@ -1,3 +1,7 @@
+local utils = require("user.utils")
+local relaunch_nvim_cmd = utils.relaunch_nvim_cmd
+local new_tmux_session = utils.new_tmux_session
+
 -- Max display width for the branch column before truncating with an ellipsis.
 local MAX_BRANCH_WIDTH = 60
 
@@ -200,8 +204,15 @@ local function switch_and_relaunch(branch, opts)
     return
   end
 
-  local relaunched = require("user.utils").tmux_relaunch_nvim(path, { restore_session = true })
-  if not relaunched then
+  -- The primary worktree (main/master) gets a bare session name; any other
+  -- branch lives in a `wt|<name>` session so they're easy to spot in tmux.
+  local wt_name = vim.fn.fnamemodify(path, ":t")
+  local session_name = (branch == "main" or branch == "master") and wt_name or ("wt|" .. wt_name)
+  local started = new_tmux_session(session_name, {
+    cwd = path,
+    cmd = relaunch_nvim_cmd({ restore_session = true }),
+  })
+  if not started then
     vim.cmd.tcd(path)
     vim.notify("tcd → " .. path)
   end
