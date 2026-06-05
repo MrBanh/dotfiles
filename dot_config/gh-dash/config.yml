@@ -90,8 +90,11 @@ keybindings:
     - key: "ctrl+w"
       name: Worktree
       command: >
-        tmux new-window -n "Worktree | PR-{{.PrNumber}}" \;
-        send-keys "wt switch pr:{{.PrNumber}} && nvim -c 'lua require([[persistence]]).load()'" Enter
+        wtpath=$(wt -C {{.RepoPath}} switch pr:{{.PrNumber}} --format json --no-cd -y 2>/dev/null | jq -r '.path // empty') &&
+        [ -n "$wtpath" ] &&
+        session="wt|$(basename "$wtpath" | tr ':. ' '___')" &&
+        { tmux has-session -t "=$session" 2>/dev/null || tmux new-session -d -s "$session" -c "$wtpath" "nvim -c 'silent! lua require([[persistence]]).load()'; exec ${SHELL:-/bin/zsh} -i"; } &&
+        tmux switch-client -t "=$session"
     - key: "ctrl+r"
       name: Request review
       command: gh pr edit {{.PrNumber}} --add-reviewer $(gh pr view {{.PrNumber}} --json reviews --jq '[.reviews[].author.login] | unique | join(",")')

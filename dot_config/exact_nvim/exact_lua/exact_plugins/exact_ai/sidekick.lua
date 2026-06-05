@@ -1,8 +1,6 @@
 local keymap_prefix = "<leader>a"
 local toggle = "<M-/>"
 
-local loc_context = require("plugins.ai.sidekick.util").loc_context
-
 return {
   "folke/sidekick.nvim",
   opts = {
@@ -11,11 +9,6 @@ return {
       icon = " ",
     },
     cli = {
-      context = {
-        position = loc_context("position"),
-        line = loc_context("line"),
-        file = loc_context("file"),
-      },
       mux = {
         backend = "tmux",
         enabled = vim.fn.executable("tmux") == 1,
@@ -39,6 +32,11 @@ return {
           height = 0, -- set to 0 for default split height
         },
       },
+      tools = {
+        opencode = {
+          cmd = { "opencode", "--continue" },
+        },
+      },
     },
     nes = {
       enabled = function(buf)
@@ -55,6 +53,16 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    -- Prefix the tmux/zellij session name with "sidekick|"
+    local Session = require("sidekick.cli.session")
+    local original_sid = Session.sid
+    ---@diagnostic disable-next-line: duplicate-set-field
+    Session.sid = function(o)
+      return "sidekick|" .. original_sid(o)
+    end
+    require("sidekick").setup(opts)
+  end,
   keys = function()
     require("which-key").add({
       {
@@ -71,7 +79,9 @@ return {
       {
         toggle,
         function()
-          require("sidekick.cli").toggle()
+          require("sidekick.cli").toggle({
+            name = "opencode",
+          })
         end,
         desc = "Sidekick Toggle",
         mode = { "n", "t", "i", "x" },

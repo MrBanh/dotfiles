@@ -37,48 +37,77 @@ function M.get_commit_sha()
   end
 end
 
---- Relaunch nvim inside the current tmux pane, optionally in a different
---- directory and with persistence.nvim session restore. The current pane's
---- nvim is killed and replaced with a fresh interactive shell that auto-runs
---- `nvim`; when that nvim exits the shell remains in `path`.
+--- Build a shell command string that launches nvim and then `exec`s an
+--- interactive shell once nvim exits. Useful for embedding into tmux session
+--- / pane commands where the surrounding shell should outlive nvim.
 ---
---- No-op (with a warning) when not running inside tmux.
+--- When `opts.restore_session` is true, the launched nvim runs
+--- persistence.nvim's `load()` on startup so the previous session for the
+--- current cwd is restored.
 ---
----@param path string|nil Target directory. Defaults to the current working directory.
 ---@param opts? { restore_session?: boolean }
----@return boolean started true when the tmux respawn was dispatched
-function M.tmux_relaunch_nvim(path, opts)
+---@return string cmd Shell command suitable for `sh -c <cmd>`.
+function M.relaunch_nvim_cmd(opts)
   opts = opts or {}
-
-  if not vim.env.TMUX then
-    vim.notify("Not in tmux; cannot relaunch nvim", vim.log.levels.WARN)
-    return false
-  end
-
-  local target = path or vim.fn.getcwd()
-  target = vim.fn.fnamemodify(target, ":p"):gsub("/$", "")
-
   local shell = vim.env.SHELL or "/bin/zsh"
   local nvim_cmd = "nvim"
   if opts.restore_session then
     nvim_cmd = nvim_cmd .. " -c " .. vim.fn.shellescape("silent! lua require('persistence').load()")
   end
-
-  local cmd = string.format(
+  return string.format(
     "%s -i -c %s",
     vim.fn.shellescape(shell),
-    vim.fn.shellescape(string.format("%s; exec %s -i", nvim_cmd, shell))
+    vim.fn.shellescape(string.format("%s; exec %s -i", nvim_cmd, vim.fn.shellescape(shell)))
   )
+end
 
-  vim.fn.jobstart({
-    "tmux",
-    "respawn-pane",
-    "-k",
-    "-c",
-    target,
-    cmd,
-  }, { detach = true })
+--- Create a detached tmux session named `name` and switch the current tmux
+--- client to it. If `opts.cmd` is provided it runs as the session's initial
+--- process in `opts.cwd`. If a session with that exact name already exists,
+--- the create step is skipped and the client just switches to it.
+---
+--- The session the client was on before is left untouched, so anything
+--- running there keeps running and is reachable via normal tmux session
+--- switching.
+---
+--- No-op (with a warning) when not running inside tmux.
+---
+---@param name string Session name; characters reserved by tmux (`:` and `.`)
+---       and whitespace are sanitized to `_`. Other punctuation like `|` and
+---       `/` is left as-is.
+---@param opts? { cwd?: string, cmd?: string }
+---@return boolean started true when the tmux command was dispatched
+function M.new_tmux_session(name, opts)
+  opts = opts or {}
 
+  if not vim.env.TMUX then
+    vim.notify("Not in tmux; cannot create session", vim.log.levels.WARN)
+    return false
+  end
+
+  -- tmux disallows `:` and `.` in session names (they're target separators),
+  -- and whitespace is asking for trouble.
+  local session_name = (name:gsub("[:%.%s]", "_"))
+
+  -- Reuse an existing session with this exact name if one is already alive.
+  vim.fn.system({ "tmux", "has-session", "-t", "=" .. session_name })
+  if vim.v.shell_error ~= 0 then
+    local args = { "tmux", "new-session", "-d", "-s", session_name }
+    if opts.cwd and opts.cwd ~= "" then
+      table.insert(args, "-c")
+      table.insert(args, opts.cwd)
+    end
+    if opts.cmd and opts.cmd ~= "" then
+      table.insert(args, opts.cmd)
+    end
+    local out = vim.fn.system(args)
+    if vim.v.shell_error ~= 0 then
+      vim.notify("tmux new-session failed: " .. out, vim.log.levels.ERROR)
+      return false
+    end
+  end
+
+  vim.fn.jobstart({ "tmux", "switch-client", "-t", "=" .. session_name }, { detach = true })
   return true
 end
 

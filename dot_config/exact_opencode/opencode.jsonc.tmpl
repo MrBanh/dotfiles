@@ -18,13 +18,14 @@
   },
   "lsp": {
     "typescript": {
-      "command": ["bend", "lsp", "--session-path", "{env:BEND_SESSION_PATH}"]
+      "command": ["bend", "lsp", "--session-path", "{env:BEND_SESSION_PATH}"],
     }
   },
 {{- end }}
   "permission": {
     "external_directory": {
       "~/.config/opencode/**": "allow",
+      "~/.config/nvim/**": "allow",
       "~/obsidian-vault/**": "allow",
       "~/.claude/agents/**": "allow",
       "/tmp/**": "allow",

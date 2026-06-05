@@ -11,6 +11,10 @@ README.md
 .config/tmux/plugins
 .config/yazi/flavors
 .config/yazi/plugins
+obsidian-vault/.obsidian
+obsidian-vault/**/**.**
+!obsidian-vault/templates
+!obsidian-vault/templates/**
 
 {{- if eq .user.host "personal" }}
 {{- else if eq .user.host "work" }}

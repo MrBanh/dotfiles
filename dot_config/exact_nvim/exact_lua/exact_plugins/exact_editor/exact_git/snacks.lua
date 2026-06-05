@@ -16,6 +16,38 @@ local function open_commit(_, item)
   end
 end
 
+local function make_yank_commit(register)
+  return function(_, item)
+    if item and item.commit then
+      vim.fn.setreg(register, item.commit)
+    end
+  end
+end
+
+local git_log_source_opts = {
+  actions = {
+    open_commit = open_commit,
+    yank_commit = make_yank_commit('"'),
+    yank_commit_clipboard = make_yank_commit("+"),
+  },
+  win = {
+    input = {
+      keys = {
+        ["<c-g>"] = { "open_commit", mode = { "n", "i" } },
+        ["y"] = { "yank_commit", mode = { "n" } },
+        ["<leader>y"] = { "yank_commit_clipboard", mode = { "n" } },
+      },
+    },
+    list = {
+      keys = {
+        ["<c-g>"] = { "open_commit" },
+        ["y"] = { "yank_commit", mode = { "n" } },
+        ["<leader>y"] = { "yank_commit_clipboard", mode = { "n" } },
+      },
+    },
+  },
+}
+
 return {
   "folke/snacks.nvim",
   opts = {
@@ -80,61 +112,33 @@ return {
           layout = { preset = "default", fullscreen = true },
           focus = "list",
         },
-        git_log = {
-          actions = {
-            open_commit = open_commit,
-          },
-          win = {
-            input = {
-              keys = {
-                ["<c-g>"] = { "open_commit", mode = { "n", "i" } },
-              },
-            },
-            list = {
-              keys = {
-                ["<c-g>"] = { "open_commit" },
-              },
-            },
-          },
-        },
-        git_log_file = {
-          actions = {
-            open_commit = open_commit,
-          },
-          win = {
-            input = {
-              keys = {
-                ["<c-g>"] = { "open_commit", mode = { "n", "i" } },
-              },
-            },
-            list = {
-              keys = {
-                ["<c-g>"] = { "open_commit" },
-              },
-            },
-          },
-        },
-        git_log_line = {
-          actions = {
-            open_commit = open_commit,
-          },
-          win = {
-            input = {
-              keys = {
-                ["<c-g>"] = { "open_commit", mode = { "n", "i" } },
-              },
-            },
-            list = {
-              keys = {
-                ["<c-g>"] = { "open_commit" },
-              },
-            },
-          },
-        },
+        git_log = git_log_source_opts,
+        git_log_file = git_log_source_opts,
+        git_log_line = git_log_source_opts,
       },
     },
   },
   keys = {
+    {
+      "<leader>gc",
+      function()
+        vim.system({ "gh", "pr", "view", "--json", "number", "-q", ".number" }, { text = true }, function(out)
+          vim.schedule(function()
+            local pr_number = vim.trim(out.stdout or "")
+            if out.code ~= 0 or pr_number == "" then
+              Snacks.notify.warn("No PR found for current branch", { title = "GitHub" })
+              return
+            end
+            Snacks.picker.gh_pr({
+              search = "#" .. pr_number,
+              state = "all",
+              focus = "list",
+            })
+          end)
+        end)
+      end,
+      desc = "GitHub PR (current branch)",
+    },
     {
       "<leader>gF",
       function()

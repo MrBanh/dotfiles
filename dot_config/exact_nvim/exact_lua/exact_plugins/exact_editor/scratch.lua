@@ -22,7 +22,18 @@ return {
   },
   {
     "folke/snacks.nvim",
+    opts = {
+      scratch = {
+        enabled = false,
+      },
+      picker = {
+        sources = {
+          scratch = false,
+        },
+      },
+    },
     keys = {
+      { "<leader>.", false },
       { "<leader>S", false },
     },
   },
