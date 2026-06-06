@@ -33,9 +33,7 @@ return {
         },
       },
       tools = {
-        opencode = {
-          cmd = { "opencode", "--continue" },
-        },
+        opencode = {},
       },
     },
     nes = {
