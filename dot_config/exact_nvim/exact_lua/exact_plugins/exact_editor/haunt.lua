@@ -11,7 +11,7 @@ return {
       annotation_prefix = " 󰆉 ",
       annotation_suffix = "",
       line_hl = nil,
-      virt_text_pos = "eol",
+      virt_text_pos = "eol", ---@type "eol" | "above"
       data_dir = nil,
       per_branch_bookmarks = true,
       picker = "auto",
