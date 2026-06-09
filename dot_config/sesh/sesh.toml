@@ -1,6 +1,6 @@
 #:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
 
-blacklist = ["claude ", 'floating\|', 'sidekick\|']
+blacklist = ["claude ", "floating-tmux", 'floating\|', 'sidekick\|']
 
 [[window]]
 name = "opencode"
