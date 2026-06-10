@@ -24,20 +24,22 @@
 {{- end }}
   "permission": {
     "external_directory": {
-      "~/.config/opencode/**": "allow",
-      "~/.config/nvim/**": "allow",
-      "~/obsidian-vault/**": "allow",
-      "~/.claude/agents/**": "allow",
       "/tmp/**": "allow",
-      "~/.local/share/nvim/**": "allow",
       "~/.cache/nvim/**": "allow",
+      "~/.claude/agents/**": "allow",
+      "~/.config/nvim/**": "allow",
+      "~/.config/opencode/**": "allow",
+      "~/.git-hooks/**": "allow",
+      "~/.local/share/nvim/**": "allow",
+      "~/obsidian-vault/**": "allow",
 
       "/private/tmp/mcp-tool-outputs/**": "allow",
       "~/.hubspot/**": "allow",
     },
     "edit": {
-      "~/.local/share/nvim/**": "deny",
       "~/.cache/nvim/**": "deny",
+      "~/.git-hooks/**": "deny",
+      "~/.local/share/nvim/**": "deny",
 
       "~/.hubspot/**": "deny",
     },
