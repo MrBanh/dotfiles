@@ -88,12 +88,7 @@ return {
         },
       },
       sources = {
-        gh_actions = {
-          focus = "list",
-          on_show = function()
-            vim.cmd.stopinsert()
-          end,
-        },
+        gh_actions = {},
         gh_diff = {
           layout = { preset = "fullscreen", fullscreen = true },
           on_change = gh_remap_preview_keys,
