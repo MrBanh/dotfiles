@@ -158,6 +158,16 @@ return {
       mode = { "n", "v" },
     },
     {
+      "<leader>goc",
+      function()
+        Snacks.gitbrowse({
+          what = "commit",
+        })
+      end,
+      desc = "Git Open Commit on cursor",
+      mode = { "n", "v" },
+    },
+    {
       "<leader>gof",
       function()
         Snacks.gitbrowse({
@@ -168,7 +178,7 @@ return {
       mode = { "n", "v" },
     },
     {
-      "<leader>gop",
+      "<leader>gol",
       function()
         Snacks.gitbrowse({
           what = "permalink",
@@ -178,13 +188,20 @@ return {
       mode = { "n", "v" },
     },
     {
-      "<leader>goc",
+      "<leader>gop",
       function()
-        Snacks.gitbrowse({
-          what = "commit",
-        })
+        vim.system({ "gh", "pr", "view", "--json", "url", "-q", ".url" }, { text = true }, function(out)
+          vim.schedule(function()
+            local url = vim.trim(out.stdout or "")
+            if out.code ~= 0 or url == "" then
+              Snacks.notify.warn("No PR found for current branch", { title = "GitHub" })
+              return
+            end
+            vim.ui.open(url)
+          end)
+        end)
       end,
-      desc = "Git Open Commit on cursor",
+      desc = "Git Open PR (current branch)",
       mode = { "n", "v" },
     },
   },
