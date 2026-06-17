@@ -7,7 +7,7 @@ name = "opencode"
 startup_script = "opencode --continue"
 
 [default_session]
-startup_command = "nvim -c ':lua Snacks.explorer({ focus = \"list\" })'"
+startup_command = "nvim -c \":lua require('persistence').load()\""
 preview_command = "eza --all --git --icons --long --group-directories-first --color=always {}"
 
 [[session]]
