@@ -30,7 +30,6 @@ brew "tmux"
 brew "worktrunk"
 brew "zsh" if OS.linux?
 
-cask "obsidian"
 cask "raycast" if OS.mac?
 cask "wezterm"
 

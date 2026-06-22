@@ -1,17 +1,18 @@
 local disabled_filetypes = {
-  "help",
-  "toggleterm",
-  "snacks_dashboard",
-  "checkhealth",
   "Diffview*",
+  "Trouble",
+  "checkhealth",
+  "dap-repl",
+  "dap-view",
+  "help",
+  "leetcode.nvim",
   "netrw",
   "noice",
   "qf",
-  "undotree",
-  "Trouble",
-  "dap-repl",
-  "leetcode.nvim",
   "sidekick_terminal",
+  "snacks_dashboard",
+  "toggleterm",
+  "undotree",
 }
 
 return {

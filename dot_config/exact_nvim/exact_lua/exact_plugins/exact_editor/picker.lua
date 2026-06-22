@@ -13,7 +13,7 @@ return {
       },
       hidden = true,
       layouts = {
-        custom_ivy = {
+        ivy = {
           layout = {
             box = "vertical",
             backdrop = false,
@@ -34,7 +34,7 @@ return {
       },
       layout = {
         cycle = false,
-        preset = "custom_ivy",
+        preset = "ivy",
       },
       matcher = {
         fuzzy = true,

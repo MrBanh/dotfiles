@@ -102,10 +102,10 @@ keybindings:
       name: code review
       command: >
         nvim -c ':lua Snacks.picker.gh_diff({ repo = "{{.RepoName}}", pr = "{{.PrNumber}}", focus = "list", on_close = function() vim.cmd("qa") end})'
-    - key: "d"
-      name: "view (nvim)"
+    - key: d
+      name: "codediff (nvim)"
       command: nvim -c "autocmd User CodeDiffClose qa" -c ":CodeDiff origin/{{.BaseRefName}} origin/{{.HeadRefName}}"
-    - key: T
+    - key: K
       name: github actions | enhance
       command: ENHANCE_THEME=overnight_slumber gh enhance -R {{.RepoName}} {{.PrNumber}}
   universal:

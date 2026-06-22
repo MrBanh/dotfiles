@@ -1,57 +1,20 @@
-local add_watch_expression = function()
-  local dapui = require("dapui")
-  local opt_cloned = vim.opt.iskeyword
-  vim.opt.iskeyword:append(".")
-  local variable = vim.fn.expand("<cword>")
-  vim.opt.iskeyword = opt_cloned
-  local watch_expression_list = dapui.elements.watches.get()
-  for _, value in ipairs(watch_expression_list) do
-    if value.expression == variable then
-      require("utils.notify").notify("Expression [" .. variable .. "] Already Existed", "warn", "DapUi")
-      do
-        return
-      end
-    end
-  end
-  dapui.elements.watches.add(variable)
-end
-
-local remove_watch_expression = function()
-  local dapui = require("dapui")
-  local watch_expression_list = dapui.elements.watches.get()
-  local expression_map_id = {}
-  local expression_names = {}
-  for index, value in ipairs(watch_expression_list) do
-    expression_map_id[value.expression] = index
-    table.insert(expression_names, value.expression)
-  end
-  vim.ui.select(expression_names, { prompt = "Select Watch Expression Del" }, function(expression)
-    if expression == nil then
-      return
-    end
-    local id = expression_map_id[expression]
-    dapui.elements.watches.remove(id)
-  end)
-end
-
-local clean_all_watch_expression = function()
-  local dapui = require("dapui")
-  local watch_expression_list = dapui.elements.watches.get()
-  for index, _ in ipairs(watch_expression_list) do
-    dapui.elements.watches.remove(index)
-  end
-end
+local prefix = "<leader>d"
 
 return {
   {
     "mfussenegger/nvim-dap",
+    dependencies = {
+      "igorlfs/nvim-dap-view",
+    },
     keys = {
       {
-        "<leader>dw",
-        false,
+        prefix .. "w",
+        "<cmd>DapViewWatch<cr>",
+        mode = { "n", "x" },
+        desc = "Watch Expression",
       },
       {
-        "<leader>dR",
+        prefix .. "R",
         function()
           require("dap").restart()
         end,
@@ -139,55 +102,68 @@ return {
     end,
   },
   {
-    "rcarriga/nvim-dap-ui",
+    --https://igorlfs.github.io/nvim-dap-view/configuration
+    "igorlfs/nvim-dap-view",
+    main = "dap-view",
     opts = {
-      mappings = {
-        edit = "e",
-        expand = { "<CR>", "<2-LeftMouse>" },
-        open = "o",
-        remove = "d",
-        repl = "r",
-        toggle = "t",
-        watch = "<Tab>",
+      auto_toggle = true,
+      icons = {
+        collapsed = " ",
+      },
+      virtual_text = {
+        enabled = true,
+      },
+      winbar = {
+        sections = {
+          "scopes",
+          "watches",
+          "breakpoints",
+          "exceptions",
+          "threads",
+          "repl",
+          "console",
+        },
+        default_section = "scopes",
+        separators = nil,
+        controls = {
+          enabled = true,
+        },
+      },
+      windows = {
+        size = 0.4,
+        position = "below",
+        terminal = {
+          size = 0.5,
+          position = "right",
+        },
       },
     },
     keys = {
       {
-        "<leader>dw",
-        "",
-        desc = "Watch Epression",
+        prefix .. "u",
+        "<cmd>DapViewToggle<cr>",
+        desc = "Dap View (Toggle)",
       },
       {
-        "<leader>dwa",
-        add_watch_expression,
-        desc = "Add Watch Expression",
+        prefix .. "e",
+        "<cmd>DapViewHover<cr>",
+        mode = { "n", "x" },
+        desc = "Eval (Hover)",
       },
       {
-        "<leader>dwd",
-        remove_watch_expression,
-        desc = "Delete Watch Expression",
-      },
-      {
-        "<leader>dwD",
-        clean_all_watch_expression,
-        desc = "Delete All Watch Expression",
-      },
-      {
-        "<leader>dW",
-        function()
-          require("dap.ui.widgets").hover()
-        end,
-        desc = "Widgets",
-      },
-      {
-        "<leader>dU",
-        function()
-          require("dapui").toggle({
-            reset = true,
-          })
-        end,
-        desc = "Dap UI (reset)",
+        prefix .. "w",
+        "<cmd>DapViewWatch<cr>",
+        mode = { "n", "x" },
+        desc = "Watch Expression",
       },
     },
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    enabled = false,
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    enabled = false,
   },
 }

@@ -180,3 +180,17 @@ autocmd("BufEnter", {
     vim.o.filetype = "markdown"
   end,
 })
+
+autocmd("FileType", {
+  pattern = "help",
+  callback = function()
+    vim.cmd("wincmd L")
+  end,
+})
+
+autocmd("FileType", {
+  pattern = "man",
+  callback = function()
+    vim.cmd("wincmd L")
+  end,
+})
