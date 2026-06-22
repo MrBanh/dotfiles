@@ -1,36 +1,6 @@
 local keymap_prefix = "<leader>a"
 local toggle = "<M-/>"
 
--- Neovim's built-in terminal mis-encodes Ctrl+Alt+<letter> under the kitty
--- keyboard protocol: it sends `CSI <ctrl-codepoint>;3u` (e.g. `\27[7;3u` for
--- Ctrl+Alt+g, modifier 3 = Alt only) instead of the canonical
--- `CSI <letter>;7u` (`\27[103;7u`, modifier 7 = Ctrl+Alt). opencode speaks the
--- kitty protocol, so it never recognizes these keybinds. tmux/zellij forward
--- them correctly, which is why they work with mux enabled. With mux disabled,
--- opencode runs directly in nvim's terminal, so we forward the correct bytes.
-local function kitty_ctrl_alt(letter)
-  return ("\27[%d;7u"):format(letter:byte())
-end
-
-local cli_win_keys = {
-  prompt = { "<C-a>p", "prompt", mode = "t", desc = "insert prompt or context" },
-}
-
--- ctrl+alt+<letter> keybinds that opencode uses (e.g. messages_last = ctrl+alt+g).
--- Add letters here as needed (b, f, y, e, ... are affected by the same nvim bug).
-for _, letter in ipairs({ "g" }) do
-  cli_win_keys["ctrl_alt_" .. letter] = {
-    "<M-C-" .. letter .. ">",
-    function(t)
-      if t.job then
-        vim.api.nvim_chan_send(t.job, kitty_ctrl_alt(letter))
-      end
-    end,
-    mode = "t",
-    desc = "opencode: send ctrl+alt+" .. letter,
-  }
-end
-
 return {
   "folke/sidekick.nvim",
   opts = {
@@ -41,10 +11,12 @@ return {
     cli = {
       mux = {
         backend = "tmux",
-        enabled = false,
+        enabled = vim.fn.executable("tmux") == 1,
       },
       win = {
-        keys = cli_win_keys,
+        keys = {
+          prompt = { "<C-a>p", "prompt", mode = "t", desc = "insert prompt or context" },
+        },
         wo = {
           scrolloff = 0, -- prevent global scrolloff from shifting terminal view on toggle
         },
@@ -79,6 +51,16 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    -- Prefix the tmux/zellij session name with "sidekick|"
+    local Session = require("sidekick.cli.session")
+    local original_sid = Session.sid
+    ---@diagnostic disable-next-line: duplicate-set-field
+    Session.sid = function(o)
+      return "sidekick|" .. original_sid(o)
+    end
+    require("sidekick").setup(opts)
+  end,
   keys = function()
     require("which-key").add({
       {
