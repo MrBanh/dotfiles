@@ -101,35 +101,6 @@ end, {
   desc = "Toggle gh-dash in terminal",
 })
 
-autocmd("User", {
-  desc = "Add which key for Git Conflict",
-  pattern = "GitConflictDetected",
-  callback = function()
-    vim.keymap.set("n", "<localleader>c", "<nop>", { buffer = true, desc = "Git Conflict" })
-  end,
-})
-
-autocmd("FileType", {
-  desc = "Define windows to close with 'q'",
-  pattern = {
-    "grug-far-history",
-    "dap-float",
-    "sagarename",
-  },
-  group = augroup("WinCloseOnQDefinition", { clear = true }),
-  command = [[
-            nnoremap <buffer><silent> q :close<CR>
-            set nobuflisted
-        ]],
-})
-
-autocmd("FileType", {
-  pattern = { "markdown", "md" },
-  callback = function()
-    vim.opt_local.wrap = false
-  end,
-})
-
 -- QMK AUTOCMDS
 local group = augroup("MyQMK", {})
 autocmd("BufEnter", {
@@ -181,6 +152,29 @@ autocmd("BufEnter", {
   end,
 })
 
+-- FileType AUTOCMDS
+
+autocmd("FileType", {
+  desc = "Define windows to close with 'q'",
+  pattern = {
+    "grug-far-history",
+    "dap-float",
+    "sagarename",
+  },
+  group = augroup("WinCloseOnQDefinition", { clear = true }),
+  command = [[
+            nnoremap <buffer><silent> q :close<CR>
+            set nobuflisted
+        ]],
+})
+
+autocmd("FileType", {
+  pattern = { "markdown", "md" },
+  callback = function()
+    vim.opt_local.wrap = false
+  end,
+})
+
 autocmd("FileType", {
   pattern = "help",
   callback = function()
@@ -192,5 +186,15 @@ autocmd("FileType", {
   pattern = "man",
   callback = function()
     vim.cmd("wincmd L")
+  end,
+})
+
+-- User AUTOCMDS
+
+autocmd("User", {
+  desc = "Add which key for Git Conflict",
+  pattern = "GitConflictDetected",
+  callback = function()
+    vim.keymap.set("n", "<localleader>c", "<nop>", { buffer = true, desc = "Git Conflict" })
   end,
 })
