@@ -50,9 +50,6 @@ return {
           scope_highlight = "Red",
         },
       },
-      bullet = {
-        icons = { "○", "●" },
-      },
       latex = {
         enabled = false,
       },
