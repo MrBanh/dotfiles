@@ -90,47 +90,10 @@ return {
       {
         toggle,
         function()
-          require("sidekick.cli").toggle({
-            name = "opencode",
-          })
+          require("sidekick.cli").toggle()
         end,
         desc = "Sidekick Toggle",
         mode = { "n", "t", "i", "x" },
-      },
-
-      {
-        keymap_prefix .. "a",
-        function()
-          require("snacks.input")({
-            prompt = "Ask sidekick: ",
-            default = "{this}: ",
-            icon = "󰚩 ",
-            win = {
-              title_pos = "left",
-              relative = "cursor",
-              row = -3,
-              col = 0,
-              keys = {
-                i_cr = { desc = "submit" },
-              },
-              b = {
-                completion = true,
-              },
-              bo = {
-                filetype = "sidekick_ask",
-              },
-              on_buf = function(win)
-                vim.lsp.start(require("plugins.ai.sidekick.ask_cmp"), { bufnr = win.buf })
-              end,
-            },
-          }, function(input)
-            if input and input ~= "" then
-              require("sidekick.cli").send({ msg = input, submit = true, focus = true })
-            end
-          end)
-        end,
-        desc = "Ask sidekick",
-        mode = { "n", "x" },
       },
       {
         keymap_prefix .. "d",
