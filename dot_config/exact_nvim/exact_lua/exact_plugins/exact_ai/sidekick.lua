@@ -1,7 +1,7 @@
 local keymap_prefix = "<leader>a"
 local toggle = "<M-/>"
 
-return {
+local sidekick = {
   "folke/sidekick.nvim",
   opts = {
     signs = {
@@ -150,4 +150,9 @@ return {
       },
     }
   end,
+}
+
+return {
+  sidekick,
+  require("plugins.ai.sidekick.sidekick_send"),
 }
