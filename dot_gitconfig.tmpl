@@ -20,6 +20,20 @@
 	editor = nvim -f
 [pager]
 	branch = false
+
+# delta
+[include]
+  path = ~/.config/delta/themes.gitconfig
+[core]
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  features = everforest
+[merge]
+  conflictStyle = zdiff3
+
 [user]
 	email = {{ .user.email }}
 	name = {{ .user.name }}
