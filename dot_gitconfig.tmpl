@@ -1,27 +1,21 @@
 [commit]
 	gpgsign = true
 	verbose = true
-[diff]
-	tool = codediff
-[merge]
-	tool = codediff
-[mergetool "codediff"]
-	cmd = nvim \"$MERGED\" -c \"autocmd User CodeDiffClose qa\" -c \"CodeDiff merge \\\"$MERGED\\\"\"
-[difftool "codediff"]
-	cmd = nvim \"$LOCAL\" \"$REMOTE\" -c \"autocmd User CodeDiffClose qa\" +\"CodeDiff file $LOCAL $REMOTE\"
 [pull]
 	rebase = false
 [push]
 	autoSetupRemote = true
 [gpg]
 	format = ssh
+
+# Pager
 [core]
   pager = less -FX
 	editor = nvim -f
 [pager]
 	branch = false
 
-# delta
+## delta
 [include]
   path = ~/.config/delta/themes.gitconfig
 [core]
@@ -34,6 +28,7 @@
 [merge]
   conflictStyle = zdiff3
 
+# User/access
 [user]
 	email = {{ .user.email }}
 	name = {{ .user.name }}
@@ -49,3 +44,13 @@
 [init]
 	defaultBranch = master
 {{- end }}
+
+# Diff and Merge tools
+[diff]
+	tool = codediff
+[merge]
+	tool = codediff
+[mergetool "codediff"]
+	cmd = nvim \"$MERGED\" -c \"autocmd User CodeDiffClose qa\" -c \"CodeDiff merge \\\"$MERGED\\\"\"
+[difftool "codediff"]
+	cmd = nvim \"$LOCAL\" \"$REMOTE\" -c \"autocmd User CodeDiffClose qa\" +\"CodeDiff file $LOCAL $REMOTE\"
