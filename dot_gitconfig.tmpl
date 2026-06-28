@@ -6,9 +6,9 @@
 [merge]
 	tool = codediff
 [mergetool "codediff"]
-	cmd = nvim \"$MERGED\" -c \"autocmd User CodeDiffClose qa\" -c \"CodeDiff merge \\\"$MERGED\\\"\"
+  cmd = nvim "$MERGED" -c "autocmd User CodeDiffClose qa" -c "CodeDiff merge \"$MERGED\""
 [difftool "codediff"]
-	cmd = nvim \"$LOCAL\" \"$REMOTE\" -c \"autocmd User CodeDiffClose qa\" +\"CodeDiff file $LOCAL $REMOTE\"
+	cmd = nvim "$LOCAL" "$REMOTE" -c "autocmd User CodeDiffClose qa" +"CodeDiff file $LOCAL $REMOTE"
 [pull]
 	rebase = false
 [push]
