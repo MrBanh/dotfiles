@@ -107,6 +107,7 @@ return {
         end
       end,
       colours_override = function(palette)
+        -- Colors from: https://github.com/NvChad/base46/blob/v3.0/lua/base46/themes/everforest.lua
         local overrides = {
           green = "#83c092",
           blue = "#7393b3",
