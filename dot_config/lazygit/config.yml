@@ -2,8 +2,8 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
 keybinding:
   universal:
-    scrollUpMain-alt1: <c-b>
-    scrollDownMain-alt1: <c-f>
+    scrollUpMain: <c-b>
+    scrollDownMain: <c-f>
     copyToClipboard: y
 
   commits:
@@ -30,6 +30,7 @@ gui:
   # When mouse events are captured, it's a little harder to select text: e.g.
   # requiring you to hold the option key when on macOS.
   mouseEvents: true
+  scrollHeight: 20
 
 promptToReturnFromSubprocess: false
 
