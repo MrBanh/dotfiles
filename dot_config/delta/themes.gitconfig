@@ -685,7 +685,7 @@
     # -- line numbers
     line-numbers = true
     line-numbers-left-format = "{nm:>1}│"
-    line-numbers-right-format = "│{np:>1}"
+    line-numbers-right-format = "│{np:<3}"
     line-numbers-left-style = "#4e565c"
     line-numbers-minus-style = "#e67e80"
     line-numbers-plus-style = "#83c092"
