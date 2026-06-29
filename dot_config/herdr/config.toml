@@ -56,7 +56,7 @@ close_pane = "prefix+c"
 # zoom = ""  # legacy alias: fullscreen
 settings = "prefix+."
 # resize_mode = ""
-# toggle_sidebar = "prefix+b"
+toggle_sidebar = "prefix+e"
 
 # Custom prefix-mode commands. Press prefix, then the configured key.
 # type = "shell" runs detached in the background.
@@ -103,6 +103,8 @@ prompt_new_tab_name = false
 # accent = "cyan"
 
 # Background notification popup delivery
+show_agent_labels_on_pane_borders = true
+
 [ui.toast]
 # off = disable pop-up notifications
 # herdr = show top-right in-app toasts
@@ -111,6 +113,8 @@ prompt_new_tab_name = false
 # delivery = "off"
 
 # Play sounds when agents change state in background workspaces
+delivery = "system"
+
 [ui.sound]
 # enabled = true
 # Optional custom mp3 sound files. Relative paths are resolved from this config file's directory.
@@ -123,12 +127,16 @@ prompt_new_tab_name = false
 # [ui.sound.agents]
 # droid = "off"
 
+enabled = true
+
 [experimental]
 # Allow launching herdr from inside a herdr-managed pane.
 allow_nested = false
 # Experimental local Kitty graphics rendering for attached clients.
 # Requires a Kitty graphics-compatible outer terminal.
 kitty_graphics = true
+
+switch_ascii_input_source_in_prefix = false
 
 [advanced]
 # Maximum scrollback buffer size in bytes retained per pane terminal.
