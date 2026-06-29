@@ -6,6 +6,10 @@ blacklist = ["claude ", "floating-tmux", 'floating\|', 'sidekick\|']
 name = "opencode"
 startup_script = "opencode --continue"
 
+[[window]]
+name = "nvim"
+startup_script = "nvim"
+
 [default_session]
 startup_command = "nvim -c \":lua require('persistence').load()\""
 preview_command = "eza --all --git --icons --long --group-directories-first --color=always {}"
@@ -14,6 +18,7 @@ preview_command = "eza --all --git --icons --long --group-directories-first --co
 name = "chezmoi"
 path = "~/.local/share/chezmoi"
 startup_command = "chezmoi re-add && lazygit && tmux kill-session"
+windows = ["nvim"]
 
 [[session]]
 name = "downloads"
@@ -57,3 +62,4 @@ preview_command = "bat --color=always ~/.zshrc"
 name = "chezmoi - work"
 path = "~/dotfiles-work"
 startup_command = "chezmoi -S {} re-add && lazygit && tmux kill-session"
+windows = ["nvim"]
