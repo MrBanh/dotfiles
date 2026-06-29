@@ -20,6 +20,7 @@ brew "chezmoi"
 brew "eza"
 brew "gh"
 brew "git"
+brew "git-delta"
 brew "lazygit"
 brew "neovim"
 brew "node"
@@ -57,5 +58,6 @@ end
 system "npx ctx7 setup" if OS.linux? # Context7 MCP
 
 # Misc
+system "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
 system "yay -S portmaster-bin" if OS.linux?
 system "curl -fsSL https://vicinae.com/install | sh" if OS.linux?
