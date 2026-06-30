@@ -672,20 +672,20 @@
     syntax-theme = everforest
     # -- decorations
     file-added-label = [+]
-    file-copied-label = [C]
-    file-modified-label = [M]
+    file-copied-label = [*]
+    file-modified-label = [~]
     file-removed-label = [-]
-    file-renamed-label = [R]
+    file-renamed-label = [>]
     file-decoration-style = "#4e565c" ul
     file-style = "#d3c6aa" bold
     hunk-header-decoration-style = "#4e565c" ul
     hunk-header-file-style = "#83c092"
     hunk-header-line-number-style = "#4e565c"
-    hunk-header-style = file line-number syntax bold
+    hunk-header-style = omit
     # -- line numbers
     line-numbers = true
-    line-numbers-left-format = "{nm:>1}│"
-    line-numbers-right-format = "│{np:<3}"
+    line-numbers-left-format = "{nm:>2}│"
+    line-numbers-right-format = "{np:<3} "
     line-numbers-left-style = "#4e565c"
     line-numbers-minus-style = "#e67e80"
     line-numbers-plus-style = "#83c092"
