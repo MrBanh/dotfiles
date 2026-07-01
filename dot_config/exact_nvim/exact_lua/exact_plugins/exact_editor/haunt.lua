@@ -8,7 +8,7 @@ return {
       sign = "󱙝",
       sign_hl = "DiagnosticInfo",
       virt_text_hl = "HauntAnnotation",
-      annotation_prefix = " 󰆉 ",
+      annotation_prefix = " 󱙝 ",
       annotation_suffix = "",
       line_hl = nil,
       virt_text_pos = "eol", ---@type "eol" | "above"
@@ -27,7 +27,17 @@ return {
           require("haunt.api").annotate()
         end,
         desc = "Annotate",
-        mode = { "n", "x" },
+        mode = { "n" },
+      },
+      {
+        prefix .. "a",
+        function()
+          local text = table.concat(require("user.utils").get_visual_selection_text(), "\n")
+          require("haunt.api").annotate(string.gsub(text, "%s+", " "))
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+        end,
+        desc = "Annotate",
+        mode = { "x" },
       },
       {
         prefix .. "t",
@@ -51,7 +61,7 @@ return {
         desc = "Delete bookmark",
       },
       {
-        prefix .. "C",
+        prefix .. "D",
         function()
           require("haunt.api").clear_all()
         end,
