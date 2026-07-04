@@ -54,6 +54,7 @@ split_vertical = "prefix+v"
 split_horizontal = "prefix+s"
 close_pane = "prefix+c"
 toggle_sidebar = "prefix+e"
+settings = "prefix+."
 
 # Custom prefix-mode commands. Press prefix, then the configured key.# resize_mode = ""settings = "prefix+."# zoom = ""  # legacy alias: fullscreen
 # toggle_sidebar = "prefix+b"
@@ -90,7 +91,7 @@ prompt_new_tab_name = false
 # show_agent_labels_on_pane_borders = false
 
 # Agent panel scope: "current" or "all". Toggling it in the sidebar saves this setting.
-# agent_panel_scope = "all"
+agent_panel_scope = "all"
 
 # Accent color for highlights, borders, and navigation UI.
 # Accepts: hex (#89b4fa), named colors (cyan, blue, magenta), or rgb(r,g,b)
@@ -136,6 +137,7 @@ prompt_new_tab_name = false
 # delivery = "off"
 
 # Play sounds when agents change state in background workspaces
+delivery = "system"
 [ui.sound]
 # enabled = true
 # Optional custom mp3 sound files. Relative paths are resolved from this config file's directory.
