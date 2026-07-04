@@ -1,0 +1,385 @@
+#!/usr/bin/env bash
+# agent-manager — a sesh-style fzf popup to jump between running AI agents.
+#
+# LISTING is process-based: we scan each tmux pane's process subtree and match the
+# real agent binary, so an agent shows up the instant it launches — no hook or
+# interaction required (the pane's foreground command is often a wrapper, e.g.
+# `dvx opencode` runs as python3.12).
+#
+# STATUS + ACTIVITY are push-based, not scraped: the bundled integrations make each
+# agent write its live state to that pane's @agent_state option and append events
+# to a per-pane activity log (see integrations/). `agent-manager install` wires
+# them up.
+#
+# SMART JUMP: the key opens the fzf picker in a display-popup (popup #1). fzf writes
+# your choice to a file and exits; cmd_menu then opens a SECOND popup that attaches
+# to the chosen agent's window — a live view that does NOT yank the window from
+# other clients (it attaches a throwaway session with the window link-shared in).
+# Because each popup runs its own command (no `become`), the attach is a plain popup
+# command, which is the only thing tmux lets you nest-attach into. Picker keys:
+#   enter        view the selected agent's window in a popup
+#   <jump_key>   (default ctrl-e) commit: attach your real client to the window
+#   <resume_key> (default ctrl-s) view the last-viewed agent again
+#   <kill_key>   (default ctrl-x) kill the agent's window
+# While viewing an agent: the open key (prefix+e) closes the view and exits; the
+# back key (<back_key>, default prefix+BSpace) bounces straight back to the picker.
+#
+# Subcommands: menu <client> | picker <out> | list | activity <pane> | preview <pane>
+#              view <win> | kill <win> | notify | install
+
+self="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+root="$(cd "$(dirname "$self")/.." && pwd)"
+
+VIEW="agent-manager-view" # dedicated grouped session used to view an agent
+
+# Read a tmux option with a fallback default.
+opt() {
+  local v
+  v="$(tmux show -gqv "$1" 2>/dev/null)"
+  [ -n "$v" ] && printf '%s' "$v" || printf '%s' "$2"
+}
+
+# Compact a key name for footer hints: "ctrl-y" -> "^y", "alt-k" -> "M-k".
+caret() { case "$1" in ctrl-*) printf '^%s' "${1#ctrl-}" ;; alt-*) printf 'M-%s' "${1#alt-}" ;; *) printf '%s' "$1" ;; esac }
+
+# Match a "comm args" process line to an agent. Anchored to a path/word boundary.
+agent_regex_opencode='(^| |/)opencode( |$)'
+agent_regex_claude='(^| |/)claude(-code)?( |$)'
+
+activity_dir() { printf '%s/agent-manager/activity' "${TMPDIR:-/tmp}"; }
+
+# Strict window existence check. `display-message -t <stale>` silently falls back
+# to a default target, so we match the exact id against the real window list.
+window_exists() { tmux list-windows -a -F '#{window_id}' 2>/dev/null | grep -qxF "$1"; }
+
+cmd_list() {
+  local TAB=$'\t' now
+  now="$(date +%s)"
+  awk \
+    -v RE_OPENCODE="$agent_regex_opencode" \
+    -v RE_CLAUDE="$agent_regex_claude" \
+    -v NOW="$now" \
+    '
+    # Elapsed time in the CURRENT state (integrations stamp @agent_state_ts on each
+    # transition), e.g. "12m" idle, "3s" working — like tmux-agent-sidebar.
+    function agefmt(s) {
+      if (s == "" || s < 0)  return "—"
+      if (s < 60)    return s "s"
+      if (s < 3600)  return int(s/60) "m"
+      if (s < 86400) return int(s/3600) "h"
+      return int(s/86400) "d"
+    }
+    FNR==NR { proc[$1]=$0; kids[$2]=kids[$2] " " $1; next }
+    {
+      n=split($0, f, "\t")
+      panepid=f[1]; paneid=f[2]; winid=f[3]; sess=f[4]; widx=f[5]; cwd=f[6]; state=f[7]; ts=f[8]+0
+      agent=""; delete stack; sp=0; stack[sp++]=panepid
+      while (sp>0 && agent=="") {
+        cur=stack[--sp]; line=proc[cur]
+        if (line ~ RE_OPENCODE)     agent="opencode"
+        else if (line ~ RE_CLAUDE)  agent="claude"
+        if (agent=="") { m=split(kids[cur], kk, " "); for (i=1;i<=m;i++) if (kk[i]!="") stack[sp++]=kk[i] }
+      }
+      if (agent=="" || seen[winid]++) next
+      base=cwd; sub(/.*\//, "", base)
+      # prio 0 = needs you (waiting for input/permission, or errored) so it sorts
+      # nearest the input; everything else is prio 1.
+      st=state; color=90; prio=1
+      if (st=="")             st="—"
+      else if (st=="working") color=31
+      else if (st=="idle")    color=32
+      else if (st=="waiting") { st="input"; color=33; prio=0 }
+      else if (st=="error")   { color=31; prio=0 }
+      age = (ts>0) ? agefmt(NOW-ts) : "—"
+      # prio \t epoch \t window_id \t pane_id \t <display>  (first 4 hidden via --with-nth).
+      # Sorted below: prio asc, then epoch desc (most recent). fzf --layout=default
+      # puts the first row nearest the input/cursor — so a waiting agent lands there.
+      printf "%d\t%d\t%s\t%s\t\033[%sm%-7s\033[0m \033[90m%4s\033[0m \033[1m%-9s\033[0m \033[90m%s:%s\033[0m %s\n", \
+             prio, ts, winid, paneid, color, st, age, agent, sess, widx, base
+    }
+  ' \
+    <(ps -Ao pid=,ppid=,comm=,args=) \
+    <(tmux list-panes -a -F "#{pane_pid}${TAB}#{pane_id}${TAB}#{window_id}${TAB}#{session_name}${TAB}#{window_index}${TAB}#{pane_current_path}${TAB}#{@agent_state}${TAB}#{@agent_state_ts}") |
+    sort -t"$TAB" -k1,1n -k2,2nr | cut -f3-
+}
+
+# The color-coded tool-call feed for the focused agent — the picker's preview.
+# Reads the raw "HH:MM:SS|tool|detail" log the integrations write and renders it
+# newest-first, mapping each tool name to a stable color (palette borrowed from
+# tmux-agent-sidebar) so Bash / Read / Edit stay distinguishable at a glance.
+cmd_activity() {
+  local pane="$1" n="${2:-40}" logf
+  printf '\033[1m  Activity\033[0m\n\n'
+  [ -n "$pane" ] || return 0
+  logf="$(activity_dir)/${pane}.log"
+  if [ ! -s "$logf" ]; then
+    printf '  \033[38;5;244m(no tool calls yet — if this stays empty, restart the\n   agent so the bundled integration loads)\033[0m\n'
+    return 0
+  fi
+  awk -F'|' -v N="$n" '
+    function color(tool,   t) {
+      t = tolower(tool)
+      if (t ~ /^mcp__/)                                      return 183
+      if (t ~ /^(bash|shell|powershell|monitor|fish|zsh)$/)  return 114
+      if (t ~ /^(edit|write|multiedit|notebookedit|patch)$/) return 180
+      if (t ~ /^(read|glob|grep|list|ls)$/)                  return 110
+      if (t ~ /^(webfetch|websearch|fetch)$/)                return 117
+      if (t ~ /^(task|agent|subagent)$/)                     return 223
+      if (t == "skill")                                      return 218
+      if (t ~ /^(todowrite|todoread|todo)$/)                 return 179
+      if (t == "lsp")                                        return 146
+      if (t == "waiting")                                    return 216
+      if (t == "error")                                      return 203
+      return 244
+    }
+    { ts[NR]=$1; tl[NR]=$2; dt[NR]=$3 }
+    END {
+      shown=0
+      for (i=NR; i>=1 && shown<N; i--) {
+        c=color(tl[i]); pad=sprintf("%-10s", tl[i])
+        out=sprintf("  \033[38;5;240m%s\033[0m  \033[38;5;%dm%s\033[0m", ts[i], c, pad)
+        if (dt[i] != "") out=out sprintf(" \033[38;5;245m%s\033[0m", dt[i])
+        print out
+        shown++
+      }
+    }
+  ' "$logf"
+}
+
+# The picker's preview: a live capture of the agent's window (sesh-style) with a
+# compact, color-coded activity strip on top. Most-recent window output sits at the
+# bottom, like a real terminal. $FZF_PREVIEW_COLUMNS (exported by fzf) sizes the rule.
+cmd_preview() {
+  local pane="$1" w
+  [ -n "$pane" ] || return 0
+  cmd_activity "$pane" 5
+  w="${FZF_PREVIEW_COLUMNS:-60}"
+  printf '\n\033[38;5;238m%s\033[0m\n' "$(printf "%${w}s" '' | tr ' ' '─')"
+  printf '\033[1m  Window\033[0m\n\n'
+  tmux capture-pane -ep -t "$pane" 2>/dev/null | sed -e 's/[[:space:]]*$//' | tail -n 200
+}
+
+# Popup #1's command: the interactive picker. On exit it writes two lines to $out
+# — the key pressed (via --expect) and the selected row — for cmd_menu to act on.
+# It never attaches or `become`s itself, so the "attach inside this same popup"
+# problem never arises.
+cmd_picker() {
+  local out="$1" jump kill refresh resume ftr
+  jump="$(opt @agent_manager_jump_key ctrl-e)"
+  kill="$(opt @agent_manager_kill_key ctrl-x)"
+  refresh="$(opt @agent_manager_refresh_key ctrl-r)"
+  resume="$(opt @agent_manager_resume_key ctrl-s)"
+  ftr="$(caret "$jump") attach  $(caret "$resume") resume  $(caret "$kill") kill  $(caret "$refresh") refresh"
+  # --layout=default puts the input at the bottom (sesh-style). With this layout the
+  # --header renders below the list and above the info/prompt line — that's where
+  # sesh shows its key hints. Preview is the agent's live window + activity strip.
+  "$self" list | fzf \
+    --ansi --no-sort --cycle --layout=default --delimiter $'\t' --with-nth '3..' \
+    --prompt '  agents  ' \
+    --preview "$self preview {2}" \
+    --preview-window 'right,55%,border-left' \
+    --header "$ftr" \
+    --expect="enter,${jump},${resume}" \
+    --bind "${kill}:execute-silent($self kill {1})+reload($self list)" \
+    --bind "${refresh}:reload($self list)" \
+    >"$out"
+}
+
+# display-popup on a specific client (fallback: active client). It blocks until
+# its command exits — that sequencing is what lets cmd_menu run the picker, read
+# the result, then open the view popup, one after another.
+popup() { # popup <client> <w> <h> <shell-command>
+  local c="$1" w="$2" h="$3" cmd="$4"
+  if [ -n "$c" ] && tmux list-clients -F '#{client_name}' 2>/dev/null | grep -qxF "$c"; then
+    tmux display-popup -c "$c" -w "$w" -h "$h" -E "$cmd"
+  else
+    tmux display-popup -w "$w" -h "$h" -E "$cmd"
+  fi
+}
+
+# The orchestrator, bound to the popup key (gets the pressing client as $1):
+#   - already viewing an agent? this keypress closes that view popup (press again
+#     to reopen the picker).
+#   - otherwise open the picker (popup #1); on the choice, open a view popup that
+#     ATTACHES to the agent window (popup #2), or ctrl-e to commit the client to it.
+cmd_menu() {
+  local client="$1" w h out key wid last jump resume
+  w="$(opt @agent_manager_width 90%)"
+  h="$(opt @agent_manager_height 90%)"
+  jump="$(opt @agent_manager_jump_key ctrl-e)"
+  resume="$(opt @agent_manager_resume_key ctrl-s)"
+
+  # Inside a viewed agent (a client is attached to VIEW): this key closes the view
+  # and exits. (The back key — cmd_back — instead bounces back to the picker.)
+  if [ -n "$(tmux list-clients -t "$VIEW" -F '#{client_name}' 2>/dev/null)" ]; then
+    tmux detach-client -s "$VIEW" 2>/dev/null
+    return 0
+  fi
+  tmux kill-session -t "$VIEW" 2>/dev/null # clear any stale, client-less view
+  tmux set -g @agent_manager_reopen 0
+
+  # Loop so the back key can jump from a view straight to the picker: cmd_back sets
+  # @agent_manager_reopen and detaches the view, which unblocks the view popup below
+  # and sends us back around to re-open the picker.
+  while :; do
+    # Popup #1: the picker. Blocks until fzf writes { key, row } to $out and exits.
+    out="$(mktemp "${TMPDIR:-/tmp}/agent-manager.pick.XXXXXX")"
+    popup "$client" "$w" "$h" "$self picker '$out'"
+    key="$(sed -n 1p "$out" 2>/dev/null)"
+    wid="$(sed -n 2p "$out" 2>/dev/null | cut -f1)"
+    rm -f "$out"
+
+    case "$key" in
+      "$resume") # resume the last viewed agent (ignores the highlight)
+        last="$(tmux show -gqv @agent_manager_last 2>/dev/null)"
+        { [ -n "$last" ] && window_exists "$last"; } || break
+        popup "$client" "$w" "$h" "$self view '$last'"
+        ;;
+      "$jump") # commit: attach the client itself to the agent window
+        [ -n "$wid" ] && tmux switch-client -c "$client" -t "$wid" 2>/dev/null
+        break
+        ;;
+      enter) # view the selection in a popup
+        [ -n "$wid" ] || break
+        tmux set -g @agent_manager_last "$wid"
+        popup "$client" "$w" "$h" "$self view '$wid'"
+        ;;
+      *) # cancelled (Esc) — nothing selected
+        break
+        ;;
+    esac
+
+    # A view popup just closed. If the back key asked to return to the picker, loop;
+    # otherwise (prefix+e detach, or the agent window closed) we're done.
+    [ "$(tmux show -gqv @agent_manager_reopen 2>/dev/null)" = 1 ] || break
+    tmux set -g @agent_manager_reopen 0
+  done
+}
+
+# The back key, meaningful only inside a view popup: return to the picker. It flags
+# a reopen and detaches the view; cmd_menu (blocked on that view popup) then loops
+# and re-opens the picker. Pressing it anywhere else is a no-op.
+cmd_back() {
+  local client="$1" sess
+  sess="$(tmux display-message -p -c "$client" '#{session_name}' 2>/dev/null)"
+  [ "$sess" = "$VIEW" ] || return 0
+  tmux set -g @agent_manager_reopen 1
+  tmux detach-client -s "$VIEW" 2>/dev/null
+}
+
+# Popup #2's command: attach to the agent WINDOW. We link the exact window into a
+# throwaway session and attach that (some setups run agents in grouped sessions, so
+# attaching the session could resolve to the wrong window). link-window shares the
+# window, so killing the view session on exit leaves the real one untouched.
+#
+# Runs as the popup's own command, so $TMUX is set and a plain attach is refused by
+# tmux's nested-session guard — clearing $TMUX forces it (proven working), and the
+# popup becomes a live view of the agent window.
+cmd_view() {
+  local wid="$1" base
+  { [ -n "$wid" ] && window_exists "$wid"; } || exit 0
+  tmux kill-session -t "$VIEW" 2>/dev/null
+  tmux new-session -d -s "$VIEW" 2>/dev/null
+  tmux set-option -t "$VIEW" status off 2>/dev/null # no nested status bar
+  base="$(tmux display-message -p -t "$VIEW" '#{window_index}' 2>/dev/null)"
+  tmux link-window -s "$wid" -t "${VIEW}:${base:-1}" -k 2>/dev/null
+  TMUX= tmux attach-session -t "$VIEW"     # blocks; the popup shows this window
+  tmux kill-session -t "$VIEW" 2>/dev/null # non-destructive to the real window
+  exit 0
+}
+
+cmd_kill() {
+  local wid="$1"
+  [ -n "$wid" ] || return 0
+  tmux kill-window -t "$wid" 2>/dev/null || true
+}
+
+# Fire a notification for an agent transition. Called by the integrations on
+# done / needs-input / error. Honors @agent_manager_notify (off|tmux|terminal|
+# system) and @agent_manager_notify_sound (off|<name-or-file>). When notify is
+# off, nothing fires and no sound plays.
+cmd_notify() {
+  local pane="$1" agent="$2" state="$3" mode sound msg
+  mode="$(opt @agent_manager_notify off)"
+  [ "$mode" = off ] && return 0
+
+  # Always notify on these transitions (finished / needs-input / error). An earlier
+  # version skipped when the agent's pane looked "on-screen", but #{session_attached}
+  # is true for every attached client, so with multiple clients it suppressed real
+  # notifications (you'd only see other tools' banners). Simpler to always fire.
+
+  case "$state" in
+    idle) msg="$agent finished — your turn" ;;
+    waiting) msg="$agent needs your input" ;;
+    error) msg="$agent hit an error" ;;
+    *) msg="$agent: $state" ;;
+  esac
+
+  case "$mode" in
+    tmux)
+      tmux display-message "  $msg" 2>/dev/null
+      ;;
+    terminal)
+      # Ring the bell on every attached terminal.
+      tmux list-clients -F '#{client_tty}' 2>/dev/null | while read -r t; do
+        [ -n "$t" ] && printf '\a' >"$t" 2>/dev/null
+      done
+      ;;
+    system)
+      if command -v osascript >/dev/null 2>&1; then
+        osascript -e "display notification \"${msg//\"/}\" with title \"agent-manager\"" >/dev/null 2>&1 &
+      elif command -v notify-send >/dev/null 2>&1; then
+        notify-send "agent-manager" "$msg" >/dev/null 2>&1 &
+      fi
+      ;;
+  esac
+
+  sound="$(opt @agent_manager_notify_sound off)"
+  if [ "$sound" != off ] && [ -n "$sound" ]; then
+    local f=""
+    if [ -f "$sound" ]; then
+      f="$sound"
+    elif [ -f "/System/Library/Sounds/$sound.aiff" ]; then
+      f="/System/Library/Sounds/$sound.aiff"
+    fi
+    if [ -n "$f" ]; then
+      if command -v afplay >/dev/null 2>&1; then
+        afplay "$f" >/dev/null 2>&1 &
+      elif command -v paplay >/dev/null 2>&1; then
+        paplay "$f" >/dev/null 2>&1 &
+      fi
+    fi
+  fi
+  return 0
+}
+
+cmd_install() {
+  local ocbase="${XDG_CONFIG_HOME:-$HOME/.config}/opencode" d
+  if [ -d "$ocbase" ]; then
+    for d in plugins plugin; do
+      mkdir -p "$ocbase/$d"
+      ln -sf "$root/integrations/opencode/agent-state.js" "$ocbase/$d/agent-manager-state.js"
+    done
+    echo "opencode: linked into $ocbase/plugins/ (restart opencode to load)"
+  fi
+  if [ -d "$HOME/.claude" ] && command -v python3 >/dev/null 2>&1; then
+    python3 "$root/integrations/claude/install.py" "$root/integrations/claude/agent-state.sh"
+  fi
+}
+
+case "${1:-menu}" in
+  menu) cmd_menu "${2:-}" ;;
+  back) cmd_back "${2:-}" ;;
+  picker) cmd_picker "${2:-}" ;;
+  list) cmd_list ;;
+  activity) cmd_activity "${2:-}" "${3:-}" ;;
+  preview) cmd_preview "${2:-}" ;;
+  view) cmd_view "${2:-}" ;;
+  kill) cmd_kill "${2:-}" ;;
+  notify) cmd_notify "${2:-}" "${3:-}" "${4:-}" ;;
+  install) cmd_install ;;
+  *)
+    echo "usage: agent-manager {menu <client>|back <client>|picker <out>|list|activity <pane>|preview <pane>|view <win>|kill <win>|notify|install}" >&2
+    exit 2
+    ;;
+esac
