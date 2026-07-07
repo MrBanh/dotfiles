@@ -121,7 +121,7 @@ then
   ## Tmux - https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/tmux/README.md
   ZSH_TMUX_AUTOSTART=true      # Automatically start tmux session
   ZSH_TMUX_AUTOSTART_ONCE=true # Only if tmux hasn't been started previously
-  ZSH_TMUX_AUTOQUIT=true       # Automatically closes terminal once tmux exits
+  ZSH_TMUX_AUTOQUIT=false      # Automatically closes terminal once tmux exits
 fi
 
 ## Zsh Vi Mode settings
