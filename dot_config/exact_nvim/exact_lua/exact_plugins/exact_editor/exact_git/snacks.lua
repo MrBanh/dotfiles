@@ -53,6 +53,7 @@ return {
   opts = {
     ---@class snacks.lazygit.Config: snacks.terminal.Opts
     lazygit = {
+      configure = false, -- don't use neovim's colorscheme for snacks lazygit
       config = {
         os = {
           edit = '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}})',
