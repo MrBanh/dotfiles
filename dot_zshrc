@@ -162,7 +162,6 @@ source $ZSH/oh-my-zsh.sh
 
 alias nvc='cd ~/.config/nvim && nvim .'
 alias zshrc="$EDITOR ~/.zshrc"
-alias cm='chezmoi'
 alias gg="lazygit"
 alias dev="cd $HOME/src"
 alias v='nvim'
@@ -178,6 +177,18 @@ alias ls="eza --icons=always --group-directories-last --color=auto -h -l"
 if [[ "$CLAUDECODE" != "1" ]]; then
   eval "$(zoxide init zsh --cmd cd)"
 fi
+
+## Chezmoi
+cm() {
+  if [[ "$1" == "add" || "$1" == "forget" || "$1" == "re-add" ]]; then
+    chezmoi "$@" || return $?
+    if [[ -d ~/dotfiles-work ]]; then
+      chezmoi -S ~/dotfiles-work "$@"
+    fi
+  else
+    chezmoi "$@"
+  fi
+}
 
 ## Yazi - https://yazi-rs.github.io/docs/quick-start
 ### Changes cwd when exiting yazi
