@@ -27,7 +27,6 @@ git:
 
 gui:
   scrollHeight: 20
-  mainPanelSplitMode: horizontal
 
 promptToReturnFromSubprocess: false
 
