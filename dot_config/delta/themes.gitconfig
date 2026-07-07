@@ -30,12 +30,12 @@
     line-numbers-plus-style = "#83c092" italic
     line-numbers-zero-style = "#7a8478" italic
     # -- diff
-    minus-style = bold "#e67e80" "#4C3743"
-    minus-emph-style = bold "#e67e80" "#4C3743"
-    minus-non-emph-style = bold syntax
-    plus-style = bold "#83c092" "#3C4841"
-    plus-emph-style = bold "#83c092" "#3C4841"
-    plus-non-emph-style = bold syntax
+    minus-style = "#e67e80" "#4C3743"
+    minus-emph-style = "#e67e80" "#4C3743"
+    minus-non-emph-style = syntax
+    plus-style = "#83c092" "#3C4841"
+    plus-emph-style = "#83c092" "#3C4841"
+    plus-non-emph-style = syntax
     zero-style = syntax
     # -- blame
     blame-code-style = syntax
