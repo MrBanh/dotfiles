@@ -4,7 +4,7 @@
 #     path = PATH/TO/delta/themes.gitconfig
 #
 # [delta]
-#    features = kingfisher
+#    features = everforest
 
 [delta "everforest"]
     dark = true
@@ -14,7 +14,7 @@
     syntax-theme = everforest
     # -- file header
     file-style = "#d3c6aa" bold
-    file-decoration-style = "#4f585e" ul
+    file-decoration-style = "#4e565c" ul
     file-added-label = [+]
     file-copied-label = [*]
     file-modified-label = [~]
@@ -40,11 +40,11 @@
     # -- blame
     blame-code-style = syntax
     blame-format = "{author:<18} ({commit:>9}) {timestamp:^16}"
-    blame-palette = "#232a2e" "#2d353b" "#343f44" "#3d484d"
+    blame-palette = "#272f35" "#2b3339" "#363e44" "#3d454b"
     # -- merge conflicts
     merge-conflict-begin-symbol = "<<<"
     merge-conflict-end-symbol = ">>>"
     merge-conflict-ours-diff-header-style = "#dbbc7f" bold
-    merge-conflict-ours-diff-header-decoration-style = "#4f585e" box
+    merge-conflict-ours-diff-header-decoration-style = "#4e565c" box
     merge-conflict-theirs-diff-header-style = "#dbbc7f" bold
-    merge-conflict-theirs-diff-header-decoration-style = "#4f585e" box
+    merge-conflict-theirs-diff-header-decoration-style = "#4e565c" box
