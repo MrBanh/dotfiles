@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/tui.json",
-  "theme": "transparent",
+  "theme": "matugen",
   "leader_timeout": 2000,
   "plugin_enabled": {
     "which-key": true,
