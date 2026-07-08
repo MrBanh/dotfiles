@@ -9,7 +9,8 @@ README.md
 .config/nvim/.claude
 .config/nvim/lazy-lock.json
 .config/tmux/plugins
-.config/yazi/flavors
+.config/yazi/flavors/*
+!.config/yazi/flavors/matugen.yazi/
 .config/yazi/plugins
 obsidian-vault/.obsidian
 obsidian-vault/**/**.**
