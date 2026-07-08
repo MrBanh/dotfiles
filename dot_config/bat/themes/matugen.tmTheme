@@ -3,13 +3,13 @@
 <plist version="1.0">
   <dict>
     <key>name</key>
-    <string>Everforest</string>
+    <string>matugen</string>
     <key>semanticClass</key>
-    <string>theme.dark.everforest</string>
+    <string>theme.dark.matugen</string>
     <key>uuid</key>
     <string>4d0379b5-ef82-467b-b8b8-365889420646</string>
     <key>author</key>
-    <string>Everforest (base46 palette, adapted for bat)</string>
+    <string>matugen</string>
     <key>colorSpaceName</key>
     <string>sRGB</string>
 
@@ -28,7 +28,7 @@
           <key>lineHighlight</key>
           <string>#323c41</string>
           <key>misspelling</key>
-          <string>#7fbbb3</string>
+          <string>#7393b3</string>
           <key>accent</key>
           <string>#83c092</string>
           <key>selection</key>
@@ -63,7 +63,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#7fbbb3</string>
+          <string>#7393b3</string>
         </dict>
       </dict>
       <dict>
@@ -225,7 +225,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#7fbbb3</string>
+          <string>#7393b3</string>
         </dict>
       </dict>
       <dict>
@@ -252,7 +252,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#7fbbb3</string>
+          <string>#7393b3</string>
         </dict>
       </dict>
       <dict>
@@ -297,7 +297,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#7fbbb3</string>
+          <string>#7393b3</string>
         </dict>
       </dict>
 
@@ -321,7 +321,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#7fbbb3</string>
+          <string>#7393b3</string>
         </dict>
       </dict>
       <dict>
@@ -357,7 +357,7 @@
         <key>settings</key>
         <dict>
           <key>foreground</key>
-          <string>#7fbbb3</string>
+          <string>#7393b3</string>
         </dict>
       </dict>
       <dict>
