@@ -7,6 +7,7 @@
 
 if command -v starship &>/dev/null; then
   eval "$(starship init zsh)"
+  export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 fi
 
 if command -v wt >/dev/null 2>&1; then
