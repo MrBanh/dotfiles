@@ -7,7 +7,7 @@ command_timeout = 2000
 format = """
 $os\
 $username\
-[ 󰉋 ](fg:color_directory)\
+[ 󰉋 ](fg:base0a)\
 $directory\
 $git_branch\
 $git_commit\
@@ -40,83 +40,29 @@ $line_break\
 $character
 """
 
-palette = "default"
+palette = "matugen"
 
-[palettes.default]
-color_ok = "bright-green"
-color_danger = "bright-red"
-color_caution = "bright-yellow"
-
-color_os = "red"
-color_username = "red"
-color_directory = "yellow"
-color_git = "cyan"
-color_git_added = "bright-green"
-color_git_deleted = "bright-red"
-color_env = "blue"
-color_kubernetes = "purple"
-color_docker = "blue"
-color_shell = ""
-color_container = ""
-color_other = ""
-color_time = ""
-color_duration = ""
-
-color_vimcmd_ok = "green"
-color_vimcmd_replace = "purple"
-color_vimcmd_visual = "yellow"
-
-[palettes.gruvbox_dark]
-color_ok = "#b8bb26"
-color_danger = "#fb4934"
-color_caution = "#d79921"
-
-color_os = "#d65d0e"
-color_username = "#d65d0e"
-color_directory = "#d79921"
-color_git = "#689d6a"
-color_git_added = "#b8bb26"
-color_git_deleted = "#fb4934"
-color_env = "#458588"
-color_kubernetes = "#b16286"
-color_docker = "#458588"
-color_shell = "#a89984"
-color_container = "#cc241d"
-color_other = "#d5c4a1"
-color_time = "#fbf1c7"
-color_duration = "#fbf1c7"
-
-color_vimcmd_ok = "#8ec07c"
-color_vimcmd_replace = "#b16286"
-color_vimcmd_visual = "#d79921"
-
-[palettes.gruvbox_light]
-color_ok = "#79740e"
-color_danger = "#9d0006"
-color_caution = "#d79921"
-
-color_os = "#d65d0e"
-color_username = "#d65d0e"
-color_directory = "#d79921"
-color_git = "#689d6a"
-color_git_added = "#79740e"
-color_git_deleted = "#9d0006"
-color_env = "#458588"
-color_kubernetes = "#b16286"
-color_docker = "#458588"
-color_shell = "#7c6f64"
-color_container = "#cc241d"
-color_other = "#504945"
-color_time = "#282828"
-color_duration = "#282828"
-
-color_vimcmd_ok = "#689d6a"
-color_vimcmd_replace = "#b16286"
-color_vimcmd_visual = "#d79921"
+[palettes.matugen]
+base00 = "#2b3339"
+base01 = "#323c41"
+base02 = "#3a4248"
+base03 = "#424a50"
+base04 = "#4a5258"
+base05 = "#d3c6aa"
+base06 = "#ddd0b4"
+base07 = "#e7dabe"
+base08 = "#e67e80"
+base09 = "#e69875"
+base0a = "#dbbc7f"
+base0b = "#83c092"
+base0c = "#95d1c9"
+base0d = "#7393b3"
+base0e = "#d699b6"
+base0f = "#b0764a"
 
 [os]
 disabled = false
-style = "fg:color_os"
+style = "fg:base08"
 format = "[$symbol]($style)"
 
 [os.symbols]
@@ -149,14 +95,14 @@ disabled = true
 
 [username]
 show_always = true
-style_user = "fg:color_username"
-style_root = "bold fg:color_danger"
+style_user = "fg:base08"
+style_root = "bold fg:base08"
 format = "[ $user ]($style)"
 
 [directory]
-style = "fg:color_directory"
-read_only_style = "fg:color_directory"
-repo_root_style = "bold fg:color_directory"
+style = "fg:base0a"
+read_only_style = "fg:base0a"
+repo_root_style = "bold fg:base0a"
 format = "[ $path ]($style)"
 read_only = " "
 home_symbol = "~"
@@ -168,7 +114,7 @@ use_logical_path = true
 
 [git_branch]
 symbol = ""
-style = "fg:color_git"
+style = "fg:base0c"
 format = "( [$symbol $branch]($style) )"
 only_attached = true
 ignore_branches = []
@@ -178,7 +124,7 @@ always_show_remote = false
 disabled = false
 
 [git_commit]
-style = "fg:color_git"
+style = "fg:base0c"
 format = "( [($tag)(@$hash)]($style) )"
 commit_hash_length = 7
 only_detached = true
@@ -187,7 +133,7 @@ tag_disabled = false
 disabled = false
 
 [git_status]
-style = "fg:color_git"
+style = "fg:base0c"
 format = "([$ahead_behind]($style) )([$all_status]($style) )"
 stashed = "*${count}"
 ahead = "⇡${count}"
@@ -204,14 +150,14 @@ ignore_submodules = false
 disabled = false
 
 [git_metrics]
-format = "([([+$added]($added_style))([-$deleted]($deleted_style))](fg:color_git) )"
-added_style = "fg:color_git_added"
-deleted_style = "fg:color_git_deleted"
+format = "([([+$added]($added_style))([-$deleted]($deleted_style))](fg:base0c) )"
+added_style = "fg:base0b"
+deleted_style = "fg:base08"
 only_nonzero_diffs = true
 disabled = false
 
 [git_state]
-style = "fg:color_danger"
+style = "fg:base08"
 format = "([$state( $progress_current/$progress_total)]($style bold) )"
 rebase = "REBASING"
 merge = "MERGING"
@@ -224,64 +170,64 @@ disabled = false
 
 [nodejs]
 symbol = ""
-style = "fg:color_env"
+style = "fg:base0d"
 format = "( [$symbol( $version)]($style) )"
 
 [c]
 symbol = ""
-style = "fg:color_env"
+style = "fg:base0d"
 format = "( [$symbol( $version)]($style) )"
 
 [rust]
 symbol = "󱘗"
-style = "fg:color_env"
+style = "fg:base0d"
 format = "( [$symbol( $version)]($style) )"
 
 [golang]
 symbol = "󰟓"
-style = "fg:color_env"
+style = "fg:base0d"
 format = "( [$symbol( $version)]($style) )"
 
 [php]
 symbol = ""
-style = "fg:color_env"
+style = "fg:base0d"
 format = "( [$symbol( $version)]($style) )"
 
 [java]
 symbol = ""
-style = "fg:color_env"
+style = "fg:base0d"
 format = "( [$symbol( $version)]($style) )"
 
 [kotlin]
 symbol = ""
-style = "fg:color_env"
+style = "fg:base0d"
 format = "( [$symbol( $version)]($style) )"
 
 [haskell]
 symbol = ""
-style = "fg:color_env"
+style = "fg:base0d"
 format = "( [$symbol( $version)]($style) )"
 
 [python]
 symbol = ""
-style = "fg:color_env"
+style = "fg:base0d"
 format = "( [$symbol( $version)( $virtualenv)]($style) )"
 version_format = "${raw}"
 
 [package]
 disabled = false
 symbol = "󰏗"
-style = "fg:color_env"
+style = "fg:base0d"
 format = "( [$symbol( $version)]($style) )"
 
 [docker_context]
 symbol = ""
-style = "fg:color_docker"
+style = "fg:base0d"
 format = "( [$symbol( $context)]($style) )"
 
 [kubernetes]
 symbol = "󱃾"
-style = "fg:color_kubernetes"
+style = "fg:base0e"
 format = "( [($symbol( $cluster))]($style) )"
 disabled = false
 
@@ -300,15 +246,15 @@ xonsh_indicator = "xonsh"
 cmd_indicator = "cmd"
 nu_indicator = "nu"
 unknown_indicator = ""
-style = "fg:color_shell"
+style = "fg:base05"
 
 [container]
-style = "fg:color_container"
+style = "fg:base05"
 format = "( [$symbol $name]($style) )"
 
 [jobs]
 symbol = "󰒋"
-style = "fg:color_other"
+style = "fg:base05"
 format = "( [$symbol( $number)]($style) )"
 symbol_threshold = 1
 number_threshold = 1
@@ -354,7 +300,7 @@ fi
 
 """
 symbol = "󰌌"
-style = "fg:color_other"
+style = "fg:base05"
 format = "( [$symbol $output]($style) )"
 when = '[ "${STARSHIP_COCKPIT_KEYBOARD_LAYOUT_ENABLED:-false}" = "true" ]'
 shell = "sh"
@@ -363,7 +309,7 @@ disabled = false
 [memory_usage]
 threshold = 0
 symbol = " "
-style = "fg:color_other"
+style = "fg:base05"
 format = "( [$symbol( ${ram})]($style) )"
 disabled = false
 
@@ -378,26 +324,26 @@ disabled = false
 
 [[battery.display]]
 threshold = 10
-style = "bold fg:color_danger"
+style = "bold fg:base08"
 
 [[battery.display]]
 threshold = 20
-style = "fg:color_caution"
+style = "fg:base0a"
 
 [[battery.display]]
 threshold = 100
-style = "fg:color_other"
+style = "fg:base05"
 
 [time]
 disabled = false
 time_format = "%R"
-style = "fg:color_time"
+style = "fg:base05"
 format = "( [󰔛 $time]($style) )"
 
 [cmd_duration]
 min_time = 2000
 format = "( [󱫑 $duration]($style) )"
-style = "fg:color_duration"
+style = "fg:base05"
 show_milliseconds = false
 disabled = false
 
@@ -412,7 +358,7 @@ not_executable_symbol = "󰂭"
 not_found_symbol = "󰍉"
 sigint_symbol = "󰐊"
 signal_symbol = "󱐋"
-style = "bold fg:color_danger"
+style = "bold fg:base08"
 recognize_signal_code = true
 
 [line_break]
@@ -420,9 +366,9 @@ disabled = false
 
 [character]
 disabled = false
-success_symbol = "[❯](bold fg:color_ok)"
-error_symbol = "[❯](bold fg:color_danger)"
-vimcmd_symbol = "[❮](bold fg:color_vimcmd_ok)"
-vimcmd_replace_one_symbol = "[❮](bold fg:color_vimcmd_replace)"
-vimcmd_replace_symbol = "[❮](bold fg:color_vimcmd_replace)"
-vimcmd_visual_symbol = "[❮](bold fg:color_vimcmd_visual)"
+success_symbol = "[❯](bold fg:base0b)"
+error_symbol = "[❯](bold fg:base08)"
+vimcmd_symbol = "[❮](bold fg:base0b)"
+vimcmd_replace_one_symbol = "[❮](bold fg:base0e)"
+vimcmd_replace_symbol = "[❮](bold fg:base0e)"
+vimcmd_visual_symbol = "[❮](bold fg:base0a)"
