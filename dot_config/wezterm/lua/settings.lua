@@ -26,7 +26,7 @@ M.apply_to_config = function(config)
 		--    * Generate host keys: `sudo ssh-keygen -A`
 		-- 2. On host machine:
 		--		* Generate SSH key pair in powershell: `ssh-keygen -t rsa -b 4096`
-		-- 		* Copy the public key to WSL: `type $env:USERPROFILE\.ssh\id_rsa.pub | ssh tony@localhost "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"`
+		-- 		* Copy the public key to WSL: `type $env:USERPROFILE\.ssh\id_rsa.pub | ssh <user>@localhost "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"`
 		-- If you get "REMOTE HOST IDENTIFICATION CHANGED", follow these steps:
 		--    1. In powershell: `cd ~/.ssh` and check `known_hosts`
 		-- 		2. Delete lines that correspond to 127.0.0.1 or localhost

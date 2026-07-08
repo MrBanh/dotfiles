@@ -1,7 +1,5 @@
 "$schema" = "https://starship.rs/config-schema.json"
 
-# Current theme: https://github.com/smithumble/starship-cockpit/blob/main/starship.toml
-
 add_newline = true
 
 command_timeout = 2000
