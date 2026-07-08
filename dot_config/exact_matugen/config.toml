@@ -1,0 +1,41 @@
+[config]
+import_json_files = ["./themes/everforest.json"]
+
+[templates.lazygit]
+input_path = "./templates/lazygit.yml"
+output_path = "~/.config/lazygit/matugen.yml"
+
+[templates.delta]
+input_path = "./templates/delta.gitconfig"
+output_path = "~/.config/delta/matugen.gitconfig"
+
+[templates.gh-dash]
+input_path = "./templates/gh-dash.yml"
+output_path = "~/.config/gh-dash/matugen.yml"
+
+[templates.opencode]
+input_path = "./templates/opencode.json"
+output_path = "~/.config/opencode/themes/matugen.json"
+
+[templates.yazi]
+input_path = "./templates/yazi.toml"
+output_path = "~/.config/yazi/flavors/matugen.yazi/flavor.toml"
+
+# Reuse the bat tmTheme as the yazi flavor's syntax-highlighting theme.
+[templates.yazi-tmtheme]
+input_path = "./templates/bat.tmTheme"
+output_path = "~/.config/yazi/flavors/matugen.yazi/tmtheme.xml"
+
+[templates.bat]
+input_path = "./templates/bat.tmTheme"
+output_path = "~/.config/bat/themes/matugen.tmTheme"
+# Rebuild bat's theme cache so `matugen` is picked up by bat (and delta).
+post_hook = "bat cache --build"
+
+[templates.starship]
+input_path = "./templates/starship.toml"
+output_path = "~/.config/starship/matugen.toml"
+
+[templates.nvim]
+input_path = "./templates/nvim.lua"
+output_path = "~/.config/nvim/lua/user/colors/everforest.lua"
