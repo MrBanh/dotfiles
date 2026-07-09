@@ -53,6 +53,7 @@ return {
   opts = {
     ---@class snacks.lazygit.Config: snacks.terminal.Opts
     lazygit = {
+      configure = false, -- don't use neovim's colorscheme for snacks lazygit
       config = {
         os = {
           edit = '[ -z "$NVIM" ] && (nvim -- {{filename}}) || (nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}})',
@@ -115,32 +116,14 @@ return {
   },
   keys = {
     {
-      "<leader>gc",
-      function()
-        vim.system({ "gh", "pr", "view", "--json", "number", "-q", ".number" }, { text = true }, function(out)
-          vim.schedule(function()
-            local pr_number = vim.trim(out.stdout or "")
-            if out.code ~= 0 or pr_number == "" then
-              Snacks.notify.warn("No PR found for current branch", { title = "GitHub" })
-              return
-            end
-            Snacks.picker.gh_pr({
-              search = "#" .. pr_number,
-              state = "all",
-              focus = "list",
-            })
-          end)
-        end)
-      end,
-      desc = "GitHub PR (current branch)",
-    },
-    {
       "<leader>gF",
       function()
         Snacks.lazygit.log_file()
       end,
       desc = "LazyGit File Log",
     },
+
+    -- Open in browser
     {
       "<leader>go",
       "",
@@ -203,6 +186,47 @@ return {
       end,
       desc = "Git Open PR (current branch)",
       mode = { "n", "v" },
+    },
+
+    -- Pull Requests
+    {
+      "<leader>gp",
+      "",
+      desc = "+Pull Requests",
+    },
+    {
+      "<leader>gpo",
+      function()
+        Snacks.picker.gh_pr()
+      end,
+      desc = "Pull Requests (open)",
+    },
+    {
+      "<leader>gpa",
+      function()
+        Snacks.picker.gh_pr({ state = "all" })
+      end,
+      desc = "Pull Requests (all)",
+    },
+    {
+      "<leader>gpp",
+      function()
+        vim.system({ "gh", "pr", "view", "--json", "number", "-q", ".number" }, { text = true }, function(out)
+          vim.schedule(function()
+            local pr_number = vim.trim(out.stdout or "")
+            if out.code ~= 0 or pr_number == "" then
+              Snacks.notify.warn("No PR found for current branch", { title = "GitHub" })
+              return
+            end
+            Snacks.picker.gh_pr({
+              search = "#" .. pr_number,
+              state = "all",
+              focus = "list",
+            })
+          end)
+        end)
+      end,
+      desc = "Pull Request (current branch)",
     },
   },
 }

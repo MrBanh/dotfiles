@@ -1,0 +1,374 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+add_newline = true
+
+command_timeout = 2000
+
+format = """
+$os\
+$username\
+[ 󰉋 ](fg:base0a)\
+$directory\
+$git_branch\
+$git_commit\
+$git_status\
+$git_metrics\
+$git_state\
+$fill\
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+$package\
+$docker_context\
+$kubernetes\
+$shell\
+$container\
+$jobs\
+${custom.memory_usage}\
+${custom.battery}\
+${custom.keyboard_layout}\
+$time\
+$cmd_duration\
+$status\
+$line_break\
+$character
+"""
+
+palette = "matugen"
+
+[palettes.matugen]
+base00 = "#2b3339"
+base01 = "#323c41"
+base02 = "#3a4248"
+base03 = "#424a50"
+base04 = "#4a5258"
+base05 = "#d3c6aa"
+base06 = "#ddd0b4"
+base07 = "#e7dabe"
+base08 = "#e67e80"
+base09 = "#e69875"
+base0a = "#dbbc7f"
+base0b = "#83c092"
+base0c = "#95d1c9"
+base0d = "#7393b3"
+base0e = "#d699b6"
+base0f = "#b0764a"
+
+[os]
+disabled = false
+style = "fg:base08"
+format = "[$symbol]($style)"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CachyOS = "󰣇"
+EndeavourOS = ""
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+Pop = ""
+
+[fill]
+symbol = " "
+disabled = true
+
+[username]
+show_always = true
+style_user = "fg:base08"
+style_root = "bold fg:base08"
+format = "[ $user ]($style)"
+
+[directory]
+style = "fg:base0a"
+read_only_style = "fg:base0a"
+repo_root_style = "bold fg:base0a"
+format = "[ $path ]($style)"
+read_only = " "
+home_symbol = "~"
+truncation_symbol = "…/"
+truncation_length = 0
+truncate_to_repo = true
+fish_style_pwd_dir_length = 0
+use_logical_path = true
+
+[git_branch]
+symbol = ""
+style = "fg:base0c"
+format = "( [$symbol $branch]($style) )"
+only_attached = true
+ignore_branches = []
+truncation_length = 25
+truncation_symbol = "..."
+always_show_remote = false
+disabled = false
+
+[git_commit]
+style = "fg:base0c"
+format = "( [($tag)(@$hash)]($style) )"
+commit_hash_length = 7
+only_detached = true
+tag_symbol = "󰓼 "
+tag_disabled = false
+disabled = false
+
+[git_status]
+style = "fg:base0c"
+format = "([$ahead_behind]($style) )([$all_status]($style) )"
+stashed = "*${count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+up_to_date = ""
+diverged = "⇡${ahead_count}⇣${behind_count}"
+conflicted = "=${count}"
+deleted = "×${count}"
+renamed = "»${count}"
+modified = "!${count}"
+staged = "+${count}"
+untracked = "?${count}"
+ignore_submodules = false
+disabled = false
+
+[git_metrics]
+format = "([([+$added]($added_style))([-$deleted]($deleted_style))](fg:base0c) )"
+added_style = "fg:base0b"
+deleted_style = "fg:base08"
+only_nonzero_diffs = true
+disabled = false
+
+[git_state]
+style = "fg:base08"
+format = "([$state( $progress_current/$progress_total)]($style bold) )"
+rebase = "REBASING"
+merge = "MERGING"
+revert = "REVERTING"
+cherry_pick = "CHERRY-PICKING"
+bisect = "BISECTING"
+am = "AM"
+am_or_rebase = "AM/REBASE"
+disabled = false
+
+[nodejs]
+symbol = ""
+style = "fg:base0d"
+format = "( [$symbol( $version)]($style) )"
+
+[c]
+symbol = ""
+style = "fg:base0d"
+format = "( [$symbol( $version)]($style) )"
+
+[rust]
+symbol = "󱘗"
+style = "fg:base0d"
+format = "( [$symbol( $version)]($style) )"
+
+[golang]
+symbol = "󰟓"
+style = "fg:base0d"
+format = "( [$symbol( $version)]($style) )"
+
+[php]
+symbol = ""
+style = "fg:base0d"
+format = "( [$symbol( $version)]($style) )"
+
+[java]
+symbol = ""
+style = "fg:base0d"
+format = "( [$symbol( $version)]($style) )"
+
+[kotlin]
+symbol = ""
+style = "fg:base0d"
+format = "( [$symbol( $version)]($style) )"
+
+[haskell]
+symbol = ""
+style = "fg:base0d"
+format = "( [$symbol( $version)]($style) )"
+
+[python]
+symbol = ""
+style = "fg:base0d"
+format = "( [$symbol( $version)( $virtualenv)]($style) )"
+version_format = "${raw}"
+
+[package]
+disabled = false
+symbol = "󰏗"
+style = "fg:base0d"
+format = "( [$symbol( $version)]($style) )"
+
+[docker_context]
+symbol = ""
+style = "fg:base0d"
+format = "( [$symbol( $context)]($style) )"
+
+[kubernetes]
+symbol = "󱃾"
+style = "fg:base0e"
+format = "( [($symbol( $cluster))]($style) )"
+disabled = false
+
+[shell]
+disabled = false
+format = "[  $indicator ]($style)"
+bash_indicator = "bash"
+fish_indicator = "fish"
+zsh_indicator = "zsh"
+powershell_indicator = "powershell"
+pwsh_indicator = "pwsh"
+ion_indicator = "ion"
+elvish_indicator = "elvish"
+tcsh_indicator = "tcsh"
+xonsh_indicator = "xonsh"
+cmd_indicator = "cmd"
+nu_indicator = "nu"
+unknown_indicator = ""
+style = "fg:base05"
+
+[container]
+style = "fg:base05"
+format = "( [$symbol $name]($style) )"
+
+[jobs]
+symbol = "󰒋"
+style = "fg:base05"
+format = "( [$symbol( $number)]($style) )"
+symbol_threshold = 1
+number_threshold = 1
+
+[custom.memory_usage]
+command = "starship module memory_usage"
+when = '[ "${STARSHIP_COCKPIT_MEMORY_USAGE_ENABLED:-false}" = "true" ]'
+shell = "sh"
+format = "( $output )"
+disabled = false
+
+[custom.battery]
+command = """
+battery_info=$(starship module battery)
+if [ -n "$battery_info" ]; then
+    percent=$(echo "$battery_info" | grep -o '[0-9]*%' | sed 's/%//')
+    if [ "$percent" -le "${STARSHIP_COCKPIT_BATTERY_THRESHOLD:-0}" ]; then
+        echo "$battery_info" | sed 's/%%/%/'
+    fi
+fi
+"""
+when = '[ "${STARSHIP_COCKPIT_BATTERY_ENABLED:-false}" = "true" ]'
+shell = "sh"
+format = "( $output )"
+disabled = false
+
+[custom.keyboard_layout]
+command = """
+
+# Set env variables if you want to use layout aliases (in uppercase)
+#     export STARSHIP_COCKPIT_KEYBOARD_LAYOUT_ABC=ENG
+#     export STARSHIP_COCKPIT_KEYBOARD_LAYOUT_UKRAINIAN=UKR
+# 
+# Implementations:
+#     macOS
+
+if [ "$(uname -s)" = "Darwin" ]; then
+        input_source=$(defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleCurrentKeyboardLayoutInputSourceID)
+        layout_id=$(echo "$input_source" | cut -d '.' -f4)
+        layout=$(printenv "STARSHIP_COCKPIT_KEYBOARD_LAYOUT_$(echo "$layout_id" | tr '[:lower:]' '[:upper:]')")
+        echo "$layout" || echo "$layout_id"
+fi
+
+"""
+symbol = "󰌌"
+style = "fg:base05"
+format = "( [$symbol $output]($style) )"
+when = '[ "${STARSHIP_COCKPIT_KEYBOARD_LAYOUT_ENABLED:-false}" = "true" ]'
+shell = "sh"
+disabled = false
+
+[memory_usage]
+threshold = 0
+symbol = " "
+style = "fg:base05"
+format = "( [$symbol( ${ram})]($style) )"
+disabled = false
+
+[battery]
+full_symbol = "󰁹"
+charging_symbol = "󰂄"
+discharging_symbol = "󰂃"
+unknown_symbol = "󰂑"
+empty_symbol = "󰂎"
+format = "( [$symbol( $percentage)]($style) )"
+disabled = false
+
+[[battery.display]]
+threshold = 10
+style = "bold fg:base08"
+
+[[battery.display]]
+threshold = 20
+style = "fg:base0a"
+
+[[battery.display]]
+threshold = 100
+style = "fg:base05"
+
+[time]
+disabled = false
+time_format = "%R"
+style = "fg:base05"
+format = "( [󰔛 $time]($style) )"
+
+[cmd_duration]
+min_time = 2000
+format = "( [󱫑 $duration]($style) )"
+style = "fg:base05"
+show_milliseconds = false
+disabled = false
+
+[status]
+disabled = false
+format = "( [$symbol( $common_meaning)( $signal_name)]($style) )"
+map_symbol = true
+pipestatus = true
+symbol = "󰅙"
+success_symbol = ""
+not_executable_symbol = "󰂭"
+not_found_symbol = "󰍉"
+sigint_symbol = "󰐊"
+signal_symbol = "󱐋"
+style = "bold fg:base08"
+recognize_signal_code = true
+
+[line_break]
+disabled = false
+
+[character]
+disabled = false
+success_symbol = "[❯](bold fg:base0b)"
+error_symbol = "[❯](bold fg:base08)"
+vimcmd_symbol = "[❮](bold fg:base0b)"
+vimcmd_replace_one_symbol = "[❮](bold fg:base0e)"
+vimcmd_replace_symbol = "[❮](bold fg:base0e)"
+vimcmd_visual_symbol = "[❮](bold fg:base0a)"

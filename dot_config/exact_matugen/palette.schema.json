@@ -1,0 +1,224 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://local/matugen/palette.schema.json",
+  "title": "Matugen fixed palette",
+  "description": "A fixed color palette imported by matugen via config.toml `import_json_files`. It OVERRIDES matugen's generated `base16.*` and `colors.*` namespaces with hard-coded values, so output is deterministic (not derived from a seed). Reference in templates as {{ base16.<slot>.default.hex }} and {{ colors.<role>.default.hex }} (also .rgb, .hsl, .hex_stripped, etc.).",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Path/URL to this JSON schema (enables editor hints). Ignored by matugen."
+    },
+    "base16": {
+      "type": "object",
+      "description": "16-color base16 palette — chriskempson base16 styling spec (https://github.com/chriskempson/base16/blob/main/styling.md). base00–07 run darkest→lightest (bg/fg shade ramp); base08–0F are accent hues.",
+      "additionalProperties": false,
+      "properties": {
+        "base00": {
+          "description": "Default Background",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base01": {
+          "description": "Lighter Background (Used for status bars, line number and folding marks)",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base02": {
+          "description": "Selection Background",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base03": {
+          "description": "Comments, Invisibles, Line Highlighting",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base04": {
+          "description": "Dark Foreground (Used for status bars)",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base05": {
+          "description": "Default Foreground, Caret, Delimiters, Operators",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base06": {
+          "description": "Light Foreground (Not often used)",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base07": {
+          "description": "Light Background (Not often used)",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base08": {
+          "description": "Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base09": {
+          "description": "Integers, Boolean, Constants, XML Attributes, Markup Link Url",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base0a": {
+          "description": "Classes, Markup Bold, Search Text Background",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base0b": {
+          "description": "Strings, Inherited Class, Markup Code, Diff Inserted",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base0c": {
+          "description": "Support, Regular Expressions, Escape Characters, Markup Quotes",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base0d": {
+          "description": "Functions, Methods, Attribute IDs, Headings",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base0e": {
+          "description": "Keywords, Storage, Selector, Markup Italic, Diff Changed",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "base0f": {
+          "description": "Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        }
+      }
+    },
+    "colors": {
+      "type": "object",
+      "description": "Material Design 3 (MD3) color roles. Overrides matugen's generated colors.* namespace. NOTE: any role you do NOT define here falls back to the value matugen derives from the seed color, so define every role your templates use.",
+      "additionalProperties": true,
+      "properties": {
+        "primary": {
+          "description": "Main brand color",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "on_primary": {
+          "description": "Text/Icons on top of primary",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "primary_container": {
+          "description": "Subtle background for primary elements",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "on_primary_container": {
+          "description": "Text on top of primary container",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "inverse_primary": {
+          "description": "Primary color for opposite theme",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "secondary": {
+          "description": "Less prominent accent color",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "on_secondary": {
+          "description": "Text/Icons on top of secondary",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "secondary_container": {
+          "description": "Subtle background for secondary elements",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "on_secondary_container": {
+          "description": "Text on top of secondary container",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "tertiary": {
+          "description": "Contrasting accent color for balance",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "on_tertiary": {
+          "description": "Text/Icons on top of tertiary",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "tertiary_container": {
+          "description": "Subtle background for tertiary elements",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "on_tertiary_container": {
+          "description": "Text on top of tertiary container",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "error": {
+          "description": "Color used for errors/warnings",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "on_error": {
+          "description": "Text/Icons on top of error color",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "error_container": {
+          "description": "Subtle background for error elements (MD3 standard role)",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "on_error_container": {
+          "description": "Text on top of error container (MD3 standard role)",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "surface": {
+          "description": "Main background for components (cards, sheets)",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "on_surface": {
+          "description": "Primary text color on surfaces",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "surface_variant": {
+          "description": "Secondary background for components",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "on_surface_variant": {
+          "description": "Secondary text color on surfaces",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "outline": {
+          "description": "Color for borders and dividers",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "outline_variant": {
+          "description": "Subtle divider/border color",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "background": {
+          "description": "The absolute background of the app/screen",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "on_background": {
+          "description": "Text on the main background",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "shadow": {
+          "description": "Color used for elevation shadows",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        },
+        "scrim": {
+          "description": "Overlay color for modal backdrops",
+          "allOf": [{ "$ref": "#/$defs/colorEntry" }]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "colorEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["default"],
+      "properties": {
+        "default": { "$ref": "#/$defs/modeColor" },
+        "light": { "$ref": "#/$defs/modeColor" },
+        "dark": { "$ref": "#/$defs/modeColor" }
+      }
+    },
+    "modeColor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["color"],
+      "properties": {
+        "color": {
+          "type": "string",
+          "pattern": "^#([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$",
+          "description": "Hex color: #RRGGBB or #RRGGBBAA. In templates request any format via .hex, .hex_stripped, .rgb, .rgba, .hsl, .hsla, .red, .green, .blue, .alpha, etc."
+        }
+      }
+    }
+  }
+}

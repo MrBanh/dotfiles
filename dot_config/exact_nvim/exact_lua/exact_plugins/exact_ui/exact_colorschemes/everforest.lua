@@ -89,7 +89,7 @@ return {
           RenderMarkdownH4Bg = { link = "RenderMarkdownHeadingBG" },
           RenderMarkdownH5Bg = { link = "RenderMarkdownHeadingBG" },
           RenderMarkdownH6Bg = { link = "RenderMarkdownHeadingBG" },
-          RenderMarkdownHeadingBG = { bg = palette.bg_purple },
+          RenderMarkdownHeadingBG = { bg = palette.bg_green },
 
           -- conflict-marker.nvim
           ConflictOurs = { bg = palette.bg_blue },
@@ -107,19 +107,7 @@ return {
         end
       end,
       colours_override = function(palette)
-        -- Colors from: https://github.com/NvChad/base46/blob/v3.0/lua/base46/themes/everforest.lua
-        local overrides = {
-          green = "#83c092",
-          blue = "#7393b3",
-          red = "#e67e80",
-          orange = "#e69875",
-          yellow = "#dbbc7f",
-          purple = "#d699b6",
-          aqua = "#95d1c9",
-
-          bg_purple = "#2d2737",
-        }
-
+        local overrides = require("user.colors.everforest")
         for color, value in pairs(overrides) do
           palette[color] = value
         end

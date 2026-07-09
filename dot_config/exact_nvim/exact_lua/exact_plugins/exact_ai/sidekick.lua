@@ -133,6 +133,13 @@ local sidekick = {
         desc = "Select CLI",
       },
       {
+        keymap_prefix .. "x",
+        function()
+          require("plugins.ai.sidekick.session_picker").open()
+        end,
+        desc = "Delete CLI Session",
+      },
+      {
         keymap_prefix .. "t",
         function()
           require("sidekick.cli").send({ msg = "{this}" })

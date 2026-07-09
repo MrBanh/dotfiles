@@ -23,13 +23,9 @@ os:
 git:
   overrideGpg: true
   pagers:
-    - pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+    - pager: delta --paging=never --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
 
 gui:
-  # If true, capture mouse events.
-  # When mouse events are captured, it's a little harder to select text: e.g.
-  # requiring you to hold the option key when on macOS.
-  mouseEvents: true
   scrollHeight: 20
 
 promptToReturnFromSubprocess: false
