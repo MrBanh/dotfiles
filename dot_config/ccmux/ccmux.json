@@ -1,0 +1,24 @@
+{
+  "showPreview": true,
+  "previewWidth": 60,
+  "promptDisplay": "row2",
+  "theme": {
+    "base": "gruvbox-dark",
+    "colors": {
+      "rosewater": "#ddd0b4",
+      "text": "#d3c6aa",
+      "subtext": "#656d73",
+      "overlay": "#4e565c",
+      "surface": "#323c41",
+      "base": "#272f35",
+      "border": "#424a50",
+      "red": "#e67e80",
+      "peach": "#e69875",
+      "yellow": "#dbbc7f",
+      "green": "#83c092",
+      "teal": "#95d1c9",
+      "blue": "#7393b3",
+      "mauve": "#d699b6"
+    }
+  }
+}

@@ -45,3 +45,9 @@ input_path = "./templates/tmux.conf"
 output_path = "~/.config/tmux/generated/matugen.conf"
 # Reload the generated colors into any running server (no-op if tmux isn't running).
 post_hook = "tmux source-file ~/.config/tmux/generated/matugen.conf 2>/dev/null || true"
+
+[templates.ccmux]
+input_path = "./templates/ccmux.json"
+output_path = "~/.config/ccmux/ccmux.json"
+# Restart the ccmux daemon so it picks up the new theme (only if already running).
+post_hook = "ccmux daemon status >/dev/null 2>&1 && ccmux daemon restart >/dev/null 2>&1 || true"
