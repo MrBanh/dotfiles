@@ -1,7 +1,6 @@
 #:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
 
 blacklist = [
-  "agent-manager",
   "claude ",
   "floating-tmux",
   'floating\|',
@@ -29,7 +28,12 @@ windows = ["nvim"]
 [[session]]
 name = "downloads"
 path = "~/Downloads"
-startup_command = "ls"
+startup_command = "yazi"
+
+[[session]]
+name = "matugen"
+path = "~/.config/matugen"
+startup_command = "nvim"
 
 [[session]]
 name = "nvim config"
@@ -46,11 +50,6 @@ name = "sesh config"
 path = "~/.config/sesh"
 startup_command = "nvim sesh.toml"
 preview_command = "bat --color=always ~/.config/sesh/sesh.toml"
-
-[[session]]
-name = "starship config"
-path = "~/.config/starship"
-startup_command = "nvim"
 
 [[session]]
 name = "tmux config"
