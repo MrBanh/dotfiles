@@ -35,6 +35,9 @@ post_hook = "bat cache --build"
 [templates.starship]
 input_path = "./templates/starship.toml"
 output_path = "~/.config/starship/matugen.toml"
+# Merge the generated [palettes.matugen] block into the real starship.toml
+# (starship has no include mechanism). Only the delimited palette is replaced.
+post_hook = "~/.config/matugen/scripts/merge-starship-palette.sh"
 
 [templates.nvim]
 input_path = "./templates/nvim.lua"
