@@ -8,7 +8,7 @@ M.apply_to_config = function(config)
 	config.hide_tab_bar_if_only_one_tab = true
 
 	-- https://wezfurlong.org/wezterm/colorschemes/index.html
-	config.color_scheme = "Blazer"
+	config.color_scheme = "matugen"
 
 	-- Transparency
 	local opacity = 0.8
