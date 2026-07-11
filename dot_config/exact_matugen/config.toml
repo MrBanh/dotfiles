@@ -54,3 +54,11 @@ input_path = "./templates/ccmux.json"
 output_path = "~/.config/ccmux/ccmux.json"
 # Restart the ccmux daemon so it picks up the new theme (only if already running).
 post_hook = "ccmux daemon status >/dev/null 2>&1 && ccmux daemon restart >/dev/null 2>&1 || true"
+
+[templates.ghostty]
+input_path = "./templates/ghostty"
+output_path = "~/.config/ghostty/themes/matugen"
+
+[templates.wezterm]
+input_path = "./templates/wezterm.toml"
+output_path = "~/.config/wezterm/colors/matugen.toml"
