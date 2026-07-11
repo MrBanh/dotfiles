@@ -9,7 +9,13 @@ return {
 	blue = "#7393b3",
 	purple = "#d699b6",
 
-	-- diff line backgrounds (DiffAdd / DiffDelete)
-	bg_green = "#20303b",
-	bg_red = "#37222c",
+	-- hue-tinted backgrounds (diff lines, inline highlights, etc.)
+	bg_red = "#452132",
+	bg_orange = "#452f21",
+	bg_yellow = "#453a21",
+	bg_green = "#213c45",
+	bg_cyan = "#2e5960",
+	bg_blue = "#212d45",
+	bg_purple = "#3e2145",
+	bg_brown = "#342519",
 }
