@@ -17,7 +17,6 @@ end
 
 return {
   "aaronik/treewalker.nvim",
-  enabled = false,
   opts = {
     notifications = false,
   },
