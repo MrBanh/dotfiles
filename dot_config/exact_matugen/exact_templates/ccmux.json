@@ -1,0 +1,24 @@
+{
+  "showPreview": true,
+  "previewWidth": 60,
+  "promptDisplay": "row2",
+  "theme": {
+    "base": "gruvbox-dark",
+    "colors": {
+      "rosewater": "{{ base16.base06.default.hex }}",
+      "text": "{{ base16.base05.default.hex }}",
+      "subtext": "{{ colors.on_surface_variant.default.hex }}",
+      "overlay": "{{ colors.outline.default.hex }}",
+      "surface": "{{ base16.base01.default.hex }}",
+      "base": "{{ colors.background.default.hex }}",
+      "border": "{{ base16.base03.default.hex }}",
+      "red": "{{ base16.base08.default.hex }}",
+      "peach": "{{ base16.base09.default.hex }}",
+      "yellow": "{{ base16.base0a.default.hex }}",
+      "green": "{{ base16.base0b.default.hex }}",
+      "teal": "{{ base16.base0c.default.hex }}",
+      "blue": "{{ base16.base0d.default.hex }}",
+      "mauve": "{{ base16.base0e.default.hex }}"
+    }
+  }
+}

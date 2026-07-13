@@ -1,5 +1,5 @@
 {
-  "$schema": "./palette.schema.json",
+  "$schema": "../palette.schema.json",
   "base16": {
     "base00": { "default": { "color": "#2b3339" } },
     "base01": { "default": { "color": "#323c41" } },
@@ -20,8 +20,8 @@
   },
   "colors": {
     "primary": { "default": { "color": "#83c092" } },
-    "on_primary": { "default": { "color": "#2b3339" } },
-    "primary_container": { "default": { "color": "#20303b" } },
+    "on_primary": { "default": { "color": "#192d34" } },
+    "primary_container": { "default": { "color": "#213c45" } },
     "on_primary_container": { "default": { "color": "#83c092" } },
     "inverse_primary": { "default": { "color": "#35a77c" } },
     "secondary": { "default": { "color": "#7393b3" } },
@@ -33,8 +33,8 @@
     "tertiary_container": { "default": { "color": "#4a444e" } },
     "on_tertiary_container": { "default": { "color": "#d699b6" } },
     "error": { "default": { "color": "#e67e80" } },
-    "on_error": { "default": { "color": "#2d1f26" } },
-    "error_container": { "default": { "color": "#37222c" } },
+    "on_error": { "default": { "color": "#341926" } },
+    "error_container": { "default": { "color": "#452132" } },
     "on_error_container": { "default": { "color": "#e67e80" } },
     "surface": { "default": { "color": "#2b3339" } },
     "on_surface": { "default": { "color": "#d3c6aa" } },
@@ -46,5 +46,15 @@
     "on_background": { "default": { "color": "#d3c6aa" } },
     "shadow": { "default": { "color": "#000000" } },
     "scrim": { "default": { "color": "#000000" } }
+  },
+  "bg": {
+    "red": { "default": { "color": "#452132" } },
+    "orange": { "default": { "color": "#452f21" } },
+    "yellow": { "default": { "color": "#453a21" } },
+    "green": { "default": { "color": "#213c45" } },
+    "cyan": { "default": { "color": "#2e5960" } },
+    "blue": { "default": { "color": "#212d45" } },
+    "purple": { "default": { "color": "#3e2145" } },
+    "brown": { "default": { "color": "#342519" } }
   }
 }

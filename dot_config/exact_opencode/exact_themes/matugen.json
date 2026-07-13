@@ -18,11 +18,11 @@
     "diffPurple": "#7393b3",
     "diffGreenHighlight": "#83c092",
     "diffRedHighlight": "#e67e80",
-    "diffGreenBg": "#20303b",
-    "diffRedBg": "#37222c",
+    "diffGreenBg": "#213c45",
+    "diffRedBg": "#452132",
     "diffLineNum": "#656d73",
-    "diffGreenLineNumBg": "#1b2b34",
-    "diffRedLineNumBg": "#2d1f26"
+    "diffGreenLineNumBg": "#192d34",
+    "diffRedLineNumBg": "#341926"
   },
   "theme": {
     "primary": "green",

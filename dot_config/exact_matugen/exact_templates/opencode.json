@@ -21,7 +21,7 @@
     "diffGreenBg": "{{ colors.primary_container.default.hex }}",
     "diffRedBg": "{{ colors.error_container.default.hex }}",
     "diffLineNum": "{{ colors.on_surface_variant.default.hex }}",
-    "diffGreenLineNumBg": "{{ colors.secondary_container.default.hex }}",
+    "diffGreenLineNumBg": "{{ colors.on_primary.default.hex }}",
     "diffRedLineNumBg": "{{ colors.on_error.default.hex }}"
   },
   "theme": {

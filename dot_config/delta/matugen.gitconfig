@@ -27,10 +27,10 @@
     line-numbers-plus-style = "#83c092" italic
     line-numbers-zero-style = "#656d73"
     # -- diff
-    minus-style = syntax "#37222c"
+    minus-style = syntax "#452132"
     minus-emph-style = "#2b3339" "#e67e80"
     minus-non-emph-style = syntax
-    plus-style = syntax "#20303b"
+    plus-style = syntax "#213c45"
     plus-emph-style = "#2b3339" "#83c092"
     plus-non-emph-style = syntax
     zero-style = syntax

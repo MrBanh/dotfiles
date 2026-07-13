@@ -35,6 +35,9 @@ post_hook = "bat cache --build"
 [templates.starship]
 input_path = "./templates/starship.toml"
 output_path = "~/.config/starship/matugen.toml"
+# Merge the generated [palettes.matugen] block into the real starship.toml
+# (starship has no include mechanism). Only the delimited palette is replaced.
+post_hook = "~/.config/matugen/scripts/merge-starship-palette.sh"
 
 [templates.nvim]
 input_path = "./templates/nvim.lua"
@@ -45,3 +48,17 @@ input_path = "./templates/tmux.conf"
 output_path = "~/.config/tmux/generated/matugen.conf"
 # Reload the generated colors into any running server (no-op if tmux isn't running).
 post_hook = "tmux source-file ~/.config/tmux/generated/matugen.conf 2>/dev/null || true"
+
+[templates.ccmux]
+input_path = "./templates/ccmux.json"
+output_path = "~/.config/ccmux/ccmux.json"
+# Restart the ccmux daemon so it picks up the new theme (only if already running).
+post_hook = "ccmux daemon status >/dev/null 2>&1 && ccmux daemon restart >/dev/null 2>&1 || true"
+
+[templates.ghostty]
+input_path = "./templates/ghostty"
+output_path = "~/.config/ghostty/themes/matugen"
+
+[templates.wezterm]
+input_path = "./templates/wezterm.toml"
+output_path = "~/.config/wezterm/colors/matugen.toml"
