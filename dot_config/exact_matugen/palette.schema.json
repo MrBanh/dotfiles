@@ -195,6 +195,21 @@
           "allOf": [{ "$ref": "#/$defs/colorEntry" }]
         }
       }
+    },
+    "bg": {
+      "type": "object",
+      "description": "Hue-tinted panel/state background colors — one dark, low-saturation tint per accent hue (e.g. diff-add/diff-delete backgrounds, inline highlights). NOT Material roles; this is a custom namespace. Keep the family consistent: lightness ~17-18%, saturation ~28%. Reference in templates as {{ bg.<hue>.default.hex }}.",
+      "additionalProperties": false,
+      "properties": {
+        "red": { "allOf": [{ "$ref": "#/$defs/colorEntry" }] },
+        "orange": { "allOf": [{ "$ref": "#/$defs/colorEntry" }] },
+        "yellow": { "allOf": [{ "$ref": "#/$defs/colorEntry" }] },
+        "green": { "allOf": [{ "$ref": "#/$defs/colorEntry" }] },
+        "cyan": { "allOf": [{ "$ref": "#/$defs/colorEntry" }] },
+        "blue": { "allOf": [{ "$ref": "#/$defs/colorEntry" }] },
+        "purple": { "allOf": [{ "$ref": "#/$defs/colorEntry" }] },
+        "brown": { "allOf": [{ "$ref": "#/$defs/colorEntry" }] }
+      }
     }
   },
   "$defs": {

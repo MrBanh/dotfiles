@@ -9,7 +9,13 @@ return {
 	blue = "{{ base16.base0d.default.hex }}",
 	purple = "{{ base16.base0e.default.hex }}",
 
-	-- diff line backgrounds (DiffAdd / DiffDelete)
-	bg_green = "{{ colors.primary_container.default.hex }}",
-	bg_red = "{{ colors.error_container.default.hex }}",
+	-- hue-tinted backgrounds (diff lines, inline highlights, etc.)
+	bg_red = "{{ bg.red.default.hex }}",
+	bg_orange = "{{ bg.orange.default.hex }}",
+	bg_yellow = "{{ bg.yellow.default.hex }}",
+	bg_green = "{{ bg.green.default.hex }}",
+	bg_cyan = "{{ bg.cyan.default.hex }}",
+	bg_blue = "{{ bg.blue.default.hex }}",
+	bg_purple = "{{ bg.purple.default.hex }}",
+	bg_brown = "{{ bg.brown.default.hex }}",
 }

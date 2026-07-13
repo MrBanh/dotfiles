@@ -83,13 +83,18 @@ return {
           LspReferenceRead = { link = "LspReferenceText" },
           LspCodeLens = { fg = palette.grey1, bg = palette.bg1, italic = true },
 
+          SnacksDiffContextLineNr = {
+            bg = palette.none,
+            fg = palette.fg,
+          },
+
           RenderMarkdownH1Bg = { link = "RenderMarkdownHeadingBG" },
           RenderMarkdownH2Bg = { link = "RenderMarkdownHeadingBG" },
           RenderMarkdownH3Bg = { link = "RenderMarkdownHeadingBG" },
           RenderMarkdownH4Bg = { link = "RenderMarkdownHeadingBG" },
           RenderMarkdownH5Bg = { link = "RenderMarkdownHeadingBG" },
           RenderMarkdownH6Bg = { link = "RenderMarkdownHeadingBG" },
-          RenderMarkdownHeadingBG = { bg = palette.bg_green },
+          RenderMarkdownHeadingBG = { bg = palette.bg_blue },
 
           -- conflict-marker.nvim
           ConflictOurs = { bg = palette.bg_blue },

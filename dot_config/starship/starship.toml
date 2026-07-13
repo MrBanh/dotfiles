@@ -42,6 +42,7 @@ $character
 
 palette = "matugen"
 
+# >>> matugen palette (managed by matugen post_hook; do not edit) >>>
 [palettes.matugen]
 base00 = "#2b3339"
 base01 = "#323c41"
@@ -59,6 +60,7 @@ base0c = "#95d1c9"
 base0d = "#7393b3"
 base0e = "#d699b6"
 base0f = "#b0764a"
+# <<< matugen palette <<<
 
 [os]
 disabled = false
