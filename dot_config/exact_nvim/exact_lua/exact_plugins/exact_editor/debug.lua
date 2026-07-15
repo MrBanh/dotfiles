@@ -21,6 +21,14 @@ return {
         desc = "Restart Debugging",
       },
       {
+        "q",
+        function()
+          require("dap").repl.close()
+        end,
+        desc = "Close REPL",
+        ft = { "dap-repl" },
+      },
+      {
         "<F2>",
         function()
           require("dap").step_over()
@@ -140,19 +148,33 @@ return {
     },
     keys = {
       {
+        "q",
+        function()
+          require("dap-view").close()
+        end,
+        desc = "Close Dap View",
+        ft = { "dap-view" },
+      },
+      {
         prefix .. "u",
-        "<cmd>DapViewToggle<cr>",
+        function()
+          require("dap-view").toggle()
+        end,
         desc = "Dap View (Toggle)",
       },
       {
         prefix .. "e",
-        "<cmd>DapViewHover<cr>",
+        function()
+          require("dap-view").hover(nil, true)
+        end,
         mode = { "n", "x" },
         desc = "Eval (Hover)",
       },
       {
         prefix .. "w",
-        "<cmd>DapViewWatch<cr>",
+        function()
+          require("dap-view").add_expr()
+        end,
         mode = { "n", "x" },
         desc = "Watch Expression",
       },
