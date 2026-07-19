@@ -1,8 +1,0 @@
-name = "tmux config"
-description = "Edit tmux configuration"
-group = "Configuration"
-working_dir = "~/.config/tmux"
-
-[[tabs]]
-name = "nvim"
-command = "nvim"

@@ -1,8 +1,0 @@
-name = "opencode config"
-description = "Edit OpenCode configuration"
-group = "Configuration"
-working_dir = "~/.config/opencode"
-
-[[tabs]]
-name = "nvim"
-command = "nvim"

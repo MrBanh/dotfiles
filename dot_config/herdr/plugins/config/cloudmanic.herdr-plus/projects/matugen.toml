@@ -1,8 +1,0 @@
-name = "matugen"
-description = "Edit Matugen configuration"
-group = "Configuration"
-working_dir = "~/.config/matugen"
-
-[[tabs]]
-name = "nvim"
-command = "nvim"

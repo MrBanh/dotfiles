@@ -1,8 +1,0 @@
-name = "sesh config"
-description = "Edit Sesh configuration"
-group = "Configuration"
-working_dir = "~/.config/sesh"
-
-[[tabs]]
-name = "nvim"
-command = "nvim sesh.toml"
