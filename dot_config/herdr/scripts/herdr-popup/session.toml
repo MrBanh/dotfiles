@@ -1,0 +1,22 @@
+onboarding = false
+
+[keys]
+detach = ["prefix+ctrl+/"]
+prefix = "ctrl+space"
+previous_tab = "prefix+k"
+next_tab = "prefix+j"
+split_vertical = "prefix+v"
+split_horizontal = "prefix+s"
+toggle_sidebar = "prefix+e"
+
+[theme]
+name = "terminal"
+
+[ui]
+sidebar_collapsed_mode = "hidden"
+sidebar_width = 0
+sidebar_min_width = 0
+sidebar_max_width = 0
+
+[experimental]
+allow_nested = true

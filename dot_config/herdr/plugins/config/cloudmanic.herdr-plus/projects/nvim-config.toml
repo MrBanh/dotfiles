@@ -1,0 +1,8 @@
+name = "nvim config"
+description = "Edit Neovim configuration"
+group = "Configuration"
+working_dir = "~/.config/nvim"
+
+[[tabs]]
+name = "nvim"
+command = "nvim"

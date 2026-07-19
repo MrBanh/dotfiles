@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eu
+
+install_plugin() {
+  source=$1
+  plugin_id=$2
+
+  if herdr plugin list --json | jq -e --arg id "$plugin_id" '.result.plugins[] | select(.plugin_id == $id)' >/dev/null; then
+    return
+  fi
+
+  herdr plugin install "$source" --yes
+}
+
+install_plugin cloudmanic/herdr-plus cloudmanic.herdr-plus
+install_plugin paulbkim-dev/vim-herdr-navigation vim-herdr-navigation
+install_plugin thanhdat77/herdr-navigator herdr-navigator

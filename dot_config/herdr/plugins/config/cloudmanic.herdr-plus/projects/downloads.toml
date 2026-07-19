@@ -1,0 +1,8 @@
+name = "downloads"
+description = "Browse downloads"
+group = "Personal"
+working_dir = "~/Downloads"
+
+[[tabs]]
+name = "yazi"
+command = "yazi"

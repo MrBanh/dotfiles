@@ -1,0 +1,12 @@
+name = "chezmoi"
+description = "Manage personal dotfiles"
+group = "Configuration"
+working_dir = "~/.local/share/chezmoi"
+
+[[tabs]]
+name = "lazygit"
+command = "chezmoi re-add && lazygit && herdr workspace close \"$HERDR_WORKSPACE_ID\""
+
+[[tabs]]
+name = "nvim"
+command = "nvim"

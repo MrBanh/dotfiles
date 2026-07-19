@@ -1,0 +1,8 @@
+name = "zsh config"
+description = "Edit zsh configuration"
+group = "Configuration"
+working_dir = "~"
+
+[[tabs]]
+name = "nvim"
+command = "nvim .zshrc"
