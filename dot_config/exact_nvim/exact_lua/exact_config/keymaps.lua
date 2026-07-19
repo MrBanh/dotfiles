@@ -74,7 +74,7 @@ set("n", "<leader>fw", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace
 set("n", "<leader>fW", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
 
 -- LSP Selection Ranges, only works for 0.12+
-set({ "n", "x" }, "<M-o>", function()
+set({ "n", "x" }, "<CR>", function()
   if vim.treesitter.get_parser(nil, nil, { error = false }) then
     require("vim.treesitter._select").select_parent(vim.v.count1)
   else
@@ -82,7 +82,7 @@ set({ "n", "x" }, "<M-o>", function()
   end
 end, { desc = "Select parent (outer) node" })
 
-set({ "n", "x" }, "<M-i>", function()
+set({ "n", "x" }, "<BS>", function()
   if vim.treesitter.get_parser(nil, nil, { error = false }) then
     require("vim.treesitter._select").select_child(vim.v.count1)
   else
