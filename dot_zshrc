@@ -299,3 +299,6 @@ set_gh_host
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Go
+export PATH="$(go env GOPATH)/bin:$PATH"
