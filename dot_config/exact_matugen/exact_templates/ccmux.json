@@ -2,6 +2,11 @@
   "showPreview": true,
   "previewWidth": 60,
   "promptDisplay": "row2",
+  "notifications": {
+    "enabled": true,
+    "sound": true
+  },
+
   "theme": {
     "base": "gruvbox-dark",
     "colors": {
