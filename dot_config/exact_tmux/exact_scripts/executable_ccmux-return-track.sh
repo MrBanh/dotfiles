@@ -4,13 +4,12 @@
 # Wired to the client-session-changed and client-attached hooks (see
 # 03-hooks.conf), which pass the client's tty.
 #
-# Rule: only NON-agent sessions are ever recorded as the return target. ccmux
-# tracks each agent in its own tmux session whose name is prefixed "sidekick|"
-# (e.g. "sidekick|opencode d85803d2  my-repo"); selecting one runs
-# `tmux switch-client -t <agent-pane>`, moving this client into that session. So
-# while you sit in / switch between work sessions the target follows you, but the
-# moment you land on an agent session it FREEZES -- and stays frozen no matter
-# how many agents you hop between (select agent -> select another -> another).
+# Rule: only non-agent destinations are ever recorded as the return target. Ask
+# ccmux whether the newly selected pane is a tracked agent instead of relying on
+# a `sidekick|` session name: ccmux also tracks agents started in ordinary tmux
+# sessions. While you switch between work sessions the target follows you, but
+# the moment you land on an agent it FREEZES -- and stays frozen no matter how
+# many agents you hop between (select agent -> select another -> another).
 # That's what pins `prefix + Backspace` to the work session you started from.
 #
 # Origin is stored per client, keyed by the client's tty, in a global user
@@ -28,12 +27,17 @@ tty="$1"
 arrived_sid="$(tmux display-message -t "$tty" -p '#{session_id}' 2>/dev/null)"
 [ -n "$arrived_sid" ] || exit 0
 
-# Agent session? True if its name carries ccmux's "sidekick|" prefix. If so,
-# leave the recorded origin frozen (we're diving into / chaining agents).
-arrived_name="$(tmux display-message -t "$tty" -p '#{session_name}' 2>/dev/null)"
-case "$arrived_name" in
-  'sidekick|'*) exit 0 ;;
-esac
+# Agent pane? ccmux tracks both agents it creates in `sidekick|...` sessions
+# and agents started in ordinary tmux sessions. If ccmux cannot report its
+# tracked panes, preserve the previous origin rather than overwriting it.
+arrived_pane="$(tmux display-message -t "$tty" -p '#{pane_id}' 2>/dev/null)"
+[ -n "$arrived_pane" ] || exit 0
+
+ccmux_sessions="$(ccmux show --json 2>/dev/null)" || exit 0
+if printf '%s\n' "$ccmux_sessions" | jq -e --arg pane "$arrived_pane" \
+  'any(.[]; .tmuxPane == $pane)' >/dev/null 2>&1; then
+  exit 0
+fi
 
 # Landed on a work session -> that's home. Record it for this client.
 key="@ccmux_origin_$(printf '%s' "$tty" | tr -c 'A-Za-z0-9' '_')"
