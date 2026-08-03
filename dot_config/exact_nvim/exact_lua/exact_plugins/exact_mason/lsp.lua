@@ -3,6 +3,16 @@ return {
   opts = {
     inlay_hints = { enabled = false },
     servers = {
+      lua_ls = {
+        settings = {
+          Lua = {
+            hover = {
+              previewFields = 200, -- default 50; raise to show more struct fields
+              enumsLimit = 100, -- default 5; for large union/enum types
+            },
+          },
+        },
+      },
       vtsls = {
         keys = {
           {

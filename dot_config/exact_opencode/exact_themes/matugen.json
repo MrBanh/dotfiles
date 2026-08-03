@@ -19,10 +19,10 @@
     "diffGreenHighlight": "#83c092",
     "diffRedHighlight": "#e67e80",
     "diffGreenBg": "#213c45",
-    "diffRedBg": "#452132",
+    "diffRedBg": "#4c3743",
     "diffLineNum": "#656d73",
     "diffGreenLineNumBg": "#192d34",
-    "diffRedLineNumBg": "#341926"
+    "diffRedLineNumBg": "#452132"
   },
   "theme": {
     "primary": "green",

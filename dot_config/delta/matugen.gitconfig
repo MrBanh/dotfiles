@@ -27,7 +27,7 @@
     line-numbers-plus-style = "#83c092" italic
     line-numbers-zero-style = "#656d73"
     # -- diff
-    minus-style = syntax "#452132"
+    minus-style = syntax "#4c3743"
     minus-emph-style = "#2b3339" "#e67e80"
     minus-non-emph-style = syntax
     plus-style = syntax "#213c45"

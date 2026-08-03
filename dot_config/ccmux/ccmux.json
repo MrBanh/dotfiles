@@ -2,6 +2,11 @@
   "showPreview": true,
   "previewWidth": 60,
   "promptDisplay": "row2",
+  "notifications": {
+    "enabled": true,
+    "sound": true
+  },
+
   "theme": {
     "base": "gruvbox-dark",
     "colors": {
@@ -19,6 +24,24 @@
       "teal": "#95d1c9",
       "blue": "#7393b3",
       "mauve": "#d699b6"
+    },
+    "ansi": {
+      "black": "#2b3339",
+      "red": "#452132",
+      "green": "#213c45",
+      "yellow": "#453a21",
+      "blue": "#212d45",
+      "magenta": "#3e2145",
+      "cyan": "#2e5960",
+      "white": "#d3c6aa",
+      "brightBlack": "#424a50",
+      "brightRed": "#e67e80",
+      "brightGreen": "#83c092",
+      "brightYellow": "#dbbc7f",
+      "brightBlue": "#7393b3",
+      "brightMagenta": "#d699b6",
+      "brightCyan": "#95d1c9",
+      "brightWhite": "#e7dabe"
     }
   }
 }
