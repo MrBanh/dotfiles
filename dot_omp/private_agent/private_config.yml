@@ -1,5 +1,5 @@
 modelRoles: 
-  default: opencode-zen/deepseek-v4-flash-free:high
+  {}
 symbolPreset: nerd
 theme: 
   dark: matugen
@@ -17,3 +17,5 @@ display:
 hideThinkingBlock: false
 tools: 
   approvalMode: yolo
+stt: 
+  enabled: true
