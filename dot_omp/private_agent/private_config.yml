@@ -19,3 +19,23 @@ tools:
   approvalMode: yolo
 stt: 
   enabled: true
+disabledExtensions: 
+  - rule:go-add-cleanup
+  - rule:go-bench-loop
+  - skill:caveman
+  - rule:go-exp-promoted
+  - rule:go-ioutil
+  - rule:go-join-hostport
+  - rule:go-new-expr
+  - rule:go-rand-v2
+  - rule:go-range-int
+  - rule:rs-box-leak
+  - rule:rs-future-prelude
+  - rule:rs-lazylock
+  - rule:rs-match-ergonomics
+  - rule:rs-parking-lot
+  - rule:rs-result-type
+  - rule:ts-bare-catch
+  - rule:ts-import-type
+  - rule:ts-no-dynamic-import
+  - rule:ts-promise-with-resolvers
