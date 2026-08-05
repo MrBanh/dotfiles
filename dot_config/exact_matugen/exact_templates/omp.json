@@ -63,7 +63,7 @@
     "syntaxKeyword": "purple",
     "syntaxFunction": "green",
     "syntaxVariable": "fg",
-    "syntaxString": "green",
+    "syntaxString": "fg",
     "syntaxNumber": "orange",
     "syntaxType": "yellow",
     "syntaxOperator": "cyan",
