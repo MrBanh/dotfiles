@@ -19,7 +19,11 @@
     "purple": "#d699b6",
     "brown": "#b0764a",
     "surface": "#2b3339",
-    "surfaceVariant": "#3d454b"
+    "surfaceVariant": "#3d454b",
+    "primaryContainer": "#213c45",
+    "onPrimaryContainer": "#83c092",
+    "secondaryContainer": "#1b2b34",
+    "onSecondaryContainer": "#7393b3"
   },
   "colors": {
     "accent": "green",
@@ -35,8 +39,8 @@
     "thinkingText": "muted",
 
     "selectedBg": "",
-    "userMessageBg": "",
-    "userMessageText": "",
+    "userMessageBg": "secondaryContainer",
+    "userMessageText": "fg",
     "customMessageBg": "",
     "customMessageText": "",
     "customMessageLabel": "purple",

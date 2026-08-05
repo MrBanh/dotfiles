@@ -17,9 +17,7 @@
     "cyan": "{{ base16.base0c.default.hex }}",
     "blue": "{{ base16.base0d.default.hex }}",
     "purple": "{{ base16.base0e.default.hex }}",
-    "brown": "{{ base16.base0f.default.hex }}",
-    "surface": "{{ colors.surface.default.hex }}",
-    "surfaceVariant": "{{ colors.surface_variant.default.hex }}"
+    "secondaryContainer": "{{ colors.secondary_container.default.hex }}"
   },
   "colors": {
     "accent": "green",
@@ -35,8 +33,8 @@
     "thinkingText": "muted",
 
     "selectedBg": "",
-    "userMessageBg": "",
-    "userMessageText": "",
+    "userMessageBg": "secondaryContainer",
+    "userMessageText": "fg",
     "customMessageBg": "",
     "customMessageText": "",
     "customMessageLabel": "purple",
