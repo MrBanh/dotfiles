@@ -5,6 +5,7 @@ README.md
 **/bun.lock
 **/opencode/package.json
 **/opencode/package-lock.json
+**/ccmux.js
 .config/ccmux/session-pids
 .config/nvim/spell
 .config/nvim/.claude
