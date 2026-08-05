@@ -34,6 +34,11 @@ local sidekick = {
       },
       tools = {
         opencode = {},
+        omp = {
+          cmd = { "omp" },
+          is_proc = "\\<omp\\>",
+          continue = { "--continue" },
+        },
       },
     },
     nes = {

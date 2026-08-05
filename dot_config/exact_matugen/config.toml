@@ -62,3 +62,7 @@ output_path = "~/.config/ghostty/themes/matugen"
 [templates.wezterm]
 input_path = "./templates/wezterm.toml"
 output_path = "~/.config/wezterm/colors/matugen.toml"
+
+[templates.omp]
+input_path = "./templates/omp.json"
+output_path = "~/.omp/agent/themes/matugen.json"

@@ -1,0 +1,19 @@
+modelRoles: 
+  default: opencode-zen/deepseek-v4-flash-free:high
+symbolPreset: nerd
+theme: 
+  dark: matugen
+setupVersion: 1
+statusLine: 
+  separator: slash
+  preset: default
+  transparent: true
+  compactThinkingLevel: false
+  sessionAccent: true
+tui: 
+  textSizing: false
+display: 
+  showTokenUsage: false
+hideThinkingBlock: false
+tools: 
+  approvalMode: yolo
