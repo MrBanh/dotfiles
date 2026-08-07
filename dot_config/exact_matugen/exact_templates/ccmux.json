@@ -8,7 +8,7 @@
   },
 
   "theme": {
-    "base": "gruvbox-dark",
+    "base": "tokyo-night",
     "colors": {
       "rosewater": "{{ base16.base06.default.hex }}",
       "text": "{{ base16.base05.default.hex }}",
