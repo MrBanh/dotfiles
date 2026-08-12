@@ -169,4 +169,20 @@
     "which_key_home": "ctrl+alt+home",
     "which_key_end": "ctrl+alt+end",
   },
+  "plugin": [
+    [
+      "@leohenon/opencode-vim-plugin",
+      {
+        "vim_escape_sequence": "jk",
+        "vim_langmap": {
+          "H": "^",
+          "L": "$",
+        },
+        "vim_normal_leader": "space",
+        "vim_enter_submit": true,
+        "vim_insert_after_submit": true,
+        "vim_system_clipboard_register": true,
+      },
+    ],
+  ],
 }
