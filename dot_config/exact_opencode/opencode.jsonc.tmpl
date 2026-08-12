@@ -4,9 +4,23 @@
 {{- if eq .user.host "personal" }}
   "plugin": [
     "superpowers@git+https://github.com/obra/superpowers.git",
+    "opencode-models-discovery@latest" // https://github.com/anomalyco/opencode/issues/6231
   ],
   "mcp": {},
   "lsp": true,
+  "provider": {
+    "infronai": {
+      "name": "Infron AI",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://llm.onerouter.pro/v1",
+        "apiKey": "{env:INFRON_API_KEY}",
+        "modelsDiscovery": {
+          "enabled": true
+        }
+      }
+    }
+  },
 {{- else if eq .user.host "work" }}
   "plugin": [],
   "mcp": {
