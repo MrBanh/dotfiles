@@ -13,5 +13,10 @@ use = "dedukun/bookmarks"
 rev = "9ef1254"
 hash = "92fbb5483657fa7976cdf4e0104e18e0"
 
+[[plugin.deps]]
+use = "larry-oates/open-git-remote"
+rev = "72158d6"
+hash = "ed359abc14ba915a12e759435ed721ab"
+
 [flavor]
 deps = []

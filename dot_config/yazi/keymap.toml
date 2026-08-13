@@ -377,6 +377,12 @@ on = ["<Space>", "c", "m"]
 run = "plugin chmod"
 desc = "Change file permissions"
 
+# https://github.com/larry-oates/open-git-remote.yazi
+[[mgr.prepend_keymap]]
+on = ["g", "o"]
+run = "plugin open-git-remote"
+desc = "open git remote url"
+
 [tasks]
 keymap = [
   { on = "<Esc>", run = "close", desc = "Close task manager" },
