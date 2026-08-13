@@ -18,5 +18,10 @@ use = "larry-oates/open-git-remote"
 rev = "72158d6"
 hash = "ed359abc14ba915a12e759435ed721ab"
 
+[[plugin.deps]]
+use = "XYenon/clipboard"
+rev = "0f4982a"
+hash = "dcda5f179482ee8cc191ad679c9d72e0"
+
 [flavor]
 deps = []

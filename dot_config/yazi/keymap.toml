@@ -383,6 +383,22 @@ on = ["g", "o"]
 run = "plugin open-git-remote"
 desc = "open git remote url"
 
+# https://github.com/XYenon/clipboard.yazi
+[[mgr.prepend_keymap]]
+on = ["<Space>", "y"]
+run = ["yank", "plugin clipboard -- --action=copy"]
+desc = "Yank (copy) to system clipboard"
+
+[[mgr.prepend_keymap]]
+on = ["<Space>", "x"]
+run = ["yank --cut", "plugin clipboard -- --action=copy"]
+desc = "Yank (cut) to system clipboard"
+
+[[mgr.prepend_keymap]]
+on = ["<Space>", "p"]
+run = ["plugin clipboard -- --action=paste"]
+desc = "Paste system clipboard files"
+
 [tasks]
 keymap = [
   { on = "<Esc>", run = "close", desc = "Close task manager" },
