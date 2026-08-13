@@ -4,34 +4,6 @@
 # If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
 #:schema https://yazi-rs.github.io/schemas/keymap.json
 
-# https://github.com/dedukun/bookmarks.yazi
-[[mgr.prepend_keymap]]
-on = ["m"]
-run = "plugin bookmarks save"
-desc = "Save current position as a bookmark"
-
-[[mgr.prepend_keymap]]
-on = ["'"]
-run = "plugin bookmarks jump"
-desc = "Jump to a bookmark"
-
-[[mgr.prepend_keymap]]
-on = ["b", "d"]
-run = "plugin bookmarks delete"
-desc = "Delete a bookmark"
-
-[[mgr.prepend_keymap]]
-on = ["b", "D"]
-run = "plugin bookmarks delete_all"
-desc = "Delete all bookmarks"
-
-# https://github.com/yazi-rs/plugins/tree/main/chmod.yazi
-[[mgr.prepend_keymap]]
-on = ["<Space>", "c", "m"]
-run = "plugin chmod"
-desc = "Change file permissions"
-
-
 [mgr]
 keymap = [
   { on = "<Esc>", run = "escape", desc = "Exit visual mode, clear selected, or cancel search" },
@@ -378,8 +350,34 @@ keymap = [
   ], run = "help", desc = "Open help" },
 ]
 
-[tasks]
+# https://github.com/dedukun/bookmarks.yazi
+[[mgr.prepend_keymap]]
+on = ["m"]
+run = "plugin bookmarks save"
+desc = "Save current position as a bookmark"
 
+[[mgr.prepend_keymap]]
+on = ["'"]
+run = "plugin bookmarks jump"
+desc = "Jump to a bookmark"
+
+[[mgr.prepend_keymap]]
+on = ["b", "d"]
+run = "plugin bookmarks delete"
+desc = "Delete a bookmark"
+
+[[mgr.prepend_keymap]]
+on = ["b", "D"]
+run = "plugin bookmarks delete_all"
+desc = "Delete all bookmarks"
+
+# https://github.com/yazi-rs/plugins/tree/main/chmod.yazi
+[[mgr.prepend_keymap]]
+on = ["<Space>", "c", "m"]
+run = "plugin chmod"
+desc = "Change file permissions"
+
+[tasks]
 keymap = [
   { on = "<Esc>", run = "close", desc = "Close task manager" },
   { on = "<C-c>", run = "close", desc = "Close task manager" },
