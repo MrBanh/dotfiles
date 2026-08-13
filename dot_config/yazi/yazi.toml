@@ -17,3 +17,13 @@ show_symlink = true
 scrolloff = 5
 mouse_events = ["click", "scroll"]
 title_format = "Yazi: {cwd}"
+
+[[plugin.prepend_fetchers]]
+url   = "*"
+run   = "git"
+group = "git"
+
+[[plugin.prepend_fetchers]]
+url   = "*/"
+run   = "git"
+group = "git"
