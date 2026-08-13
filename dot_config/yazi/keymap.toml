@@ -25,12 +25,6 @@ on = ["b", "D"]
 run = "plugin bookmarks delete_all"
 desc = "Delete all bookmarks"
 
-# https://github.com/boydaihungst/save-clipboard-to-file.yazi
-[[mgr.prepend_keymap]]
-on = ["<Space>", "P"]
-run = "plugin save-clipboard-to-file"
-desc = "Paste clipboard content to file and hover after created"
-
 # https://github.com/yazi-rs/plugins/tree/main/chmod.yazi
 [[mgr.prepend_keymap]]
 on = ["<Space>", "c", "m"]

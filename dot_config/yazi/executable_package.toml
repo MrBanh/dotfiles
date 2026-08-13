@@ -1,9 +1,4 @@
 [[plugin.deps]]
-use = "boydaihungst/save-clipboard-to-file"
-rev = "4f034ac"
-hash = "4bdfecaa643db1cc28ccba799463d5b8"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:git"
 rev = "7749958"
 hash = "26db011a778f261d730d4f5f8bf24b3f"
