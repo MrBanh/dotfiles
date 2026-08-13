@@ -39,7 +39,6 @@ desc = "Change file permissions"
 
 
 [mgr]
-
 keymap = [
   { on = "<Esc>", run = "escape", desc = "Exit visual mode, clear selected, or cancel search" },
   { on = "q", run = "quit", desc = "Quit the process" },
@@ -403,7 +402,6 @@ keymap = [
 ]
 
 [spot]
-
 keymap = [
   { on = "<Esc>", run = "close", desc = "Close the spot" },
   { on = "<C-c>", run = "close", desc = "Close the spot" },
@@ -423,7 +421,6 @@ keymap = [
 ]
 
 [pick]
-
 keymap = [
   { on = "<Esc>", run = "close", desc = "Cancel pick" },
   { on = "<C-c>", run = "close", desc = "Cancel pick" },
@@ -440,13 +437,6 @@ keymap = [
 ]
 
 [input]
-
-prepend_keymap = [
-  { on = [
-    'j',
-    'k',
-  ], run = "escape", desc = "Go back the normal mode, or cancel input" },
-]
 keymap = [
   { on = "<C-c>", run = "close", desc = "Cancel input" },
   { on = "q", run = "close", desc = "Cancel input" },
@@ -527,7 +517,6 @@ keymap = [
 ]
 
 [confirm]
-
 keymap = [
   { on = "<Esc>", run = "close", desc = "Cancel the confirm" },
   { on = "<C-c>", run = "close", desc = "Cancel the confirm" },
@@ -545,7 +534,6 @@ keymap = [
 ]
 
 [cmp]
-
 keymap = [
   { on = "<C-c>", run = "close", desc = "Cancel completion" },
   { on = "<Enter>", run = [
@@ -564,7 +552,6 @@ keymap = [
 ]
 
 [help]
-
 keymap = [
   { on = "<Esc>", run = "escape", desc = "Clear the filter, or hide the help" },
   { on = "q", run = "escape", desc = "Clear the filter, or hide the help" },
