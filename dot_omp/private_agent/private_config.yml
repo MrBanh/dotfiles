@@ -45,3 +45,5 @@ autolearn:
   enabled: true
 lsp: 
   formatOnWrite: true
+error: 
+  notify: "on"
