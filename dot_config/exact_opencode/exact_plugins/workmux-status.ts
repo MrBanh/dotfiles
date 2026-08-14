@@ -29,8 +29,13 @@ export const WorkmuxStatusPlugin: Plugin = async ({ $ }) => {
       acceptBusyBySession.set(sessionID, true);
     }
 
-    await $`workmux set-window-status ${status}`.quiet();
+    await $`workmux set-window-status ${status}`.quiet().nothrow();
   }
+
+  // Register this pane with workmux immediately, before any event fires. This
+  // makes opencode appear in workmux even when it's opened without a prompt
+  // (idle sessions never emit session.* events on their own).
+  await $`workmux set-window-status waiting`.quiet().nothrow();
 
   return {
     event: async ({ event }) => {
@@ -42,6 +47,22 @@ export const WorkmuxStatusPlugin: Plugin = async ({ $ }) => {
       }
 
       switch (event.type) {
+        case "session.created":
+        case "session.updated": {
+          const info = event.properties?.info;
+          if (info?.id) {
+            await setStatus(info.id, "waiting");
+          }
+          break;
+        }
+        case "session.deleted": {
+          const info = event.properties?.info;
+          if (info?.id) {
+            lastStatusBySession.delete(info.id);
+            acceptBusyBySession.delete(info.id);
+          }
+          break;
+        }
         case "session.status":
           if (event.properties.status.type === "busy") {
             await setStatus(event.properties.sessionID, "working");

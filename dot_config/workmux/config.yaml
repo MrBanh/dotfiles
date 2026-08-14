@@ -1,0 +1,32 @@
+# workmux global configuration
+# Settings here apply to all projects. Project-specific .workmux.yaml overrides these.
+# See: https://workmux.raine.dev/guide/configuration
+
+agent: opencode
+mode: session
+nerdfont: true
+theme: phosphor-arcade
+worktree_dir: "~/.workmux/worktrees/{project}"
+
+# don't add agent icons to tmux windows
+status_format: false
+
+# merge_strategy: rebase
+# merge_keep: true
+#
+# panes:
+#   - command: <agent>
+#     focus: true
+#   - split: horizontal
+#
+# sandbox:
+#   host_commands: ["just", "cargo"]
+
+windows:
+  - name: editor
+    panes:
+      - command: nvim
+        focus: true
+  - name: agent
+    panes:
+      - command: <agent>
