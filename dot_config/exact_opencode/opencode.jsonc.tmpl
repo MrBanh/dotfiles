@@ -1,11 +1,16 @@
 // https://opencode.ai/docs/config/
 {
   "$schema": "https://opencode.ai/config.json",
-{{- if eq .user.host "personal" }}
   "plugin": [
+    "@mohak34/opencode-notifier@latest",
+  {{- if eq .user.host "personal" }}
     "superpowers@git+https://github.com/obra/superpowers.git",
     "opencode-models-discovery@latest" // https://github.com/anomalyco/opencode/issues/6231
+  {{- else if eq .user.host "work" }}
+  {{- end }}
   ],
+
+{{- if eq .user.host "personal" }}
   "mcp": {},
   "lsp": true,
   "provider": {
@@ -22,7 +27,6 @@
     }
   },
 {{- else if eq .user.host "work" }}
-  "plugin": [],
   "mcp": {
     "Amplitude": {
       "type": "remote",

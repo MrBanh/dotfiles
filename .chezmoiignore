@@ -3,8 +3,9 @@ README.md
 **/.git
 **/node_modules
 **/bun.lock
-**/opencode/package.json
+**/opencode-notifier-state.json
 **/opencode/package-lock.json
+**/opencode/package.json
 **/ccmux.js
 !.config/yazi/flavors/matugen.yazi/
 !obsidian-vault/templates
