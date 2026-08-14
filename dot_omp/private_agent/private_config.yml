@@ -39,3 +39,9 @@ disabledExtensions:
   - rule:ts-import-type
   - rule:ts-no-dynamic-import
   - rule:ts-promise-with-resolvers
+memory: 
+  backend: mnemopi
+autolearn: 
+  enabled: true
+lsp: 
+  formatOnWrite: true
