@@ -8,100 +8,87 @@
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 local autocmd = vim.api.nvim_create_autocmd
-local usercmd = vim.api.nvim_create_user_command
 local augroup = vim.api.nvim_create_augroup
 
--- USER COMMANDS
-
-usercmd("SearchInBrowser", function(args)
-  local config = {
-    default_engine = "google",
-    query_map = {
-      google = "https://www.google.com/search?q=%s",
-    },
-  }
-
-  local function looks_like_url(input)
-    local pat = "[%w%.%-_]+%.[%w%.%-_/]+"
-    return input:match(pat) ~= nil
-  end
-
-  local function extract_prefix(input)
-    local pat = "@(%w+)"
-    local prefix = input:match(pat)
-    if not prefix or not config.query_map[prefix] then
-      return vim.trim(input), config.default_engine
-    end
-    local query = input:gsub("@" .. prefix, "")
-    return vim.trim(query), prefix
-  end
-
-  local function query_browser(input)
-    local q, prefix = extract_prefix(input)
-    if not looks_like_url(input) then
-      local format = config.query_map[prefix]
-      q = format:format(vim.uri_encode(q))
-    else
-      -- Ensure URL has a protocol
-      if not q:match("^https?://") then
-        q = "https://" .. q
-      end
-    end
-    vim.ui.open(q)
-  end
-
-  if args.args and #args.args > 0 then
-    query_browser(args.args)
-    return
-  end
-
-  vim.ui.input({ prompt = "Search: " }, function(input)
-    if input then
-      query_browser(input)
-    end
-  end)
-end, {
-  desc = "Search in browser",
-  nargs = "?",
+-- Disable auto comments on new line
+autocmd({ "BufNewFile", "BufRead", "BufEnter", "FileType" }, {
+  pattern = "*",
+  command = "set formatoptions-=cro",
+})
+autocmd({ "BufNewFile", "BufRead", "BufEnter", "FileType" }, {
+  pattern = "*",
+  command = "setlocal formatoptions-=cro",
 })
 
-usercmd("Btop", function()
-  if vim.fn.executable("btop") == 1 then
-    Snacks.terminal.toggle("btop", {
-      win = {
-        style = "terminal",
-        width = 0,
-        height = 0,
-      },
-    })
-  else
-    Snacks.notify.error("btop is not installed. Please install it to use this command.", {
-      title = "Btop",
-    })
-  end
-end, {
-  desc = "Toggle btop in terminal",
+-- Line numbers
+local no_line_numbers = {
+  "snacks_dashboard",
+}
+
+local line_number_group = augroup("LineNumbers", { clear = true })
+
+autocmd("InsertEnter", {
+  group = line_number_group,
+  pattern = "*",
+  callback = function()
+    if vim.tbl_contains(no_line_numbers, vim.bo.filetype) then
+      return
+    end
+    vim.cmd("set nu nornu")
+  end,
 })
 
-usercmd("Gh", function()
-  if vim.fn.executable("gh") == 1 then
-    Snacks.terminal.toggle({ "gh", "dash" }, {
-      win = {
-        style = "terminal",
-        width = 0,
-        height = 0,
-      },
-    })
-  else
-    Snacks.notify.error("gh-dash is not installed. Please install it with: `gh extension install dlvhdr/gh-dash`", {
-      title = "gh-dash",
-    })
-  end
-end, {
-  desc = "Toggle gh-dash in terminal",
+autocmd("InsertLeave", {
+  group = line_number_group,
+  pattern = "*",
+  callback = function()
+    if vim.tbl_contains(no_line_numbers, vim.bo.filetype) then
+      return
+    end
+    vim.cmd("set nu rnu")
+  end,
 })
 
--- QMK AUTOCMDS
+-- Define windows to close with 'q'
+autocmd("FileType", {
+  pattern = {
+    "grug-far-history",
+    "dap-float",
+    "sagarename",
+  },
+  group = augroup("WinCloseOnQDefinition", { clear = true }),
+  command = [[
+            nnoremap <buffer><silent> q :close<CR>
+            set nobuflisted
+        ]],
+})
+
+-- Disable wrap for filetypes
+autocmd("FileType", {
+  pattern = { "markdown", "md" },
+  callback = function()
+    vim.opt_local.wrap = false
+  end,
+})
+
+-- Move filetypes to far right window
+autocmd("FileType", {
+  pattern = { "help", "man" },
+  callback = function()
+    vim.cmd("wincmd L")
+  end,
+})
+
+-- Add to which-key for filetypes, usually involves localleader
+autocmd("User", {
+  desc = "Add which key for Git Conflict",
+  pattern = "GitConflictDetected",
+  callback = function()
+    vim.keymap.set("n", "<localleader>c", "<nop>", { buffer = true, desc = "Git Conflict" })
+  end,
+})
+
+-- QMK / ZMK
 local group = augroup("MyQMK", {})
 autocmd("BufEnter", {
   desc = "Format simple keymap",
@@ -141,60 +128,10 @@ autocmd("BufEnter", {
   end,
 })
 
-local mdx_id = augroup("mdx", {
-  clear = false,
-})
-autocmd("BufEnter", {
-  group = mdx_id,
+-- https://github.com/iamcco/markdown-preview.nvim/issues/547
+autocmd({ "BufNewFile", "BufRead" }, {
   pattern = "*.mdx",
   callback = function()
-    vim.o.filetype = "markdown"
-  end,
-})
-
--- FileType AUTOCMDS
-
-autocmd("FileType", {
-  desc = "Define windows to close with 'q'",
-  pattern = {
-    "grug-far-history",
-    "dap-float",
-    "sagarename",
-  },
-  group = augroup("WinCloseOnQDefinition", { clear = true }),
-  command = [[
-            nnoremap <buffer><silent> q :close<CR>
-            set nobuflisted
-        ]],
-})
-
-autocmd("FileType", {
-  pattern = { "markdown", "md" },
-  callback = function()
-    vim.opt_local.wrap = false
-  end,
-})
-
-autocmd("FileType", {
-  pattern = "help",
-  callback = function()
-    vim.cmd("wincmd L")
-  end,
-})
-
-autocmd("FileType", {
-  pattern = "man",
-  callback = function()
-    vim.cmd("wincmd L")
-  end,
-})
-
--- User AUTOCMDS
-
-autocmd("User", {
-  desc = "Add which key for Git Conflict",
-  pattern = "GitConflictDetected",
-  callback = function()
-    vim.keymap.set("n", "<localleader>c", "<nop>", { buffer = true, desc = "Git Conflict" })
+    vim.opt_local.filetype = "markdown"
   end,
 })
