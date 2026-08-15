@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# Entry point the plugin finds as `tmux` on PATH (see @fzf-links-path-extension).
+# Forwards every invocation to the Python shim.
+exec python3 "$(dirname "$0")/sanitize-capture-pane.py" "$@"
