@@ -11,6 +11,9 @@ worktree_dir: "~/.workmux/worktrees/{project}"
 # don't add agent icons to tmux windows
 status_format: false
 
+dashboard:
+  preview_size: 50
+
 # merge_strategy: rebase
 # merge_keep: true
 #
