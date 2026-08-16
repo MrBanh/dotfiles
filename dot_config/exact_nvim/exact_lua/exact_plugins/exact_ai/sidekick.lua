@@ -63,7 +63,7 @@ local sidekick = {
     local original_sid = Session.sid
     ---@diagnostic disable-next-line: duplicate-set-field
     Session.sid = function(o)
-      local sid = "sidekick|" .. original_sid(o)
+      local sid = "[sidekick] " .. original_sid(o)
       -- Derive the suffix from the same normalized cwd the plugin uses. It must
       -- stay deterministic from cwd: on rediscovery sidekick recomputes sid from
       -- a running session's cwd and matches it against the live tmux session name

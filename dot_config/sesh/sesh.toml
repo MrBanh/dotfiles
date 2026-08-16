@@ -3,8 +3,8 @@
 blacklist = [
   "claude ",
   "floating-tmux",
+  '\[sidekick\]',
   'floating\|',
-  'sidekick\|',
 ]
 
 [[window]]
