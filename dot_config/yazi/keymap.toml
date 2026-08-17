@@ -230,11 +230,11 @@ keymap = [
   { on = [
     "g",
     "d",
-  ], run = "cd ~/downloads", desc = "~/downloads" },
+  ], run = "cd ~/Downloads", desc = "~/Downloads" },
   { on = [
     "g",
     "D",
-  ], run = "cd ~/desktop", desc = "~/desktop" },
+  ], run = "cd ~/Desktop", desc = "~/Desktop" },
   { on = [
     "g",
     "h",
