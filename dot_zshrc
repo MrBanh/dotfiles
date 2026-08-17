@@ -124,7 +124,7 @@ fi
 export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 ## FZF configuration
-export FZF_DEFAULT_OPTS="--gutter ' ' --style minimal"
+export FZF_DEFAULT_OPTS="--gutter ' ' --style minimal --wrap word"
 
 ### Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
