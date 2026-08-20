@@ -1,5 +1,5 @@
 modelRoles: 
-  default: infron/moonshotai/kimi-k3:max
+  default: ollama-cloud/glm-5.2:max
 symbolPreset: nerd
 theme: 
   dark: matugen
