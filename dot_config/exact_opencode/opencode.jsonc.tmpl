@@ -14,6 +14,19 @@
   "mcp": {},
   "lsp": true,
   "provider": {
+    "openrouter": {
+      "models": {
+        "~google/gemini-flash-latest": {
+          "options": {
+            "provider": {
+              "order": ["google-ai-studio"],
+              "allow_fallbacks": true,
+              "data_collection": "deny",
+            },
+          },
+        },
+      },
+    },
     "infronai": {
       "name": "Infron AI",
       "npm": "@ai-sdk/openai-compatible",
