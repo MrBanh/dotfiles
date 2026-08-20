@@ -3,13 +3,14 @@ modelRoles:
 symbolPreset: nerd
 theme: 
   dark: matugen
-setupVersion: 1
+setupVersion: 2
 statusLine: 
   separator: slash
   preset: default
   transparent: true
   compactThinkingLevel: false
   sessionAccent: true
+  contextLine: annotated
 tui: 
   textSizing: false
 display: 
@@ -47,3 +48,7 @@ lsp:
   formatOnWrite: true
 error: 
   notify: "on"
+composer: 
+  shape: rail
+terminal: 
+  showProgress: true
