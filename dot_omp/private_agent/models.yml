@@ -1,0 +1,9 @@
+providers:
+  infron:
+    baseUrl: https://llm.onerouter.pro/v1
+    apiKey: INFRON_API_KEY
+    api: openai-completions
+    authHeader: true
+    auth: apiKey
+    discovery:
+      type: openai-models-list

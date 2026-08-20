@@ -1,0 +1,53 @@
+# OMP Keybindings Override File
+# Location: ~/.omp/agent/keybindings.yml
+# Run `/hotkeys` in omp to see active bindings
+#
+# Format: action_id: chord | [chord1, chord2, ...]
+# Set to empty array [] to disable
+
+# Model switching
+# app.model.cycleForward: Ctrl+P
+# app.model.cycleBackward: Shift+Ctrl+P
+# app.model.selectTemporary: Alt+P
+# app.model.select: Alt+M
+
+# Plan mode
+# app.plan.toggle: Alt+Shift+P
+
+# History & tools
+# app.history.search: Ctrl+R
+# app.tools.expand: Ctrl+O
+# app.tools.toggleVisibility: Ctrl+Shift+O
+
+# Thinking
+# app.thinking.toggle: Ctrl+T
+# app.thinking.cycle: Shift+Tab
+
+# Editor
+# app.editor.external: Ctrl+G
+
+# Message queue
+# app.message.followUp: [Ctrl+Q, Ctrl+Enter]
+app.message.dequeue: [Ctrl+Up, Shift+Up]
+
+# Retry & display
+# app.retry: Alt+R
+# app.display.reset: Alt+L
+
+# Clipboard
+# app.clipboard.copyLine: Alt+Shift+L
+# app.clipboard.copyPrompt: Alt+Shift+C
+# app.clipboard.pasteTextRaw: [Ctrl+Shift+V, Alt+Shift+V]
+# app.clipboard.pasteImage: Ctrl+V
+
+# Speech / Live
+# app.stt.toggle: ""           # default: hold Space (push-to-talk); bind a chord for press-to-toggle
+# app.live.toggle: Ctrl+L
+
+# Agent hub
+# app.agents.hub: Alt+A
+
+# Example overrides (uncomment and edit):
+# app.history.search: []       # disable Ctrl+R history search
+# app.message.followUp: Ctrl+Q # single binding instead of two
+# app.stt.toggle: Ctrl+Space   # press-to-toggle STT instead of hold Space

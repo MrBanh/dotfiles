@@ -1,5 +1,5 @@
 modelRoles: 
-  default: ollama-cloud/glm-5.2:max
+  default: ollama-cloud/minimax-m3:high
 symbolPreset: nerd
 theme: 
   dark: matugen
