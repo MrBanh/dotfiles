@@ -1,5 +1,5 @@
 modelRoles: 
-  default: infron/moonshotai/kimi-k2.6:free
+  default: infron/moonshotai/kimi-k3:max
 symbolPreset: nerd
 theme: 
   dark: matugen
