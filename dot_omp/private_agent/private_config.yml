@@ -1,5 +1,5 @@
 modelRoles: 
-  {}
+  default: kilo/stealth/ox-alpha:xhigh
 symbolPreset: nerd
 theme: 
   dark: matugen
