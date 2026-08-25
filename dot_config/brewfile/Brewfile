@@ -34,6 +34,7 @@ brew "raine/workmux/workmux"
 brew "sesh"
 brew "starship"
 brew "tmux"
+brew "uv"
 brew "worktrunk"
 
 cask "ghostty"
