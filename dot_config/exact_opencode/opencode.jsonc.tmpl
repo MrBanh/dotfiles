@@ -11,7 +11,15 @@
   ],
 
 {{- if eq .user.host "personal" }}
-  "mcp": {},
+  "mcp": {
+    "freecad": {
+      "type": "local",
+      "command": ["freecad-mcp"],
+      "environment": {
+        "FREECAD_MODE": "xmlrpc",
+      },
+    },
+  },
   "lsp": true,
   "provider": {
     "openrouter": {
