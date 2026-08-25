@@ -79,7 +79,7 @@
     "bashMode": "cyan",
     "pythonMode": "purple",
 
-    "statusLineBg": "",
+    "statusLineBg": "bg",
     "statusLineSep": "borderMuted",
     "statusLineModel": "purple",
     "statusLinePath": "blue",

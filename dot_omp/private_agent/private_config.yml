@@ -1,5 +1,5 @@
 modelRoles: 
-  default: ollama-cloud/minimax-m3:high
+  default: opencode-zen/x-preview-f-free:max
 symbolPreset: nerd
 theme: 
   dark: matugen
@@ -15,7 +15,7 @@ tui:
   textSizing: false
 display: 
   showTokenUsage: false
-hideThinkingBlock: false
+hideThinkingBlock: true
 tools: 
   approvalMode: yolo
 stt: 
@@ -52,3 +52,6 @@ composer:
   shape: rail
 terminal: 
   showProgress: true
+edit: 
+  autoRepair: 
+    enabled: true
