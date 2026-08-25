@@ -1,5 +1,5 @@
 modelRoles: 
-  default: opencode-zen/x-preview-f-free:max
+  {}
 symbolPreset: nerd
 theme: 
   dark: matugen
@@ -55,3 +55,7 @@ terminal:
 edit: 
   autoRepair: 
     enabled: true
+security: 
+  enabled: true
+browser: 
+  headless: false
