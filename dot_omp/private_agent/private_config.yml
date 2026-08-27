@@ -1,29 +1,28 @@
-modelRoles: 
-  default: kilo/stealth/ox-alpha:xhigh
+modelRoles:
+  default: opencode-zen/muse-spark-1.2-contributor-free:xhigh
 symbolPreset: nerd
-theme: 
+theme:
   dark: matugen
 setupVersion: 2
-statusLine: 
+statusLine:
   separator: slash
   preset: default
   transparent: true
   compactThinkingLevel: false
   sessionAccent: true
   contextLine: annotated
-tui: 
+tui:
   textSizing: false
-display: 
+display:
   showTokenUsage: false
 hideThinkingBlock: true
-tools: 
+tools:
   approvalMode: yolo
-stt: 
+stt:
   enabled: true
-disabledExtensions: 
+disabledExtensions:
   - rule:go-add-cleanup
   - rule:go-bench-loop
-  - skill:caveman
   - rule:go-exp-promoted
   - rule:go-ioutil
   - rule:go-join-hostport
@@ -40,22 +39,24 @@ disabledExtensions:
   - rule:ts-import-type
   - rule:ts-no-dynamic-import
   - rule:ts-promise-with-resolvers
-memory: 
+memory:
   backend: mnemopi
-autolearn: 
+autolearn:
   enabled: true
-lsp: 
+lsp:
   formatOnWrite: true
-error: 
+error:
   notify: "on"
-composer: 
+composer:
   shape: rail
-terminal: 
+terminal:
   showProgress: true
-edit: 
-  autoRepair: 
+edit:
+  autoRepair:
     enabled: true
-security: 
+security:
   enabled: true
-browser: 
+browser:
   headless: false
+disabledProviders: []
+
