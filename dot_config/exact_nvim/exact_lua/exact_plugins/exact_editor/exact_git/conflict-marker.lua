@@ -3,7 +3,7 @@ return {
   lazy = false,
   opts = {
     on_attach = function(conflict)
-      local map = function(key, fn)
+      local function map(key, fn)
         vim.keymap.set("n", key, fn, { buffer = conflict.bufnr })
       end
 

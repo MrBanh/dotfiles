@@ -1,4 +1,4 @@
-local del_qf_item = function()
+local function del_qf_item()
   local items = vim.fn.getqflist()
   local line = vim.fn.line(".")
   table.remove(items, line)

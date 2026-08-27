@@ -2,7 +2,7 @@
 --- https://github.com/magnusriga/markdown-tools.nvim
 --- + https://github.com/artempyanykh/marksman
 
-local note_id_func = function(title)
+local function note_id_func(title)
   if title == nil then
     title = vim.fn.input("Note title: ")
   end
