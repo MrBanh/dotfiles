@@ -1,2 +1,16 @@
 [flavor]
 dark = "matugen"
+
+# https://github.com/yazi-rs/plugins/tree/main/git.yazi
+[git]
+unstaged = { fg = "red" }
+staged = { fg = "green" }
+unknown_sign = " "
+ignored_sign = ""
+untracked_sign = "?"
+unstaged_sign = "M"
+staged_sign = "M"
+added_sign = "A"
+deleted_sign = "D"
+updated_sign = "U"
+clean_sign = " "
