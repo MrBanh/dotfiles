@@ -4,7 +4,6 @@
   "plugin": [
     "@mohak34/opencode-notifier@latest",
   {{- if eq .user.host "personal" }}
-    "superpowers@git+https://github.com/obra/superpowers.git",
     "opencode-models-discovery@latest", // https://github.com/anomalyco/opencode/issues/6231
   {{- else if eq .user.host "work" }}
   {{- end }}
