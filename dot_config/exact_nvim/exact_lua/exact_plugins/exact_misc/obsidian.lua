@@ -23,6 +23,7 @@ return {
         "<leader>n",
         group = "Notes/New...",
         icon = { icon = "󰎝 " },
+        mode = { "n", "v" },
       },
     })
   end,

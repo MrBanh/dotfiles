@@ -78,7 +78,7 @@ return {
     local ok, wk = pcall(require, "which-key")
     if ok then
       wk.add({
-        { keymap_prefix, group = "print log", icon = { icon = "󱞆 " } },
+        { keymap_prefix, group = "print log", icon = { icon = "󱞆 " }, mode = { "n", "x" } },
       })
     end
   end,

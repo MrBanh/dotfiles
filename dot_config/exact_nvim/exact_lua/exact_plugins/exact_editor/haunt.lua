@@ -122,7 +122,12 @@ return {
       local ok, wk = pcall(require, "which-key")
       if ok then
         wk.add({
-          { prefix, group = "haunt", icon = { icon = "󱙝 " } },
+          {
+            prefix,
+            group = "haunt",
+            icon = { icon = "󱙝 " },
+            mode = { "n", "v" },
+          },
         })
       end
     end,

@@ -4,8 +4,9 @@ return {
   config = function()
     require("which-key").add({
       "<leader>m",
-      group = "multiCursor",
+      group = "multi cursor",
       icon = { icon = "󰆿 " },
+      mode = { "n", "x" },
     })
 
     local mc = require("multicursor-nvim")

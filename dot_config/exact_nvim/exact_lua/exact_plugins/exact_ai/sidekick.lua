@@ -78,6 +78,7 @@ local sidekick = {
       {
         keymap_prefix,
         group = "ai/sidekick",
+        mode = { "n", "v" },
       },
     })
 
