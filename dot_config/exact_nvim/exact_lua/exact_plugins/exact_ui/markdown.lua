@@ -1,13 +1,6 @@
 local ft = { "md", "markdown" }
 
 return {
-  -- visual keybinds for markdown, C-b for bold, C-k for link, etc
-  {
-    "antonk52/markdowny.nvim",
-    config = function()
-      require("markdowny").setup()
-    end,
-  },
   {
     -- Lazy: https://www.lazyvim.org/extras/lang/markdown#render-markdownnvim
     "MeanderingProgrammer/render-markdown.nvim",
