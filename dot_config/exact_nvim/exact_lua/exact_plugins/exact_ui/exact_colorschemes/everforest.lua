@@ -100,6 +100,27 @@ return {
           ConflictOurs = { bg = palette.bg_blue },
           ConflictTheirs = { bg = palette.bg_green },
 
+          -- cursortab.nvim
+          -- CursorTabCompletion 	fg = "#80899c" 	Foreground for completion text
+          -- CursorTabJumpSymbol 	fg = "#373b45" 	Jump indicator symbol
+          -- CursorTabJumpText 	bg = "#373b45", fg = "#bac1d1" 	Jump indicator text
+          CursorTabDeletion = {
+            bg = palette.bg_red,
+          },
+          CursorTabAddition = {
+            bg = palette.bg_green,
+          },
+          CursorTabModification = {
+            bg = palette.bg_dim,
+          },
+          CursorTabJumpSymbol = {
+            fg = palette.orange,
+          },
+          CursorTabJumpText = {
+            bg = palette.orange,
+            fg = palette.bg_dim,
+          },
+
           -- haunt.nvim
           HauntAnnotation = {
             fg = palette.grey2,

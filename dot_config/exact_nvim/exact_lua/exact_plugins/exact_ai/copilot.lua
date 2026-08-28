@@ -12,6 +12,7 @@ return {
   opts = {
     servers = {
       copilot = {
+        enabled = false,
         settings = {
           telemetry = {
             telemetryLevel = "off",

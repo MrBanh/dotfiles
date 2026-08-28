@@ -42,13 +42,7 @@ local sidekick = {
       },
     },
     nes = {
-      enabled = function(buf)
-        local ft = vim.bo[buf].filetype
-        if ft == "markdown" then
-          return false
-        end
-        return vim.g.sidekick_nes ~= false and vim.b.sidekick_nes ~= false
-      end,
+      enabled = false,
     },
     copilot = {
       status = {
