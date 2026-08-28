@@ -10,6 +10,31 @@ return {
     })
 
     local mc = require("multicursor-nvim")
+    -- keep which-key enabled during multicursor (multicursor disables
+    -- which-key.view.update → NO_OP in input-manager.lua:260-320)
+    do
+      local im = require("multicursor-nvim.input-manager")
+      local orig_disable = im._disableTogglableAdapters
+      local orig_enable = im._enableTogglableAdapters
+      im._disableTogglableAdapters = function(self)
+        local loaded = package.loaded["which-key.view"]
+        package.loaded["which-key.view"] = nil
+        local ok, err = pcall(orig_disable, self)
+        package.loaded["which-key.view"] = loaded
+        if not ok then
+          error(err)
+        end
+      end
+      im._enableTogglableAdapters = function(self)
+        local loaded = package.loaded["which-key.view"]
+        package.loaded["which-key.view"] = nil
+        local ok, err = pcall(orig_enable, self)
+        package.loaded["which-key.view"] = loaded
+        if not ok then
+          error(err)
+        end
+      end
+    end
     mc.setup()
 
     local set = vim.keymap.set
@@ -97,15 +122,5 @@ return {
         end
       end, { desc = "Enable/clear cursors" })
     end)
-
-    -- Customize how cursors look.
-    local hl = vim.api.nvim_set_hl
-    hl(0, "MultiCursorCursor", { reverse = true })
-    hl(0, "MultiCursorVisual", { link = "Visual" })
-    hl(0, "MultiCursorSign", { link = "SignColumn" })
-    hl(0, "MultiCursorMatchPreview", { link = "Search" })
-    hl(0, "MultiCursorDisabledCursor", { reverse = true })
-    hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
-    hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
   end,
 }
