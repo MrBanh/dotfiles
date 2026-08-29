@@ -58,5 +58,5 @@ security:
   enabled: true
 browser:
   headless: false
-disabledProviders: []
-
+disabledProviders:
+  []
