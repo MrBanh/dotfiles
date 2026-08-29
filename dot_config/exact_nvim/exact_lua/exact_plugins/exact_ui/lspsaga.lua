@@ -1,3 +1,6 @@
+-- Do NOT swap to navic or trouble
+--- trouble: does not work in splits; both split shows same breadcrumbs
+--- navic: in splits, breadcrumbs from other windows appears sometimes
 return {
   {
     "nvimdev/lspsaga.nvim",
