@@ -11,7 +11,6 @@ return {
         },
         behavior = {
           ignore_filetypes = { "", "markdown", "terminal" }, -- Filetypes to skip completions
-          max_visible_lines = 24, -- 0 disables; 12 is default, >0 required to show inline suggestions
         },
         provider = {
           ---@type "copilot" | "fim" | "inline" | "mercuryapi" | "sweep" | "windsurf" | "zeta" | "zeta-2"
