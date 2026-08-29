@@ -15,6 +15,7 @@ return {
         "snacks_picker_input",
       },
       map_c_w = true, -- map <c-w> to delete a pair if possible
+      check_ts = true,
     },
   },
   {
