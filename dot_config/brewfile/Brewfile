@@ -67,6 +67,9 @@ if installing?
 
   # Paseo CLI
   system "npm install -g @getpaseo/cli"
+
+  # terminal-browser
+  system "curl -fsSL https://terminal-browser.sh/install | bash"
 end
 
 if OS.mac?
