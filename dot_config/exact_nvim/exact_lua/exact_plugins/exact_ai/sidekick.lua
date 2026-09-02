@@ -108,7 +108,7 @@ local sidekick = {
           require("sidekick.cli").focus()
         end,
         desc = "Sidekick Focus",
-        mode = { "n", "i", "x" },
+        mode = { "n", "x" },
       },
       {
         keymap_prefix .. "b",
