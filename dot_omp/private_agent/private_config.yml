@@ -1,5 +1,5 @@
 modelRoles:
-  default: opencode-zen/muse-spark-1.2-contributor-free:xhigh
+  default: opencode-zen/muse-spark-1.3-contributor-free:xhigh
 symbolPreset: nerd
 theme:
   dark: matugen
@@ -60,3 +60,5 @@ browser:
   headless: false
 disabledProviders:
   []
+enabledProviders:
+  - opencode
