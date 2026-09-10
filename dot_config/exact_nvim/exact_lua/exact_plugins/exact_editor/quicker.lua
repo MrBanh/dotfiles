@@ -65,8 +65,6 @@ return {
           desc = "Expand by X number of lines",
         },
       },
-      -- Callback function to run any custom logic or keymaps for the quickfix buffer
-      on_qf = function(bufnr) end,
       edit = {
         -- Enable editing the quickfix like a normal buffer
         enabled = true,
@@ -115,7 +113,7 @@ return {
         return math.floor(math.min(95, vim.o.columns / 2))
       end,
       -- How far the header should extend to the right
-      header_length = function(type, start_col)
+      header_length = function(_, start_col)
         return vim.o.columns - start_col
       end,
     })

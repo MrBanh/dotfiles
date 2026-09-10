@@ -1,3 +1,4 @@
+---@module "leetcode-ui.question"
 return {
   "kawre/leetcode.nvim",
   cmd = "Leet",
@@ -22,6 +23,7 @@ return {
 
       ---@type fun(question: lc.ui.Question)[]
       ["question_enter"] = {
+        ---@param q lc.ui.Question
         function(q)
           local bufnr = q.bufnr
 
