@@ -13,6 +13,8 @@ statusLine:
   contextLine: annotated
 tui:
   textSizing: false
+  vimMode: true
+  vimModeDisplay: text
 display:
   showTokenUsage: false
 hideThinkingBlock: true
