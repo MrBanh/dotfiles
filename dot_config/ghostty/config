@@ -21,6 +21,7 @@ macos-titlebar-proxy-icon = hidden
 
 keybind = shift+enter=text:\x1b\r
 keybind = ctrl+enter=unbind
+keybind = ctrl+,=unbind
 
 config-file =?local
 
