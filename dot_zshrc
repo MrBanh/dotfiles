@@ -151,8 +151,9 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 
 alias gg="lazygit"
-alias v='nvim'
 alias ls="eza --icons=always --group-directories-last --color=auto -h -l"
+alias oc='opencode'
+alias v='nvim'
 
 # ==================
 
