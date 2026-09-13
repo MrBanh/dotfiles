@@ -1,7 +1,6 @@
 local keymap_prefix = "<leader>a"
-local toggle = "<M-/>"
 
-local sidekick = {
+return {
   "folke/sidekick.nvim",
   opts = {
     signs = {
@@ -73,86 +72,33 @@ local sidekick = {
     end
     require("sidekick").setup(opts)
   end,
-  keys = function()
-    require("which-key").add({
-      {
-        keymap_prefix,
-        group = "ai/sidekick",
-        mode = { "n", "v" },
-      },
-    })
-
-    return {
-      -- nes
-      { "<tab>", LazyVim.cmp.map({ "ai_nes" }, "<tab>"), mode = { "n" }, expr = true },
-
-      -- cli
-      {
-        toggle,
-        function()
-          require("sidekick.cli").toggle()
-        end,
-        desc = "Sidekick Toggle",
-        mode = { "n", "t", "i", "x" },
-      },
-      {
-        keymap_prefix .. "d",
-        function()
-          require("sidekick.cli").close()
-        end,
-        desc = "Detach a CLI Session",
-      },
-      {
-        keymap_prefix .. "f",
-        function()
-          require("sidekick.cli").focus()
-        end,
-        desc = "Sidekick Focus",
-        mode = { "n", "x" },
-      },
-      {
-        keymap_prefix .. "b",
-        function()
-          require("sidekick.cli").send({ msg = "{file}" })
-        end,
-        desc = "Send Buffer",
-      },
-      {
-        keymap_prefix .. "p",
-        function()
-          require("sidekick.cli").prompt()
-        end,
-        mode = { "n", "x" },
-        desc = "Sidekick Select Prompt",
-      },
-      {
-        keymap_prefix .. "s",
-        function()
-          require("sidekick.cli").select({ filter = { installed = true } })
-        end,
-        desc = "Select CLI",
-      },
-      {
-        keymap_prefix .. "t",
-        function()
-          require("sidekick.cli").send({ msg = "{this}" })
-        end,
-        mode = { "x", "n" },
-        desc = "Send This",
-      },
-      {
-        keymap_prefix .. "v",
-        function()
-          require("sidekick.cli").send({ msg = "{selection}" })
-        end,
-        mode = { "x" },
-        desc = "Send Visual Selection",
-      },
-    }
-  end,
-}
-
-return {
-  sidekick,
-  require("plugins.ai.sidekick.sidekick_send"),
+  keys = {
+    {
+      "<c-.>",
+      function()
+        require("sidekick.cli").toggle()
+      end,
+      desc = "Sidekick Toggle",
+      mode = { "n", "t", "i", "x" },
+    },
+    {
+      "<leader>aa",
+      false,
+    },
+    {
+      keymap_prefix .. "f",
+      function()
+        require("sidekick.cli").focus()
+      end,
+      desc = "Sidekick Focus",
+      mode = { "n", "x" },
+    },
+    {
+      keymap_prefix .. "b",
+      function()
+        require("sidekick.cli").send({ msg = "{file}" })
+      end,
+      desc = "Send Buffer",
+    },
+  },
 }
