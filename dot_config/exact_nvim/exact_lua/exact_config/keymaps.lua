@@ -66,11 +66,6 @@ wk.add({
 -- exit terminal mode while in terminal
 set("t", "<C-Space>[", "<C-\\><C-N>", vim.tbl_extend("force", opts, { desc = "terminal escape terminal mode" }))
 
--- Browser search bar
-set("n", "<leader>so", ":SearchInBrowser<CR>", {
-  desc = "Search in browser",
-})
-
 -- LSP Workspace Folders
 set("n", "<leader>fw", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
 set("n", "<leader>fW", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
