@@ -52,6 +52,11 @@ startup_command = "nvim sesh.toml"
 preview_command = "bat --color=always ~/.config/sesh/sesh.toml"
 
 [[session]]
+name = "/src"
+path = "~/src"
+startup_command = "ls"
+
+[[session]]
 name = "tmux config"
 path = "~/.config/tmux"
 startup_command = "nvim"
