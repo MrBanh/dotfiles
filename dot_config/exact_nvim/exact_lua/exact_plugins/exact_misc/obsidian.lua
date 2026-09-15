@@ -170,7 +170,7 @@ return {
     },
 
     picker = {
-      name = "snacks.pick", -- telescope.nvim, fzf-lua, mini.pick, snacks.pick
+      name = "snacks.picker", -- telescope.nvim, fzf-lua, mini.pick, snacks.picker
       -- Not all pickers support all mappings.
       note_mappings = {
         new = "<C-s>", -- Create a new note from the current query.
