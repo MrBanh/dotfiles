@@ -19,6 +19,16 @@ return {
     opts = {
       inlay_hints = { enabled = false },
       servers = {
+        ["*"] = {
+          capabilities = {
+            workspace = {
+              didChangeWatchedFiles = {
+                dynamicRegistration = true,
+              },
+            },
+          },
+        },
+        cssls = {},
         lua_ls = {
           settings = {
             Lua = {
