@@ -32,9 +32,11 @@ return {
         },
       },
       tools = {
-        opencode = {},
+        opencode = {
+          cmd = { "zsh", "-c", 'opencode "$@"; exit', "zsh" },
+        },
         omp = {
-          cmd = { "omp" },
+          cmd = { "zsh", "-c", 'omp "$@"; exit', "zsh" },
           is_proc = "\\<omp\\>",
           continue = { "--continue" },
         },
