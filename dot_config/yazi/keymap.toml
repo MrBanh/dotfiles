@@ -17,6 +17,8 @@ keymap = [
   { on = "j", run = "arrow 1", desc = "Move cursor down" },
   { on = "<C-p>", run = "arrow -1", desc = "Move cursor up" },
   { on = "<C-n>", run = "arrow 1", desc = "Move cursor down" },
+  { on = "<Up>", run = "arrow -1", desc = "Move cursor up" },
+  { on = "<Down>", run = "arrow 1", desc = "Move cursor down" },
 
   { on = "<C-u>", run = "arrow -50%", desc = "Move cursor up half page" },
   { on = "<C-d>", run = "arrow 50%", desc = "Move cursor down half page" },
@@ -441,9 +443,11 @@ keymap = [
   { on = "<Enter>", run = "close --submit", desc = "Submit the pick" },
 
   { on = "k", run = "arrow -1", desc = "Move cursor up" },
-  { on = "<C-p>", run = "arrow -1", desc = "Move cursor up" },
   { on = "j", run = "arrow 1", desc = "Move cursor down" },
+  { on = "<C-p>", run = "arrow -1", desc = "Move cursor up" },
   { on = "<C-n>", run = "arrow 1", desc = "Move cursor down" },
+  { on = "<Up>", run = "arrow -1", desc = "Move cursor up" },
+  { on = "<Down>", run = "arrow 1", desc = "Move cursor down" },
 
   # Help
   { on = ["g", "?"], run = "help", desc = "Open help" },
@@ -557,6 +561,8 @@ keymap = [
 
   { on = "<C-p>", run = "arrow -1", desc = "Move cursor up" },
   { on = "<C-n>", run = "arrow 1", desc = "Move cursor down" },
+  { on = "<Up>", run = "arrow -1", desc = "Move cursor up" },
+  { on = "<Down>", run = "arrow 1", desc = "Move cursor down" },
 
   # Help
   { on = [
@@ -576,6 +582,8 @@ keymap = [
   { on = "j", run = "arrow 1", desc = "Move cursor down" },
   { on = "<C-p>", run = "arrow -1", desc = "Move cursor up" },
   { on = "<C-n>", run = "arrow 1", desc = "Move cursor down" },
+  { on = "<Up>", run = "arrow -1", desc = "Move cursor up" },
+  { on = "<Down>", run = "arrow 1", desc = "Move cursor down" },
 
   # Filtering
   { on = "/", run = "filter", desc = "Apply a filter for the help items" },
