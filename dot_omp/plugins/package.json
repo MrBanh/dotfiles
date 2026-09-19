@@ -1,7 +1,0 @@
-{
-  "name": "omp-plugins",
-  "private": true,
-  "dependencies": {
-    "@baylarsadigov/omp-undo-redo": "^1.2.0"
-  }
-}
