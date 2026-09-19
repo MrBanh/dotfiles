@@ -63,6 +63,7 @@ return {
       -- https://github.com/neanias/everforest-nvim/blob/main/lua/everforest/colours.lua
       on_highlights = function(hl, palette)
         local highlights = {
+          ColorColumn = { bg = palette.bg_green },
           NormalFloat = { bg = palette.none },
           FloatBorder = { bg = palette.none },
           Pmenu = { bg = palette.none },
