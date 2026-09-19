@@ -46,6 +46,9 @@ return {
       latex = {
         enabled = false,
       },
+      yaml = {
+        enabled = false,
+      },
     },
   },
 }
