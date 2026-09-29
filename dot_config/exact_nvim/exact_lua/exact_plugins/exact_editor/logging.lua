@@ -18,6 +18,10 @@ return {
     -- https://github.com/chrisgrieser/nvim-chainsaw/blob/main/lua/chainsaw/config/log-statements-data.lua
     logStatements = {
       variableLog = {
+        astro = {
+          "/* prettier-ignore */ // {{marker}}",
+          'console.log("{{marker}} {{filename}}:{{lnum}} - {{var}} → ", {{var}});',
+        },
         javascript = {
           "/* prettier-ignore */ // {{marker}}",
           'console.log("{{marker}} {{filename}}:{{lnum}} - {{var}} → ", {{var}});',
@@ -25,12 +29,17 @@ return {
         nvim_lua = "Chainsaw({{var}}) -- {{marker}}",
       },
       objectLog = {
+        astro = {
+          "/* prettier-ignore */ // {{marker}}",
+          'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2))',
+        }, -- `2` ensures it's pretty-printed
         javascript = {
           "/* prettier-ignore */ // {{marker}}",
           'console.log("{{marker}} {{var}}:", JSON.stringify({{var}}, null, 2))',
         }, -- `2` ensures it's pretty-printed
       },
       emojiLog = {
+        astro = 'console.log("{{marker}} {{emoji}} ------------------");',
         javascript = 'console.log("{{marker}} {{emoji}} ------------------");',
       },
     },
