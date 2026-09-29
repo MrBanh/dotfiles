@@ -3,6 +3,8 @@ return {
   opts = {
     ensure_installed = {
       "gitcommit",
+      "http",
+      "graphql",
     },
   },
 }
