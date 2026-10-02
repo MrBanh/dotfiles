@@ -36,6 +36,7 @@ tap "raine/workmux"
 brew "raine/workmux/workmux"
 brew "sesh"
 brew "starship"
+brew "terminal-browser"
 brew "tmux"
 brew "uv"
 brew "worktrunk"
@@ -69,9 +70,6 @@ if installing?
 
   # Paseo CLI
   system "npm install -g @getpaseo/cli"
-
-  # terminal-browser
-  system "curl -fsSL https://terminal-browser.sh/install | bash"
 end
 
 if OS.mac?
@@ -87,7 +85,7 @@ if OS.linux?
 
   if installing?
     system "yay -S portmaster-bin"
-    system "curl -fsSL https://vicinae.com/install | sh"
+    system "yay -S vicinae-bin"
     system "sudo pacman -S libnotify"
   end
 end
