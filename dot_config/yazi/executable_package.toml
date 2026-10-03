@@ -1,11 +1,11 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "c591a36"
-hash = "5bb0bfab901d3601c370eafdd66edd31"
+rev = "6229767"
+hash = "347cc6b190eb0c2fd60513cc7ae37412"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:chmod"
-rev = "c591a36"
+rev = "6229767"
 hash = "87472b05a8c420100f6a2b9cde1e7746"
 
 [[plugin.deps]]
@@ -20,8 +20,8 @@ hash = "ed359abc14ba915a12e759435ed721ab"
 
 [[plugin.deps]]
 use = "XYenon/clipboard"
-rev = "0f4982a"
-hash = "dcda5f179482ee8cc191ad679c9d72e0"
+rev = "a2655fd"
+hash = "90625fa33e3372073d60f124c3c867"
 
 [flavor]
 deps = []
