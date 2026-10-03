@@ -40,6 +40,7 @@ Creates a git worktree, runs file operations and hooks, creates a tmux
 window with configured pane layout, and switches to it.
 
 Key flags:
+
 - `--pr <number|url>`: checkout a GitHub pull request by number or full URL into
   a new worktree. The local branch defaults to the PR head branch name. Pass
   `<branch-name>` to override it, for example
@@ -159,27 +160,27 @@ Two levels: global (`~/.config/workmux/config.yaml`) and project
 ### Key options
 
 ```yaml
-agent: claude                    # default agent for <agent> placeholder
-merge_strategy: rebase           # merge, rebase, or squash
-mode: window                     # window or session
+agent: claude # default agent for <agent> placeholder
+merge_strategy: rebase # merge, rebase, or squash
+mode: window # window or session
 
 panes:
-  - command: <agent>             # <agent> resolves to configured agent
+  - command: <agent> # <agent> resolves to configured agent
     focus: true
-  - split: horizontal            # second pane with shell
+  - split: horizontal # second pane with shell
 
 files:
   copy:
-    - .env                       # copy from main worktree
+    - .env # copy from main worktree
   symlink:
-    - node_modules               # symlink from main worktree
+    - node_modules # symlink from main worktree
 
 post_create:
-  - '<global>'                   # include global hooks
-  - npm install                  # project-specific setup
+  - "<global>" # include global hooks
+  - npm install # project-specific setup
 
-base_branch: develop             # default base for new worktrees
-window_prefix: wm-               # tmux window name prefix
+base_branch: develop # default base for new worktrees
+window_prefix: wm- # tmux window name prefix
 ```
 
 Use `'<global>'` in project config arrays to include global values.
@@ -204,7 +205,7 @@ step. This cleans up the worktree, tmux window, and branch.
 
 1. Commit changes
 2. `git push -u origin HEAD`
-3. Use `/open-pr` to write a PR description and open in browser
+3. Open a PR, write a PR description and open in browser
 4. After PR is merged remotely, clean up with `workmux rm --gone`
 
 ### Delegating tasks
@@ -247,4 +248,3 @@ other projects by path and let the agent explore on its own.
 - **`/rebase`**: rebase with smart conflict resolution
 - **`/worktree`**: delegate tasks to parallel worktree agents
 - **`/coordinator`**: orchestrate multiple agents (spawn, monitor, merge)
-- **`/open-pr`**: write PR description and open in browser
