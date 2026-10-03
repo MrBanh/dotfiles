@@ -72,15 +72,15 @@ export ZSH="$HOME/.oh-my-zsh"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  # requires installation
+  zsh-completions
+  zsh-vi-mode
+
   # built-in
   git
   ssh-agent
-
-  # requires installation
   zsh-autosuggestions
-  zsh-completions
   zsh-syntax-highlighting
-  zsh-vi-mode
 )
 
 autoload -U compinit && (
