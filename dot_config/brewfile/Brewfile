@@ -87,5 +87,3 @@ if OS.linux?
     system "sudo pacman -S libnotify"
   end
 end
-
-
