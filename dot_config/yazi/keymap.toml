@@ -499,10 +499,7 @@ keymap = [
   { on = "x", run = "backspace --under", desc = "Delete the character under the cursor" },
 
   # Kill - only in insert mode
-  { on = "<C-h>", run = "kill bol", desc = "Kill backwards to the BOL" },
-  { on = "<C-l>", run = "kill eol", desc = "Kill forwards to the EOL" },
   { on = "<C-w>", run = "kill backward", desc = "Kill backwards to the start of the current word" },
-  # { on = "<A-d>", run = "kill forward", desc = "Kill forwards to the end of the current word" },
 
   # Cut/Yank/Paste
   { on = "d", run = "delete --cut", desc = "Cut the selected characters" },
