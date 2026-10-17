@@ -50,14 +50,6 @@ brew "worktrunk"
 if installing?
   # Oh My Zsh
   system 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended' unless Dir.exist?("#{ENV["HOME"]}/.oh-my-zsh")
-  zsh_custom = ENV["ZSH_CUSTOM"] || "#{ENV["HOME"]}/.oh-my-zsh/custom"
-  {
-    "zsh-completions"              => "https://github.com/zsh-users/zsh-completions.git",
-    "zsh-vi-mode"                  => "https://github.com/jeffreytse/zsh-vi-mode",
-  }.each do |name, url|
-    dest = "#{zsh_custom}/plugins/#{name}"
-    system "git clone #{url} #{dest}" unless Dir.exist?(dest)
-  end
 
   # Rust + cargo
   cargo_bin = "#{ENV["HOME"]}/.cargo/bin"
